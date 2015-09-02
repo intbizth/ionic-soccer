@@ -1,5 +1,5 @@
 {
-  "name": "ionic-soccer",
+  "name": "soccer",
   "app_id": "",
   "gulpStartupTasks": [
     "sass",

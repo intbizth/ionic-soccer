@@ -12,7 +12,7 @@ args = require('yargs')
     .argv
 
 # Application name
-appName = 'balltoro'
+appName = 'soccer'
 environment = args.env || 'dev'
 replacements = [{
     match: 'environment'

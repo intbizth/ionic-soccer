@@ -1,7 +1,7 @@
 class LogLine extends Factory then constructor: ->
     defaultLen = 32
     defaultSymbol = '.'
-    appName = 'TORO'
+    appName = 'SOCCER'
     brandName = 'INTBIZTH'
 
     return {

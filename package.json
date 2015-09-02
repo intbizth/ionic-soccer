@@ -1,7 +1,7 @@
 {
-  "name": "ionic-soccer",
+  "name": "soccer",
   "version": "0.0.1",
-  "description": "Soccer: Intbizth Soccer Mobile.",
+  "description": "Soccer Mobile",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-concat": "^2.2.0",
