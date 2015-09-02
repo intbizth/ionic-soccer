@@ -1,9 +1,13 @@
-class Clubs extends Factory then constructor: (CFG, NgBackboneCollection, Club) ->
+class Clubs extends Factory then constructor: (
+    CFG, NgBackboneCollection, Club
+) ->
     return NgBackboneCollection.extend
         model: Club
         url: CFG.API.getPath 'clubs/'
 
-class Club extends Factory then constructor: (NgBackboneModel, Und) ->
+class Club extends Factory then constructor: (
+    NgBackboneModel, Und
+) ->
     return NgBackboneModel.extend
         defaults:
             _links: null
