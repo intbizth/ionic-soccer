@@ -1,0 +1,16 @@
+{
+  "name": "ionic-soccer",
+  "private": "true",
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#1.1.0"
+  },
+  "dependencies": {
+    "Ionicons": "ionicons#~2.0.1",
+    "backbone-relational": "~0.9.0",
+    "backbone.paginator": "~2.0.2",
+    "ngCordova": "~0.1.20-alpha",
+    "pluralize": "~1.1.4",
+    "validate": "~0.8.0",
+    "velocity-ui-angular": "~0.4.0"
+  }
+}
