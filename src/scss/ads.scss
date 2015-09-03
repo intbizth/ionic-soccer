@@ -1,0 +1,33 @@
+.ads {
+    > .content {
+        background-image: url('../img/ads/bg.svg');
+        background-repeat: no-repeat;
+        background-color: #094e99;
+
+        > img.banner {
+            width: 100%;
+            height: 100%;
+        }
+
+        > .button-close-view {
+            position: fixed;
+            top: 6%;
+            right: 0px;
+            width: 57px;
+            height: 37px;
+            z-index: 1001;
+
+            > .bg {
+                width: 57px;
+                height: 37px;
+            }
+            > .circle {
+                position: relative;
+                top: -39px;
+                left: 4px;
+                width: 30px;
+                height: 30px;
+            }
+        }
+    }
+}

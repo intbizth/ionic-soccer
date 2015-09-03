@@ -1,3 +1,10 @@
-ion-view(view-title='Ads')
-    ion-content
-        h1 Ads
+ion-view.ads(hide-nav-bar='true')
+    ion-nav-title Ads
+    ion-content.content(scroll='false')
+        div.list.card
+            div.item.item-image
+                img.banner(src='../img/ads/banners/1.svg', type='image/svg+xml')
+
+        div.button-close-view
+            img.bg(src='../img/ads/close/bg.svg', type='image/svg+xml')
+            img.circle(src='../img/ads/close/circle.svg', type='image/svg+xml')
