@@ -29,6 +29,7 @@ class NgBackbone extends Factory then constructor: (
 
         xhr = http Und.extend(params, options)
         xhr.then (data, status, headers, config) ->
+            #console.log 'xhr then'
             options.xhr =
                 status: status
                 headers: headers
@@ -39,6 +40,7 @@ class NgBackbone extends Factory then constructor: (
             return
 
         xhr.catch (data, status, headers, config) ->
+            #console.log 'xhr catch'
             options.xhr =
                 status: status
                 headers: headers

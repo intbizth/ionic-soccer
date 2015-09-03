@@ -4,6 +4,7 @@ class Clubs extends Factory then constructor: (
     return NgBackboneCollection.extend
         model: Club
         url: CFG.API.getPath 'clubs/'
+        alias: 'clubs'
 
 class Club extends Factory then constructor: (
     NgBackboneModel, Und
