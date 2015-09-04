@@ -4,29 +4,33 @@
         background-repeat: no-repeat;
         background-color: #094e99;
 
-        > img.banner {
-            width: 100%;
-            height: 100%;
-        }
-
         > .button-close-view {
             position: fixed;
-            top: 6%;
+            top: 20px;
             right: 0px;
-            width: 57px;
-            height: 37px;
+            width: 60px;
+            height: 60px;
             z-index: 1001;
 
             > .bg {
+                position: relative;
+                top: 11px;
+                left: 4px;
                 width: 57px;
                 height: 37px;
             }
             > .circle {
                 position: relative;
-                top: -39px;
-                left: 4px;
+                top: -28px;
+                left: 6px;
                 width: 30px;
                 height: 30px;
+            }
+            > .fill-view {
+                position: relative;
+                top: -77px;
+                width: 100%;
+                height: 100%;
             }
         }
     }

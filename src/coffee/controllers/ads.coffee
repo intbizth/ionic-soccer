@@ -1,3 +1,5 @@
-class Ads extends Controller
-    constructor: ($scope) ->
-        @scope = $scope
+class Ads extends Controller then constructor: (
+    $scope, $state
+) ->
+    $scope.close = ->
+        $state.go('feature');

@@ -1,10 +1,11 @@
 ion-view.ads(hide-nav-bar='true')
-    ion-nav-title Ads
+    ion-nav-title
     ion-content.content(scroll='false')
         div.list.card
             div.item.item-image
-                img.banner(src='../img/ads/banners/1.svg', type='image/svg+xml')
+                object(data='../img/ads/banners/1.svg', type='image/svg+xml', width='100%', height='100%')
 
         div.button-close-view
-            img.bg(src='../img/ads/close/bg.svg', type='image/svg+xml')
-            img.circle(src='../img/ads/close/circle.svg', type='image/svg+xml')
+            object.bg(data='../img/ads/close/bg.svg', type='image/svg+xml')
+            object.circle(data='../img/ads/close/circle.svg', type='image/svg+xml')
+            div.fill-view(ng-click='close()')
