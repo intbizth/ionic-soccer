@@ -1,10 +1,11 @@
 .ads {
     > .content {
         background-image: url('../img/ads/bg.svg');
+        background-size: cover;
         background-repeat: no-repeat;
         background-color: #094e99;
 
-        > .button-close-view {
+        > .close-view {
             position: fixed;
             top: 20px;
             right: 0px;
@@ -14,23 +15,16 @@
 
             > .bg {
                 position: relative;
-                top: 11px;
+                top: 4px;
                 left: 4px;
                 width: 57px;
                 height: 37px;
             }
             > .circle {
                 position: relative;
-                top: -28px;
-                left: 6px;
+                top: -45px;
                 width: 30px;
                 height: 30px;
-            }
-            > .fill-view {
-                position: relative;
-                top: -77px;
-                width: 100%;
-                height: 100%;
             }
         }
     }
