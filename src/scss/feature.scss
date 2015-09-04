@@ -1,3 +1,5 @@
+$pointHeight: 50px;
+
 .feature {
     > .content {
         background-color: #094e99;
@@ -18,6 +20,49 @@
                     font-weight: bold;
                     color: #ffffff;
                 }
+            }
+        }
+        .point {
+            height: $pointHeight;
+
+            > .row {
+                height: $pointHeight;
+            }
+
+            .plantext {
+                font-size: 14px;
+                color: #ffffff;
+            }
+            .hightlight {
+                font-size: 14px;
+                color: #efac01;
+            }
+        }
+        .menus {
+            .square {
+                height: 110px;
+                background-color: #0088cf;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+
+                > .icon {
+                    width: 100%;
+                    height: 46px;
+                }
+
+                > .plantext {
+                    width: 90%;
+                    font-size: 12px;
+                    font-weight: bold;
+                    line-height: 1.2;
+                    color: #ffffff;
+                }
+            }
+            .row-clear {
+                margin-top: 64px;
             }
         }
     }
