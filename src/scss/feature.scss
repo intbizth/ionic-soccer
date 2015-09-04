@@ -1,0 +1,27 @@
+.feature {
+    > .content {
+        background-color: #094e99;
+
+        .profile {
+            > .bg {
+                width: 100%;
+                height: 154px;
+                background-image: url('../img/feature/bg_club.svg');
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+            > .main-view {
+                position: relative;
+                top: -154px;
+                width: 100%;
+                height: 154px;
+
+                .name {
+                    font-size: 22px;
+                    font-weight: bold;
+                    color: #ffffff;
+                }
+            }
+        }
+    }
+}
