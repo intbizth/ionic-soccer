@@ -1,5 +1,5 @@
 class Run extends Run then constructor: (
-    $rootScope, $ionicPlatform, $location, $cordovaKeyboard, $cordovaToast
+    $rootScope, $ionicPlatform, $location, $cordovaKeyboard
 ) ->
     # default spinner icon
     $rootScope.$spinnerIcon = 'ripple'
