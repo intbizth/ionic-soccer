@@ -11,10 +11,6 @@ class Run extends Run then constructor: (
             $cordovaKeyboard.hideAccessoryBar yes
             $cordovaKeyboard.disableScroll yes
 
-        if window.StatusBar
-            # org.apache.cordova.statusbar required
-            StatusBar.styleDefault()
-
         return
 
     #console.log $rootScope
