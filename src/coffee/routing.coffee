@@ -37,6 +37,6 @@ class Routing extends Config then constructor: (
         templateUrl: 'templates/timelineandupdate.html',
         controller: 'timelineandupdateController'
 
-        # if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise '/ads'
-        return
+    # if none of the above states are matched, use this as the fallback
+    $urlRouterProvider.otherwise '/ads'
+    return
