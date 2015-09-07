@@ -37,7 +37,8 @@
     "cordova-plugin-console",
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
-    "cordova-plugin-statusbar"
+    "cordova-plugin-statusbar",
+    "com.ionic.keyboard"
   ],
   "cordovaPlatforms": [
     "ios",
