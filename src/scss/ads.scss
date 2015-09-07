@@ -1,6 +1,6 @@
 .ads {
     > .content {
-        background-image: url('../img/ads/bg.svg');
+        background-image: url('../img/ads/bg.png');
         background-size: cover;
         background-repeat: no-repeat;
         background-color: #094e99;
@@ -26,6 +26,14 @@
                 width: 30px;
                 height: 30px;
             }
+        }
+    }
+}
+
+@media screen and (-webkit-device-pixel-ratio: 2) {
+    .ads {
+        > .content {
+            background-image: url('../img/ads/bg@2x.png');
         }
     }
 }
