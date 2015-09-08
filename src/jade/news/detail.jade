@@ -1,37 +1,41 @@
 ion-view.news-detail(view-title='{{headline}}')
     ion-nav-buttons(side='left')
         a.button.button-icon.ion-chevron-left(ng-click='back()')
-            object(data='../img/nav/logo.svg', type='image/svg+xml', width='64', height='16')
+            div.navbar.icon-logo
+    ion-nav-buttons(side='right')
+        a.button.button-clear(ng-click='')
+            div.navbar.icon-setting
 
     ion-content.content
-        img(src='../img/news/img.png', srcset='../img/news/img@2x.png 2x', width='100%', height='146')
+        div.detail-view
+            img(src='../img/news/img.png', srcset='../img/news/img@2x.png 2x', width='100%', height='146')
 
-        div.row
-            div.col
-                img(src='../img/news/avata.png', srcset='../img/news/avata@2x.png',style="vertical-align:middle; margin-right:10px;", width='23', height='23')
-                span.textName {{name}}
+            div.row
+                div.col
+                    img(src='../img/news/avata.png', srcset='../img/news/avata@2x.png',style="vertical-align:middle; margin-right:10px;", width='23', height='23')
+                    span.name {{name}}
 
-        div.row
-            div.col
-                hr.line1
-                span.textDate {{date}}
-                hr.line2
+            div.row
+                div.col
+                    hr.line1
+                    span.date {{date}}
+                    hr.line2
 
-        div.row
-            div.col
-                span.textUrl {{url}}
+            div.row
+                div.col
+                    span.url {{url}}
 
-        div.row
-            div.col
-                object.verticalLine
-                span.textTopic {{topic}}
+            div.row
+                div.col
+                    div.topic-view
+                        div.topic-subview
+                            span.topic {{topic}}
+            div.row
+                div.col
+                    span.content {{news1}}
 
-        div.row
-            div.col
-                span.textContent {{news1}}
+            div.row
+                div.col
+                    span.content {{news2}}
 
-        div.row
-            div.col
-                span.textContent {{news2}}
-
-        object.fotterBar
+            object.footerBar
