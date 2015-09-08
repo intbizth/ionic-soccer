@@ -1,8 +1,8 @@
-class Feature extends Controller then constructor: (
+class FeatureMain extends Controller then constructor: (
         $scope, $state
 ) ->
      $scope.back = ->
-        $state.go 'ads'
+        $state.go 'ads/main'
 
      $scope.fullname = 'Jackson Matinez'
      $scope.point1 = 9999999
