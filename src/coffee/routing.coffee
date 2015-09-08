@@ -22,10 +22,10 @@ class Routing extends Config then constructor: (
         templateUrl: 'templates/live.html',
         controller: 'liveController'
 
-    state 'newsdetail',
-        url: '/newsdetail'
-        templateUrl: 'templates/newsdetail.html',
-        controller: 'newsdetailController'
+    state 'news-detail',
+        url: '/news/detail'
+        templateUrl: 'templates/news/detail.html',
+        controller: 'newsDetailController'
 
     state 'playerdetail',
         url: '/playerdetail'
