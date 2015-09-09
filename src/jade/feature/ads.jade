@@ -1,6 +1,9 @@
-script(id='templates/feature/ads.html', type='text/ng-template')
-    ion-modal-view.feature-ads
-        ion-header-bar
-            h1 OK
-        ion-content.content.padding(ng-click='closeAds()')
-            label Related: ionicModal controller.  The Modal is a content pane that can go over the user's main view temporarily. Usually used for making a choice or editing an item.  Put the content of the modal inside of an <ion-modal-view> element.  Notes: - A modal will broadcast 'modal.shown', 'modal.hidden', and 'modal.removed' events from its originating scope, passing in itself as an event argument. Both the modal.removed and modal.hidden events are called when the modal is removed.  This example assumes your modal is in your main index file or another template file. If it is in its own template file, remove the script tags and call it by file name.
+ion-modal-view.feature-ads
+    ion-content.content(scroll='false')
+        div.row
+            div.col
+                img(src='../img/ads/banners/1.png', srcset='../img/ads/banners/1@2x.png 2x', width='100%', height='100%')
+
+        div.button.button-clear.close-view(ng-click='closeAds()')
+            div.bg
+            div.circle

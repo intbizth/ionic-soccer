@@ -1,22 +1,26 @@
 class FeatureMain extends Controller then constructor: (
-    $scope, $state, $ionicPopover
+    $scope, $state, $ionicModal, $timeout
 ) ->
-    $ionicPopover.fromTemplateUrl(
+    $ionicModal.fromTemplateUrl(
         'templates/feature/ads.html',
          scope: $scope
+         animation: 'no-animation'
     ).then (modal) ->
         $scope.modal = modal
+
+        $timeout (->
+            $scope.openAds()
+            return
+        ), 100
         return
 
     $scope.openAds = ->
-        console.log 'openAds'
         $scope.modal.show()
         return
 
     $scope.closeAds = ->
-        console.log 'closeAds'
         $scope.modal.hide()
-        return
+    return
 
     $scope.fullname = 'Jackson Matinez'
     $scope.point1 = 9999999
