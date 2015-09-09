@@ -7,15 +7,10 @@ class Routing extends Config then constructor: (
         templateUrl: 'templates/aboutclub.html',
         controller: 'aboutclubController'
 
-    state 'ads',
-        url: '/ads'
-        templateUrl: 'templates/ads.html',
-        controller: 'adsController'
-
-    state 'feature',
-        url: '/feature'
-        templateUrl: 'templates/feature.html',
-        controller: 'featureController'
+    state 'feature-main',
+        url: '/feature/main'
+        templateUrl: 'templates/feature/main.html',
+        controller: 'featureMainController'
 
     state 'live',
         url: '/live'
@@ -38,5 +33,5 @@ class Routing extends Config then constructor: (
         controller: 'timelineandupdateController'
 
     # if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise '/ads'
+    $urlRouterProvider.otherwise '/feature/main'
     return

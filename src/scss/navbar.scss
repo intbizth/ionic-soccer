@@ -1,0 +1,39 @@
+.navbar {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.icon-menu {
+    width: 48px;
+    height: 32px;
+    background-image: url('../img/navbar/menu.png');
+    background-size: 48px 32px;
+}
+
+.icon-logo {
+    width: 64px;
+    height: 16px;
+    background-image: url('../img/navbar/logo.png');
+    background-size: 64px 16px;
+}
+
+.icon-setting {
+    width: 25px;
+    height: 30px;
+    background-image: url('../img/navbar/setting.png');
+    background-size: 25px 30px;
+}
+
+@media screen and (-webkit-device-pixel-ratio: 2) {
+    .icon-menu {
+        background-image: url('../img/navbar/menu@2x.png');
+    }
+
+    .icon-logo {
+        background-image: url('../img/navbar/logo@2x.png');
+    }
+
+    .icon-setting {
+        background-image: url('../img/navbar/setting@2x.png');
+    }
+}
