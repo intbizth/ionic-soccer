@@ -1,8 +1,8 @@
-class competitionAndTableMain extends Controller then constructor: (
+class timelineAndUpdateMain extends Controller then constructor: (
     $scope, $state
 ) ->
     $scope.back = ->
         $state.go 'feature-main'
         return
 
-    $scope.fullname = 'name - name'
+    $scope.isLive = true
