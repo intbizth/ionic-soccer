@@ -4,7 +4,7 @@ class Routing extends Config then constructor: (
     state = $stateProvider.state
 
     state 'competition-and-table-main',
-        url: '/live/main'
+        url: '/competitionandtable/main'
         templateUrl: 'templates/competition_and_table/main.html',
         controller: 'competitionAndTableMainController'
 
