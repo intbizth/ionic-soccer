@@ -85,22 +85,15 @@ gulp.task 'coffee', (done) ->
     #.on('end', done)
 
 gulp.task 'jade', (done) ->
-    del([
-        './www/templates/**',
-        '!./www/templates',
-        '!./www/templates/.gitkeep'
-    ]).then (path) ->
-        gulp.src(paths.views)
-            #.pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
-            .pipe($.jade(pretty: true))
-            .pipe(gulp.dest('./www/templates')) # uncomment to show compiled html templates
-            #.pipe($.angularTemplatecache('templates', {standalone:true, root: 'templates/'} ))
-            #.pipe($.rename(extname: '.js'))
-            #.pipe(gulp.dest('./www/js'))
-            .pipe($.size(showFiles: true))
-            #.on('end', done)
-
-        return
+    gulp.src(paths.views)
+        #.pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
+        .pipe($.jade(pretty: true))
+        .pipe(gulp.dest('./www/templates')) # uncomment to show compiled html templates
+        #.pipe($.angularTemplatecache('templates', {standalone:true, root: 'templates/'} ))
+        #.pipe($.rename(extname: '.js'))
+        #.pipe(gulp.dest('./www/js'))
+        .pipe($.size(showFiles: true))
+        #.on('end', done)
 
 gulp.task 'watch', ->
     gulp.watch(paths.styles, ['sass'])
