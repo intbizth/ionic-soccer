@@ -1,9 +1,10 @@
 class NewsDetail extends Controller then constructor: (
     $scope, $state
 ) ->
-        $scope.headline = 'News'
+        $scope.image = 'test image'
+        $scope.headline = 'Headline'
         $scope.name = 'Chonburi fc official'
-        $scope.date = '30 November 2015'
+        $scope.date = '7 June 2015'
         $scope.url = 'http://www.chonburifootballclub.com/'
         $scope.topic = 'ฟอร์มพี่หนึบมาก ซูเปอร์ตี๋ ควบ แข้งยอดเยี่ยม, ท็อปโหวต พ.ค, มิ.ย.'
         $scope.news1 = 'และในส่วนของรางวัลนักเตะยอดเยี่ยม ประจำเดือน Player of the month' +
