@@ -24,10 +24,10 @@ class Routing extends Config then constructor: (
         controller: 'newsDetailController'
 
     state 'timeline-and-update-main',
-        url: '/live/main'
-        templateUrl: 'templates/timeline_and_update/main.html',
+        url: '/timelineandupdate/main'
+        templateUrl: 'templates/timelineandupdate/main.html',
         controller: 'timelineAndUpdateMainController'
 
     # if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise '/feature/main'
+    $urlRouterProvider.otherwise '/timelineandupdate/main'
     return
