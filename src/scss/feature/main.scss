@@ -38,6 +38,24 @@
         }
     }
 
+    .point {
+        .icon {
+            width: 25px;
+            height: 25px;
+            vertical-align: middle;
+        }
+
+        .plantext {
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        .hightlight {
+            font-size: 14px;
+            color: #efac01;
+        }
+    }
+
     .menus {
         .grid {
             margin-top: 64px;
