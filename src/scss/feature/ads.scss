@@ -1,14 +1,19 @@
-.ads-main {
+.feature-ads {
+    background-color: transparent;
+
     .content {
-        background-image: url('../img/ads/bg.png');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-color: #094e99;
+        margin-top: 10px;
+    }
+
+    .ads-view {
+        width: 100%;
+        height: 100%;
+        padding: 34px 14px 14px 14px;
     }
 
     .close-view {
         position: fixed;
-        top: 20px;
+        top: 30px;
         right: 0px;
         width: 60px;
         height: 60px;
@@ -39,11 +44,7 @@
 }
 
 @media screen and (-webkit-device-pixel-ratio: 2) {
-    .ads-main {
-        .content {
-            background-image: url('../img/ads/bg@2x.png');
-        }
-
+    .feature-ads {
         .close-view .bg {
             background-image: url('../img/ads/close/bg@2x.png');
         }

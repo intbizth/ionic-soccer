@@ -1,11 +1,26 @@
 class FeatureMain extends Controller then constructor: (
-        $scope, $state
+    $scope, $state, $ionicModal, $timeout
 ) ->
-    $scope.back = ->
-        $state.go 'ads-main'
+    $ionicModal.fromTemplateUrl(
+        'templates/feature/ads.html',
+         scope: $scope
+         animation: 'no-animation'
+    ).then (modal) ->
+        $scope.modal = modal
 
-    $scope.goLive = ->
-        $state.go 'live-main'
+        $timeout (->
+            $scope.openAds()
+            return
+        ), 100
+        return
+
+    $scope.openAds = ->
+        $scope.modal.show()
+        return
+
+    $scope.closeAds = ->
+        $scope.modal.hide()
+    return
 
     $scope.fullname = 'Jackson Matinez'
     $scope.point1 = 9999999
