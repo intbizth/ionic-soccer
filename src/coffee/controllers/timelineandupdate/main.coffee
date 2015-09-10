@@ -32,3 +32,5 @@ class timelineAndUpdateMain extends Controller then constructor: (
 
             $scope.timelines.push timeline
             i++
+
+    $scope.loadTimeline()
