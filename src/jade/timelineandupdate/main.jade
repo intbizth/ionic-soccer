@@ -7,10 +7,13 @@ ion-view.timelineandupdate-main
             i.icon.ion-android-more-vertical
 
     ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
-        ion-tab(title='Timeline', icon-on='ion-ios-chatbubble' icon-off='ion-ios-chatbubble-outline')
-            ion-content
-                ng-include(src='\'/templates/timelineandupdate/timeline.html\'')
+        ion-tab(title='Timeline', icon-on='ion-ios-chatbubble' icon-off='ion-ios-chatbubble-outline'
+                on-select='loadTimeline()')
+            ion-tab-content
+                ion-content
+                    ng-include(src='\'/templates/timelineandupdate/timeline.html\'')
 
         ion-tab(title='Update', icon-on='ion-ios-star' icon-off='ion-ios-star-outline')
-            ion-content
-                ng-include(src='\'/templates/timelineandupdate/update.html\'')
+            ion-tab-content
+                ion-content
+                    ng-include(src='\'/templates/timelineandupdate/update.html\'')
