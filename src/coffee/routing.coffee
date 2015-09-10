@@ -29,5 +29,5 @@ class Routing extends Config then constructor: (
         controller: 'timelineAndUpdateMainController'
 
     # if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise '/feature/main'
+    $urlRouterProvider.otherwise '/timelineandupdate/main'
     return
