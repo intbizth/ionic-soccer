@@ -1,0 +1,40 @@
+ion-view.news-detail(view-title='{{headline}}')
+    ion-nav-buttons(side='left')
+        a.button.button-icon.ion-chevron-left(ng-click='back()')
+            div.navbar.icon-logo
+
+    ion-content.content
+        div.detail
+            img(src='../img/news/img.png', srcset='../img/news/img@2x.png 2x', width='100%', height='146')
+
+            div.row
+                div.col
+                    img.avata(src='../img/news/avata.png', srcset='../img/news/avata@2x.png')
+                    span.name {{name}}
+
+            div.row
+                div.col
+                    hr.line1
+                    span.date {{date}}
+                    hr.line2
+
+            div.row
+                div.col
+                    span.url {{url}}
+
+            div.row
+                div.col
+                    div.topic-view
+                        div.topic-subview
+                            span.topic {{topic}}
+            div.row
+                div.col
+                    span.news {{news1}}
+
+            div.row
+                div.col
+                    span.news {{news2}}
+
+        div.barFooter
+            div.footer
+

@@ -27,3 +27,33 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
         background: none;
     }
 }
+
+.bar.bar-positive {
+    background-color: #0056a2;
+    background-image: -webkit-linear-gradient(90deg, #0056a2, #0056a2 50%, transparent 50%);
+    background-image: linear-gradient(0deg, #0056a2, #0056a2 50%, transparent 50%);
+    color: #fff;
+    border-color: #003566;
+}
+
+.timelineandupdate-main {
+    .tabs-background-positive .tabs, .tabs-background-positive > .tabs {
+        background-color: #0056a2;
+        background-image: -webkit-linear-gradient(90deg, #0056a2, #0056a2 50%, transparent 50%);
+        background-image: linear-gradient(0deg, #0056a2, #0056a2 50%, transparent 50%);
+        border-color: #003566;
+    }
+
+    .tabs-striped.tabs-background-positive .tabs {
+        background-color: #0056a2;
+    }
+
+    .tabs-striped.tabs-color-light .tab-item.tab-item-active, .tabs-striped.tabs-color-light .tab-item.active, .tabs-striped.tabs-color-light .tab-item.activated {
+        border: 0 solid #caf906;
+    }
+
+    .tab-item .tab-title {
+        font-size: 18px;
+        font-weight: bold;
+    }
+}

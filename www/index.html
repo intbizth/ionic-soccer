@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta name="format-detection" content="telephone=no">
     <title></title>
 
 
@@ -14,6 +15,7 @@
     <!-- TODO: pack into vendor -->
     <script src="lib/validate/validate.js"></script>
     <script src="lib/pluralize/pluralize.js"></script>
+    <script src="lib/chance/chance.js"></script>
 
     <script src="lib/underscore/underscore.js"></script>
     <script src="lib/backbone/backbone.js"></script>
@@ -22,14 +24,15 @@
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <script src="lib/ng-cordova-oauth.min.js"></script>
     <script src="cordova.js"></script>
 
     <!-- your app's js -->
-    <script src="js/templates.js"></script>
     <script src="js/app.js"></script>
-  </head>
+</head>
 
-  <body ng-app="soccer">
-    <ion-nav-view></ion-nav-view>
-  </body>
+<body ng-app="soccer">
+<ion-nav-bar class="bar-positive"></ion-nav-bar>
+<ion-nav-view></ion-nav-view>
+</body>
 </html>
