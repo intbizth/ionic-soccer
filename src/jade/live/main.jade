@@ -1,0 +1,27 @@
+ion-view.live-main
+    ion-nav-title
+        a.button.button-icon(ng-click="back()")
+            div.navbar.icon-menu
+    ion-nav-buttons(side="right")
+        a.button.button-icon(ng-click="")
+            div.navbar.icon-setting
+
+    ion-content.content
+        div.liveContent
+            div.date {{date}}
+
+            div.row
+                div.col-20(style="height:70px; text-align:center; background-color:white;")
+                    img(src="../img/live/chonburi.png", width="60px")
+
+                div.col-20(style="text-align:center; background-color:white;")
+                    span Chonburi FC
+
+                div.col-20(style="text-align:center; background-color:white;")
+                    span 1 - 1
+
+                div.col-20(style="text-align:center; background-color:white;")
+                    span Suphanburi FC
+
+                div.col-20(style="text-align:center; background-color:white;")
+                    img(src="../img/live/suphanburi.png", style="vertical-align:middle;", width="40px")
