@@ -7,28 +7,36 @@ div.live-view(ng-show='isLive')
         div.col
             | match-label
 
-div.timeline-view(ng-repeat='timeline in timelines')
-    div(ng-class="timeline.template == 'hightlight' ? '-hightlight' : ''")
+div.timeline-view
+    div.nodata(ng-if='timelines.length == 0')
         div.row.header
             div.col
+        div.row
+            div.col.col-center.text-center
+                div.text Has no timeline.
 
-        div.row.datetime
-            div.col
-                | {{timeline.datetime | date :'dd/MM/yyyy | HH:mm'}}
+    div(ng-repeat='timeline in timelines')
+        div(ng-class="timeline.template == 'hightlight' ? '-hightlight' : ''")
+            div.row.header
+                div.col
 
-        div.cover(ng-show='timeline.images.length')
-            div.images
-                img(src='{{timeline.images[0]}}', width='100%', height='100%')
+            div.row.datetime
+                div.col
+                    | {{timeline.datetime | date :'dd/MM/yyyy | HH:mm'}}
 
-        div.detail(ng-class="timeline.template == 'hightlight' ? '-hightlight' : ''")
-            div.subdetail
-                div.row.description
-                    div.col
-                        span {{timeline.description}}
+            div.cover(ng-show='timeline.images.length')
+                div.images
+                    img(src='{{timeline.images[0]}}', width='100%', height='100%')
 
-                div.row.footer
-                    div.col.col-90.col-center
-                        img.photo(src='{{timeline.user.photo}}')
-                        span.name {{timeline.user.name}}
-                    div.col.col-10.col-center
-                        a.button.button-icon.icon.ion-android-share-alt.share(ng-click='')
+            div.detail(ng-class="timeline.template == 'hightlight' ? '-hightlight' : ''")
+                div.subdetail
+                    div.row.description
+                        div.col
+                            span {{timeline.description}}
+
+                    div.row.footer
+                        div.col.col-90.col-center
+                            img.photo(src='{{timeline.user.photo}}')
+                            span.name {{timeline.user.name}}
+                        div.col.col-10.col-center
+                            a.button.button-icon.icon.ion-android-share-alt.share(ng-click='')

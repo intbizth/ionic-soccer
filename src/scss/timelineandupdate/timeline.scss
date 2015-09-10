@@ -8,6 +8,14 @@
 }
 
 .timeline-view {
+    .nodata {
+        .text {
+            padding: 24px 0px 24px 0px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+    }
+
     .header {
         height: 10px;
         background-color: #d1d3d4;

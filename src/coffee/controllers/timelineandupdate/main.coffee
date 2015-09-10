@@ -11,7 +11,7 @@ class timelineAndUpdateMain extends Controller then constructor: (
     $scope.loadTimeline = ->
         $scope.timelines = []
         i = 0
-        ii = Und.random(1, 10)
+        ii = Und.random(0, 10)
         while i < ii
             timeline =
                 template: Chance.pick(['default', 'hightlight'])
