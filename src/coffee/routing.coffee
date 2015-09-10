@@ -8,6 +8,11 @@ class Routing extends Config then constructor: (
         templateUrl: 'templates/competitionandtable/main.html',
         controller: 'competitionAndTableMainController'
 
+    state 'fanzone-main',
+        url: '/fanzone/main'
+        templateUrl: 'templates/fanzone/main.html',
+        controller: 'fanzoneMainController'
+
     state 'feature-main',
         url: '/feature/main'
         templateUrl: 'templates/feature/main.html',
@@ -29,5 +34,5 @@ class Routing extends Config then constructor: (
         controller: 'timelineAndUpdateMainController'
 
     # if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise '/timelineandupdate/main'
+    $urlRouterProvider.otherwise '/feature/main'
     return
