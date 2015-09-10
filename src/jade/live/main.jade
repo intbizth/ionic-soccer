@@ -5,23 +5,39 @@ ion-view.live-main
     ion-nav-buttons(side="right")
         a.button.button-icon(ng-click="")
             div.navbar.icon-setting
+    div.bar.bar-subheader(style="background-color:#0056A5;")
+        h2.title(style="color:#ffffff;") Live
+
 
     ion-content.content
         div.liveContent
-            div.date {{date}}
+            div.dateTop {{dateTop}}
 
-            div.row
-                div.col-20(style="height:70px; text-align:center; background-color:white;")
-                    img(src="../img/live/chonburi.png", width="60px")
+            div.row(style="background-color:white;")
+                div.col.col-15.teamLogo
+                    div.teamLogo1
+                        img(src="../img/live/chonburi.png", width="40px")
 
-                div.col-20(style="text-align:center; background-color:white;")
-                    span Chonburi FC
+                div.col.col-25.teamName
+                    div.teamName1
+                        span {{teamName1}}
 
-                div.col-20(style="text-align:center; background-color:white;")
-                    span 1 - 1
+                div.col.col-20.scoreAndDate
+                    div.score
+                        span {{score}}
+                    div.dateMatch
+                        span {{dateMatch}}
 
-                div.col-20(style="text-align:center; background-color:white;")
-                    span Suphanburi FC
+                div.col.col-25.teamName
+                    div.teamName2
+                        span {{teamName2}}
 
-                div.col-20(style="text-align:center; background-color:white;")
-                    img(src="../img/live/suphanburi.png", style="vertical-align:middle;", width="40px")
+                div.col.col-15.teamLogo
+                    div.teamLogo2
+                        img(src="../img/live/suphanburi.png", width="40px")
+
+            div.videoView
+                iframe(src="https://www.youtube.com/embed/3iL1Vy671Ds", width="100%" ,height="230")
+
+            div.matchDetail
+

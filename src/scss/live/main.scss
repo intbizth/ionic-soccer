@@ -1,13 +1,61 @@
 .live-main {
   .content {
     .liveContent {
-      > .date {
+      .dateTop {
         width: 100%;
         height: 20px;
-        font-size: 10px;
+        margin-top:44px;
+        font-size: 12px;
         text-align: center;
         color: #848586;
         background-color: #E6E7E8;
+      }
+
+      .teamLogo {
+        > .teamLogo1 {
+          padding-top: 5px;
+        }
+
+        > .teamLogo2 {
+          padding-top: 5px;
+        }
+      }
+
+      .teamName {
+        text-align: center;
+        > .teamName1 {
+          padding-top: 10px;
+        }
+
+        > .teamName2 {
+          padding-top: 10px;
+        }
+      }
+
+      .scoreAndDate {
+        text-align: center;
+        > .score {
+          padding-top: 8px;
+          color: #0087cf;
+          font-size: 25px;
+          font-weight: bold;
+        }
+        
+        > .dateMatch {
+          font-size: 10px;
+          color: #848586;
+        }
+      }
+
+      .videoView {
+        width: 100%;
+        height: 200px;
+      }
+
+      .matchDetail {
+        width: 100%;
+        height: 270px;
+        background-color: #0255A2;
       }
     }
   }
