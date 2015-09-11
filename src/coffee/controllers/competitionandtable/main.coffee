@@ -5,10 +5,10 @@ class competitionAndTableMain extends Controller then constructor: (
         $state.go 'feature-main'
         return
 
-    $scope.items = [
-        { id: 0 },
-        { id: 1 },
-        { id: 2 },
-        { id: 3 },
-        { id: 4 }
+    $scope.matches = [
+        { id: 0, text:'Inwdragon' },
+        { id: 1, text:'YokYukYiK'  },
+        { id: 2, text:'BeerLao' },
+        { id: 3, text:'Spykane' },
+        { id: 4, text:'Robin' }
     ]

@@ -7,5 +7,24 @@ ion-view.competitionandtable-main
             div.navbar.icon-setting
 
     ion-content
-        div.body-list
-            p kakkkkkkssdsd
+        ion-list
+            ion-item(ng-repeat="item in matches")
+                //span id: {{ item.id }}, text:{{ item.text }}
+                div.row.row-center
+                    div.col.bg
+                        div.row
+                            div.col
+                                div.item.logo
+                            dev.col
+                                p HomeClub
+
+                    div.col.bg2 '==VS=='
+
+                    div.col.bg3
+                        div.row
+                            div.col
+                                div.item.logo
+                            div.col
+                                p AwayClub
+
+                //dev.item.logo
