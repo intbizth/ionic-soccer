@@ -11,6 +11,8 @@
     "ngCordova": "~0.1.20-alpha",
     "pluralize": "~1.1.4",
     "validate": "~0.8.0",
-    "velocity-ui-angular": "~0.4.0"
+    "velocity-ui-angular": "~0.4.0",
+    "ng-cordova-oauth": "0.1.4",
+    "chance": "0.7.7"
   }
 }

@@ -3,45 +3,36 @@ class Routing extends Config then constructor: (
 ) ->
     state = $stateProvider.state
 
-    state 'app',
-        url: '/app'
-        abstract: true
-        templateUrl: 'templates/menu.html'
-        controller: 'mainController'
+    state 'competition-and-table-main',
+        url: '/competitionandtable/main'
+        templateUrl: 'templates/competitionandtable/main.html',
+        controller: 'competitionAndTableMainController'
 
-    state 'app.matches',
-        url: '/matches'
-        views:
-            content:
-                controller: 'matchController'
-                templateUrl: 'templates/matches.html'
+    state 'fanzone-main',
+        url: '/fanzone/main'
+        templateUrl: 'templates/fanzone/main.html',
+        controller: 'fanzoneMainController'
 
-    state 'app.search',
-        url: '/search'
-        views:
-            content:
-                templateUrl: 'templates/search.html'
+    state 'feature-main',
+        url: '/feature/main'
+        templateUrl: 'templates/feature/main.html',
+        controller: 'featureMainController'
 
-    state 'app.browse',
-        url: '/browse'
-        views:
-            content:
-                templateUrl: 'templates/browse.html'
+    state 'live-main',
+        url: '/live/main'
+        templateUrl: 'templates/live/main.html',
+        controller: 'liveMainController'
 
-    state 'app.playlists',
-        url: '/playlists'
-        views:
-            content:
-                controller: 'playlistsController'
-                templateUrl: 'templates/playlists.html'
+    state 'news-detail',
+        url: '/news/detail'
+        templateUrl: 'templates/news/detail.html',
+        controller: 'newsDetailController'
 
-    state 'app.single',
-        url: '/playlists/:playlistId'
-        views:
-            content:
-                controller: 'playlistController'
-                templateUrl: 'templates/playlist.html'
+    state 'timeline-and-update-main',
+        url: '/timelineandupdate/main'
+        templateUrl: 'templates/timelineandupdate/main.html',
+        controller: 'timelineAndUpdateMainController'
 
     # if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise '/app/matches'
+    $urlRouterProvider.otherwise '/feature/main'
     return
