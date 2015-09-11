@@ -10,21 +10,30 @@ ion-view.competition-and-table-main
         ion-list
             ion-item(ng-repeat="item in matches")
                 //span id: {{ item.id }}, text:{{ item.text }}
-                div.row.row-center
-                    div.col.bg
-                        div.row
-                            div.col
-                                div.item.logo
-                            dev.col
-                                p HomeClub
 
-                    div.col.bg2 '==VS=='
+                // item
+                div.row.row-center.match-fixtures
+                    // homeClub
+                    div.col
+                        div.row.home-club
+                            div.col-10
+                                div.logo
+                            div.col
+                                div.name
+                                    p HomeClub
 
-                    div.col.bg3
-                        div.row
-                            div.col
-                                div.item.logo
-                            div.col
-                                p AwayClub
+                    // VS
+                    div.col-20.start-time
+                        div.row-center
+                            p 19:00
+                        div.row-center
+                            p 1 July 2015
+
+                    // AwayClub
+                    div.col
+                        div.row.away-club
+                            div.name
+                                p awayClub
+                            div.logo
 
                 //dev.item.logo

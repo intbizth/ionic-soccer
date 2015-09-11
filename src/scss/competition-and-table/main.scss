@@ -1,46 +1,36 @@
 .competition-and-table-main {
-    .content{
-
-    }
-
-    .bg {
-        background-color: #A9A9A9;
-        text-align: left;
-    }
-    .bg2 {
-        text-align: center;
-    }
-    .bg3 {
-        background-color: #00FF00;
-        text-align: right;
-    }
-
-    .item {
-        background-color: #EEE9E9;
-        .logo {
-            background-color: #FF3333;
-            width: 30px;
-            height: 30px;
-
-        }
-    }
-
-    .match {
-        .club {
+    .match-fixtures {
+        .home-club {
+            background-color: #FFE1FF;
             .logo {
                 background-color: #FF3333;
-                width: 30px;
-                height: 30px;
+                width: 45px;
+                height: 45px;
+                //float: left;
             }
-            .name-home {
-                text-align: left;
-            }
-            .name-away {
+            .name {
                 text-align: right;
+                float: right;
+                margin-top: 12px;
+            }
+        }
+        .away-club {
+            background-color: #FFE1FF;
+            .logo {
+                background-color: #FF3333;
+                width: 45px;
+                height: 45px;
+                float: right;
+            }
+            .name {
+                text-align: right;
+                float: left;
+                margin-top: 12px;
             }
         }
         .start-time {
-
+            background-color: #FFFF00;
+            text-align: center;
         }
     }
 }
