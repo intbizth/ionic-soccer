@@ -25,7 +25,7 @@ class Routing extends Config then constructor: (
 
     state 'timeline-and-update-main',
         url: '/live/main'
-        templateUrl: 'templates/timeline_and_update/main.html',
+        templateUrl: 'templates/timeline-and-update/main.html',
         controller: 'timelineAndUpdateMainController'
 
     # if none of the above states are matched, use this as the fallback
