@@ -1,4 +1,4 @@
-class competitionAndTableMain extends Controller then constructor: (
+class CompetitionAndTableMain extends Controller then constructor: (
     $scope, $state
 ) ->
     $scope.back = ->
