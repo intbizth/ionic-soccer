@@ -2,30 +2,48 @@
     .match-fixtures {
         .home-club {
             background-color: #FFE1FF;
+            height: 55px;
+            position: relative;
             .logo {
                 background-color: #FF3333;
                 width: 45px;
                 height: 45px;
+                position: absolute;
+                left: 5px;
+                top: 5px;
                 //float: left;
             }
             .name {
+                //position: absolute;
+                //right: 5px;
+                //top: 13px;
                 text-align: right;
-                float: right;
-                margin-top: 12px;
+                //width: 50px;
+                //height: 45px;
+                white-space: normal;
+                font-size: 10px;
             }
         }
+
         .away-club {
             background-color: #FFE1FF;
+            height: 55px;
+            position: relative;
             .logo {
                 background-color: #FF3333;
                 width: 45px;
                 height: 45px;
-                float: right;
+                position: absolute;
+                right: 5px;
+                top: 5px;
             }
             .name {
-                text-align: right;
-                float: left;
-                margin-top: 12px;
+                //position: absolute;
+                //left: 5px;
+                //top: 13px;
+                text-align: left;
+                white-space: normal;
+                font-size: 10px;
             }
         }
         .start-time {
