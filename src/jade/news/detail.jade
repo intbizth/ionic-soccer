@@ -2,17 +2,14 @@ ion-view.news-detail(view-title='{{headline}}')
     ion-nav-buttons(side='left')
         a.button.button-icon.ion-chevron-left(ng-click='back()')
             div.navbar.icon-logo
-    ion-nav-buttons(side='right')
-        a.button.button-clear(ng-click='')
-            div.navbar.icon-setting
 
     ion-content.content
-        div.detail-view
+        div.detail
             img(src='../img/news/img.png', srcset='../img/news/img@2x.png 2x', width='100%', height='146')
 
             div.row
                 div.col
-                    img(src='../img/news/avata.png', srcset='../img/news/avata@2x.png',style="vertical-align:middle; margin-right:10px;", width='23', height='23')
+                    img.avata(src='../img/news/avata.png', srcset='../img/news/avata@2x.png')
                     span.name {{name}}
 
             div.row
@@ -32,10 +29,12 @@ ion-view.news-detail(view-title='{{headline}}')
                             span.topic {{topic}}
             div.row
                 div.col
-                    span.content {{news1}}
+                    span.news {{news1}}
 
             div.row
                 div.col
-                    span.content {{news2}}
+                    span.news {{news2}}
 
-            object.footerBar
+        div.barFooter
+            div.footer
+

@@ -3,84 +3,104 @@
         background-color: #094e99;
     }
 
-    .profile-view {
+    .profile {
         width: 100%;
         height: 154px;
         background-image: url('../img/feature/bg_club.png');
         background-size: cover;
         background-repeat: no-repeat;
+
+        .photo {
+            width: 100px;
+            height: 100px;
+        }
+
+        .name {
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .icon {
+            width: 25px;
+            height: 25px;
+            vertical-align: middle;
+        }
+
+        .plantext {
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        .hightlight {
+            font-size: 14px;
+            color: #efac01;
+        }
     }
 
-    .profile-view .photo {
-        width: 100px;
-        height: 100px;
+    .point {
+        .icon {
+            width: 25px;
+            height: 25px;
+            vertical-align: middle;
+        }
+
+        .plantext {
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        .hightlight {
+            font-size: 14px;
+            color: #efac01;
+        }
     }
 
-    .profile-view .name {
-        font-size: 22px;
-        font-weight: bold;
-        color: #ffffff;
-    }
+    .menus {
+        .grid {
+            margin-top: 64px;
+        }
 
-    .point-view .icon {
-        width: 25px;
-        height: 25px;
-        vertical-align: middle;
-    }
+        .square {
+            margin-top: -64px;
+            width: 100%;
+            height: 98px;
+            background-color: #0088cf;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
 
-    .point-view .plantext {
-        font-size: 14px;
-        color: #ffffff;
-    }
+            .icon-live {
+                margin-top: 18px;
+                width: 75px;
+                height: 51px;
+            }
 
-    .point-view .hightlight {
-        font-size: 14px;
-        color: #efac01;
-    }
+            .icon {
+                width: 50px;
+                height: 46px;
+            }
 
-    .menu-view .col-grid {
-        margin-top: 64px;
-    }
+            .plantext-live {
+                margin-top: -52px;
+                margin-left: -8px;
+                width: 90%;
+                font-size: 12px;
+                font-weight: bold;
+                line-height: 1.2;
+                color: #ffffff;
+            }
 
-    .menu-view .square {
-        margin-top: -64px;
-        width: 100%;
-        height: 98px;
-        background-color: #0088cf;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .menu-view .square .icon-live {
-        margin-top: 18px;
-        width: 75px;
-        height: 51px;
-    }
-
-    .menu-view .square .icon {
-        width: 50px;
-        height: 46px;
-    }
-
-    .menu-view .square .plantext-live {
-        margin-top: -52px;
-        margin-left: -8px;
-        width: 90%;
-        font-size: 12px;
-        font-weight: bold;
-        line-height: 1.2;
-        color: #ffffff;
-    }
-
-    .menu-view .square .plantext {
-        width: 90%;
-        font-size: 12px;
-        font-weight: bold;
-        line-height: 1.2;
-        color: #ffffff;
+            .plantext {
+                width: 90%;
+                font-size: 12px;
+                font-weight: bold;
+                line-height: 1.2;
+                color: #ffffff;
+            }
+        }
     }
 }
 
