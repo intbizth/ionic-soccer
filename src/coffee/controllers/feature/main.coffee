@@ -1,5 +1,5 @@
 class FeatureMain extends Controller then constructor: (
-    $scope, $state, $ionicModal, $timeout
+    $scope, $ionicHistory, $ionicModal, $timeout
 ) ->
     $ionicModal.fromTemplateUrl(
         'templates/feature/ads.html',

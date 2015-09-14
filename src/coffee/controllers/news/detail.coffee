@@ -1,8 +1,8 @@
 class NewsDetail extends Controller then constructor: (
-    $scope, $state
+    $scope, $ionicHistory
 ) ->
     $scope.back = ->
-        $state.go 'feature-main'
+        $ionicHistory.goBack -1
         return
 
     $scope.headline = 'News'

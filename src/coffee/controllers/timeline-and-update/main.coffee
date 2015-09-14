@@ -1,5 +1,9 @@
 class timelineAndUpdateMain extends Controller then constructor: (
-    $scope, $ionicHistory, $timeout, Und, Chance
+    $scope,
+    $ionicHistory,
+    $timeout,
+    Und,
+    Chance
 ) ->
     $scope.back = ->
         $ionicHistory.goBack -1
