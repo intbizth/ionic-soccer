@@ -1,28 +1,33 @@
 class timelineAndUpdateMain extends Controller then constructor: (
-    $scope,
-    $ionicHistory,
-    $timeout,
-    Und,
-    Chance
+    $scope, $ionicHistory, $timeout, Und, Chance
 ) ->
     $scope.back = ->
         $ionicHistory.goBack -1
         return
+
+    $scope.tab = {
+        name : 'timeline'
+        selected : (tabName) ->
+            console.log(tabName)
+            this.name = tabName
+            return
+    }
 
     $scope.timeline =
         isLive : false
         items : []
         next : false
         loadData : ->
-            $scope.timeline.isLive = Chance.pick([true, false])
-            $scope.timeline.items = $scope.timeline.fakeItems();
+            this.isLive = Chance.pick([true, false])
+            this.items = this.fakeItems();
 
-            console.log JSON.stringify($scope.timeline.items)
-
-            if $scope.timeline.items.length > 0
-                $scope.timeline.next = Chance.pick([true, false])
+            if this.items.length > 0
+                this.next = Chance.pick([true, false])
             else
-                $scope.timeline.next = false
+                this.next = false
+
+            console.log('loadData', this.items.length, this.next)
+
             return
 
         doRefresh : ->
@@ -40,17 +45,21 @@ class timelineAndUpdateMain extends Controller then constructor: (
         loadMore : ->
             console.log 'loadMore'
 
+            $this = this
+
             $timeout(->
                 console.log 'loadMore2'
-#                items = $scope.timeline.fakeItems()
-#                $scope.timeline.items.concat(items)
-#
-#                console.log JSON.stringify($scope.timeline.items)
+                items = $this.fakeItems()
 
-#                if $scope.timeline.items.length > 0
-#                    $scope.timeline.next = Chance.pick([true, false])
-#                else
-#                    $scope.timeline.next = false
+                for item in items
+                    $this.items.push item
+
+                if $this.items.length > 0
+                    $this.next = Chance.pick([true, false])
+                else
+                    $this.next = false
+
+                console.log('loadMore', $this.items.length, $this.next)
 
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
                 return
