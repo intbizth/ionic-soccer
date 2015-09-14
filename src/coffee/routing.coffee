@@ -28,5 +28,5 @@ class Routing extends Config then constructor: (
         templateUrl: 'templates/timeline-and-update/main.html',
         controller: 'timelineAndUpdateMainController'
 
-    $urlRouterProvider.otherwise '/feature-main/main'
+    $urlRouterProvider.otherwise '/feature/main'
     return
