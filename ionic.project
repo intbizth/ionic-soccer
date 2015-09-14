@@ -1,6 +1,6 @@
 {
   "name": "soccer",
-  "app_id": "",
+  "app_id": "com.intbizth.soccer",
   "gulpStartupTasks": [
     "sass",
     "coffee",

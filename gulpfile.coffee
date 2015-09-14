@@ -30,6 +30,7 @@ bower = require 'bower'
 replace = require 'gulp-replace-task'
 fixmyjs = require 'gulp-fixmyjs'
 autoprefixer = require 'gulp-autoprefixer'
+del = require 'del'
 $logger = $.util.log
 
 $logger 'Environment: ' + ($.util.colors.yellow environment)
@@ -86,13 +87,13 @@ gulp.task 'coffee', (done) ->
 gulp.task 'jade', (done) ->
     gulp.src(paths.views)
         #.pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
-        .pipe($.jade())
-        # .pipe(gulp.dest('./www/templates')) # uncomment to show compiled html templates
-        .pipe($.angularTemplatecache('templates', {standalone:true, root: 'templates/'} ))
-        .pipe($.rename(extname: '.js'))
-        .pipe(gulp.dest('./www/js'))
+        .pipe($.jade(pretty: true))
+        .pipe(gulp.dest('./www/templates')) # uncomment to show compiled html templates
+        #.pipe($.angularTemplatecache('templates', {standalone:true, root: 'templates/'} ))
+        #.pipe($.rename(extname: '.js'))
+        #.pipe(gulp.dest('./www/js'))
         .pipe($.size(showFiles: true))
-    #.on('end', done)
+        #.on('end', done)
 
 gulp.task 'watch', ->
     gulp.watch(paths.styles, ['sass'])
