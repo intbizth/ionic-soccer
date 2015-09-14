@@ -1,0 +1,46 @@
+.competition-and-table-main {
+    .content{
+
+    }
+
+    .bg {
+        background-color: #A9A9A9;
+        text-align: left;
+    }
+    .bg2 {
+        text-align: center;
+    }
+    .bg3 {
+        background-color: #00FF00;
+        text-align: right;
+    }
+
+    .item {
+        background-color: #EEE9E9;
+        .logo {
+            background-color: #FF3333;
+            width: 30px;
+            height: 30px;
+
+        }
+    }
+
+    .match {
+        .club {
+            .logo {
+                background-color: #FF3333;
+                width: 30px;
+                height: 30px;
+            }
+            .name-home {
+                text-align: left;
+            }
+            .name-away {
+                text-align: right;
+            }
+        }
+        .start-time {
+
+        }
+    }
+}

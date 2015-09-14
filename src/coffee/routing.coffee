@@ -4,8 +4,8 @@ class Routing extends Config then constructor: (
     state = $stateProvider.state
 
     state 'competition-and-table-main',
-        url: '/competitionandtable/main'
-        templateUrl: 'templates/competitionandtable/main.html',
+        url: '/competition-and-table/main'
+        templateUrl: 'templates/competition-and-table/main.html',
         controller: 'competitionAndTableMainController'
 
     state 'feature-main',
@@ -24,10 +24,9 @@ class Routing extends Config then constructor: (
         controller: 'newsDetailController'
 
     state 'timeline-and-update-main',
-        url: '/timelineandupdate/main'
-        templateUrl: 'templates/timelineandupdate/main.html',
+        url: '/timeline-and-update-main/main'
+        templateUrl: 'templates/timeline-and-update/main.html',
         controller: 'timelineAndUpdateMainController'
 
-    # if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise '/feature/main'
     return
