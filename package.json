@@ -40,7 +40,8 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "cordova-plugin-inappbrowser",
-    "com.ionic.keyboard"
+    "com.ionic.keyboard",
+    "cordova-plugin-app-version"
   ],
   "cordovaPlatforms": [
     "android",

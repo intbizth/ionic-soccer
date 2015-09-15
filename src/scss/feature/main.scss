@@ -46,11 +46,13 @@
         }
 
         .plantext {
+            padding-left: 6px;
             font-size: 14px;
             color: #ffffff;
         }
 
         .hightlight {
+            padding-left: 6px;
             font-size: 14px;
             color: #efac01;
         }
@@ -101,6 +103,11 @@
                 color: #ffffff;
             }
         }
+    }
+
+    .version {
+        font-size: 12px;
+        color: #ffffff;
     }
 }
 
