@@ -19,7 +19,7 @@ class Routing extends Config then constructor: (
         controller: 'liveMainController'
 
     state 'news-detail',
-        url: '/news/detail'
+        url: '/news/detail/:id'
         templateUrl: 'templates/news/detail.html',
         controller: 'newsDetailController'
 
