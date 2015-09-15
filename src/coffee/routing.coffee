@@ -9,7 +9,7 @@ class Routing extends Config then constructor: (
         controller: 'competitionAndTableMainController'
 
     state 'feature-main',
-        url: '/feature/main'
+        url: '/feature/main',
         templateUrl: 'templates/feature/main.html',
         controller: 'featureMainController'
 
@@ -24,7 +24,7 @@ class Routing extends Config then constructor: (
         controller: 'newsDetailController'
 
     state 'timeline-and-update-main',
-        url: '/timeline-and-update-main/main'
+        url: '/timeline-and-update/main',
         templateUrl: 'templates/timeline-and-update/main.html',
         controller: 'timelineAndUpdateMainController'
 
