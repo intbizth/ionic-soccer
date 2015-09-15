@@ -9,93 +9,92 @@ ion-view.live-main
         h2.title(style="color:#ffffff;") Live
 
     ion-content.content
-        div.liveContent
-            div.dateTop {{dateTop}}
+        div.month {{dateTop}}
 
-            div.row(style="background-color:white;")
-                div.col.col-15.teamLogo
-                    div.teamLogo1
-                        img(ng-src="./img/live/chonburi.png", width="40px")
+        div.row(ng-repeat="match in matchs" style="background-color:white;")
+            div.col.col-15
+                div.logo
+                    img(ng-src="./img/live/chonburi.png", width="40px")
 
-                div.col.col-25.teamName
-                    div.teamName1
-                        span {{teamName1}}
+            div.col.col-25
+                div.name
+                    span {{match.name1}}
 
-                div.col.col-20.scoreAndDate
-                    div.score
-                        span {{score}}
-                    div.dateMatch
-                        span {{dateMatch}}
+            div.col.col-20
+                div.score
+                    span {{match.score}}
+                div.date
+                    span {{match.date}}
 
-                div.col.col-25.teamName
-                    div.teamName2
-                        span {{teamName2}}
+            div.col.col-25
+                div.name
+                    span {{match.name2}}
 
-                div.col.col-15.teamLogoq
-                    div.teamLogo2
-                        img(ng-src="./img/live/suphanburi.png", width="40px")
+            div.col.col-15
+                div.logo
+                    img(ng-src="./img/live/suphanburi.png", width="40px")
 
-            div.videoView
-                iframe(ng-src="https://www.youtube.com/embed/3iL1Vy671Ds", width="100%" ,height="230")
+        div.video
+            iframe(ng-src="https://www.youtube.com/embed/3iL1Vy671Ds", width="100%" ,height="230")
 
-            div.matchDetail
-                div.row
-                    div.col.align-right
-                    div.col.col-10
-                        div.circleTop
-                    div.col.align-left
+        div.detail(ng-repeat="player in players")
+            div.row
+                div.col.align-right
+                div.col.col-10
+                    div.circleTop
+                div.col.align-left
 
-                div.row
-                    div.col.align-right
-                    div.col.col-10
-                        div.verticalLineTop
-                    div.col.align-left.textYellow
-                        span 19 : 00 เริ่มแข่ง
+            div.row
+                div.col.align-right
+                div.col.col-10
+                    div.verticalLineTop
+                div.col.align-left.textYellow
+                    span {{player.start}}
 
-                div.row
-                    div.col.align-right
-                        span.playerName {{playerName1}}
-                        img(ng-src="./img/live/yellowCard.png", style="padding-left:5px;", width="20px")
-                        span.textYellow 05 : 00
-                    div.col.col-10
-                        div.circleNormal
-                        div.verticalLine
-                    div.col.align-left
+            div.row
+                div.col.align-right
+                    span.playerName {{player.name1}}
+                    img(ng-src="./img/live/yellowCard.png", style="padding-left:5px;", width="20px")
+                    span.textYellow {{player.time1}}
+                div.col.col-10
+                    div.circleNormal
+                    div.verticalLine
+                div.col.align-left
 
-                div.row
-                    div.col.align-right
-                    div.col.col-10
-                        div.circleNormal
-                        div.verticalLine
-                    div.col.align-left
-                        span.textYellow 29 : 23
-                        img(ng-src="./img/live/yellowCard.png", style="padding-left:5px;" , width="20px")
-                        span.playerName {{playerName2}}
+            div.row
+                div.col.align-right
+                div.col.col-10
+                    div.circleNormal
+                    div.verticalLine
+                div.col.align-left
+                    span.textYellow {{player.time2}}
+                    img(ng-src="./img/live/yellowCard.png", style="padding-left:5px;" , width="20px")
+                    span.playerName {{player.name2}}
 
-                div.row
-                    div.col.align-right
-                        span.playerName {{playerName3}}
-                        img(ng-src="./img/live/goal.png", style="padding-left:5px;", width="20px")
-                        span.textYellow  31 : 00
-                    div.col.col-10
-                        div.circleNormal
-                        div.verticalLine
-                    div.col.align-left
+            div.row
+                div.col.align-right
+                    span.playerName {{player.name3}}
+                    img(ng-src="./img/live/goal.png", style="padding-left:5px;", width="20px")
+                    span.textYellow  {{player.time3}}
+                div.col.col-10
+                    div.circleNormal
+                    div.verticalLine
+                div.col.align-left
 
-                div.row
-                    div.col.align-right
-                    div.col.col-10
-                        div.circleNormalRed
-                        div.verticalLine
-                    div.col.align-left
-                        span.textYellow
+            div.row
+                div.col.align-right
+                div.col.col-10
+                    div.circleNormalRed
+                    div.verticalLine
+                div.col.align-left
+                    span.textYellow {{player.ht}}
 
-                div.row
-                    div.col.align-right
-                    div.col.col-10
-                        div.circleNormal
-                        div.verticalLineBot
-                    div.col.align-left
-                        span.textYellow 52 : 46
-                        img(ng-src="./img/live/goal.png", style="padding-left:5px;", width="20px")
-                        span.playerName {{playerName4}}
+            div.row
+                div.col.align-right
+                div.col.col-10
+                    div.circleNormal
+                    div.verticalLineBot
+                div.col.align-left
+                    span.textYellow {{player.time4}}
+                    img(ng-src="./img/live/goal.png", style="padding-left:5px;", width="20px")
+                    span.playerName {{player.name4}}
