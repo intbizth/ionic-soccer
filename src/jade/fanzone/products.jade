@@ -1,0 +1,21 @@
+.product-content
+    .row.wrap
+        img.image(ng-src="{{image}}")
+
+    .store
+        .header
+            h3 {{header}}
+        .detail
+            h4 {{header}}
+            h5 {{company}}
+            h5 {{stadium}}
+            h5 {{address}}
+            h5 โทรศัพท์.{{tel}}
+            h5 E-Mail : {{email}}
+
+    .row.wrap(ng-repeat="product in products")
+        .info
+            h5 {{product.name}}
+            h5 ราคา ฿ {{product.price}}
+        img.shadow(ng-src="{{shadow}}")
+        img.image(ng-src="{{product.image}}")
