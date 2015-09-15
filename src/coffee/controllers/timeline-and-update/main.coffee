@@ -54,6 +54,10 @@ class timelineAndUpdateMain extends Controller then constructor: (
             return
         fakeItem : ->
             item =
+                id : Chance.integer(
+                    min : 1
+                    max : 9999999
+                )
                 template: Chance.pick(['default', 'hightlight'])
                 datetime: Chance.date()
                 images : []
@@ -102,6 +106,10 @@ class timelineAndUpdateMain extends Controller then constructor: (
             return
         fakeItem : ->
             item =
+                id : Chance.integer(
+                    min : 1
+                    max : 9999999
+                )
                 seats : []
                 textSeats : ''
                 count : Und.random(0, 9999)
@@ -167,6 +175,10 @@ class timelineAndUpdateMain extends Controller then constructor: (
             return
         fakeItem : ->
             item =
+                id : Chance.integer(
+                    min : 1
+                    max : 9999999
+                )
                 headline : Chance.sentence()
                 image : 'https://placeimg.com/640/292/any?time=' + Chance.hash()
                 user:
