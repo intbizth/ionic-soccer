@@ -1,10 +1,17 @@
 class CompetitionAndTableMain extends Controller then constructor: (
     $scope, $ionicHistory
-        src/coffee/controllers/competition-and-table/main.coffee
 ) ->
     $scope.back = ->
         $ionicHistory.goBack -1
         return
+
+    $scope.tab = {
+        name : 'timeline'
+        selected : (tabName) ->
+            console.log(tabName)
+            this.name = tabName
+            return
+    }
 
     $scope.matches = [
         { id: 0, text:'Inwdragon' },
