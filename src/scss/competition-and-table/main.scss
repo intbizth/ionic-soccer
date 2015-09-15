@@ -1,54 +1,46 @@
 .competition-and-table-main {
-    .match-fixtures {
-        .home-club {
-            background-color: #FFE1FF;
-            height: 55px;
-            position: relative;
-            .logo {
-                background-color: #FF3333;
-                width: 45px;
-                height: 45px;
-                position: absolute;
-                left: 5px;
-                top: 5px;
-                //float: left;
-            }
-            .name {
-                //position: absolute;
-                //right: 5px;
-                //top: 13px;
-                text-align: right;
-                //width: 50px;
-                //height: 45px;
-                white-space: normal;
-                font-size: 10px;
-            }
-        }
+    .content{
 
-        .away-club {
-            background-color: #FFE1FF;
-            height: 55px;
-            position: relative;
+    }
+
+    .bg {
+        background-color: #A9A9A9;
+        text-align: left;
+    }
+    .bg2 {
+        text-align: center;
+    }
+    .bg3 {
+        background-color: #00FF00;
+        text-align: right;
+    }
+
+    .item {
+        background-color: #EEE9E9;
+        .logo {
+            background-color: #FF3333;
+            width: 30px;
+            height: 30px;
+
+        }
+    }
+
+    .match {
+        .club {
             .logo {
                 background-color: #FF3333;
-                width: 45px;
-                height: 45px;
-                position: absolute;
-                right: 5px;
-                top: 5px;
+                width: 30px;
+                height: 30px;
             }
-            .name {
-                //position: absolute;
-                //left: 5px;
-                //top: 13px;
+            .name-home {
                 text-align: left;
-                white-space: normal;
-                font-size: 10px;
+            }
+            .name-away {
+                text-align: right;
             }
         }
         .start-time {
-            background-color: #FFFF00;
-            text-align: center;
+
         }
     }
 }

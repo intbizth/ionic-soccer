@@ -1,8 +1,9 @@
 class CompetitionAndTableMain extends Controller then constructor: (
-    $scope, $state
+    $scope, $ionicHistory
+        src/coffee/controllers/competition-and-table/main.coffee
 ) ->
     $scope.back = ->
-        $state.go 'feature-main'
+        $ionicHistory.goBack -1
         return
 
     $scope.matches = [

@@ -9,7 +9,7 @@ class Routing extends Config then constructor: (
         controller: 'competitionAndTableMainController'
 
     state 'feature-main',
-        url: '/feature/main'
+        url: '/feature/main',
         templateUrl: 'templates/feature/main.html',
         controller: 'featureMainController'
 
@@ -24,10 +24,8 @@ class Routing extends Config then constructor: (
         controller: 'newsDetailController'
 
     state 'timeline-and-update-main',
-        url: '/live/main'
+        url: '/timeline-and-update/main',
         templateUrl: 'templates/timeline-and-update/main.html',
         controller: 'timelineAndUpdateMainController'
 
-    # if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise '/competition-and-table/main'
-    return
+    $urlRouterProvider.otherwise '/feature/main'
