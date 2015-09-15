@@ -1,6 +1,10 @@
 class fanzoneMain extends Controller then constructor: (
-    $scope, $state
+    $scope, $state, $ionicHistory
 ) ->
+    $scope.back = ->
+        $ionicHistory.goBack -1
+        return
+
     $scope.image="./img/fanzone/products/product.png"
 
     $scope.header="Online Simple store"
