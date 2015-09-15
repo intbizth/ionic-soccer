@@ -1,5 +1,5 @@
 class FeatureMain extends Controller then constructor: (
-    $scope, $ionicHistory, $ionicModal, $timeout
+    $scope, $ionicHistory, $ionicModal, $timeout, $cordovaAppVersion
 ) ->
     $ionicModal.fromTemplateUrl(
         'templates/feature/ads.html',
@@ -25,3 +25,13 @@ class FeatureMain extends Controller then constructor: (
     $scope.fullname = 'Jackson Matinez'
     $scope.point1 = 9999999
     $scope.point2 = 9999999
+
+    $scope.version = '0.0.0'
+
+    document.addEventListener('deviceready', ->
+        $cordovaAppVersion.getVersionNumber().then ((version) ->
+            $scope.version = version
+            return
+        )
+        return
+    , false)
