@@ -5,6 +5,34 @@
         @import "tab-timeline";
         @import "tab-update";
     }
+
+    .section {
+        background-color: #213647;
+        font-size: 16px;
+        font-weight: bold;
+        color: #ffffff;
+    }
+
+    .nodata {
+        .text {
+            padding: 18px 0px 18px 0px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+    }
+
+    .userbox {
+        .photo {
+            width: 30px;
+            height: 30px;
+            vertical-align: middle;
+        }
+
+        .name {
+            margin-left: 4px;
+            color: #231f20;
+        }
+    }
 }
 
 .fix-tab {
