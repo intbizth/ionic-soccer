@@ -15,8 +15,9 @@
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="android-minSdkVersion" value="16"/>
   <preference name="BackupWebStorage" value="none"/>
-  <preference name="SplashScreen" value="screen"/>
-  <preference name="SplashScreenDelay" value="3000"/>
+  <preference name="ShowSplashScreenSpinner" value="false"/>
+  <preference name="FadeSplashScreen" value="true"/>
+  <preference name="FadeSplashScreenDuration" value="3"/>
   <preference name="StatusBarStyle" value="lightcontent"/>
   <preference name="StatusBarOverlaysWebView" value="true"/>
   <preference name="StatusBarBackgroundColor" value="#0056a2"/>
