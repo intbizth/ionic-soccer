@@ -11,7 +11,7 @@ class FeatureMain extends Controller then constructor: (
         $timeout (->
             $scope.openAds()
             return
-        ), 100
+        )
         return
 
     $scope.openAds = ->

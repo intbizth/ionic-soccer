@@ -6,13 +6,14 @@
     .profile {
         width: 100%;
         height: 154px;
-        background-image: url('../img/feature/bg_club.png');
+        background-image: url("../img/feature/bg_club.png");
         background-size: cover;
         background-repeat: no-repeat;
 
         .photo {
             width: 100px;
             height: 100px;
+            background-color: #f0f0f0;
         }
 
         .name {
@@ -74,20 +75,12 @@
             justify-content: center;
             align-items: center;
 
-            .icon-live {
-                margin-top: 18px;
-                width: 75px;
-                height: 51px;
-            }
-
             .icon {
                 width: 50px;
                 height: 46px;
             }
 
-            .plantext-live {
-                margin-top: -52px;
-                margin-left: -8px;
+            .plantext {
                 width: 90%;
                 font-size: 12px;
                 font-weight: bold;
@@ -95,7 +88,15 @@
                 color: #ffffff;
             }
 
-            .plantext {
+            .-live-icon {
+                margin-top: 18px;
+                width: 75px;
+                height: 51px;
+            }
+
+            .-live-plantext {
+                margin-top: -52px;
+                margin-left: -8px;
                 width: 90%;
                 font-size: 12px;
                 font-weight: bold;
@@ -114,7 +115,7 @@
 @media screen and (-webkit-device-pixel-ratio: 2) {
     .feature-main {
         .profile {
-            background-image: url('../img/feature/bg_club@2x.png');
+            background-image: url("../img/feature/bg_club@2x.png");
         }
     }
 }
