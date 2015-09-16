@@ -7,7 +7,7 @@
             font-size: 12px;
             text-align: center;
             color: #848586;
-            background-color: #E6E7E8;
+            background-color: #e6e7e8;
         }
 
         .logo {
@@ -35,103 +35,90 @@
 
         .video {
             width: 100%;
-            height: 200px;
+            height: 230px;
         }
 
         .detail {
             width: 100%;
             height: auto;
-            margin-top: 30px;
             position: relative;
-            background-color: #0255A2;
+            background-color: #0255a2;
             text-align: center;
-            .redcard {
-                width: 20px;
-                padding-left: 5px;
-                background-image: url("./img/live/redCard.png");
+            .border {
+                padding: 0px;
             }
+                .-top {
+                    padding-top: 20px;
+                }
 
-            .yellowcard {
-                width: 20px;
-                padding-left: 5px;
-                background-image: url("./img/live/yellowCard.png");
-            }
+                .-bottom {
+                    padding-bottom: 50px;
+                }
 
-            .goal {
-                width: 20px;
-                padding-left: 5px;
-                background-image: url("./img/live/goal.png");
-            }
-
-            .circleTop {
-                position: absolute;
-                width: 16px;
-                height: 16px;
-                margin-bottom: -10px;
-                margin-left: 4px;
-                border-radius: 8px;
-                background-color: white;
-            }
-
-            .circleNormal {
-                position: absolute;
-                width: 9px;
-                height: 9px;
-                margin-top: 7px;
-                margin-left: 7px;
-                border-radius: 4px;
-                background-color: white;
-            }
-
-            .circleNormalRed {
-                position: absolute;
-                width: 9px;
-                height: 9px;
-                margin-top: 7px;
-                margin-left: 7px;
-                border-radius: 4px;
-                background-color: red;
-            }
-
-            .verticalLineTop {
+            .line {
                 width: 1px;
-                height: 22px;
-                margin-left: 11px;
-                background-color: white;
+                height: 8px;
+                margin-left: 50%;
+                background-color: #ffffff;
             }
+                .-line10 {
+                    height: 10px;
+                }
 
-            .verticalLine {
-                width: 1px;
-                height: 33px;
-                margin-top: -10px;
-                margin-left: 11px;
-                background-color: white;
-            }
+                .-line20 {
+                    height: 20px;
+                }
 
-            .verticalLineBot {
-                width: 1px;
+                .-line25 {
+                    height: 25px;
+                }
+
+                .-line50 {
+                    height: 50px;
+                }
+
+            .circle-start {
+                width: 20px;
                 height: 20px;
-                margin-top: -10px;
-                margin-left: 11px;
-                background-color: white;
+                margin-left: 22%;
+                background-color: #0056a2;
+                border: 1px solid #fff;
+                border-radius: 15px;
+
+                .circle {
+                    width: 14px;
+                    height: 14px;
+                    margin-top: 2px;
+                    margin-left: 2px;
+                    background-color: #fff;
+                    border-radius: 7px;
+                }
             }
 
-            .align-left {
-                text-align: left;
+            .circle-activity {
+                width: 8px;
+                height: 8px;
+                margin-left: 39%;
+                background-color: #fff;
+                border-radius: 4px;
             }
 
-            .align-right {
-                text-align: right;
-            }
+                .-halftime {
+                    background-color: #ff0000;
+                }
+
+                .-fulltime {
+                    background-color: yellowgreen;
+                }
 
             .playerName {
                 font-size: 12px;
-                color: #FFFFFF;
+                color: #ffffff;
             }
 
-            .textYellow {
+            .text-yellow {
                 font-size: 12px;
-                color: #FFB52C;
+                color: #ffb52c;
             }
         }
     }
