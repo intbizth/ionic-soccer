@@ -8,20 +8,20 @@ ion-view.fanzone-main
             i.icon.ion-android-more-vertical
 
     ion-tabs.tabs-striped.tabs-top.tabs-background-positive.tabs-color-light
-        ion-tab(title="Products")
+        ion-tab(title="Products" ui-sref="fanzone.product")
             ion-tab-content.content-fanzone
                 ion-content
-                    ng-include(src="\'./templates/fanzone/products.html\'")
+                    div(ui-view="product")
 
-        ion-tab(title='Wallpapers')
+        ion-tab(title="Wallpapers" ui-sref="fanzone.wallpaper")
             ion-tab-content.content-fanzone
                 ion-content
-                    ng-include(src="\'./templates/fanzone/wallpapers.html\'")
+                    div(ui-view="wallpaper")
 
-        ion-tab(title='Questionary')
+        ion-tab(title="Questionary" ui-sref="fanzone.questionary")
             ion-tab-content.content-fanzone
                 ion-content
-                    ng-include(src="\'./templates/fanzone/questionary.html\'")
+                    div(ui-view="questionary")
 
     .footer-fanzone
         ion-footer-bar.bar-positive

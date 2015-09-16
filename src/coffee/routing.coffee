@@ -28,10 +28,32 @@ class Routing extends Config then constructor: (
         templateUrl: 'templates/timeline-and-update/main.html',
         controller: 'timelineAndUpdateMainController'
 
-    state 'fanzone-main',
-        url: '/fanzone/main'
-        templateUrl: 'templates/fanzone/main.html',
+    state 'fanzone',
+        url: '/fanzone'
+        abstract: yes
         controller: 'fanzoneMainController'
+        templateUrl: 'templates/fanzone/main.html'
+
+    state 'fanzone.product',
+        url: '/product'
+        views:
+            'product':
+                controller: 'productController'
+                templateUrl: 'templates/fanzone/products.html'
+
+    state 'fanzone.wallpaper',
+        url: '/wallpaper'
+        views:
+            'wallpaper':
+                controller: 'wallpaperController'
+                templateUrl: 'templates/fanzone/wallpapers.html'
+
+    state 'fanzone.questionary',
+        url: '/questionary'
+        views:
+            'questionary':
+                controller: 'questionaryController'
+                templateUrl: 'templates/fanzone/questionarys.html'
 
     $urlRouterProvider.otherwise '/feature/main'
     return
