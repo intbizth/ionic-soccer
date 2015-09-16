@@ -5,33 +5,44 @@ class Routing extends Config then constructor: (
 
     state 'competition-and-table-main',
         url: '/competition-and-table/main'
-        templateUrl: 'templates/competition-and-table/main.html',
         controller: 'competitionAndTableMainController'
+        templateUrl: 'templates/competition-and-table/main.html'
 
     state 'feature-main',
-        url: '/feature/main',
-        templateUrl: 'templates/feature/main.html',
+        url: '/feature/main'
         controller: 'featureMainController'
+        templateUrl: 'templates/feature/main.html'
 
     state 'live-main',
         url: '/live/main'
-        templateUrl: 'templates/live/main.html',
         controller: 'liveMainController'
+        templateUrl: 'templates/live/main.html'
 
     state 'news-detail',
         url: '/news/detail/:id'
-        templateUrl: 'templates/news/detail.html',
         controller: 'newsDetailController'
+        templateUrl: 'templates/news/detail.html'
 
-    state 'timeline-and-update-main',
-        url: '/timeline-and-update/main',
-        templateUrl: 'templates/timeline-and-update/main.html',
+    state 'timeline-and-update',
+        abstract: true
+        url: '/timeline-and-update'
         controller: 'timelineAndUpdateMainController'
+        templateUrl: 'templates/timeline-and-update/index.html'
+
+    state 'timeline-and-update.main',
+        url: '/main'
+        views:
+            timeline:
+                controller: 'timelineController'
+                templateUrl: 'templates/timeline-and-update/timeline.html'
+            update:
+                controller: 'updateController'
+                templateUrl: 'templates/timeline-and-update/update.html'
 
     state 'fanzone-main',
         url: '/fanzone/main'
-        templateUrl: 'templates/fanzone/main.html',
         controller: 'fanzoneMainController'
+        templateUrl: 'templates/fanzone/main.html'
 
     $urlRouterProvider.otherwise '/feature/main'
     return

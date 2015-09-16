@@ -11,7 +11,7 @@ ion-view.timelineandupdate-main
         ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
             ion-tab(title="Timeline", icon-on="ion-ios-chatbubble" icon-off="ion-ios-chatbubble-outline")
                 ion-content.fix-tab
-                    ng-include(src="'./templates/timeline-and-update/tab-timeline.html'")
+                    div(ui-view="timeline")
             ion-tab(title="Update", icon-on="ion-ios-star" icon-off="ion-ios-star-outline")
                 ion-content.fix-tab
-                    ng-include(src="'./templates/timeline-and-update/tab-update.html'")
+                    div(ui-view="update")
