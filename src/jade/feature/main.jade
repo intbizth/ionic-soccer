@@ -1,14 +1,14 @@
 ion-view.feature-main
     ion-nav-title Feature
-    ion-nav-buttons(side='right')
-        a.button.button-clear(ng-click='')
+    ion-nav-buttons(side="right")
+        a.button.button-clear(ng-click="")
             i.icon.ion-android-more-vertical
 
     ion-content.content
         div.profile
             div.row
                 div.col.text-center
-                    img.photo(src='./img/feature/photo.png', srcset='./img/feature/photo@2x.png 2x')
+                    img.photo(src="./img/feature/photo.png", srcset="./img/feature/photo@2x.png 2x")
             div.row
                 div.col.text-center
                     span.name {{fullname}}
@@ -16,65 +16,65 @@ ion-view.feature-main
         div.point
             div.row.row-center
                 div.col.col-center
-                    img.icon(src='./img/feature/icon/point.png', srcset='./img/feature/icon/point@2x.png 2x')
-                    span.plantext เกมทายผลทายสกอร์
+                    img.icon(src="./img/feature/icon/point.png", srcset="./img/feature/icon/point@2x.png 2x")
+                    span.text เกมทายผลทายสกอร์
                     span.hightlight {{point1 | number}} Pls
-                    span.plantext เกมทาย11ตัวจริง
+                    span.text เกมทาย11ตัวจริง
                     span.hightlight {{point2 | number}} Pls
 
         div.menus
             div.row.row-center
-                div.col.col-center.grid.button.button-clear(ui-sref='live-main')
+                div.col.col-center.grid.button.button-clear(ui-sref="live-main")
                     div.square
-                        img.icon-live(src='./img/feature/menu/live.png',
-                        srcset='./img/feature/menu/live@2x.png 2x')
-                        span.plantext-live Live
+                        img.icon.-live-icon(src="./img/feature/menu/live.png",
+                        srcset="./img/feature/menu/live@2x.png 2x")
+                        span.text.-live-text Live
 
-                div.col.col-center.grid.button.button-clear(ui-sref='timeline-and-update-main')
+                div.col.col-center.grid.button.button-clear(ui-sref="timeline-and-update-main")
                     div.square
-                        img.icon(src='./img/feature/menu/timeline_and_update.png',
-                        srcset='./img/feature/menu/timeline_and_update@2x.png 2x')
-                        span.plantext Timeline & Update
+                        img.icon(src="./img/feature/menu/timeline_and_update.png",
+                        srcset="./img/feature/menu/timeline_and_update@2x.png 2x")
+                        span.text Timeline & Update
 
-                div.col.col-center.grid.button.button-clear(ui-sref='competition-and-table-main')
+                div.col.col-center.grid.button.button-clear(ui-sref="competition-and-table-main")
                     div.square
-                        img.icon(src='./img/feature/menu/competition_and_table.png',
-                        srcset='./img/feature/menu/competition_and_table@2x.png 2x')
-                        span.plantext Competition & Table
-
-            div.row.row-center
-                div.col.col-center.grid.button.button-clear(ui-sref='ticket-and-membership-main')
-                    div.square
-                        img.icon(src='./img/feature/menu/ticket_and_membership.png',
-                        srcset='./img/feature/menu/ticket_and_membership@2x.png 2x')
-                        span.plantext Ticket & Membership
-                div.col.col-center.grid.button.button-clear(ui-sref='games-main')
-                    div.square
-                        img.icon(src='./img/feature/menu/games.png',
-                        srcset='./img/feature/menu/games@2x.png 2x')
-                        span.plantext Games
-                div.col.col-center.grid.button.button-clear(ui-sref='people-ranking-amin')
-                    div.square
-                        img.icon(src='./img/feature/menu/people_ranking.png',
-                        srcset='./img/feature/menu/people_ranking@2x.png 2x')
-                        span.plantext People Ranking
+                        img.icon(src="./img/feature/menu/competition_and_table.png",
+                        srcset="./img/feature/menu/competition_and_table@2x.png 2x")
+                        span.text Competition & Table
 
             div.row.row-center
-                div.col.col-center.grid.button.button-clear(ui-sref='man-of-the-match-main')
+                div.col.col-center.grid.button.button-clear(ui-sref="ticket-and-membership-main", ng-disabled="true")
                     div.square
-                        img.icon(src='./img/feature/menu/man_of_the_match.png',
-                        srcset='./img/feature/menu/man_of_the_match@2x.png 2x')
-                        span.plantext Man of the Match
-                div.col.col-center.grid.button.button-clear(ui-sref='reward-main')
+                        img.icon(src="./img/feature/menu/ticket_and_membership.png",
+                        srcset="./img/feature/menu/ticket_and_membership@2x.png 2x")
+                        span.text Ticket & Membership
+                div.col.col-center.grid.button.button-clear(ui-sref="games-main", ng-disabled="true")
                     div.square
-                        img.icon(src='./img/feature/menu/reward.png',
-                        srcset='./img/feature/menu/reward@2x.png 2x')
-                        span.plantext Reward
-                div.col.col-center.grid.button.button-clear(ui-sref='fanzone-main')
+                        img.icon(src="./img/feature/menu/games.png",
+                        srcset="./img/feature/menu/games@2x.png 2x")
+                        span.text Games
+                div.col.col-center.grid.button.button-clear(ui-sref="people-ranking-amin", ng-disabled="true")
                     div.square
-                        img.icon(src='./img/feature/menu/fanzone.png',
-                        srcset='./img/feature/menu/fanzone@2x.png 2x')
-                        span.plantext Fanzone
+                        img.icon(src="./img/feature/menu/people_ranking.png",
+                        srcset="./img/feature/menu/people_ranking@2x.png 2x")
+                        span.text People Ranking
+
+            div.row.row-center
+                div.col.col-center.grid.button.button-clear(ui-sref="man-of-the-match-main", ng-disabled="true")
+                    div.square
+                        img.icon(src="./img/feature/menu/man_of_the_match.png",
+                        srcset="./img/feature/menu/man_of_the_match@2x.png 2x")
+                        span.text Man of the Match
+                div.col.col-center.grid.button.button-clear(ui-sref="reward-main", ng-disabled="true")
+                    div.square
+                        img.icon(src="./img/feature/menu/reward.png",
+                        srcset="./img/feature/menu/reward@2x.png 2x")
+                        span.text Reward
+                div.col.col-center.grid.button.button-clear(ui-sref="fanzone-main")
+                    div.square
+                        img.icon(src="./img/feature/menu/fanzone.png",
+                        srcset="./img/feature/menu/fanzone@2x.png 2x")
+                        span.text Fanzone
 
         div.row.version
             div.col.text-right
