@@ -1,22 +1,17 @@
 class CompetitionAndTableMain extends Controller then constructor: (
-    $scope, $ionicHistory
+    $scope, $ionicHistory, $timeout, Und, Chance
 ) ->
     $scope.back = ->
         $ionicHistory.goBack -1
         return
 
-    $scope.tab = {
-        name : 'timeline'
-        selected : (tabName) ->
-            console.log(tabName)
-            this.name = tabName
-            return
-    }
-
-    $scope.matches = [
-        { id: 0, text:'Inwdragon' },
-        { id: 1, text:'YokYukYiK'  },
-        { id: 2, text:'BeerLao' },
-        { id: 3, text:'Spykane' },
-        { id: 4, text:'Robin' }
-    ]
+    $scope.matchLabel =
+        homeClub:
+            logo: './img/live/chonburi.png'
+            name: 'Chonburi FC'
+            score: 1
+        awayClub:
+            logo: './img/live/suphanburi.png'
+            name: 'Suphanburi FC'
+            score: 1
+        datetime: Chance.date()

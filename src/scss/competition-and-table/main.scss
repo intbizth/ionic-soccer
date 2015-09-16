@@ -1,46 +1,53 @@
-.competition-and-table-main {
-    .content{
-
+.competitionandtable-main {
+    .content {
+        //margin-top: -66px !important;
+        //height: ;
     }
 
-    .bg {
-        background-color: #A9A9A9;
-        text-align: left;
-    }
-    .bg2 {
-        text-align: center;
-    }
-    .bg3 {
-        background-color: #00FF00;
-        text-align: right;
+    .wide-as-needed {
+        overflow: hidden !important;
+        white-space: nowrap;
     }
 
-    .item {
-        background-color: #EEE9E9;
-        .logo {
-            background-color: #FF3333;
-            width: 30px;
+    .top-tabs {
+        background-color: #0056A2;
+        color: white;
+    }
+
+    .match-label {
+        .section {
             height: 30px;
-
+            background-color: #e6e7e8;
+            font-size: 14px;
+            color: #58595b;
         }
-    }
 
-    .match {
-        .club {
+        .content {
+            background-color: #ffffff;
+
             .logo {
-                background-color: #FF3333;
-                width: 30px;
-                height: 30px;
+                .image {
+                    width: 40px;
+                    height: 40px;
+                }
             }
-            .name-home {
-                text-align: left;
-            }
-            .name-away {
-                text-align: right;
-            }
-        }
-        .start-time {
 
+            .name {
+                font-size: 14px;
+            }
+
+            .detail {
+                .score {
+                    font-size: 25px;
+                    font-weight: bold;
+                    color: #0087cf;
+                }
+
+                .datetime {
+                    font-size: 10px;
+                    color: #848586;
+                }
+            }
         }
     }
 }
