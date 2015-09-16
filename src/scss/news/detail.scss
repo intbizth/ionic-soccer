@@ -1,64 +1,49 @@
 .news-detail {
-    .detail {
-        .line1 {
-            width: 110px;
-            margin-top: -5px;
-            margin-left: 0px;
-        }
-
-        .line2 {
-            width: 110px;
-            margin-bottom: -5px;
-            margin-left: 0px;
-        }
-
-        .avata {
-            width: 23px;
-            height: 23px;
-            margin-right: 10px;
+    .userbox {
+        .photo {
+            width: 30px;
+            height: 30px;
             vertical-align: middle;
         }
 
         .name {
-            font-size: 12px;
-        }
-
-        .date {
-            font-size: 12px;
-            color: #6D6E71;
-        }
-
-        .url {
-            font-size: 12px;
-            color: #26A9DF;
-        }
-
-        .topic-view {
-            background-color: #1488cd;
-        }
-
-        .topic-subview {
-            margin-left: 3px;
-            padding-left: 10px;
-            background-color: #ffffff;
-        }
-
-        .topic {
-            width: 100%;
-            font-size: 20px;
-        }
-
-        .news {
-            font-size: 14px;
+            margin-left: 4px;
+            color: #231f20;
         }
     }
 
-    .barFooter {
-        .footer {
-            width: 100%;
-            height: 14px;
-            margin-top: 17%;
-            background-color: #0288CF;
+    .datetime {
+        .line {
+            margin: 6px 0px 6px 0px;
+            padding: 8px 0px 8px 0px;
+            border-color: #bbbbbb #ffffff #bbbbbb #ffffff;
+            border-style: solid none solid none;
+            border-width: 1px 1px 1px 1px;
         }
+
+        .text {
+            font-size: 14px;
+            color: #6d6e71;
+        }
+    }
+
+    .url {
+        font-size: 14px;
+        color: #26A9DF;
+    }
+
+    .headline {
+        background-color: #1388cd;
+        font-size: 18px;
+
+        .subheadline {
+            margin-left: 4px;
+            padding-left: 8px;
+            background-color: #ffffff;
+        }
+    }
+
+    .description {
+        font-size: 14px;
     }
 }

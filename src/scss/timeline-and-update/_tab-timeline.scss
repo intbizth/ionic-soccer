@@ -8,28 +8,12 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-}
-
-.live {
-    .section {
-        background-color: #213647;
-        font-size: 16px;
-        font-weight: bold;
-        color: #ffffff;
-    }
+    background-color: #f0f0f0;
 }
 
 .timeline {
-    .nodata {
-        .text {
-            padding: 24px 0px 24px 0px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-    }
-
-    .header {
-        height: 10px;
+    .space {
+        height: 6px;
         background-color: #d1d3d4;
     }
 
@@ -51,19 +35,9 @@
     }
 
     .footer {
-        .photo {
-            width: 30px;
-            height: 30px;
-            vertical-align: middle;
-        }
-
-        .name {
-            margin-left: 4px;
-            color: #231f20
-        }
-
         .share::before {
-            color: #0056a2
+            color: #0056a2;
+            opacity: 0.2;
         }
     }
 
