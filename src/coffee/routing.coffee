@@ -9,7 +9,7 @@ class Routing extends Config then constructor: (
         controller: 'competitionAndTableMainController'
 
     state 'feature-main',
-        url: '/feature/main'
+        url: '/feature/main',
         templateUrl: 'templates/feature/main.html',
         controller: 'featureMainController'
 
@@ -19,14 +19,19 @@ class Routing extends Config then constructor: (
         controller: 'liveMainController'
 
     state 'news-detail',
-        url: '/news/detail'
+        url: '/news/detail/:id'
         templateUrl: 'templates/news/detail.html',
         controller: 'newsDetailController'
 
     state 'timeline-and-update-main',
-        url: '/timeline-and-update-main/main'
+        url: '/timeline-and-update/main',
         templateUrl: 'templates/timeline-and-update/main.html',
         controller: 'timelineAndUpdateMainController'
+
+    state 'fanzone-main',
+        url: '/fanzone/main'
+        templateUrl: 'templates/fanzone/main.html',
+        controller: 'fanzoneMainController'
 
     $urlRouterProvider.otherwise '/feature/main'
     return

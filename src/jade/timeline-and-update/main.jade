@@ -1,19 +1,17 @@
 ion-view.timelineandupdate-main
     ion-nav-title
-        a.button.button-clear(ng-click='back()', style='margin-top: 5px;')
+        a.button.button-clear(ng-click="back()", style="margin-top: 5px;")
             i.icon.ion-ios-keypad-outline
 
-    ion-nav-buttons(side='right')
-        a.button.button-clear(ng-click='')
+    ion-nav-buttons(side="right")
+        a.button.button-clear(ng-click="")
             i.icon.ion-android-more-vertical
 
-    ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
-        ion-tab(title='Timeline', icon-on='ion-ios-chatbubble' icon-off='ion-ios-chatbubble-outline')
-            ion-tab-content
-                ion-content
-                    ng-include(src='\'./templates/timeline-and-update/timeline.html\'')
-
-        ion-tab(title='Update', icon-on='ion-ios-star' icon-off='ion-ios-star-outline')
-            ion-tab-content
-                ion-content
-                    ng-include(src='\'./templates/timeline-and-update/update.html\'')
+    ion-content.content(scroll="false")
+        ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
+            ion-tab(title="Timeline", icon-on="ion-ios-chatbubble" icon-off="ion-ios-chatbubble-outline")
+                ion-content.fix-tab
+                    ng-include(src="'./templates/timeline-and-update/tab-timeline.html'")
+            ion-tab(title="Update", icon-on="ion-ios-star" icon-off="ion-ios-star-outline")
+                ion-content.fix-tab
+                    ng-include(src="'./templates/timeline-and-update/tab-update.html'")
