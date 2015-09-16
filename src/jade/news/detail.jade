@@ -6,7 +6,7 @@ ion-view.news-detail(view-title='{{news.item.headline}}')
     ion-content.content
         ion-refresher(pulling-text="Pull to refresh...", on-refresh="news.doRefresh()")
 
-        img(ng-src="{{news.item.image}}", width='100%', height='146')
+        img.image(ng-src="{{news.item.image}}", width='100%', height='146')
 
         div.row
             div.col
@@ -19,7 +19,7 @@ ion-view.news-detail(view-title='{{news.item.headline}}')
                 div.line
                     span.text {{news.item.datetime | date: 'dd MMM yyyy'}}
 
-        div.row.url
+        div.row.url(ng-click="openURL(news.item.creditUrl)")
             div.col
                 span {{news.item.creditUrl}}
 
