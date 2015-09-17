@@ -1,0 +1,82 @@
+ion-view.about-chonburi
+    ion-nav-title(title="About Chonburi")
+    ion-nav-buttons(side='right')
+        a.button.button-clear(ng-click='')
+            i.icon.ion-android-more-vertical
+
+    ion-content.content
+        div.cover
+            img.image(src="./img/about-club/about-chonburi/stadium.png")
+
+        div.headline
+            div.title.text-center {{headline}}
+
+        div.detail
+            div.row
+                div.col
+                    div.row.text-left.top
+                        div.col.col-33
+                            | {{name.fullName.clubNameThai}}
+                        div.col.col-67
+                            | ชลบุรี เอฟซี
+                    div.row.text-left.top
+                        div.col.col-33
+                            | {{name.fullName.clubNameEng}}
+                        div.col.col-67
+                            | Chonburi FC
+                    div.row.text-left.top
+                        div.col.col-33
+                            | {{name.nickName.clubNameThai}}
+                        div.col.col-67
+                            | ชลบุรี เอฟซี
+                    div.row.text-left.top
+                        div.col.col-33
+                            | {{name.nickName.clubNameEng}}
+                        div.col.col-67
+                            | Chonburi FC
+                    div.row.text-left.top
+                        div.col.col-33
+                            | ฉายา
+                        div.col.col-67
+                    div.row.text-left.top
+                        div.col.col-33
+                            | ลึก
+                        div.col.col-67
+
+            div.row
+                div.col
+                    div.row.text-left.middle
+                        div.col.col-33
+                            | {{contact.contactUs}}
+                        div.col.col-67
+                    div.row.text-left.middle
+                        div.col.col-33
+                            | {{contact.website}}
+                        div.col.col-67
+                            | {{contact.url}}
+                    div.row.text-left.middle
+                        div.col.col-33
+                            | {{contact.email}}
+                        div.col.col-67
+                            | {{contact.emailAddress}}
+
+            div.row
+                div.col
+                    div.row.text-left.bottom
+                        div.col.col-33
+                            | {{stadium.field}}
+                        div.col.col-67
+                            | {{stadium.name}}
+                    div.row.text-left.bottom
+                        div.col.col-33
+                            | {{stadium.capacity}}
+                        div.col.col-67
+                            | {{stadium.capacityNumber}}
+                    div.row.text-left.bottom
+                        div.col.col-33
+                            | {{stadium.location}}
+                        div.col.col-67
+                            | {{stadium.address}}
+
+        div.footer
+            img.image(src="./img/about-club/about-chonburi/map.png")

@@ -33,5 +33,15 @@ class Routing extends Config then constructor: (
         templateUrl: 'templates/fanzone/main.html',
         controller: 'fanzoneMainController'
 
-    $urlRouterProvider.otherwise '/feature/main'
+    state 'about-chonburi',
+        url: '/about-club/about-chonburi'
+        templateUrl: 'templates/about-club/about-chonburi.html'
+        controller: 'aboutChonburiMainController'
+
+    state 'first-team',
+        url: '/about-club/first-team'
+        templateUrl: 'templates/about-club/first-team.html'
+        controller: 'firstTeamMainController'
+
+    $urlRouterProvider.otherwise '/about-club/first-team'
     return

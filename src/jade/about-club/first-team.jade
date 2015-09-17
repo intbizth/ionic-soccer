@@ -1,0 +1,23 @@
+ion-view.first-team
+    ion-nav-buttons(side='right')
+        a.button.button-clear(ng-click='')
+            i.icon.ion-android-more-vertical
+
+    ion-content.content
+        div.cover
+            img.image(src="./img/about-club/first-team/cover.png")
+
+        div.headline
+            div.title.text-center {{headline}}
+
+        div.detail(ng-repeat="player in players")
+            div.row.border
+                div.col.col-10.text-center {{player.position}}
+                div.col.col-10
+                    div.circle-start
+                        div.circle
+                div.col.text-left {{player.name}}
+                div.col.col-10.text-center {{player.number}}
+                div.col.col-10
+                    //img(src="./img/about-club/first-team/eye-off.png")
+            div.line
