@@ -1,9 +1,6 @@
-.timelineandupdate-main {
+.timeline-update {
     .content {
         margin-top: -66px !important;
-
-        @import "tab-timeline";
-        @import "tab-update";
     }
 
     .section {
@@ -26,12 +23,21 @@
             width: 30px;
             height: 30px;
             vertical-align: middle;
+            background-color: #f0f0f0;
         }
 
         .name {
             margin-left: 4px;
             color: #231f20;
         }
+    }
+
+    .timeline {
+        @import "timeline/main";
+    }
+
+    .update {
+        @import "update/main";
     }
 }
 

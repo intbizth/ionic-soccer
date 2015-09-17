@@ -1,4 +1,4 @@
-ion-view.timelineandupdate-main
+ion-view.timeline-update
     ion-nav-title
         a.button.button-clear(ng-click="back()", style="margin-top: 5px;")
             i.icon.ion-ios-keypad-outline
@@ -10,8 +10,8 @@ ion-view.timelineandupdate-main
     ion-content.content(scroll="false")
         ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
             ion-tab(title="Timeline", icon-on="ion-ios-chatbubble" icon-off="ion-ios-chatbubble-outline")
-                ion-content.fix-tab
-                    ng-include(src="'./templates/timeline-and-update/tab-timeline.html'")
+                ion-content.timeline.fix-tab
+                    div(ui-view="timeline")
             ion-tab(title="Update", icon-on="ion-ios-star" icon-off="ion-ios-star-outline")
-                ion-content.fix-tab
-                    ng-include(src="'./templates/timeline-and-update/tab-update.html'")
+                ion-content.update.fix-tab
+                    div(ui-view="update")

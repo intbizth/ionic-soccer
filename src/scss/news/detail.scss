@@ -1,9 +1,14 @@
 .news-detail {
+    .image {
+        background-color: #f0f0f0;
+    }
+
     .userbox {
         .photo {
             width: 30px;
             height: 30px;
             vertical-align: middle;
+            background-color: #f0f0f0;
         }
 
         .name {

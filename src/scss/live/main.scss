@@ -1,62 +1,195 @@
 .live-main {
-  .content {
-    .liveContent {
-      .dateTop {
-        width: 100%;
-        height: 20px;
-        margin-top:44px;
-        font-size: 12px;
-        text-align: center;
-        color: #848586;
-        background-color: #E6E7E8;
-      }
-
-      .teamLogo {
-        > .teamLogo1 {
-          padding-top: 5px;
-        }
-
-        > .teamLogo2 {
-          padding-top: 5px;
-        }
-      }
-
-      .teamName {
-        text-align: center;
-        > .teamName1 {
-          padding-top: 10px;
-        }
-
-        > .teamName2 {
-          padding-top: 10px;
-        }
-      }
-
-      .scoreAndDate {
-        text-align: center;
-        > .score {
-          padding-top: 8px;
-          color: #0087cf;
-          font-size: 25px;
-          font-weight: bold;
-        }
-        
-        > .dateMatch {
-          font-size: 10px;
-          color: #848586;
-        }
-      }
-
-      .videoView {
-        width: 100%;
-        height: 200px;
-      }
-
-      .matchDetail {
-        width: 100%;
-        height: 270px;
-        background-color: #0255A2;
-      }
+    .title {
+        background-color: #0056a2;
+        font-size: 18px;
+        font-weight: bold;
+        color: #ffffff;
     }
-  }
+
+    .video {
+        width: 100%;
+        height: 230px;
+    }
 }
+
+.match-label {
+    .section {
+        height: 30px;
+        background-color: #e6e7e8;
+        font-size: 14px;
+        color: #58595b;
+    }
+
+    .content {
+        background-color: #ffffff;
+
+        .logo {
+            .image {
+                width: 40px;
+                height: 40px;
+                background-color: #f0f0f0;
+            }
+        }
+
+        .name {
+            font-size: 14px;
+        }
+
+        .detail {
+            .score {
+                font-size: 22px;
+                font-weight: bold;
+                color: #0087cf;
+            }
+
+            .datetime {
+                font-size: 10px;
+                color: #848586;
+            }
+        }
+    }
+}
+
+.activity {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: #0056a2;
+
+    .nodata {
+        .text {
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+    }
+
+    .rowactivity {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+}
+
+//.content {
+//    .month {
+//        width: 100%;
+//        height: 20px;
+//        margin-top: 44px;
+//        font-size: 12px;
+//        text-align: center;
+//        color: #848586;
+//        background-color: #e6e7e8;
+//    }
+//
+//    .logo {
+//        padding-top: 5px;
+//    }
+//
+//    .name {
+//        padding-top: 10px;
+//        text-align: center;
+//    }
+//
+//    .score {
+//        padding-top: 8px;
+//        font-size: 25px;
+//        font-weight: bold;
+//        text-align: center;
+//        color: #0087cf;
+//    }
+//
+//    .date {
+//        font-size: 10px;
+//        text-align: center;
+//        color: #848586;
+//    }
+//
+//    .video {
+//        width: 100%;
+//        height: 230px;
+//    }
+//
+//    .detail {
+//        width: 100%;
+//        height: auto;
+//        position: relative;
+//        background-color: #0255a2;
+//        text-align: center;
+//        .border {
+//            padding: 0px;
+//        }
+//            .-top {
+//                padding-top: 20px;
+//            }
+//
+//            .-bottom {
+//                padding-bottom: 50px;
+//            }
+//
+//        .line {
+//            width: 1px;
+//            height: 8px;
+//            margin-left: 50%;
+//            background-color: #ffffff;
+//        }
+//            .-line10 {
+//                height: 10px;
+//            }
+//
+//            .-line20 {
+//                height: 20px;
+//            }
+//
+//            .-line25 {
+//                height: 25px;
+//            }
+//
+//            .-line50 {
+//                height: 50px;
+//            }
+//
+//        .circle-start {
+//            width: 20px;
+//            height: 20px;
+//            margin-left: 22%;
+//            background-color: #0056a2;
+//            border: 1px solid #fff;
+//            border-radius: 15px;
+//
+//            .circle {
+//                width: 14px;
+//                height: 14px;
+//                margin-top: 2px;
+//                margin-left: 2px;
+//                background-color: #fff;
+//                border-radius: 7px;
+//            }
+//        }
+//
+//        .circle-activity {
+//            width: 8px;
+//            height: 8px;
+//            margin-left: 39%;
+//            background-color: #fff;
+//            border-radius: 4px;
+//        }
+//
+//            .-halftime {
+//                background-color: #ff0000;
+//            }
+//
+//            .-fulltime {
+//                background-color: yellowgreen;
+//            }
+//
+//        .playerName {
+//            font-size: 12px;
+//            color: #ffffff;
+//        }
+//
+//        .text-yellow {
+//            font-size: 12px;
+//            color: #ffb52c;
+//        }
+//    }
+//}
+//}
