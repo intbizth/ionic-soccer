@@ -1,4 +1,4 @@
-ion-view.fanzone-main
+ion-view.fanzone
     ion-nav-title
         a.button.button-clear(ng-click="back()", style="margin-top: 5px;")
             i.icon.ion-ios-keypad-outline
@@ -7,21 +7,14 @@ ion-view.fanzone-main
         a.button.button-clear(ng-click="")
             i.icon.ion-android-more-vertical
 
-    ion-tabs.tabs-striped.tabs-top.tabs-background-positive.tabs-color-light
-        ion-tab(title="Products" ui-sref="fanzone.product")
-            ion-tab-content.content-fanzone
-                ion-content
-                    div(ui-view="product")
-
-        ion-tab(title="Wallpapers" ui-sref="fanzone.wallpaper")
-            ion-tab-content.content-fanzone
-                ion-content
-                    div(ui-view="wallpaper")
-
-        ion-tab(title="Questionary" ui-sref="fanzone.questionary")
-            ion-tab-content.content-fanzone
-                ion-content
+    ion-content.content(scroll="false")
+        ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
+            ion-tab(title="Products")
+                ion-content.products.fix-tab
+                    div(ui-view="products")
+            ion-tab(title="Wallpapers")
+                ion-content.wallpapers.fix-tab
+                    div(ui-view="wallpapers")
+            ion-tab(title="Questionary")
+                ion-content.questionary.fix-tab
                     div(ui-view="questionary")
-
-    .footer-fanzone
-        ion-footer-bar.bar-positive

@@ -1,0 +1,23 @@
+div.product-content
+    div.row.wrap
+        div.col
+            img.image(ng-src="{{image}}")
+
+    div.store
+        div.header
+            h3 {{header}}
+        div.detail
+            h4 {{header}}
+            h5 {{company}}
+            h5 {{stadium}}
+            h5 {{address}}
+            h5 โทรศัพท์.{{tel}}
+            h5 E-Mail : {{email}}
+
+    div.row.wrap(ng-repeat="product in products")
+        div(ui-sref="fanzone-product({id : product.id})")
+            div.col.info
+                h5 {{product.name}}
+                h5 ราคา ฿ {{product.price}}
+            img.shadow(ng-src="{{shadow}}")
+            img.image(ng-src="{{product.image}}")

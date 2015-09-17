@@ -3,57 +3,70 @@ class Routing extends Config then constructor: (
 ) ->
     state = $stateProvider.state
 
-    state 'competition-and-table-main',
-        url: '/competition-and-table/main'
-        templateUrl: 'templates/competition-and-table/main.html',
-        controller: 'competitionAndTableMainController'
-
-    state 'feature-main',
-        url: '/feature/main',
-        templateUrl: 'templates/feature/main.html',
-        controller: 'featureMainController'
-
-    state 'live-main',
-        url: '/live/main'
-        templateUrl: 'templates/live/main.html',
-        controller: 'liveMainController'
-
-    state 'news-detail',
-        url: '/news/detail'
-        templateUrl: 'templates/news/detail.html',
-        controller: 'newsDetailController'
-
-    state 'timeline-and-update-main',
-        url: '/timeline-and-update/main',
-        templateUrl: 'templates/timeline-and-update/main.html',
-        controller: 'timelineAndUpdateMainController'
+    state 'competition-table',
+        url: '/competition-table/main'
+        controller: 'competitionableMainController'
+        templateUrl: 'templates/competition-table/main.html'
 
     state 'fanzone',
+        abstract: true
         url: '/fanzone'
-        abstract: yes
         controller: 'fanzoneMainController'
         templateUrl: 'templates/fanzone/main.html'
 
-    state 'fanzone.product',
-        url: '/product'
+    state 'fanzone.main',
+        url: '/main'
         views:
-            'product':
-                controller: 'productController'
-                templateUrl: 'templates/fanzone/products.html'
+            products:
+                controller: 'fanzoneProductsController'
+                templateUrl: 'templates/fanzone/products/main.html'
+            wallpapers:
+                controller: 'fanzoneWallpapersController'
+                templateUrl: 'templates/fanzone/wallpapers/main.html'
+            questionary:
+                controller: 'fanzoneQuestionaryController'
+                templateUrl: 'templates/fanzone/questionary/main.html'
+
+    state 'fanzone-product',
+         url: '/fanzone/product/:id'
+         controller: 'fanzoneProductShowController'
+         templateUrl: 'templates/fanzone/products/show.html'
 
     state 'fanzone.wallpaper',
-        url: '/wallpaper'
-        views:
-            'wallpaper':
-                controller: 'wallpaperController'
-                templateUrl: 'templates/fanzone/wallpapers.html'
+         url: '/wallpaper/:id'
+         controller: 'fanzoneWallpaperShowController'
+         templateUrl: 'templates/fanzone/wallpaper/show.html'
 
-    state 'fanzone.questionary',
-        url: '/questionary'
+    state 'feature',
+        url: '/feature/main'
+        controller: 'featureMainController'
+        templateUrl: 'templates/feature/main.html'
+
+    state 'live',
+        url: '/live/main'
+        controller: 'liveMainController'
+        templateUrl: 'templates/live/main.html'
+
+    state 'news',
+        url: '/news/detail/:id'
+        controller: 'newsDetailController'
+        templateUrl: 'templates/news/detail.html'
+
+    state 'timeline-update',
+        abstract: true
+        url: '/timeline-update'
+        controller: 'timelineUpdateMainController'
+        templateUrl: 'templates/timeline-update/main.html'
+
+    state 'timeline-update.main',
+        url: '/main'
         views:
-            'questionary':
-                controller: 'questionaryController'
-                templateUrl: 'templates/fanzone/questionarys.html'
+            timeline:
+                controller: 'timelineController'
+                templateUrl: 'templates/timeline-update/timeline/main.html'
+            update:
+                controller: 'updateController'
+                templateUrl: 'templates/timeline-update/update/main.html'
 
     $urlRouterProvider.otherwise '/feature/main'
     return

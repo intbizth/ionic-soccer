@@ -1,15 +1,28 @@
-@import "wallpapers";
-@import "products";
+.fanzone {
+    .content {
+        margin-top: -66px !important;
+    }
 
-.content-fanzone {
-    .has-footer {
-        bottom: 20px;
-        background-color: #000000;
+    .products {
+        background-color: #0056a5;
+        margin-bottom: 0;
+
+        @import "products/main";
+    }
+
+    .wallpapers {
+        background-color: #1e2b44;
+
+        @import "wallpapers/main";
+    }
+
+    .questionary {
+        @import "questionary/main";
     }
 }
 
-.footer-fanzone {
-    .bar-footer {
-        height: 20px;
-    }
+.fix-tab {
+    top: 112px !important;
+    height: auto !important;
 }
+
