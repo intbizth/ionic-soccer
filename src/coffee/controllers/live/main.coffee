@@ -1,39 +1,92 @@
 class liveMain extends Controller then constructor: (
-    $scope, $ionicHistory
+    $scope, $ionicHistory, $timeout, Und, Chance
 ) ->
 
     $scope.back = ->
         $ionicHistory.goBack -1
         return
 
-    $scope.headline = "Live"
-    $scope.dateTop = "Sep 2015"
+    $scope.title = 'Live'
 
     $scope.matchLabel =
-        homeClub:
-            logo: "./img/live/chonburi.png"
-            name: "Chonburi FC"
-            score: 1
-        awayClub:
-            logo: "./img/live/suphanburi.png"
-            name: "Suphanburi FC"
-            score: 1
-        dateTime: "2015-09-09T18:07:40+0700"
+        item : {}
+        loadData : ->
+            this.item = this.fakeItem();
+            console.log('loadData', JSON.stringify(this.item))
+            return
+        doRefresh : ->
+            console.log 'doRefresh'
+            $this = this
+            $timeout(->
+                console.log 'doRefresh2'
+                $this.loadData()
+                $scope.$broadcast 'scroll.refreshComplete'
+                return
+            , 2000)
+            return
+        fakeItem : ->
+            item =
+                homeClub:
+                    logo: './img/live/chonburi@2x.png'
+                    name: 'Chonburi FC'
+                    score: Und.random(0, 99)
+                awayClub:
+                    logo: 'https://placeimg.com/80/80/tech?time=' + Chance.timestamp()
+                    name: Chance.name()
+                    score: Und.random(0, 99)
+                datetime: Chance.date()
+            return item
 
-    $scope.players = [
-            start: "19 : 00 เริ่มแข่ง"
-            time1: "05 : 00"
-            image1: "./img/live/yellowCard.png"
-            name1: "K. Thawikan"
-            time2: "29 : 23"
-            image2: "./img/live/yellowCard.png"
-            name2: "C. Chappuis"
-            time3: "31 : 00"
-            image3: "./img/live/goal.png"
-            name3: "J. Mineiro"
-            ht: "45 : 00 ครึ่งหลัง"
-            time4: "52 : 46"
-            image4: "./img/live/goal.png"
-            name4: "J. Pulek"
-    ]
+    $scope.matchLabel.loadData()
 
+    $scope.activities =
+        items : [],
+        next : false
+        loadData : ->
+            items = this.fakeItems()
+            this.items =  items
+            console.log('activities:loadData', this.items.length, JSON.stringify(this.items))
+            return
+        doRefresh : ->
+            console.log 'activities:doRefresh'
+            $this = this
+            $timeout(->
+                console.log 'activities:doRefresh2'
+                $this.loadData()
+                $scope.$broadcast 'scroll.refreshComplete'
+                return
+            , 2000)
+            return
+        fakeItem : ->
+            minute = Chance.minute()
+            if Chance.pick([true, false]) then minute += 15
+            if minute < 10 then minute = '0' + minute
+            second = Chance.second()
+            if second < 10 then second = '0' + second
+            time =  minute + ':' + second
+            item =
+                id : Chance.integer(
+                    min : 1
+                    max : 9999999
+                )
+                icon : Chance.pick([null, 'yellowCard', 'redCard', 'goal'])
+                dot : Chance.pick([null, '', '-halftime', '-halftime'])
+                name : Chance.name()
+                description : ''
+                time : time
+            return item
+        fakeItems : ->
+            items = []
+            i = 0
+            ii = Und.random(0, 10)
+            while i < ii
+                items.push this.fakeItem()
+                i++
+            items = Und.sortBy(items, 'time')
+            return items
+
+    $scope.activities.loadData()
+
+    $scope.doRefresh = ->
+        $scope.matchLabel.doRefresh()
+        $scope.activities.doRefresh()
