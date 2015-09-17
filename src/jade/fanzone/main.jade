@@ -1,0 +1,27 @@
+ion-view.fanzone-main
+    ion-nav-title
+        a.button.button-clear(ng-click="back()", style="margin-top: 5px;")
+            i.icon.ion-ios-keypad-outline
+
+    ion-nav-buttons(side="right")
+        a.button.button-clear(ng-click="")
+            i.icon.ion-android-more-vertical
+
+    ion-tabs.tabs-striped.tabs-top.tabs-background-positive.tabs-color-light
+        ion-tab(title="Products")
+            ion-tab-content.content-fanzone
+                ion-content
+                    ng-include(src="\'./templates/fanzone/products.html\'")
+
+        ion-tab(title='Wallpapers')
+            ion-tab-content.content-fanzone
+                ion-content
+                    ng-include(src="\'./templates/fanzone/wallpapers.html\'")
+
+        ion-tab(title='Questionary')
+            ion-tab-content.content-fanzone
+                ion-content
+                    ng-include(src="\'./templates/fanzone/questionary.html\'")
+
+    .footer-fanzone
+        ion-footer-bar.bar-positive
