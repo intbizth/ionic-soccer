@@ -8,23 +8,24 @@ class Routing extends Config then constructor: (
         controller: 'competitionableMainController'
         templateUrl: 'templates/competition-table/main.html'
 
-#    state 'fanzone',
-#        url: '/fanzone'
-#        controller: 'fanzoneMainController'
-#        templateUrl: 'templates/fanzone/main.html'
-#
-#    state 'fanzone.main',
-#        url: '/fanzone/main'
-#        views:
-#            product:
-#                controller: 'fanzoneProductController'
-#                templateUrl: 'templates/fanzone/product.html'
-#            wallpaper:
-#                controller: 'fanzoneWallpaperController'
-#                templateUrl: 'templates/fanzone/wallpaper.html'
-#            questionary:
-#                controller: 'fanzoneQuestionaryController'
-#                templateUrl: 'templates/fanzone/questionary.html'
+    state 'fanzone',
+        abstract: true
+        url: '/fanzone'
+        controller: 'fanzoneMainController'
+        templateUrl: 'templates/fanzone/main.html'
+
+    state 'fanzone.main',
+        url: '/fanzone/main'
+        views:
+            product:
+                controller: 'fanzoneProductController'
+                templateUrl: 'templates/fanzone/product/main.html'
+            wallpaper:
+                controller: 'fanzoneWallpaperController'
+                templateUrl: 'templates/fanzone/wallpaper/main.html'
+            questionary:
+                controller: 'fanzoneQuestionaryController'
+                templateUrl: 'templates/fanzone/questionary/main.html'
 
     state 'feature',
         url: '/feature/main'
