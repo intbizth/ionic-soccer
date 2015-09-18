@@ -7,40 +7,34 @@ ion-view.competitionandtable-main
         a.button.button-clear(ng-click='')
             i.icon.ion-android-more-vertical
 
-    ion-content.content(scroll="false")
-        ion-header-bar.bar-subheader(style="background-color: #0056A2")
-            ion-scroll.wide-as-needed(direction="x")
-                a.button.top-tabs Fixtures
-                a.button Result
-                a.button Position Table
+    ion-tabs.tabs-top
+        ion-tab(title="Fixtures")
+            ion-content.fix-tab
+                ng-include(src="'./templates/competition-and-table/tab-fixtures.html'")
+        ion-tab(title="Result")
+            ion-content.fix-tab
+        ion-tab(title="Position Table")
+            ion-content.fix-tab
 
-        //ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
-        //    ion-tab(title="Fixtures")
-        //        ion-content.fix-tab
-        //            ng-include(src="''")
-        //    ion-tab(title="Result")
-        //        ion-content.fix-tab
-        //            ng-include(src="''")
-        //    ion-tab(title="Position Table")
-        //        ion-content.fix-tab
-        //            ng-include(src="''")
-
-        //div(ng-repeat="item in matchLabel")
-        div.match-label
-            div.row.section
-                div.col.col-center.text-center
-                    | {{matchLabel.datetime | date : 'MMM yyyy'}}
-            div.row.content
-                div.col.col-15.col-center.logo.text-center
-                    img.image(ng-src="./img/live/chonburi.png")
-                div.col.col-25.col-center.name.text-center
-                    | {{matchLabel.homeClub.name}}
-                div.col.col-20.col-center.detail.text-center
-                    div.score
-                        | {{matchLabel.homeClub.score}} - {{matchLabel.awayClub.score}}
-                    div.datetime
-                    | {{matchLabel.datetime | date:'dd MMM yyyy'}}
-                div.col.col-25.col-center.name.text-center
-                    | {{matchLabel.awayClub.name}}
-                div.col.col-15.col-center.logo.text-center
-                    img.image(ng-src="./img/live/suphanburi.png")
+    //ion-content.content(scroll="false")
+        div(ng-repeat="matchLabel in matchLabel")
+            div.match-label
+                div.row.section
+                    div.col.col-center.text-center
+                        | {{matchLabel.datetime | date : 'MMM yyyy'}}
+                div.row.content
+                    div.col.col-15.col-center.logo.text-center
+                        img.image(ng-src="./img/live/chonburi.png")
+                    div.col.col-25.col-center.name.text-center
+                        | {{matchLabel.homeClub.name}}
+                    div.col.col-20.col-center.detail.text-center
+                        div.score
+                            | {{matchLabel.isEndMatch == 1 ? matchLabel.homeClub.score +
+                            | '-' + matchLabel.awayClub.score :
+                            | matchLabel.datetime | date:'hh:mm'}}
+                        div.datetime
+                            | {{matchLabel.datetime | date:'dd MMM yyyy'}}
+                    div.col.col-25.col-center.name.text-center
+                        | {{matchLabel.awayClub.name}}
+                    div.col.col-15.col-center.logo.text-center
+                        img.image(ng-src="./img/live/suphanburi.png")
