@@ -1,5 +1,2 @@
-div.wallpaper-content
-    div.row.wrap(ng-repeat="wallpaper in wallpapers")
-        div.col
-            img.logo(ng-src="{{logo}}")
-            img.image(ng-src="{{wallpaper.image}}")
+div.wrap(ng-repeat="wallpaper in wallpapers")
+    img.image(ng-src="{{wallpaper.image}}")
