@@ -12,35 +12,30 @@ ion-view.live
         div.row.title
             div.col.text-center
                 | {{title}}
-
         div.match-label
-            div.row.section
+            div.row.row-center.section
                 div.col.col-center.text-center
                     | {{matchLabel.item.datetime | date : 'MMM yyyy'}}
-
             div.row.content
                 div.col.col-15.col-center.logo.text-center
                     img.image(ng-src="{{matchLabel.item.homeClub.logo}}")
-
                 div.col.col-25.col-center.name.text-center
                     | {{matchLabel.item.homeClub.name}}
-
                 div.col.col-20.col-center.detail.text-center
                     div.score
                         | {{matchLabel.item.homeClub.score}}-{{matchLabel.item.awayClub.score}}
                     div.datetime
                         | {{matchLabel.item.datetime | date:'dd MMM yyyy'}}
-
                 div.col.col-25.col-center.name.text-center
                     | {{matchLabel.item.awayClub.name}}
-
                 div.col.col-15.col-center.logo.text-center
                     img.image(ng-src="{{matchLabel.item.awayClub.logo}}")
 
         div.video
-            iframe(ng-src="https://www.youtube.com/embed/3iL1Vy671Ds", width="100%", height="230")
+            iframe(ng-src="{{video.item.url}}", width="100%", height="230")
 
-        div.activity
+        div.activity(id="activity")
+            div.line(id="activity-line")
             div.nodata(ng-if="activities.items.length == 0")
                 div.row
                     div.col.col-center.text-center
@@ -69,4 +64,4 @@ ion-view.live
                             srcset="./img/live/icon/{{activity.icon}}@2x.png 2x")
                             span.name(ng-show="activity.name") {{activity.name}}
 
-        ion-infinite-scroll(ng-if="more" on-infinite="loadMore()", distance="5%")
+        //ion-infinite-scroll(ng-if="more" on-infinite="loadMore()", distance="5%")

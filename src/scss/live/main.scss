@@ -69,6 +69,7 @@
     }
 
     .dot {
+        position: relative;
         &.-normal {
             font-size: 8px;
             color: #ffffff;
@@ -88,13 +89,13 @@
     .time {
         margin: 0px 2px 0px 2px;
         font-size: 14px;
-        color: #faaf40
+        color: #faaf40;
     }
 
     .description {
         margin: 0px 2px 0px 2px;
         font-size: 14px;
-        color: #faaf40
+        color: #faaf40;
     }
 
     .name {
@@ -107,5 +108,13 @@
         margin: 0px 2px 0px 2px;
         width: 15px;
         height: 15px;
+    }
+
+    .line {
+        width: 1px;
+        margin-left: 50%;
+        position: absolute;
+        display: inline-block;
+        background-color: #ffffff;
     }
 }
