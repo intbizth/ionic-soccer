@@ -25,10 +25,16 @@ div.match-label
                 div.col.col-25.col-center.name.text-center
                     | {{item.homeClub.name}}
                 div.col.col-20.col-center.detail.text-center
-                    div.score
-                        | {{item.homeClub.score}}-{{item.awayClub.score}}
-                    div.datetime
-                        | {{item.datetime | date:'dd MMM yyyy'}}
+                    div(ng-show="item.template == 'before'")
+                        div.time
+                            | {{item.datetime | date:'HH:mm'}}
+                        div.date
+                            | {{item.datetime | date:'dd MMM yyyy'}}
+                    div(ng-show="item.template == 'after'")
+                        div.score
+                            | {{item.homeClub.score}}-{{item.awayClub.score}}
+                        div.date
+                            | {{item.datetime | date:'dd MMM yyyy'}}
                 div.col.col-25.col-center.name.text-center
                     | {{item.awayClub.name}}
                 div.col.col-15.col-center.logo.text-center
