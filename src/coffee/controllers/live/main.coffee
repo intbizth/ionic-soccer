@@ -1,14 +1,4 @@
 class liveMain extends Controller then constructor: (
-<<<<<<< HEAD
-    $scope, $ionicHistory
-) ->
-    $scope.headline = 'Live'
-    $scope.dateTop = 'Sep 2015'
-    $scope.dateMatch = '1 Sep 2015'
-    $scope.score = '1 - 1'
-    $scope.teamName1 = 'Chonburi FC'
-    $scope.teamName2 = 'Suphanburi FC'
-=======
     $scope, $ionicPlatform, $ionicHistory, $sce, $timeout, Und, Chance
 ) ->
     $scope.back = ->
@@ -118,14 +108,14 @@ class liveMain extends Controller then constructor: (
                 item.icon = null
                 item.dot = 'large'
                 item.name = ''
-                item.description = 'à¹€à¸£à¸´à¹ˆà¸¡à¸à¸²à¸£à¹à¸‚à¹ˆà¸‡à¸‚à¸±à¸™'
+                item.description = 'àÃÔèÁ¡ÒÃá¢è§¢Ñ¹'
                 item.align = 'right'
                 item.time = '00:00'
             else if typeof config isnt 'undefined' and config.halftime
                 item.icon = null
                 item.dot = 'halftime'
                 item.name = ''
-                item.description = 'à¸„à¸£à¸¶à¹ˆà¸‡à¸«à¸¥à¸±à¸‡'
+                item.description = '¤ÃÖè§ËÅÑ§'
                 item.align = 'right'
                 item.time = '45:00'
             else if typeof config isnt 'undefined' and config.end
@@ -135,7 +125,7 @@ class liveMain extends Controller then constructor: (
                 item.icon = null
                 item.dot = 'large'
                 item.name = ''
-                item.description = 'à¸ˆà¸šà¸à¸²à¸£à¹à¸‚à¹ˆà¸‡à¸‚à¸±à¸™'
+                item.description = '¨º¡ÒÃá¢è§¢Ñ¹'
                 item.align = 'right'
                 item.time = time
             else
@@ -193,4 +183,3 @@ class liveMain extends Controller then constructor: (
         $timeout(->
             $this.more = true
         , 4000)
->>>>>>> master
