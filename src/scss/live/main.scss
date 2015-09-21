@@ -1,125 +1,120 @@
-.live-main {
+.live {
+    .title {
+        background-color: #0056a2;
+        font-size: 18px;
+        font-weight: bold;
+        color: #ffffff;
+    }
+
+    .video {
+        width: 100%;
+        height: 230px;
+    }
+}
+
+.match-label {
+    .section {
+        height: 30px;
+        background-color: #e6e7e8;
+        font-size: 14px;
+        color: #58595b;
+    }
+
     .content {
-        .month {
-            width: 100%;
-            height: 20px;
-            margin-top: 44px;
-            font-size: 12px;
-            text-align: center;
-            color: #848586;
-            background-color: #e6e7e8;
-        }
+        background-color: #ffffff;
 
         .logo {
-            padding-top: 5px;
+            .image {
+                width: 40px;
+                height: 40px;
+                background-color: #f0f0f0;
+            }
         }
 
         .name {
-            padding-top: 10px;
-            text-align: center;
-        }
-
-        .score {
-            padding-top: 8px;
-            font-size: 25px;
-            font-weight: bold;
-            text-align: center;
-            color: #0087cf;
-        }
-
-        .date {
-            font-size: 10px;
-            text-align: center;
-            color: #848586;
-        }
-
-        .video {
-            width: 100%;
-            height: 230px;
+            font-size: 14px;
         }
 
         .detail {
-            width: 100%;
-            height: auto;
-            position: relative;
-            background-color: #0255a2;
-            text-align: center;
-            .border {
-                padding: 0px;
-            }
-                .-top {
-                    padding-top: 20px;
-                }
-
-                .-bottom {
-                    padding-bottom: 50px;
-                }
-
-            .line {
-                width: 1px;
-                height: 8px;
-                margin-left: 50%;
-                background-color: #ffffff;
-            }
-                .-line10 {
-                    height: 10px;
-                }
-
-                .-line20 {
-                    height: 20px;
-                }
-
-                .-line25 {
-                    height: 25px;
-                }
-
-                .-line50 {
-                    height: 50px;
-                }
-
-            .circle-start {
-                width: 20px;
-                height: 20px;
-                margin-left: 22%;
-                background-color: #0056a2;
-                border: 1px solid #fff;
-                border-radius: 15px;
-
-                .circle {
-                    width: 14px;
-                    height: 14px;
-                    margin-top: 2px;
-                    margin-left: 2px;
-                    background-color: #fff;
-                    border-radius: 7px;
-                }
+            .score {
+                font-size: 22px;
+                font-weight: bold;
+                color: #0087cf;
             }
 
-            .circle-activity {
-                width: 8px;
-                height: 8px;
-                margin-left: 39%;
-                background-color: #fff;
-                border-radius: 4px;
-            }
-
-                .-halftime {
-                    background-color: #ff0000;
-                }
-
-                .-fulltime {
-                    background-color: yellowgreen;
-                }
-
-            .playerName {
-                font-size: 12px;
-                color: #ffffff;
-            }
-
-            .text-yellow {
-                font-size: 12px;
-                color: #ffb52c;
+            .datetime {
+                font-size: 10px;
+                color: #848586;
             }
         }
+    }
+}
+
+.activity {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: #0056a2;
+
+    .nodata {
+        .text {
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+    }
+
+    .wrap {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .dot {
+        position: relative;
+        &.-normal {
+            font-size: 8px;
+            color: #ffffff;
+        }
+
+        &.-halftime {
+            font-size: 8px;
+            color: #ff0000;
+        }
+
+        &.-large {
+            font-size: 20px;
+            color: #ffffff;
+        }
+    }
+
+    .time {
+        margin: 0px 2px 0px 2px;
+        font-size: 14px;
+        color: #faaf40;
+    }
+
+    .description {
+        margin: 0px 2px 0px 2px;
+        font-size: 14px;
+        color: #faaf40;
+    }
+
+    .name {
+        margin: 0px 2px 0px 2px;
+        font-size: 14px;
+        color: #ffffff;
+    }
+
+    .image {
+        margin: 0px 2px 0px 2px;
+        width: 15px;
+        height: 15px;
+    }
+
+    .line {
+        width: 1px;
+        margin-left: 50%;
+        position: absolute;
+        display: inline-block;
+        background-color: #ffffff;
     }
 }
