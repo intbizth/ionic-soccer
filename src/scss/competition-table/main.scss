@@ -1,4 +1,4 @@
-.timeline-update {
+.competition-table {
     .content {
         margin-top: -66px !important;
     }
@@ -32,12 +32,16 @@
         }
     }
 
-    .timeline {
-        @import "timeline/main";
+    .fixture {
+        @import "fixture/main";
     }
 
-    .update {
-        @import "update/main";
+    .results {
+        @import "results/main";
+    }
+
+    .position-table {
+        @import "position-table/main";
     }
 }
 
