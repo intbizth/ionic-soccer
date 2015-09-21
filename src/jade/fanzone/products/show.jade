@@ -3,8 +3,10 @@ ion-view.fanzone
         a.button.button-icon.ion-ios-arrow-left(ng-click='back()')
 
     ion-content.content.products-show
+        div.line
         div.header
             h3 {{header}}
+        div.line
 
         img.image(ng-src="{{product.image}}")
 
@@ -13,16 +15,19 @@ ion-view.fanzone
                 b {{product.name}}
 
         div.wrap
-            h5.detail {{product.detail}}
-            h5.description {{product.description_1}}
-            h5.description {{product.description_2}}
-            h5.description {{product.description_3}}
-            h5.size {{product.size.size_header}}
-            h5.size {{product.size.size_subHead}}
-            h5.size {{product.size.size_s}}
-            h5.size {{product.size.size_m}}
-            h5.size {{product.size.size_l}}
-            h5.size {{product.size.size_xl}}
+            .detail
+                h5 {{product.detail}}
+            .description
+                h5 {{product.description_1}}
+                h5 {{product.description_2}}
+                h5 {{product.description_3}}
+            .size
+                h5 {{product.size.size_header}}
+                h5 {{product.size.size_subHead}}
+                h5 {{product.size.size_s}}
+                h5 {{product.size.size_m}}
+                h5 {{product.size.size_l}}
+                h5 {{product.size.size_xl}}
 
         div.price
             h5
