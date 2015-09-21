@@ -1,39 +1,26 @@
 ion-view.fanzone
-    ion-nav-buttons(side='left')
-        a.button.button-icon.ion-ios-arrow-left(ng-click='back()')
+    ion-nav-buttons(side="left")
+        a.button.button-icon.ion-ios-arrow-left(ng-click="back()")
 
     ion-content.content.products-show
         div.line
-        div.header
-            h3 {{header}}
+        div.header {{header}}
         div.line
 
         img.image(ng-src="{{product.image}}")
 
-        div.name
-            h4
-                b {{product.name}}
+        div.name {{product.name}}
 
         div.wrap
-            .detail
-                h5 {{product.detail}}
-            .description
-                h5 {{product.description_1}}
-                h5 {{product.description_2}}
-                h5 {{product.description_3}}
-            .size
-                h5 {{product.size.size_header}}
-                h5 {{product.size.size_subHead}}
-                h5 {{product.size.size_s}}
-                h5 {{product.size.size_m}}
-                h5 {{product.size.size_l}}
-                h5 {{product.size.size_xl}}
+            div.detail {{product.detail}}
+            div.description
+                pre {{product.description}}
+            div.size
+                pre {{product.size}}
 
-        div.price
-            h5
-                b ราคา ฿ {{product.price}}
+        div.price ราคา ฿ {{product.price}}
 
         div.wrap
-            h6 {{product.contact}}
+            div.contact {{product.contact}}
 
     ion-footer-bar.bar-positive.footer

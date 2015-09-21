@@ -20,11 +20,10 @@
     .info {
         z-index: 2;
         position: absolute;
-        bottom: 5px;
+        bottom: 25px;
         left: 15px;
-        h5 {
-            color: #ffffff;
-        }
+        color: #ffffff;
+        font-size: 14px;
     }
 }
 
@@ -33,23 +32,20 @@
         text-align: center;
         text-transform: uppercase;
         background-color: #0056a5;
-
-        h3 {
-            color: #ffffff;
-            margin: 5px;
-        }
+        color: #ffffff;
+        font-size: 24px;
+        padding: 7px;
+        font-weight: bold;
     }
     .detail {
         background-color: #1388cd;
         padding: 15px;
+        color: #ffffff;
+        font-size: 14px;
 
-        h4 {
-            color: #ffffff;
-            margin-top: 0;
-        }
-        h5 {
-            color: #ffffff;
-            margin: 0;
+        .title {
+            font-size: 18px;
+            margin-bottom: 10px;
         }
     }
 }
