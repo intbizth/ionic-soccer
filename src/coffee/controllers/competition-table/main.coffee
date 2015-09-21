@@ -1,8 +1,9 @@
-class CompetitionAndTableMain extends Controller then constructor: (
-    $scope, $ionicHistory, $timeout, Und, Chance
+class CompetitionTableMain extends Controller then constructor: (
+    $scope, $state, $ionicHistory, $timeout, Und, Chance
 ) ->
     $scope.back = ->
-        $ionicHistory.goBack -1
+#        $ionicHistory.goBack -1
+        $state.go 'feature'
         return
 
     $scope.fixtures =
