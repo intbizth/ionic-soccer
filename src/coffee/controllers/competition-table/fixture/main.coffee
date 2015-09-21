@@ -6,9 +6,9 @@ class CompetitionTableFixture extends Controller then constructor: (
         next: false
         loadData: ->
             sections = this.fakeSections()
-            this.sections =  sections
+            this.sections = sections
             this.next = Chance.pick([true, false])
-            console.log('matchLabel:loadData', this.sections.length, JSON.stringify(this.sections))
+            console.log('matchLabel:loadData', this.sections.length, JSON.stringify(this.sections), this.next)
             return
         doRefresh: ->
             console.log 'matchLabel:doRefresh'
@@ -39,6 +39,7 @@ class CompetitionTableFixture extends Controller then constructor: (
             return
         fakeSection: (datetime)->
             section =
+                id: Und.random(1, 9999999)
                 datetime: Chance.date(datetime)
                 items: this.fakeItems(datetime)
             return section
@@ -73,6 +74,7 @@ class CompetitionTableFixture extends Controller then constructor: (
                 score: Und.random(0, 99)
             ]
             item =
+                id: Und.random(1, 9999999)
                 homeClub: null
                 awayClub: null
                 datetime: Chance.date(datetime)
