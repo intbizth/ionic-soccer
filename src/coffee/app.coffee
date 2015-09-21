@@ -3,6 +3,7 @@ class App extends App then constructor: ->
         'ionic'
         'ngCordova'
         'ngCordovaOauth'
+        'ngIOS9UIWebViewPatch'
     ]
 
 # TODO:
