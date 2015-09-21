@@ -8,16 +8,12 @@ class liveMain extends Controller then constructor: (
     activityLine = document.getElementById 'activity-line'
 
     $scope.$on('activity.start', ->
-        console.error('activity.start')
         activityLine.style.height = '0px';
     )
 
     $scope.$on('activity.complete', ->
         $timeout(->
-            console.error('activity.complete')
             activityLine.style.height = (parseInt(activity.offsetHeight) - 12) + 'px';
-            console.error('activity', activity, activity.offsetHeight)
-            console.error('activityLine', activityLine, activityLine.style.height)
         ,500)
     )
 
