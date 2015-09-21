@@ -1,57 +1,18 @@
 class NewsDetail extends Controller then constructor: (
-    $scope, $stateParams, $ionicHistory, $cordovaInAppBrowser, $timeout, Und, Chance
+    $scope, $ionicHistory
 ) ->
     $scope.back = ->
         $ionicHistory.goBack -1
         return
 
-    $scope.news =
-        item : {},
-        loadData : ->
-            item = this.fakeItem()
-            this.item =  item
-            console.log('news:loadData', JSON.stringify(this.item))
-            return
-        doRefresh : ->
-            console.log 'news:doRefresh'
-            $this = this
-            $timeout(->
-                console.log 'news:doRefresh2'
-                $this.loadData()
-                $scope.$broadcast 'scroll.refreshComplete'
-                return
-            , 2000)
-            return
-        fakeItem : ->
-            item =
-                id : Chance.integer(
-                    min : 1
-                    max : 9999999
-                )
-                headline : $stateParams.headline || Chance.sentence()
-                image : 'https://placeimg.com/640/292/any?time=' + Chance.hash()
-                datetime : Chance.date()
-                creditUrl : Chance.url()
-                description : Chance.paragraph(
-                    sentences: Und.random(5, 50)
-                )
-                user:
-                    name: Chance.name()
-                    photo: 'https://placeimg.com/46/46/people?time=' + Chance.hash()
-
-            return item
-
-    $scope.news.loadData()
-
-    options =
-        location: 'yes'
-        clearcache: 'yes'
-        toolbar: 'yes'
-
-    $scope.openURL = (url) ->
-        $cordovaInAppBrowser.open(url, '_blank', options).then((event) ->
-            # success
-            return
-        ).catch (event) ->
-            # error
-            return
+    $scope.headline = 'News'
+    $scope.name = 'Chonburi fc official'
+    $scope.date = '30 November 2015'
+    $scope.url = 'http://www.chonburifootballclub.com/'
+    $scope.topic = 'ฟอร์มพี่หนึบมาก ซูเปอร์ตี๋ ควบ แข้งยอดเยี่ยม, ท็อปโหวต พ.ค, มิ.ย.'
+    $scope.news1 = 'และในส่วนของรางวัลนักเตะยอดเยี่ยม ประจำเดือน Player of the month' +
+        'จากการโหวตจากทีมงานสต๊าฟและผู้บริหารของทีมผลการโหวดตปรากฎว่า "ซูเปอร์ตี๋" สิทวีชัยหทัยรัตนกุล' +
+        'ที่โชว์ฟอร์มเซฟประตูช่วยทีมเก็บแต้มสำคัญๆ เอาไว้มากมาย คว้ารางวัลดังกล่าวไปครอง'
+    $scope.news2 = 'และในส่วนของรางวัลนักเตะยอดเยี่ยม ประจำเดือน Player of the month' +
+        'จากการโหวตจากทีมงานสต๊าฟและผู้บริหารของทีมผลการโหวดตปรากฎว่า "ซูเปอร์ตี๋" สิทวีชัยหทัยรัตนกุล' +
+        'ที่โชว์ฟอร์มเซฟประตูช่วยทีมเก็บแต้มสำคัญๆ เอาไว้มากมาย คว้ารางวัลดังกล่าวไปครอง'

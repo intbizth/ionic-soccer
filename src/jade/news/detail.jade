@@ -1,34 +1,40 @@
-ion-view.news-detail(view-title='{{news.item.headline}}')
+ion-view.news-detail(view-title='{{headline}}')
     ion-nav-buttons(side='left')
-        a.button.button-icon.ion-ios-arrow-left(ng-click='back()')
-
+        a.button.button-icon.ion-chevron-left(ng-click='back()')
+            div.navbar.icon-logo
 
     ion-content.content
-        ion-refresher(pulling-text="Pull to refresh...", on-refresh="news.doRefresh()")
+        div.detail
+            img(src='../img/news/img.png', srcset='../img/news/img@2x.png 2x', width='100%', height='146')
 
-        img.image(ng-src="{{news.item.image}}", width='100%', height='146')
+            div.row
+                div.col
+                    img.avata(src='../img/news/avata.png', srcset='../img/news/avata@2x.png')
+                    span.name {{name}}
 
-        div.row
-            div.col
-                div.userbox
-                    img.photo(ng-src="{{news.item.user.photo}}")
-                    span.name {{news.item.user.name}}
+            div.row
+                div.col
+                    hr.line1
+                    span.date {{date}}
+                    hr.line2
 
-        div.row.datetime
-            div.col.col-33
-                div.line
-                    span.text {{news.item.datetime | date: 'dd MMM yyyy'}}
+            div.row
+                div.col
+                    span.url {{url}}
 
-        div.row.url(ng-click="openURL(news.item.creditUrl)")
-            div.col
-                span {{news.item.creditUrl}}
+            div.row
+                div.col
+                    div.topic-view
+                        div.topic-subview
+                            span.topic {{topic}}
+            div.row
+                div.col
+                    span.news {{news1}}
 
-        div.row
-            div.col
-                div.headline
-                    div.subheadline
-                        span {{news.item.headline}}
+            div.row
+                div.col
+                    span.news {{news2}}
 
-        div.row.description
-            div.col
-                span {{news.item.description}}
+        div.barFooter
+            div.footer
+

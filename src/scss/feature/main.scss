@@ -6,14 +6,13 @@
     .profile {
         width: 100%;
         height: 154px;
-        background-image: url("../img/feature/bg_club.png");
+        background-image: url('../img/feature/bg_club.png');
         background-size: cover;
         background-repeat: no-repeat;
 
         .photo {
             width: 100px;
             height: 100px;
-            background-color: #f0f0f0;
         }
 
         .name {
@@ -28,7 +27,7 @@
             vertical-align: middle;
         }
 
-        .text {
+        .plantext {
             font-size: 14px;
             color: #ffffff;
         }
@@ -46,7 +45,7 @@
             vertical-align: middle;
         }
 
-        .text {
+        .plantext {
             padding-left: 6px;
             font-size: 14px;
             color: #ffffff;
@@ -75,12 +74,20 @@
             justify-content: center;
             align-items: center;
 
+            .icon-live {
+                margin-top: 18px;
+                width: 75px;
+                height: 51px;
+            }
+
             .icon {
                 width: 50px;
                 height: 46px;
             }
 
-            .text {
+            .plantext-live {
+                margin-top: -52px;
+                margin-left: -8px;
                 width: 90%;
                 font-size: 12px;
                 font-weight: bold;
@@ -88,15 +95,7 @@
                 color: #ffffff;
             }
 
-            .-live-icon {
-                margin-top: 18px;
-                width: 75px;
-                height: 51px;
-            }
-
-            .-live-text {
-                margin-top: -52px;
-                margin-left: -8px;
+            .plantext {
                 width: 90%;
                 font-size: 12px;
                 font-weight: bold;
@@ -115,7 +114,7 @@
 @media screen and (-webkit-device-pixel-ratio: 2) {
     .feature-main {
         .profile {
-            background-image: url("../img/feature/bg_club@2x.png");
+            background-image: url('../img/feature/bg_club@2x.png');
         }
     }
 }

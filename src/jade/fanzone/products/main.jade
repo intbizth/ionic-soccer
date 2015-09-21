@@ -1,0 +1,22 @@
+div.wrap
+    img.image(ng-src="{{image}}")
+
+div.store
+    div.header {{header}}
+
+    div.detail
+        div.title {{header}}
+        div {{company}}
+        div {{stadium}}
+        div {{address}}
+        div โทรศัพท์.{{tel}}
+        div E-Mail : {{email}}
+
+div.wrap(ng-repeat="product in products")
+    div(ui-sref="fanzone-product({id : product.id})")
+        div.
+        div.info
+            div {{product.name}}
+            div ราคา ฿ {{product.price}}
+        img.shadow(ng-src="{{shadow}}")
+        img.image(ng-src="{{product.image}}")
