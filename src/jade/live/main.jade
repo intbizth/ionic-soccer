@@ -13,23 +13,41 @@ ion-view.live
             div.col.text-center
                 | {{title}}
         div.match-label
-            div.row.row-center.section
-                div.col.col-center.text-center
-                    | {{matchLabel.item.datetime | date : 'MMM yyyy'}}
-            div.row.content
-                div.col.col-15.col-center.logo.text-center
-                    img.image(ng-src="{{matchLabel.item.homeClub.logo}}")
-                div.col.col-25.col-center.name.text-center
-                    | {{matchLabel.item.homeClub.name}}
-                div.col.col-20.col-center.detail.text-center
-                    div.score
-                        | {{matchLabel.item.homeClub.score}}-{{matchLabel.item.awayClub.score}}
-                    div.datetime
-                        | {{matchLabel.item.datetime | date:'dd MMM yyyy'}}
-                div.col.col-25.col-center.name.text-center
-                    | {{matchLabel.item.awayClub.name}}
-                div.col.col-15.col-center.logo.text-center
-                    img.image(ng-src="{{matchLabel.item.awayClub.logo}}")
+            div.nodata(ng-if="matchLabel.sections.length == 0")
+                div.space
+                div.row
+                    div.col.col-center.text-center
+                        div.text Has no match.
+            div(ng-repeat="section in matchLabel.sections")
+                div.row.row-center.section
+                    div.col.col-center.text-center
+                        | {{section.datetime | date : 'MMM yyyy'}}
+                div.nodata(ng-if="section.items.length == 0")
+                    div.space
+                    div.row
+                        div.col.col-center.text-center
+                            div.text Has no match.
+                div(ng-repeat="item in section.items")
+                    div.row.label
+                        div.col.col-15.col-center.logo.text-center
+                            img.image(ng-src="{{item.homeClub.logo}}")
+                        div.col.col-25.col-center.name.text-center
+                            | {{item.homeClub.name}}
+                        div.col.col-20.col-center.detail.text-center
+                            div(ng-show="item.template == 'before'")
+                                div.time
+                                    | {{item.datetime | date:'HH:mm'}}
+                                div.date
+                                    | {{item.datetime | date:'dd MMM yyyy'}}
+                            div(ng-show="item.template == 'after'")
+                                div.score
+                                    | {{item.homeClub.score}}-{{item.awayClub.score}}
+                                div.date
+                                    | {{item.datetime | date:'dd MMM yyyy'}}
+                        div.col.col-25.col-center.name.text-center
+                            | {{item.awayClub.name}}
+                        div.col.col-15.col-center.logo.text-center
+                            img.image(ng-src="{{item.awayClub.logo}}")
 
         div.video
             iframe(ng-src="{{video.item.url}}", width="100%", height="230")

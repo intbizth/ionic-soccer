@@ -8,48 +8,115 @@ class liveMain extends Controller then constructor: (
     activityLine = document.getElementById 'activity-line'
 
     $scope.$on('activity.start', ->
-        console.error('activity.start')
         activityLine.style.height = '0px';
     )
 
     $scope.$on('activity.complete', ->
         $timeout(->
-            console.error('activity.complete')
             activityLine.style.height = (parseInt(activity.offsetHeight) - 12) + 'px';
-            console.error('activity', activity, activity.offsetHeight)
-            console.error('activityLine', activityLine, activityLine.style.height)
         ,500)
     )
 
     $scope.title = 'Live'
     $scope.matchLabel =
-        item: {}
+        sections: [],
+        next: false
         loadData: ->
-            this.item = this.fakeItem();
-            console.log('loadData', JSON.stringify(this.item))
+            sections = this.fakeSections()
+            if sections.length > 0
+                sections = [sections[0]]
+                if sections[0].items.length > 0
+                    sections[0].items = [sections[0].items[0]]
+            this.sections = sections
+            this.next = false
+            console.log('matchLabel:loadData', this.sections.length, JSON.stringify(this.sections), this.next)
             return
         doRefresh: ->
-            console.log 'doRefresh'
+            console.log 'matchLabel:doRefresh'
             $this = this
             $timeout(->
-                console.log 'doRefresh2'
+                console.log 'matchLabel:doRefresh2'
                 $this.loadData()
                 $scope.$broadcast 'scroll.refreshComplete'
                 return
             , 2000)
             return
-        fakeItem: ->
+        loadMore: ->
+            console.log 'matchLabel:loadMore'
+            $this = this
+            $timeout(->
+                console.log 'matchLabel:loadMore2'
+                sections = $this.fakeSections()
+                for section in sections
+                    $this.sections.push section
+                if $this.sections.length > 0
+                    $this.next = Chance.pick([true, false])
+                else
+                    $this.next = false
+                console.log('matchLabel:loadMore', $this.sections.length, JSON.stringify($this.sections), $this.next)
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+                return
+            , 2000)
+            return
+        fakeSection: (datetime)->
+            section =
+                id: Und.random(1, 9999999)
+                datetime: Chance.date(datetime)
+                items: this.fakeItems(datetime)
+            return section
+        fakeSections: ->
+            sections = []
+            i = 0
+            ii = Und.random(0, 10)
+            month = new Date().getMonth()
+            year = new Date().getFullYear()
+            while i < ii
+                datetime =
+                    year: year
+                    month: month
+                section = this.fakeSection(datetime)
+                sections.push section
+                i++
+                month++
+                if month > 12
+                    month = 1
+                    year++
+            sections = Und.sortBy(sections, 'items.datetime')
+            return sections
+            return
+        fakeItem: (datetime) ->
+            clubs = [
+                logo: './img/live/chonburi@2x.png'
+                name: 'Chonburi FC'
+                score: Und.random(0, 99)
+            ,
+                logo: 'https://placeimg.com/80/80/tech?time=' + Chance.timestamp()
+                name: Chance.name()
+                score: Und.random(0, 99)
+            ]
             item =
-                homeClub:
-                    logo: './img/live/chonburi@2x.png'
-                    name: 'Chonburi FC'
-                    score: Und.random(0, 99)
-                awayClub:
-                    logo: 'https://placeimg.com/80/80/tech?time=' + Chance.timestamp()
-                    name: Chance.name()
-                    score: Und.random(0, 99)
-                datetime: Chance.date()
+                id: Und.random(1, 9999999)
+                homeClub: null
+                awayClub: null
+                datetime: Chance.date(datetime)
+                template: Chance.pick(['before', 'after'])
+            if Chance.pick([true, false])
+                item.homeClub = clubs[0]
+                item.awayClub = clubs[1]
+            else
+                item.homeClub = clubs[1]
+                item.awayClub = clubs[0]
             return item
+        fakeItems: (datetime) ->
+            items = []
+            i = 0
+            ii = Und.random(0, 30)
+            while i < ii
+                item = this.fakeItem(datetime)
+                items.push item
+                i++
+            items = Und.sortBy(items, 'datetime')
+            return items
 
     $scope.matchLabel.loadData()
 
