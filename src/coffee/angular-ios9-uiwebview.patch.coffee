@@ -2,7 +2,6 @@
 # url: https://gist.github.com/IgorMinar/863acd413e3925bf282c
 angular.module('ngIOS9UIWebViewPatch', ['ng']).config(['$provide', ($provide) ->
     'use strict'
-    console.log 'ngIOS9UIWebViewPatch:1'
     $provide.decorator '$browser', ['$delegate', '$window', ($delegate, $window) ->
         isIOS9UIWebView = (userAgent) ->
             return /(iPhone|iPad|iPod).* OS 9_\d/.test(userAgent) and !/Version\/9\./.test(userAgent)
