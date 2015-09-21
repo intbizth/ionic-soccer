@@ -1,7 +1,19 @@
+<<<<<<< HEAD
 .live-main {
   .content {
     .liveContent {
       .dateTop {
+=======
+.live {
+    .title {
+        background-color: #0056a2;
+        font-size: 18px;
+        font-weight: bold;
+        color: #ffffff;
+    }
+
+    .video {
+>>>>>>> master
         width: 100%;
         height: 20px;
         margin-top:44px;
@@ -47,6 +59,7 @@
         }
       }
 
+<<<<<<< HEAD
       .videoView {
         width: 100%;
         height: 200px;
@@ -59,4 +72,60 @@
       }
     }
   }
+=======
+    .wrap {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .dot {
+        position: relative;
+        &.-normal {
+            font-size: 8px;
+            color: #ffffff;
+        }
+
+        &.-halftime {
+            font-size: 8px;
+            color: #ff0000;
+        }
+
+        &.-large {
+            font-size: 20px;
+            color: #ffffff;
+        }
+    }
+
+    .time {
+        margin: 0px 2px 0px 2px;
+        font-size: 14px;
+        color: #faaf40;
+    }
+
+    .description {
+        margin: 0px 2px 0px 2px;
+        font-size: 14px;
+        color: #faaf40;
+    }
+
+    .name {
+        margin: 0px 2px 0px 2px;
+        font-size: 14px;
+        color: #ffffff;
+    }
+
+    .image {
+        margin: 0px 2px 0px 2px;
+        width: 15px;
+        height: 15px;
+    }
+
+    .line {
+        width: 1px;
+        margin-left: 50%;
+        position: absolute;
+        display: inline-block;
+        background-color: #ffffff;
+    }
+>>>>>>> master
 }
