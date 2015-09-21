@@ -4,9 +4,23 @@ class Routing extends Config then constructor: (
     state = $stateProvider.state
 
     state 'competition-table',
+        abstract: true
         url: '/competition-table/main'
-        controller: 'competitionableMainController'
+        controller: 'competitionTableMainController'
         templateUrl: 'templates/competition-table/main.html'
+
+    state 'competition-table.main',
+        url: '/main'
+        views:
+            fixture:
+                controller: 'competitionTableFixtureController'
+                templateUrl: 'templates/competition-table/fixture/main.html'
+            results:
+                controller: 'competitionTableResultController'
+                templateUrl: 'templates/competition-table/results/main.html'
+            'position-table':
+                controller: 'competitionTablePositionTableController'
+                templateUrl: 'templates/competition-table/position-table/main.html'
 
     state 'fanzone',
         abstract: true
