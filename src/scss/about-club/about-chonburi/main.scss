@@ -1,0 +1,51 @@
+.about-chonburi {
+    .cover {
+        .image {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    .headline {
+        background-color: #0255a2;
+        width: 100%;
+        height: 40px;
+        margin-top: -5px;
+        .title {
+            padding-top: 9px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+    }
+
+    .detail {
+        width: 100%;
+        height: auto;
+        font-size: 13px;
+        color: #ffffff;
+        background-color: #0288cf;
+        .top {
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+
+        .middle {
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+
+        .bottom {
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+    }
+
+    .footer {
+        background-color: #0255a5;
+        .image {
+            width: 100%;
+            height: auto;
+        }
+    }
+}
