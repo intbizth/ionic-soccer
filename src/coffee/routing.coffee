@@ -66,6 +66,22 @@ class Routing extends Config then constructor: (
         controller: 'newsDetailController'
         templateUrl: 'templates/news/detail.html'
 
+    state 'ticket-membership',
+        abstract: true
+        url: '/ticket-membership'
+        controller: 'ticketMembershipMainController'
+        templateUrl: 'templates/ticket-membership/main.html'
+
+    state 'ticket-membership.main',
+        url: '/main'
+        views:
+            ticket:
+                controller: 'ticketController'
+                templateUrl: 'templates/ticket-membership/ticket/main.html'
+            membership:
+                controller: 'membershipController'
+                templateUrl: 'templates/ticket-membership/membership/main.html'
+
     state 'timeline-update',
         abstract: true
         url: '/timeline-update'
