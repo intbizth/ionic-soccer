@@ -175,14 +175,14 @@ class liveMain extends Controller then constructor: (
                 item.icon = null
                 item.dot = 'large'
                 item.name = ''
-                item.description = '‡√‘Ë¡°“√·¢Ëß¢—π'
+                item.description = '‡πÄ‡∏£‡∏¥‡πà‡∏°‡∏Å‡∏≤‡∏£‡πÅ‡∏Ç‡πà‡∏á‡∏Ç‡∏±‡∏ô'
                 item.align = 'right'
                 item.time = '00:00'
             else if typeof config isnt 'undefined' and config.halftime
                 item.icon = null
                 item.dot = 'halftime'
                 item.name = ''
-                item.description = '§√÷ËßÀ≈—ß'
+                item.description = '‡∏Ñ‡∏£‡∏∂‡πà‡∏á‡∏´‡∏•‡∏±‡∏á'
                 item.align = 'right'
                 item.time = '45:00'
             else if typeof config isnt 'undefined' and config.end
@@ -192,7 +192,7 @@ class liveMain extends Controller then constructor: (
                 item.icon = null
                 item.dot = 'large'
                 item.name = ''
-                item.description = '®∫°“√·¢Ëß¢—π'
+                item.description = '‡∏à‡∏ö‡∏Å‡∏≤‡∏£‡πÅ‡∏Ç‡πà‡∏á‡∏Ç‡∏±‡∏ô'
                 item.align = 'right'
                 item.time = time
             else
