@@ -1,0 +1,15 @@
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="highlight.doRefresh()")
+
+div.nodata(ng-if="highlight.items.length == 0")
+    div.row
+        div.col.col-center.text-center
+            div.text Has no highlight.
+
+div(ng-repeat="item in highlight.items")
+    div.row.row-center
+        div.col.col-center.text-left
+            img.image(ng-src="{{item[0].image}}")
+        div.col.col-center.text-right
+            img.image(ng-src="{{item[1].image}}")
+
+ion-infinite-scroll(ng-if="matchLabel.next" on-infinite="highlight.loadMore()", distance="5%")

@@ -1,1 +1,18 @@
 @charset "UTF-8";
+
+.nodata {
+    .text {
+        padding: 18px 0px 18px 0px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+}
+
+.row, .col {
+    padding: 0;
+}
+
+.image {
+    width: 99%;
+    background-color: #f0f0f0;
+}
