@@ -1,5 +1,5 @@
 div.cover
-    img.image(src="./img/about-club/about-chonburi/stadium.png")
+    img.image(src="./img/about-club/info/stadium.png", srcset="./img/about-club/info/stadium@2x.png 2x")
 
 div.headline
     div.title.text-center {{headline}}
@@ -9,24 +9,24 @@ div.detail
         div.col
             div.row.text-left.top
                 div.col.col-33
-                    | {{name.fullName.clubNameThai}}
+                    | ชื่อสโมสร (ไทย)
                 div.col.col-67
-                    | ชลบุรี เอฟซี
+                    | {{name.nameThai}}
             div.row.text-left.top
                 div.col.col-33
-                    | {{name.fullName.clubNameEng}}
+                    | ชื่อสโมสร (อังกฤษ)
                 div.col.col-67
-                    | Chonburi FC
+                    | {{name.nameEng}}
             div.row.text-left.top
                 div.col.col-33
-                    | {{name.nickName.clubNameThai}}
+                    | ชื่อย่อ (ไทย)
                 div.col.col-67
-                    | ชลบุรี เอฟซี
+                    | {{name.nameThai}}
             div.row.text-left.top
                 div.col.col-33
-                    | {{name.nickName.clubNameEng}}
+                    | ชื่อย่อ (อังกฤษ)
                 div.col.col-67
-                    | Chonburi FC
+                    | {{name.nameEng}}
             div.row.text-left.top
                 div.col.col-33
                     | ฉายา
@@ -40,16 +40,16 @@ div.detail
         div.col
             div.row.text-left.middle
                 div.col.col-33
-                    | {{contact.contactUs}}
+                    | ติดต่อสโมสร
                 div.col.col-67
             div.row.text-left.middle
                 div.col.col-33
-                    | {{contact.website}}
+                    | Website
                 div.col.col-67
                     | {{contact.url}}
             div.row.text-left.middle
                 div.col.col-33
-                    | {{contact.email}}
+                    | Email
                 div.col.col-67
                     | {{contact.emailAddress}}
 
@@ -57,19 +57,19 @@ div.detail
         div.col
             div.row.text-left.bottom
                 div.col.col-33
-                    | {{stadium.field}}
+                    | สนาม
                 div.col.col-67
                     | {{stadium.name}}
             div.row.text-left.bottom
                 div.col.col-33
-                    | {{stadium.capacity}}
+                    | ความจุ (คน)
                 div.col.col-67
                     | {{stadium.capacityNumber}}
             div.row.text-left.bottom
                 div.col.col-33
-                    | {{stadium.location}}
+                    | ที่ตั้ง
                 div.col.col-67
-                    | {{stadium.address}}
+                    | {{stadium.location}}
 
 div.footer
-    img.image(src="./img/about-club/about-chonburi/map.png")
+    img.image(src="./img/about-club/info/map.png", srcset="./img/about-club/info/map@2x.png 2x")

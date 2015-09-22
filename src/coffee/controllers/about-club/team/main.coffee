@@ -1,4 +1,4 @@
-class firstTeamMain extends Controller then constructor: (
+class aboubClubTeam extends Controller then constructor: (
     $scope, Und, Chance
 ) ->
     $scope.headline = 'CHALARMCHON'

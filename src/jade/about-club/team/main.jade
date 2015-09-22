@@ -1,0 +1,22 @@
+div.cover
+    img.image(src="./img/about-club/team/cover.png")
+
+div.headline
+    div.title.text-center {{headline}}
+
+div.box(ng-repeat="player in players")
+    div.row.normal
+        div.col.col-center.text-center.clear
+            div.position(ng-class="{'-keeper' : player.position == 'G', " +
+            "'-defender' : player.position == 'D', " + "'-midfield' : player.position == 'M', " +
+            "'-forword' : player.position == 'F'}")
+                | {{player.position}}
+        div.col.col-center.clear
+            div.circle-start
+                div.circle
+                    img.photo(ng-src="{{player.image}}")
+        div.col.col-50.col-center.clear {{player.name}}
+        div.col.col-center.clear {{player.number}}
+        div.col.col-center.clear
+            img(src="./img/about-club/team/eye-off.png", srcset="./img/about-club/team/eye-off@2x.png 2x", height="30px")
+    div.line
