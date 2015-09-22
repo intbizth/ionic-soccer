@@ -1,3 +1,7 @@
 class aboutClubMain extends Controller then constructor: (
-    $stateProvider, $urlRouterProvider
+    $scope, $state, $ionicHistory
 ) ->
+    $scope.back = ->
+#        $ionicHistory.goBack -1
+        $state.go 'feature'
+        return
