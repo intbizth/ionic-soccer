@@ -1,0 +1,68 @@
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="doRefresh()")
+
+div.match-label
+    div.nodata(ng-if="matchLabel.sections.length == 0")
+        div.space
+        div.row
+            div.col.col-center.text-center
+                div.text Has no match.
+    div(ng-repeat="section in matchLabel.sections")
+        div.row.row-center.section
+            div.col.col-center.text-center
+                | {{section.datetime | date : 'MMM yyyy'}}
+        div.nodata(ng-if="section.items.length == 0")
+            div.space
+            div.row
+                div.col.col-center.text-center
+                    div.text Has no match.
+        div(ng-repeat="item in section.items")
+            div.row.label
+                div.col.col-15.col-center.logo.text-center
+                    img.image(ng-src="{{item.homeClub.logo}}")
+                div.col.col-25.col-center.name.text-center
+                    | {{item.homeClub.name}}
+                div.col.col-20.col-center.detail.text-center
+                    div(ng-show="item.template == 'before'")
+                        div.time
+                            | {{item.datetime | date:'HH:mm'}}
+                        div.date
+                            | {{item.datetime | date:'dd MMM yyyy'}}
+                    div(ng-show="item.template == 'after'")
+                        div.score
+                            | {{item.homeClub.score}}-{{item.awayClub.score}}
+                        div.date
+                            | {{item.datetime | date:'dd MMM yyyy'}}
+                div.col.col-25.col-center.name.text-center
+                    | {{item.awayClub.name}}
+                div.col.col-15.col-center.logo.text-center
+                    img.image(ng-src="{{item.awayClub.logo}}")
+
+div.activity(id="activity")
+    div.line(id="activity-line")
+    div.nodata(ng-if="activities.items.length == 0")
+        div.row
+            div.col.col-center.text-center
+                div.text Has no activity.
+    div(ng-repeat="activity in activities.items")
+        div.row.row-center.wrap
+            div.col.col-center
+                div.text-right(ng-show="activity.align == 'left'")
+                    span.name(ng-show="activity.name") {{activity.name}}
+                    img.image(ng-show="activity.icon" ng-src="./img/activity/icon/{{activity.icon}}.png",
+                    srcset="./img/activity/icon/{{activity.icon}}@2x.png 2x")
+                    span.description(ng-show="activity.description") {{activity.description}}
+                    span.time(ng-show="activity.time") {{activity.time}}
+            div.col.col-10.col-center.text-center
+                div.dot.-normal(ng-show="activity.dot == 'normal'")
+                    i.icon.ion-record
+                div.dot.-halftime(ng-show="activity.dot == 'halftime'")
+                    i.icon.ion-record
+                div.dot.-large(ng-show="activity.dot == 'large'")
+                    i.icon.ion-ios-circle-filled
+            div.col.col-center
+                div.text-left(ng-show="activity.align == 'right'")
+                    span.time(ng-show="activity.time") {{activity.time}}
+                    span.description(ng-show="activity.description") {{activity.description}}
+                    img.image(ng-show="activity.icon" ng-src="./img/activity/icon/{{activity.icon}}.png",
+                    srcset="./img/activity/icon/{{activity.icon}}@2x.png 2x")
+                    span.name(ng-show="activity.name") {{activity.name}}
