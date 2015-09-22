@@ -1,102 +1,83 @@
-ion-view.live-main
+ion-view.live
     ion-nav-title
-        a.button.button-clear(ng-click='back()')(style="margin-top:5px;")
+        a.button.button-clear(ng-click="back()")(style="margin-top:5px;")
             i.icon.ion-ios-keypad-outline
-    ion-nav-buttons(side='right')
-        a.button.button-clear(ng-click='')
+    ion-nav-buttons(side="right")
+        a.button.button-clear(ng-click="")
             i.icon.ion-android-more-vertical
-    div.bar.bar-subheader(style="background-color:#0056A5;")
-        h2.title(style="color:#ffffff;") {{headline}}
 
     ion-content.content
-        div.month {{dateTop}}
+        ion-refresher(pulling-text="Pull to refresh...", on-refresh="doRefresh()")
 
-        div.row(style="background-color:white;")
-            div.col.col-15
-                div.logo
-                    img(ng-src="./img/live/chonburi.png", width="40px")
-
-            div.col.col-25
-                div.name
-                    span {{matchLabel.homeClub.name}}
-
-            div.col.col-20
-                div.score
-                    span {{matchLabel.homeClub.score}} - {{matchLabel.awayClub.score}}
-                div.date
-                    span {{matchLabel.dateTime| date:'dd MMM yyyy'}}
-
-            div.col.col-25
-                div.name
-                    span {{matchLabel.awayClub.name}}
-
-            div.col.col-15
-                div.logo
-                    img(ng-src="./img/live/suphanburi.png", width="40px")
+        div.row.title
+            div.col.text-center
+                | {{title}}
+        div.match-label
+            div.nodata(ng-if="matchLabel.sections.length == 0")
+                div.space
+                div.row
+                    div.col.col-center.text-center
+                        div.text Has no match.
+            div(ng-repeat="section in matchLabel.sections")
+                div.row.row-center.section
+                    div.col.col-center.text-center
+                        | {{section.datetime | date : 'MMM yyyy'}}
+                div.nodata(ng-if="section.items.length == 0")
+                    div.space
+                    div.row
+                        div.col.col-center.text-center
+                            div.text Has no match.
+                div(ng-repeat="item in section.items")
+                    div.row.label
+                        div.col.col-15.col-center.logo.text-center
+                            img.image(ng-src="{{item.homeClub.logo}}")
+                        div.col.col-25.col-center.name.text-center
+                            | {{item.homeClub.name}}
+                        div.col.col-20.col-center.detail.text-center
+                            div(ng-show="item.template == 'before'")
+                                div.time
+                                    | {{item.datetime | date:'HH:mm'}}
+                                div.date
+                                    | {{item.datetime | date:'dd MMM yyyy'}}
+                            div(ng-show="item.template == 'after'")
+                                div.score
+                                    | {{item.homeClub.score}}-{{item.awayClub.score}}
+                                div.date
+                                    | {{item.datetime | date:'dd MMM yyyy'}}
+                        div.col.col-25.col-center.name.text-center
+                            | {{item.awayClub.name}}
+                        div.col.col-15.col-center.logo.text-center
+                            img.image(ng-src="{{item.awayClub.logo}}")
 
         div.video
-            iframe(ng-src="https://www.youtube.com/embed/3iL1Vy671Ds", width="100%" ,height="230")
+            iframe(ng-src="{{video.item.url}}", width="100%", height="230")
 
-        div.detail(ng-repeat="player in players")
-            div.row.border.-top
-                div.col.border.text-right
-                div.col.border.col-10
-                    div.circle-start
-                        div.circle
-                    div.line
-                div.col.border.text-left
-
-            div.row.border
-                div.col.border.text-right
-                div.col.border.col-10
-                    div.line.-line25
-                div.col.border.text-left.text-yellow
-                    span {{player.start}}
-
-            div.row.border
-                div.col.border.text-right(style="padding-top:12px;")
-                    span.playerName {{player.name1}}
-                    img(ng-src="./img/live/yellowCard.png", style="padding-left:5px;", width="20px")
-                    span.text-yellow {{player.time1}}
-                div.col.border.col-10
-                    div.line.-line20
-                    div.circle-activity
-                div.col.border.text-left
-
-            div.row.border
-                div.col.border.text-right
-                div.col.border.col-10
-                    div.line.-line50
-                    div.circle-activity
-                div.col.border.text-left(style="padding-top:42px;")
-                    span.text-yellow {{player.time2}}
-                    img(src="./img/live/yellowCard.png", style="padding-left:5px;" , width="20px")
-                    span.playerName {{player.name2}}
-
-            div.row.border
-                div.col.border.text-right(style="padding-top:2px;")
-                    span.playerName {{player.name3}}
-                    img(ng-src="./img/live/goal.png", style="padding-left:5px;", width="20px")
-                    span.text-yellow  {{player.time3}}
-                div.col.border.col-10
-                    div.line.-line10
-                    div.circle-activity
-                div.col.border.text-left
-
-            div.row.border
-                div.col.border.text-right
-                div.col.border.col-10
-                    div.line.-line25
-                    div.circle-activity.-halftime
-                div.col.border.text-left(style="padding-top:17px;")
-                    span.text-yellow {{player.ht}}
-
-            div.row.border.-bottom
-                div.col.border.text-right
-                div.col.border.col-10
-                    div.line.-line20
-                    div.circle-activity
-                div.col.border.text-left(style="padding-top:12px;")
-                    span.text-yellow {{player.time4}}
-                    img(ng-src="./img/live/goal.png", style="padding-left:5px;", width="20px")
-                    span.playerName {{player.name4}}
+        div.activity(id="activity")
+            div.line(id="activity-line")
+            div.nodata(ng-if="activities.items.length == 0")
+                div.row
+                    div.col.col-center.text-center
+                        div.text Has no activity.
+            div(ng-repeat="activity in activities.items")
+                div.row.row-center.wrap
+                    div.col.col-center
+                        div.text-right(ng-show="activity.align == 'left'")
+                            span.name(ng-show="activity.name") {{activity.name}}
+                            img.image(ng-show="activity.icon" ng-src="./img/live/icon/{{activity.icon}}.png",
+                            srcset="./img/live/icon/{{activity.icon}}@2x.png 2x")
+                            span.description(ng-show="activity.description") {{activity.description}}
+                            span.time(ng-show="activity.time") {{activity.time}}
+                    div.col.col-10.col-center.text-center
+                        div.dot.-normal(ng-show="activity.dot == 'normal'")
+                            i.icon.ion-record
+                        div.dot.-halftime(ng-show="activity.dot == 'halftime'")
+                            i.icon.ion-record
+                        div.dot.-large(ng-show="activity.dot == 'large'")
+                            i.icon.ion-ios-circle-filled
+                    div.col.col-center
+                        div.text-left(ng-show="activity.align == 'right'")
+                            span.time(ng-show="activity.time") {{activity.time}}
+                            span.description(ng-show="activity.description") {{activity.description}}
+                            img.image(ng-show="activity.icon" ng-src="./img/live/icon/{{activity.icon}}.png",
+                            srcset="./img/live/icon/{{activity.icon}}@2x.png 2x")
+                            span.name(ng-show="activity.name") {{activity.name}}
