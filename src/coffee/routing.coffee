@@ -4,9 +4,23 @@ class Routing extends Config then constructor: (
     state = $stateProvider.state
 
     state 'competition-table',
+        abstract: true
         url: '/competition-table/main'
-        controller: 'competitionableMainController'
+        controller: 'competitionTableMainController'
         templateUrl: 'templates/competition-table/main.html'
+
+    state 'competition-table.main',
+        url: '/main'
+        views:
+            fixture:
+                controller: 'competitionTableFixtureController'
+                templateUrl: 'templates/competition-table/fixture/main.html'
+            results:
+                controller: 'competitionTableResultController'
+                templateUrl: 'templates/competition-table/results/main.html'
+            'position-table':
+                controller: 'competitionTablePositionTableController'
+                templateUrl: 'templates/competition-table/position-table/main.html'
 
     state 'fanzone',
         abstract: true
@@ -15,17 +29,27 @@ class Routing extends Config then constructor: (
         templateUrl: 'templates/fanzone/main.html'
 
     state 'fanzone.main',
-        url: '/fanzone/main'
+        url: '/main'
         views:
-            product:
-                controller: 'fanzoneProductController'
-                templateUrl: 'templates/fanzone/product/main.html'
-            wallpaper:
-                controller: 'fanzoneWallpaperController'
-                templateUrl: 'templates/fanzone/wallpaper/main.html'
+            products:
+                controller: 'fanzoneProductsController'
+                templateUrl: 'templates/fanzone/products/main.html'
+            wallpapers:
+                controller: 'fanzoneWallpapersController'
+                templateUrl: 'templates/fanzone/wallpapers/main.html'
             questionary:
                 controller: 'fanzoneQuestionaryController'
                 templateUrl: 'templates/fanzone/questionary/main.html'
+
+    state 'fanzone-product',
+         url: '/fanzone/product/:id'
+         controller: 'fanzoneProductShowController'
+         templateUrl: 'templates/fanzone/products/show.html'
+
+    state 'fanzone.wallpaper',
+         url: '/wallpaper/:id'
+         controller: 'fanzoneWallpaperShowController'
+         templateUrl: 'templates/fanzone/wallpaper/show.html'
 
     state 'feature',
         url: '/feature/main'
