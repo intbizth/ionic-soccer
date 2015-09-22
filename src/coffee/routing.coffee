@@ -61,6 +61,25 @@ class Routing extends Config then constructor: (
         controller: 'liveMainController'
         templateUrl: 'templates/live/main.html'
 
+    state 'match',
+        abstract: true
+        url: '/match'
+        controller: 'matchMainController'
+        templateUrl: 'templates/match/main.html'
+
+    state 'match.main',
+        url: '/main'
+        views:
+            view:
+                controller: 'matchViewController'
+                templateUrl: 'templates/match/view/main.html'
+            highlight:
+                controller: 'matchHighlightController'
+                templateUrl: 'templates/match/highlight/main.html'
+            lineups:
+                controller: 'matchLineupsController'
+                templateUrl: 'templates/match/lineups/main.html'
+
     state 'news',
         url: '/news/detail/:id'
         controller: 'newsDetailController'

@@ -17,7 +17,9 @@
     }
 
     .label {
+        margin-top: 4px;
         background-color: #ffffff;
+        line-height: 22px;
 
         .logo {
             .image {
@@ -29,6 +31,7 @@
 
         .name {
             font-size: 14px;
+            color: #000000;
         }
 
         .detail {
