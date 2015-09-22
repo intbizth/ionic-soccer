@@ -86,7 +86,7 @@ class liveMain extends Controller then constructor: (
             return
         fakeItem: (datetime) ->
             clubs = [
-                logo: './img/live/chonburi@2x.png'
+                logo: './img/logo/match_label@2x.png'
                 name: 'Chonburi FC'
                 score: Und.random(0, 99)
             ,
