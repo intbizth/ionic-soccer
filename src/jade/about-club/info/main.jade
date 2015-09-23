@@ -1,0 +1,75 @@
+div.cover
+    img.image(src="./img/about-club/info/stadium.png", srcset="./img/about-club/info/stadium@2x.png 2x")
+
+div.headline
+    div.title.text-center {{headline}}
+
+div.detail
+    div.row
+        div.col
+            div.row.text-left.top
+                div.col.col-33
+                    | ชื่อสโมสร (ไทย)
+                div.col.col-67
+                    | {{name.nameThai}}
+            div.row.text-left.top
+                div.col.col-33
+                    | ชื่อสโมสร (อังกฤษ)
+                div.col.col-67
+                    | {{name.nameEng}}
+            div.row.text-left.top
+                div.col.col-33
+                    | ชื่อย่อ (ไทย)
+                div.col.col-67
+                    | {{name.nameThai}}
+            div.row.text-left.top
+                div.col.col-33
+                    | ชื่อย่อ (อังกฤษ)
+                div.col.col-67
+                    | {{name.nameEng}}
+            div.row.text-left.top
+                div.col.col-33
+                    | ฉายา
+                div.col.col-67
+            div.row.text-left.top
+                div.col.col-33
+                    | ลึก
+                div.col.col-67
+
+    div.row
+        div.col
+            div.row.text-left.middle
+                div.col.col-33
+                    | ติดต่อสโมสร
+                div.col.col-67
+            div.row.text-left.middle
+                div.col.col-33
+                    | Website
+                div.col.col-67
+                    | {{contact.url}}
+            div.row.text-left.middle
+                div.col.col-33
+                    | Email
+                div.col.col-67
+                    | {{contact.emailAddress}}
+
+    div.row
+        div.col
+            div.row.text-left.bottom
+                div.col.col-33
+                    | สนาม
+                div.col.col-67
+                    | {{stadium.name}}
+            div.row.text-left.bottom
+                div.col.col-33
+                    | ความจุ (คน)
+                div.col.col-67
+                    | {{stadium.capacityNumber}}
+            div.row.text-left.bottom
+                div.col.col-33
+                    | ที่ตั้ง
+                div.col.col-67
+                    | {{stadium.location}}
+
+div.footer
+    img.image(src="./img/about-club/info/map.png", srcset="./img/about-club/info/map@2x.png 2x")
