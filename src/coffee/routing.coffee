@@ -3,6 +3,22 @@ class Routing extends Config then constructor: (
 ) ->
     state = $stateProvider.state
 
+    state 'about-club',
+        abstract: true
+        url: '/about-club'
+        controller: 'aboutClubMainController'
+        templateUrl: 'templates/about-club/main.html'
+
+    state 'about-club.main',
+        url: '/main'
+        views:
+            info:
+                controller: 'aboutClubInfoController'
+                templateUrl: 'templates/about-club/info/main.html'
+            team:
+                controller: 'aboutClubTeamController'
+                templateUrl: 'templates/about-club/team/main.html'
+
     state 'competition-table',
         abstract: true
         url: '/competition-table/main'
@@ -82,15 +98,5 @@ class Routing extends Config then constructor: (
                 controller: 'updateController'
                 templateUrl: 'templates/timeline-update/update/main.html'
 
-    state 'about-chonburi',
-        url: '/about-club/about-chonburi'
-        templateUrl: 'templates/about-club/about-chonburi.html'
-        controller: 'aboutChonburiMainController'
-
-    state 'first-team',
-        url: '/about-club/first-team'
-        templateUrl: 'templates/about-club/first-team.html'
-        controller: 'firstTeamMainController'
-
-    $urlRouterProvider.otherwise '/about-club/first-team'
+    $urlRouterProvider.otherwise '/feature/main'
     return
