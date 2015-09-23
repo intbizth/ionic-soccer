@@ -31,7 +31,7 @@ div.news
                 div.text Has no news.
     div(ng-repeat="item in news.items")
         div.space
-        div.detail(style="background-image: url('{{item.image}}');" ui-sref="news({id : item.id})")
+        div.detail(style="background-image: url('{{item.image}}');" ui-sref="news-detail({id : item.id})")
             div.subdetail
                 div.row.headline
                     div.col

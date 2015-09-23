@@ -96,7 +96,7 @@ class Routing extends Config then constructor: (
                 controller: 'matchLineupsController'
                 templateUrl: 'templates/match/lineups/main.html'
 
-    state 'news',
+    state 'news-detail',
         url: '/news/detail/:id'
         controller: 'newsDetailController'
         templateUrl: 'templates/news/detail.html'
