@@ -1,0 +1,65 @@
+.player-detail {
+    .content {
+        .cover {
+            width: 100%;
+            height: 145px;
+            min-height: 145px;
+            background-color: #f0f0f0;
+            .image {
+                width: 100%;
+                height: 145px;
+                min-height: 145px;
+            }
+        }
+
+        .player {
+            background-color: #0056a5;
+            .name {
+                color: #ffffff;
+            }
+
+            .number {
+                color: #c9da2b;
+                font-size: 30px;
+                font-weight: bold;
+            }
+        }
+
+        .event {
+            background-color: #203747;
+            .yellow {
+                color: #ffffff;
+            }
+
+            .red {
+                color: #ffffff;
+            }
+
+            .goal {
+                color: #ffffff;
+            }
+        }
+
+        .detail {
+            .born {
+
+            }
+
+            .position {
+                background-color: #f4f5f6;
+            }
+
+            .previous {
+
+            }
+
+            .signed {
+                background-color: #f4f5f6;
+            }
+
+            .bio {
+
+            }
+        }
+    }
+}
