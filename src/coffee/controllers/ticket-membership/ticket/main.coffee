@@ -4,6 +4,10 @@ class Ticket extends Controller then constructor: (
     $scope.share = ->
         return
 
+    $scope.seasonTicket =
+        contact : 'สอบถามรายละเอียดเพิ่มเติม ฝ่ายดูแลสิทธิประโยชน์ และการจําหน่ายตั๋ว สโมสร ชลบุรี เอฟซี 038-467-109,
+                เซ็นทรัล 038-053-822, วีไอพี 038-278-007, ชาร์คเอาท์เลท 038-467-609'
+
     $scope.matchLabel =
         sections: [],
         next: false
@@ -85,6 +89,8 @@ class Ticket extends Controller then constructor: (
                 homeClub: null
                 awayClub: null
                 datetime: Chance.date(datetime)
+                program: 'Thai Premier League'
+                stadium: 'Chonburi Stadium'
                 template: Chance.pick(['before', 'after'])
             if Chance.pick([true, false])
                 item.homeClub = clubs[0]
