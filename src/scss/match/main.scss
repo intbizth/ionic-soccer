@@ -1,0 +1,23 @@
+.match {
+    .content {
+        margin-top: -66px !important;
+    }
+
+    .view {
+        @import "view/main";
+    }
+
+    .highlight {
+        background-color: #0056a2;
+        @import "highlight/main";
+    }
+
+    .lineups {
+        @import "lineups/main";
+    }
+}
+
+.fix-tab {
+    top: 112px !important;
+    height: auto !important;
+}

@@ -1,0 +1,20 @@
+ion-view.match
+    ion-nav-title
+        a.button.button-clear(ng-click="back()", style="margin-top: 5px;")
+            i.icon.ion-ios-keypad-outline
+
+    ion-nav-buttons(side="right")
+        a.button.button-clear(ng-click="")
+            i.icon.ion-android-more-vertical
+
+    ion-content.content(scroll="false")
+        ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
+            ion-tab(title="View")
+                ion-content.view.fix-tab
+                    div(ui-view="view")
+            ion-tab(title="Highlight")
+                ion-content.highlight.fix-tab
+                    div(ui-view="highlight")
+            ion-tab(title="Lineups")
+                ion-content.lineups.fix-tab
+                    div(ui-view="lineups")
