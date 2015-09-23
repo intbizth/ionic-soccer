@@ -17,3 +17,4 @@ class aboutClubInfo extends Controller then constructor: (
         name: 'ชลบุรีเสตเดี้ยม'
         capacityNumber: '8,600'
         location: '107/12 หมู่ 2 ตำบลเสม็ด อำเภอเมือง จังหวัดชลบุรี 20000'
+
