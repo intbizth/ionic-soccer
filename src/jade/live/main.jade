@@ -52,32 +52,32 @@ ion-view.live
         div.video
             iframe(ng-src="{{video.item.url}}", width="100%", height="230")
 
-        div.activity(id="activity")
-            div.line(id="activity-line")
-            div.nodata(ng-if="activities.items.length == 0")
+        div.match-events(id="match-events")
+            div.line(id="match-events-line")
+            div.nodata(ng-if="matchEvents.items.length == 0")
                 div.row
                     div.col.col-center.text-center
-                        div.text Has no activity.
-            div(ng-repeat="activity in activities.items")
+                        div.text Has no match events.
+            div(ng-repeat="item in matchEvents.items")
                 div.row.row-center.wrap
                     div.col.col-center
-                        div.text-right(ng-show="activity.align == 'left'")
-                            span.name(ng-show="activity.name") {{activity.name}}
-                            img.image(ng-show="activity.icon" ng-src="./img/activity/icon/{{activity.icon}}.png",
-                            srcset="./img/activity/icon/{{activity.icon}}@2x.png 2x")
-                            span.description(ng-show="activity.description") {{activity.description}}
-                            span.time(ng-show="activity.time") {{activity.time}}
+                        div.text-right(ng-show="item.align == 'left'")
+                            span.name(ng-show="item.name") {{item.name}}
+                            img.image(ng-show="item.icon" ng-src="./img/match-events/icon/{{item.icon}}.png",
+                            srcset="./img/match-events/icon/{{item.icon}}@2x.png 2x")
+                            span.description(ng-show="item.description") {{item.description}}
+                            span.time(ng-show="item.time") {{item.time}}
                     div.col.col-10.col-center.text-center
-                        div.dot.-normal(ng-show="activity.dot == 'normal'")
+                        div.dot.-normal(ng-show="item.dot == 'normal'")
                             i.icon.ion-record
-                        div.dot.-halftime(ng-show="activity.dot == 'halftime'")
+                        div.dot.-halftime(ng-show="item.dot == 'halftime'")
                             i.icon.ion-record
-                        div.dot.-large(ng-show="activity.dot == 'large'")
+                        div.dot.-large(ng-show="item.dot == 'large'")
                             i.icon.ion-ios-circle-filled
                     div.col.col-center
-                        div.text-left(ng-show="activity.align == 'right'")
-                            span.time(ng-show="activity.time") {{activity.time}}
-                            span.description(ng-show="activity.description") {{activity.description}}
-                            img.image(ng-show="activity.icon" ng-src="./img/activity/icon/{{activity.icon}}.png",
-                            srcset="./img/activity/icon/{{activity.icon}}@2x.png 2x")
-                            span.name(ng-show="activity.name") {{activity.name}}
+                        div.text-left(ng-show="item.align == 'right'")
+                            span.time(ng-show="item.time") {{item.time}}
+                            span.description(ng-show="item.description") {{item.description}}
+                            img.image(ng-show="item.icon" ng-src="./img/match-events/icon/{{item.icon}}.png",
+                            srcset="./img/match-events/icon/{{item.icon}}@2x.png 2x")
+                            span.name(ng-show="item.name") {{item.name}}

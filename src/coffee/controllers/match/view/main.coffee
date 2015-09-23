@@ -1,10 +1,6 @@
-class liveMain extends Controller then constructor: (
-    $scope, $ionicPlatform, $ionicHistory, $sce, $timeout, Und, Chance
+class MatchView extends Controller then constructor: (
+    $scope, $timeout, Und, Chance
 ) ->
-    $scope.back = ->
-        $ionicHistory.goBack -1
-        return
-        
     matchEvents = document.getElementById 'match-events'
     matchEventsLine = document.getElementById 'match-events-line'
 
@@ -18,7 +14,6 @@ class liveMain extends Controller then constructor: (
         ,500)
     )
 
-    $scope.title = 'Live'
     $scope.matchLabel =
         sections: [],
         next: false
@@ -121,33 +116,6 @@ class liveMain extends Controller then constructor: (
 
     $scope.matchLabel.loadData()
 
-    $scope.video =
-        item: {}
-        loadData: ->
-            this.item = this.fakeItem();
-            console.log('loadData', JSON.stringify(this.item))
-            return
-        fakeItem: ->
-            item =
-                url: $sce.trustAsResourceUrl(Chance.pick([
-                    'https://www.youtube.com/embed/3iL1Vy671Ds'
-                    'https://www.youtube.com/embed/4gkRTil0G6Y'
-                    'https://www.youtube.com/embed/8G5UR4KGq4Y'
-                    'https://www.youtube.com/embed/OI5X1RGH014'
-                    'https://www.youtube.com/embed/Xj3MavBKYnA'
-                    'https://www.youtube.com/embed/et9VbbJMHjI'
-                    'https://www.youtube.com/embed/r_Woa69OHQg'
-                    'https://www.youtube.com/embed/X9zmrh1epik'
-                    'https://www.youtube.com/embed/AbIdbr4uxJI'
-                    'https://www.youtube.com/embed/_Z-4EbLoeFM'
-                    'https://www.youtube.com/embed/ojcQWpU78Q0'
-                    'https://www.youtube.com/embed/AbIdbr4uxJI'
-                    'https://www.youtube.com/embed/MasAZ5EdEwY'
-                ]))
-            return item
-
-    $scope.video.loadData()
-
     $scope.matchEvents =
         items: [],
         match:
@@ -236,5 +204,4 @@ class liveMain extends Controller then constructor: (
 
     $scope.doRefresh = ->
         $scope.matchLabel.doRefresh()
-        $scope.video.loadData()
-        $scope.matchEvents.doRefresh()
+        $scope.activities.doRefresh()
