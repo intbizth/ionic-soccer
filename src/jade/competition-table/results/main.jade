@@ -1,4 +1,5 @@
 ion-refresher(pulling-text='Pull to refresh...', on-refresh='matchLabel.doRefresh()')
+
 div.match-label
     div.nodata(ng-if="matchLabel.sections.length == 0")
         div.space
@@ -15,7 +16,7 @@ div.match-label
                 div.col.col-center.text-center
                     div.text Has no match.
         div(ng-repeat="item in section.items")
-            div.row.label
+            div.row.button.button-clear.label(ui-sref="match.main({id : item.id})")
                 div.col.col-15.col-center.logo.text-center
                     img.image(ng-src="{{item.homeClub.logo}}")
                 div.col.col-25.col-center.name.text-center
@@ -35,4 +36,5 @@ div.match-label
                     | {{item.awayClub.name}}
                 div.col.col-15.col-center.logo.text-center
                     img.image(ng-src="{{item.awayClub.logo}}")
+
 ion-infinite-scroll(ng-if="matchLabel.next" on-infinite="matchLabel.loadMore()", distance="5%")

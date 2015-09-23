@@ -3,6 +3,22 @@ class Routing extends Config then constructor: (
 ) ->
     state = $stateProvider.state
 
+    state 'about-club',
+        abstract: true
+        url: '/about-club'
+        controller: 'aboutClubMainController'
+        templateUrl: 'templates/about-club/main.html'
+
+    state 'about-club.main',
+        url: '/main'
+        views:
+            info:
+                controller: 'aboutClubInfoController'
+                templateUrl: 'templates/about-club/info/main.html'
+            team:
+                controller: 'aboutClubTeamController'
+                templateUrl: 'templates/about-club/team/main.html'
+
     state 'competition-table',
         abstract: true
         url: '/competition-table/main'
@@ -61,10 +77,45 @@ class Routing extends Config then constructor: (
         controller: 'liveMainController'
         templateUrl: 'templates/live/main.html'
 
+    state 'match',
+        abstract: true
+        url: '/match'
+        controller: 'matchMainController'
+        templateUrl: 'templates/match/main.html'
+
+    state 'match.main',
+        url: '/main'
+        views:
+            view:
+                controller: 'matchViewController'
+                templateUrl: 'templates/match/view/main.html'
+            highlight:
+                controller: 'matchHighlightController'
+                templateUrl: 'templates/match/highlight/main.html'
+            lineups:
+                controller: 'matchLineupsController'
+                templateUrl: 'templates/match/lineups/main.html'
+
     state 'news',
         url: '/news/detail/:id'
         controller: 'newsDetailController'
         templateUrl: 'templates/news/detail.html'
+
+    state 'ticket-membership',
+        abstract: true
+        url: '/ticket-membership'
+        controller: 'ticketMembershipMainController'
+        templateUrl: 'templates/ticket-membership/main.html'
+
+    state 'ticket-membership.main',
+        url: '/main'
+        views:
+            ticket:
+                controller: 'ticketController'
+                templateUrl: 'templates/ticket-membership/ticket/main.html'
+            membership:
+                controller: 'membershipController'
+                templateUrl: 'templates/ticket-membership/membership/main.html'
 
     state 'timeline-update',
         abstract: true
