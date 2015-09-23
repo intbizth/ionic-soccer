@@ -71,13 +71,14 @@ class Timeline extends Controller then constructor: (
             return sections
             return
         fakeItem: (datetime) ->
+            club = Chance.club()
             clubs = [
                 logo: './img/logo/match_label@2x.png'
                 name: 'Chonburi FC'
                 score: Und.random(0, 99)
             ,
-                logo: 'https://placeimg.com/80/80/tech?time=' + Chance.timestamp()
-                name: Chance.name()
+                logo: club.src
+                name: club.name
                 score: Und.random(0, 99)
             ]
             item =
