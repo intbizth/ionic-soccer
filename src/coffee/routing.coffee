@@ -101,6 +101,16 @@ class Routing extends Config then constructor: (
         controller: 'newsDetailController'
         templateUrl: 'templates/news/detail.html'
 
+    state 'product-detail',
+        url: '/product/detail/:id'
+        controller: 'productDetailController'
+        templateUrl: 'templates/product/detail.html'
+
+    state 'player-detail',
+        url: '/player/detail/:id'
+        controller: 'playerDetailController'
+        templateUrl: 'templates/player/detail.html'
+
     state 'ticket-membership',
         abstract: true
         url: '/ticket-membership'
