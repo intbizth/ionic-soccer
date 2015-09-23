@@ -4,7 +4,7 @@ class FanzoneProducts extends Controller then constructor: (
 
     $scope.image = './img/fanzone/products/product.png'
 
-    $scope.header = 'Online Simple store'
+    $scope.title = 'Online Simple store'
 
     $scope.company = 'บริษัท ชาร์ค 360 องศาสตูดิโอ จำกัด'
     $scope.stadium = 'ชลบุรี สเตเดี้ยม'
