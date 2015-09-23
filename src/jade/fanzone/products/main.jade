@@ -14,7 +14,7 @@ div.address
             div โทรศัพท์.{{tel}}
             div E-Mail : {{email}}
 
-div.product
+div.items
     div(ng-repeat="product in products")
         div.space
         div.detail(style="background-image: url('{{product.image}}');" ui-sref="fanzone-product({id : product.id})")
