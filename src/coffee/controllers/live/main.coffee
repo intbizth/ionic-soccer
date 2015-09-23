@@ -4,6 +4,7 @@ class liveMain extends Controller then constructor: (
     $scope.back = ->
         $ionicHistory.goBack -1
         return
+        
     activity = document.getElementById 'activity'
     activityLine = document.getElementById 'activity-line'
 
@@ -86,7 +87,7 @@ class liveMain extends Controller then constructor: (
             return
         fakeItem: (datetime) ->
             clubs = [
-                logo: './img/live/chonburi@2x.png'
+                logo: './img/logo/match_label@2x.png'
                 name: 'Chonburi FC'
                 score: Und.random(0, 99)
             ,
@@ -229,8 +230,6 @@ class liveMain extends Controller then constructor: (
                 return parseFloat value.time
             )
             $scope.$broadcast 'activity.complete'
-            console.log('this.match.halftime', this.match.halftime)
-            console.log('this.match.end', this.match.end)
             return items
 
     $scope.activities.loadData()
@@ -239,14 +238,3 @@ class liveMain extends Controller then constructor: (
         $scope.matchLabel.doRefresh()
         $scope.video.loadData()
         $scope.activities.doRefresh()
-
-    $scope.more = true;
-    $scope.loadMore = ->
-        $this = this
-        $this.doRefresh()
-        $this.more = false
-        $scope.$broadcast 'scroll.infiniteScrollComplete'
-
-        $timeout(->
-            $this.more = true
-        , 4000)

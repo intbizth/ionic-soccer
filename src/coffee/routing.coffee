@@ -61,10 +61,45 @@ class Routing extends Config then constructor: (
         controller: 'liveMainController'
         templateUrl: 'templates/live/main.html'
 
+    state 'match',
+        abstract: true
+        url: '/match'
+        controller: 'matchMainController'
+        templateUrl: 'templates/match/main.html'
+
+    state 'match.main',
+        url: '/main'
+        views:
+            view:
+                controller: 'matchViewController'
+                templateUrl: 'templates/match/view/main.html'
+            highlight:
+                controller: 'matchHighlightController'
+                templateUrl: 'templates/match/highlight/main.html'
+            lineups:
+                controller: 'matchLineupsController'
+                templateUrl: 'templates/match/lineups/main.html'
+
     state 'news',
         url: '/news/detail/:id'
         controller: 'newsDetailController'
         templateUrl: 'templates/news/detail.html'
+
+    state 'ticket-membership',
+        abstract: true
+        url: '/ticket-membership'
+        controller: 'ticketMembershipMainController'
+        templateUrl: 'templates/ticket-membership/main.html'
+
+    state 'ticket-membership.main',
+        url: '/main'
+        views:
+            ticket:
+                controller: 'ticketController'
+                templateUrl: 'templates/ticket-membership/ticket/main.html'
+            membership:
+                controller: 'membershipController'
+                templateUrl: 'templates/ticket-membership/membership/main.html'
 
     state 'timeline-update',
         abstract: true
@@ -82,5 +117,15 @@ class Routing extends Config then constructor: (
                 controller: 'updateController'
                 templateUrl: 'templates/timeline-update/update/main.html'
 
-    $urlRouterProvider.otherwise '/feature/main'
+    state 'about-chonburi',
+        url: '/about-club/about-chonburi'
+        templateUrl: 'templates/about-club/about-chonburi.html'
+        controller: 'aboutChonburiMainController'
+
+    state 'first-team',
+        url: '/about-club/first-team'
+        templateUrl: 'templates/about-club/first-team.html'
+        controller: 'firstTeamMainController'
+
+    $urlRouterProvider.otherwise '/about-club/first-team'
     return
