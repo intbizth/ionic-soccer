@@ -17,7 +17,7 @@ div.address
 div.items
     div(ng-repeat="product in products")
         div.space
-        div.detail(style="background-image: url('{{product.image}}');" ui-sref="fanzone-product({id : product.id})")
+        div.detail(style="background-image: url('{{product.image}}');" ui-sref="fanzone-detail({id : product.id})")
             div.subdetail
                 div.row.name
                     div.col
