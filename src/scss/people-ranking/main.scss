@@ -1,0 +1,22 @@
+.people-ranking {
+    .content {
+        margin-top: -66px !important;
+    }
+
+    .result {
+        @import "result/main";
+    }
+
+    .score {
+        @import "score/main";
+    }
+
+    .player-table {
+        @import "player-table/main";
+    }
+}
+
+.fix-tab {
+    top: 112px !important;
+    height: auto !important;
+}
