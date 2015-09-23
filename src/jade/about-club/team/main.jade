@@ -1,0 +1,33 @@
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="players.doRefresh()")
+
+div.cover
+    img.image(src="./img/about-club/team/cover.png")
+
+div.headline
+    div.title.text-center {{headline}}
+
+
+div.nodata(ng-if="players.items.length == 0")
+    div.row
+        div.col.col-center.text-center
+            div.text Has no players.
+
+div.box(ng-repeat="player in players.items")
+    div.row.normal
+        div.col.col-center.text-center.clear
+            div.position(ng-class="{'-keeper' : player.position == 'G', " +
+            "'-defender' : player.position == 'D', " + "'-midfield' : player.position == 'M', " +
+            "'-forword' : player.position == 'F'}")
+                | {{player.position}}
+        div.col.col-center.clear
+            div.circle-start
+                div.circle
+                    img.photo(ng-src="{{player.image}}")
+        div.col.col-50.col-center.clear {{player.name}}
+        div.col.col-center.text-center.clear {{player.number}}
+        div.col.col-center.clear
+            a.button.button-clear(style="padding-right:20px;")
+                i.icon.ion-eye
+    div.line
+
+ion-infinite-scroll(ng-if="players.next" on-infinite="players.loadMore()", distance="5%")
