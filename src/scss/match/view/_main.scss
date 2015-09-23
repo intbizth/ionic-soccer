@@ -1,1 +1,70 @@
 @charset "UTF-8";
+
+.match-events {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: #0056a2;
+
+    .nodata {
+        .text {
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+    }
+
+    .wrap {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .dot {
+        position: relative;
+        &.-normal {
+            font-size: 8px;
+            color: #ffffff;
+        }
+
+        &.-halftime {
+            font-size: 8px;
+            color: #ff0000;
+        }
+
+        &.-large {
+            font-size: 20px;
+            color: #ffffff;
+        }
+    }
+
+    .time {
+        margin: 0px 2px 0px 2px;
+        font-size: 14px;
+        color: #faaf40;
+    }
+
+    .description {
+        margin: 0px 2px 0px 2px;
+        font-size: 14px;
+        color: #faaf40;
+    }
+
+    .name {
+        margin: 0px 2px 0px 2px;
+        font-size: 14px;
+        color: #ffffff;
+    }
+
+    .image {
+        margin: 0px 2px 0px 2px;
+        width: 15px;
+        height: 15px;
+    }
+
+    .line {
+        width: 1px;
+        margin-left: 50%;
+        position: absolute;
+        display: inline-block;
+        background-color: #ffffff;
+    }
+}

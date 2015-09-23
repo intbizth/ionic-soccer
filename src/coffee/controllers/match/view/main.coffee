@@ -1,16 +1,16 @@
 class MatchView extends Controller then constructor: (
     $scope, $timeout, Und, Chance
 ) ->
-    activity = document.getElementById 'activity'
-    activityLine = document.getElementById 'activity-line'
+    matchEvents = document.getElementById 'match-events'
+    matchEventsLine = document.getElementById 'match-events-line'
 
-    $scope.$on('activity.start', ->
-        activityLine.style.height = '0px';
+    $scope.$on('match-events.start', ->
+        matchEventsLine.style.height = '0px';
     )
 
-    $scope.$on('activity.complete', ->
+    $scope.$on('match-events.complete', ->
         $timeout(->
-            activityLine.style.height = (parseInt(activity.offsetHeight) - 12) + 'px';
+            matchEventsLine.style.height = (parseInt(matchEvents.offsetHeight) - 12) + 'px';
         ,500)
     )
 
@@ -116,7 +116,7 @@ class MatchView extends Controller then constructor: (
 
     $scope.matchLabel.loadData()
 
-    $scope.activities =
+    $scope.matchEvents =
         items: [],
         match:
             halftime: false
@@ -125,13 +125,13 @@ class MatchView extends Controller then constructor: (
         loadData: ->
             items = this.fakeItems()
             this.items =  items
-            console.log('activities:loadData', this.items.length, JSON.stringify(this.items))
+            console.log('matchEvents:loadData', this.items.length, JSON.stringify(this.items))
             return
         doRefresh: ->
-            console.log 'activities:doRefresh'
+            console.log 'matchEvents:doRefresh'
             $this = this
             $timeout(->
-                console.log 'activities:doRefresh2'
+                console.log 'matchEvents:doRefresh2'
                 $this.loadData()
                 $scope.$broadcast 'scroll.refreshComplete'
                 return
@@ -181,7 +181,7 @@ class MatchView extends Controller then constructor: (
                 item.time = time
             return item
         fakeItems: ->
-            $scope.$broadcast 'activity.start'
+            $scope.$broadcast 'match-events.start'
             items = [this.fakeItem({start: true})]
             i = 0
             ii = Und.random(0, 30)
@@ -197,10 +197,10 @@ class MatchView extends Controller then constructor: (
             items = Und.sortBy(items, (value) ->
                 return parseFloat value.time
             )
-            $scope.$broadcast 'activity.complete'
+            $scope.$broadcast 'match-events.complete'
             return items
 
-    $scope.activities.loadData()
+    $scope.matchEvents.loadData()
 
     $scope.doRefresh = ->
         $scope.matchLabel.doRefresh()
