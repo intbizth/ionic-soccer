@@ -2,24 +2,24 @@
 
 .fanzone {
     .fix-tab {
-        //top: 112px !important;
-        top: 94px !important;
+        top: 112px !important;
+        //top: 94px !important;
         height: auto !important;
     }
 
     .content {
-        //margin-top: -66px !important;
-        margin-top: -44px !important;
-        bottom: 20px;
+        margin-top: -66px !important;
+        //margin-top: -44px !important;
+        //bottom: 20px;
         background-color: #000000;
     }
 
     .products {
-        margin-top: 7px;
-        margin-bottom: 7px;
+        //margin-top: 7px;
+        //margin-bottom: 7px;
         padding-top: 0;
         padding-bottom: 0;
-        background-color: #0056a5;
+        //background-color: #0056a5;
 
         @import "products/main";
     }
@@ -31,8 +31,8 @@
     }
 
     .wallpapers {
-        margin-top: 7px;
-        margin-bottom: 7px;
+        //margin-top: 7px;
+        //margin-bottom: 7px;
         padding-top: 0;
         padding-bottom: 0;
         //background-color: #1e2b44;
@@ -49,7 +49,7 @@
         @import "questionary/main";
     }
 
-    .footer {
-        height: 20px;
-    }
+    //.footer {
+    //    height: 20px;
+    //}
 }
