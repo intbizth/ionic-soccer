@@ -1,22 +1,27 @@
-div.wrap
+div.cover
     img.image(ng-src="{{image}}")
 
-div.store
-    div.header {{header}}
+div.address
+    div.row.section
+        div.col.text-center
+            | {{title}}
+    div.row.detail
+        div.col
+            div.title {{title}}
+            div {{company}}
+            div {{stadium}}
+            div {{address}}
+            div โทรศัพท์.{{tel}}
+            div E-Mail : {{email}}
 
-    div.detail
-        div.title {{header}}
-        div {{company}}
-        div {{stadium}}
-        div {{address}}
-        div โทรศัพท์.{{tel}}
-        div E-Mail : {{email}}
-
-div.wrap(ng-repeat="product in products")
-    div(ui-sref="fanzone-product({id : product.id})")
-        div.
-        div.info
-            div {{product.name}}
-            div ราคา ฿ {{product.price}}
-        img.shadow(ng-src="{{shadow}}")
-        img.image(ng-src="{{product.image}}")
+div.items
+    div(ng-repeat="product in products")
+        div.space
+        div.detail(style="background-image: url('{{product.image}}');" ui-sref="product-detail({id : product.id})")
+            div.subdetail
+                div.row.name
+                    div.col
+                        | {{product.name}}
+                div.row.price
+                    div.col
+                        | ราคา ฿ {{product.price}}
