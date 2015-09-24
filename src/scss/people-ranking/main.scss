@@ -1,0 +1,25 @@
+.people-ranking {
+    .content {
+        margin-top: -66px !important;
+    }
+
+    .result {
+        background-color: #213647;
+        @import "result/main";
+    }
+
+    .score {
+        background-color: #213647;
+        @import "score/main";
+    }
+
+    .player {
+        background-color: #213647;
+        @import "player/main";
+    }
+}
+
+.fix-tab {
+    top: 112px !important;
+    height: auto !important;
+}
