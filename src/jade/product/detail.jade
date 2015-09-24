@@ -1,0 +1,27 @@
+ion-view.product
+    ion-nav-buttons(side='left')
+        a.button.button-icon.ion-ios-arrow-left(ng-click='back()')
+            img(src="./img/logo/navbar.png", srcset="./img/logo/navbar@2x.png 2x",style="height:15px; vertical-align: middle;")
+    ion-nav-buttons(side="right")
+        a.button.button-clear(ng-click="")
+            i.icon.ion-android-more-vertical
+    ion-content
+        ion-refresher(pulling-text="Pull to refresh...", on-refresh="product.doRefresh()")
+        div.store
+            div.row.section
+                div.col.text-center
+                    | {{product.item.title}}
+        div.info
+            div.image(style="background-image: url('{{product.item.image}}');")
+            div.row.name
+                div.col
+                    | {{product.item.name}}
+            div.row.detail
+                div.col
+                    | {{product.item.detail}}
+            div.row.price
+                div.col
+                    | ราคา ฿ {{product.item.price}}
+            div.row.contact
+                div.col
+                    | {{product.item.contact}}
