@@ -76,7 +76,7 @@ class Ticket extends Controller then constructor: (
         fakeItem: (datetime) ->
             club = Chance.club()
             clubs = [
-                logo: './img/live/chonburi@2x.png'
+                logo: './img/logo/match_label@2x.png'
                 name: 'Chonburi FC'
                 score: Und.random(0, 99)
             ,
