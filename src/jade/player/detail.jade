@@ -7,27 +7,30 @@ ion-view.player-detail
             i.icon.ion-android-more-vertical
 
     ion-content.content
+        ion-refresher(pulling-text="Pull to refresh...", on-refresh="players.doRefresh()")
         div.cover
             img.image(src="./img/player/sinthaweechai.png")
 
         div.player
             div.row
                 div.col.text-left.name
-                    | {{name}}
+                    | {{players.fname}}
+                    br
+                    | {{players.lname}}
                 div.col.text-right.number
-                    | {{number}}
+                    | {{players.number}}
 
         div.event
             div.row
                 div.col.text-right.yellow
                     img(src="./img/match-events/icon/yellow_card.png", srcset="./img/match-events/icon/yellow_card@2x.png 2x")
-                    | {{score.yellow}}
+                    | {{players.score.yellow}}
                 div.col.col-20.text-center.red
                     img(src="./img/match-events/icon/red_card.png", srcset="./img/match-events/icon/red_card@2x.png 2x")
-                    | {{score.red}}
+                    | {{players.score.red}}
                 div.col.text-left.goal
                     img(src="./img/match-events/icon/goal.png", srcset="./img/match-events/icon/goal@2x.png 2x")
-                    |  {{score.goal}}
+                    |  {{players.score.goal}}
 
         div.detail
             div.row.born

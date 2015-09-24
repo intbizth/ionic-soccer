@@ -20,9 +20,15 @@
 
             .number {
                 color: #c9da2b;
-                font-size: 30px;
+                padding-top: 15px;
+                font-size: 42px;
                 font-weight: bold;
             }
+
+            //.row {
+            //    padding-top: 0px;
+            //    padding-bottom: 0px;
+            //}
         }
 
         .event {
@@ -42,7 +48,7 @@
 
         .detail {
             .born {
-
+                background-color: #ffffff;
             }
 
             .position {
@@ -50,7 +56,7 @@
             }
 
             .previous {
-
+                background-color: #ffffff;
             }
 
             .signed {
@@ -58,7 +64,7 @@
             }
 
             .bio {
-
+                background-color: #ffffff;
             }
         }
     }
