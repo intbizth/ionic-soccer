@@ -6,13 +6,13 @@ class NewsDetail extends Controller then constructor: (
         return
 
     $scope.news =
-        item : {},
-        loadData : ->
+        item: {},
+        loadData: ->
             item = this.fakeItem()
             this.item =  item
             console.log('news:loadData', JSON.stringify(this.item))
             return
-        doRefresh : ->
+        doRefresh: ->
             console.log 'news:doRefresh'
             $this = this
             $timeout(->
@@ -22,23 +22,21 @@ class NewsDetail extends Controller then constructor: (
                 return
             , 2000)
             return
-        fakeItem : ->
+        fakeItem: ->
+            update = Chance.update()
+            user = Chance.user()
             item =
-                id : Chance.integer(
-                    min : 1
-                    max : 9999999
-                )
-                headline : $stateParams.headline || Chance.sentence()
-                image : 'https://placeimg.com/640/292/any?time=' + Chance.hash()
-                datetime : Chance.date()
-                creditUrl : Chance.url()
-                description : Chance.paragraph(
+                id: Und.random(1, 9999999)
+                headline: $stateParams.headline || Chance.sentence()
+                image: update.image.src
+                datetime: Chance.date()
+                creditUrl: Chance.url()
+                description: Chance.paragraph(
                     sentences: Und.random(5, 50)
                 )
                 user:
-                    name: Chance.name()
-                    photo: 'https://placeimg.com/46/46/people?time=' + Chance.hash()
-
+                    name: user.name
+                    photo: user.image.src
             return item
 
     $scope.news.loadData()

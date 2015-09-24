@@ -71,13 +71,14 @@ class Timeline extends Controller then constructor: (
             return sections
             return
         fakeItem: (datetime) ->
+            club = Chance.club()
             clubs = [
                 logo: './img/logo/match_label@2x.png'
                 name: 'Chonburi FC'
                 score: Und.random(0, 99)
             ,
-                logo: 'https://placeimg.com/80/80/tech?time=' + Chance.timestamp()
-                name: Chance.name()
+                logo: club.image.src
+                name: club.name
                 score: Und.random(0, 99)
             ]
             item =
@@ -107,10 +108,10 @@ class Timeline extends Controller then constructor: (
     $scope.matchLabel.loadData()
 
     $scope.timeline =
-        isLive : false
-        items : []
-        next : false
-        loadData : ->
+        isLive: false
+        items: []
+        next: false
+        loadData: ->
             this.isLive = Chance.pick([true, false])
             this.items = this.fakeItems()
             if this.items.length > 0
@@ -119,7 +120,7 @@ class Timeline extends Controller then constructor: (
                 this.next = false
             console.log('timeline:loadData', this.items.length, JSON.stringify(this.items), this.next)
             return
-        doRefresh : ->
+        doRefresh: ->
             console.log 'timeline:doRefresh'
             $this = this
             $timeout(->
@@ -129,7 +130,7 @@ class Timeline extends Controller then constructor: (
                 return
             , 2000)
             return
-        loadMore : ->
+        loadMore: ->
             console.log 'timeline:loadMore'
             $this = this
             $timeout(->
@@ -146,29 +147,27 @@ class Timeline extends Controller then constructor: (
                 return
             , 2000)
             return
-        fakeItem : ->
+        fakeItem: ->
+            user = Chance.user()
             item =
-                id : Chance.integer(
-                    min : 1
-                    max : 9999999
-                )
+                id: Und.random(1, 9999999)
                 template: Chance.pick(['hightlight'])
                 datetime: Chance.date()
-                images : []
+                images: []
                 description: Chance.paragraph(
                     sentences: Und.random(1, 20)
                 )
                 user:
-                    name: Chance.name()
-                    photo: 'https://placeimg.com/46/46/people?time=' + Chance.hash()
-
+                    name: user.name
+                    photo: user.image.src
             i = 0
             ii = Und.random(0, 4)
             while i < ii
-                item.images.push 'https://placeimg.com/640/640/any?time=' + Chance.hash()
+                timeline = Chance.timeline()
+                item.images.push timeline.image.src
                 i++
             return item
-        fakeItems : ->
+        fakeItems: ->
             items = []
             i = 0
             ii = Und.random(0, 10)
@@ -180,8 +179,8 @@ class Timeline extends Controller then constructor: (
     $scope.timeline.loadData()
 
     $scope.ticket =
-        items : []
-        loadData : ->
+        items: []
+        loadData: ->
             items = this.fakeItems()
             i = 1
             for item in items
@@ -198,15 +197,12 @@ class Timeline extends Controller then constructor: (
             this.items =  items
             console.log('ticket:loadData', this.items.length, JSON.stringify(this.items))
             return
-        fakeItem : ->
+        fakeItem: ->
             item =
-                id : Chance.integer(
-                    min : 1
-                    max : 9999999
-                )
-                seats : []
-                textSeats : ''
-                count : Und.random(0, 9999)
+                id: Und.random(1, 9999999)
+                seats: []
+                textSeats: ''
+                count: Und.random(0, 9999)
 
             i = 0
             ii = Und.random(1, 20)
@@ -221,7 +217,7 @@ class Timeline extends Controller then constructor: (
             item.seats.sort()
             item.textSeats = item.seats.join ', '
             return item
-        fakeItems : ->
+        fakeItems: ->
             items = []
             i = 0
             ii = Und.random(0, 10)

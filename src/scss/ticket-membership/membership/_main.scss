@@ -1,19 +1,5 @@
 @charset "UTF-8";
 
-.about {
-    width: 100%;
-    height: 58px;
-    background-image: url("../img/timeline-update/update/bg_about.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-
-    .text {
-        font-size: 16px;
-        font-weight: bold;
-        color: #ffffff;
-    }
-}
-
 .section {
     .text {
         padding-left: 6px;
@@ -51,43 +37,16 @@
     }
 }
 
-.news {
-    .space {
-        height: 6px;
-        background-color: #1e2b44;
-    }
-
-    .headline {
-        font-size: 14px;
-        color: #ffffff;
-    }
-
-    .detail {
-        position: relative;
-        width: 100%;
-        height: 146px;
-        min-height: 146px;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-color: #0056a2;
-    }
-
-    .subdetail {
-        position: absolute;
-        bottom: 0px;
-        left: 0px;
-    }
-
-    .userbox {
-        .name {
-            margin-left: 4px;
-            color: #ffffff;
-        }
-    }
-}
-
 @media screen and (-webkit-device-pixel-ratio: 2) {
     .about {
         background-image: url("../img/timeline-update/update/bg_about@2x.png");
     }
+}
+
+.banner {
+    width: 100%;
+    height: 170px;
+    background-image: url("../img/ticket-membership/membership/banner.png");
+    background-size: cover;
+    background-repeat: no-repeat;
 }

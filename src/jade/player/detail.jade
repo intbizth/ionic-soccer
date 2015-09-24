@@ -1,0 +1,61 @@
+ion-view.player-detail
+    ion-nav-buttons(side="left")
+        a.button.button-icon.ion-ios-arrow-left(ng-click="back()")
+            img(src="./img/logo/navbar.png", srcset="./img/logo/navbar@2x.png",style="height:15px; margin-top:10px;")
+    ion-nav-buttons(side="right")
+        a.button.button-clear(ng-click="")
+            i.icon.ion-android-more-vertical
+
+    ion-content.content
+        div.cover
+            img.image(src="./img/player/sinthaweechai.png")
+
+        div.player
+            div.row
+                div.col.text-left.name
+                    | {{name}}
+                div.col.text-right.number
+                    | {{number}}
+
+        div.event
+            div.row
+                div.col.text-right.yellow
+                    img(src="./img/match-events/icon/yellow_card.png", srcset="./img/match-events/icon/yellow_card@2x.png 2x")
+                    | {{score.yellow}}
+                div.col.col-20.text-center.red
+                    img(src="./img/match-events/icon/red_card.png", srcset="./img/match-events/icon/red_card@2x.png 2x")
+                    | {{score.red}}
+                div.col.text-left.goal
+                    img(src="./img/match-events/icon/goal.png", srcset="./img/match-events/icon/goal@2x.png 2x")
+                    |  {{score.goal}}
+
+        div.detail
+            div.row.born
+                div.col
+                    | Born
+                div.col
+                    | Test
+
+            div.row.position
+                div.col
+                    | Position
+                div.col
+                    | Test
+
+            div.row.previous
+                div.col
+                    | Previous Club
+                div.col
+                    | Test
+
+            div.row.signed
+                div.col
+                    | Signed
+                div.col
+                    | Test
+
+            div.row.bio
+                div.col
+                    | Bio
+                div.col
+                    | Test
