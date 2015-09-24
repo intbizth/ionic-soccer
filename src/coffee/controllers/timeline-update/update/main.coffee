@@ -2,8 +2,8 @@ class Update extends Controller then constructor: (
     $scope, $ionicHistory, $timeout, Und, Chance
 ) ->
     $scope.ticket =
-        items : [],
-        loadData : ->
+        items: [],
+        loadData: ->
             items = this.fakeItems()
             i = 1
             for item in items
@@ -19,16 +19,12 @@ class Update extends Controller then constructor: (
             this.items =  items
             console.log('ticket:loadData', this.items.length, JSON.stringify(this.items))
             return
-        fakeItem : ->
+        fakeItem: ->
             item =
-                id : Chance.integer(
-                    min : 1
-                    max : 9999999
-                )
-                seats : []
-                textSeats : ''
-                count : Und.random(0, 9999)
-
+                id: Und.random(1, 9999999)
+                seats: []
+                textSeats: ''
+                count: Und.random(0, 9999)
             i = 0
             ii = Und.random(1, 20)
             while i < ii
@@ -41,7 +37,7 @@ class Update extends Controller then constructor: (
             item.seats.sort()
             item.textSeats = item.seats.join ', '
             return item
-        fakeItems : ->
+        fakeItems: ->
             items = []
             i = 0
             ii = Und.random(0, 10)
@@ -51,14 +47,14 @@ class Update extends Controller then constructor: (
             return items
 
     $scope.news =
-        items : []
-        next : false
-        loadData : ->
+        items: []
+        next: false
+        loadData: ->
             items = this.fakeItems()
             this.items =  items
             console.log('news:loadData', this.items.length, JSON.stringify(this.items))
             return
-        doRefresh : ->
+        doRefresh: ->
             console.log 'news:doRefresh'
             $this = this
             $timeout(->
@@ -68,7 +64,7 @@ class Update extends Controller then constructor: (
                 return
             , 2000)
             return
-        loadMore : ->
+        loadMore: ->
             console.log 'news:loadMore'
             $this = this
             $timeout(->
@@ -85,20 +81,18 @@ class Update extends Controller then constructor: (
                 return
             , 2000)
             return
-        fakeItem : ->
+        fakeItem: ->
+            update = Chance.update()
+            user = Chance.user()
             item =
-                id : Chance.integer(
-                    min : 1
-                    max : 9999999
-                )
-                headline : Chance.sentence()
-                image : 'https://placeimg.com/640/292/any?time=' + Chance.hash()
+                id: Und.random(1, 9999999)
+                headline: Chance.sentence()
+                image: update.image.css
                 user:
-                    name: Chance.name()
-                    photo: 'https://placeimg.com/46/46/people?time=' + Chance.hash()
-
+                    name: user.name
+                    photo: user.image.src
             return item
-        fakeItems : ->
+        fakeItems: ->
             items = []
             i = 0
             ii = Und.random(0, 10)
