@@ -35,7 +35,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     border-color: #003566;
 }
 
-.about-club, .competition-table, .fanzone, .match, .people-ranking, .ticket-membership, .timeline-update {
+.about-club, .competition-table, .fanzone, .match, .ticket-membership, .timeline-update {
     .tabs-background-positive .tabs, .tabs-background-positive > .tabs {
         background-color: #0056a2;
         background-image: -webkit-linear-gradient(90deg, #0056a2, #0056a2 50%, transparent 50%);
@@ -49,6 +49,28 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
     .tabs-striped.tabs-color-light .tab-item.tab-item-active, .tabs-striped.tabs-color-light .tab-item.active, .tabs-striped.tabs-color-light .tab-item.activated {
         border: 0 solid #caf906;
+    }
+
+    .tab-item .tab-title {
+        font-size: 18px;
+        font-weight: bold;
+    }
+}
+
+.people-ranking {
+    .tabs-background-positive .tabs, .tabs-background-positive > .tabs {
+        background-color: #111f28;
+        background-image: -webkit-linear-gradient(90deg, #111f28, #111f28 50%, transparent 50%);
+        background-image: linear-gradient(0deg, #111f28, #111f28 50%, transparent 50%);
+        border-color: #111f28;
+    }
+
+    .tabs-striped.tabs-background-positive .tabs {
+        background-color: #111f28;
+    }
+
+    .tabs-striped.tabs-color-light .tab-item.tab-item-active, .tabs-striped.tabs-color-light .tab-item.active, .tabs-striped.tabs-color-light .tab-item.activated {
+        border: 0 solid #0079ff;
     }
 
     .tab-item .tab-title {

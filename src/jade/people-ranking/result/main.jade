@@ -1,1 +1,22 @@
-h1 result
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="result.doRefresh()")
+
+div(ng-repeat="item in result.items")
+    div.row.button.button-clear
+        div.col.col-20.col-center
+            div.circle
+                div.subcircle
+                    img.image(ng-src="{{item.photo}}")
+            div.badge
+                div.subbadge
+                    | {{$index + 1}}
+        div.col.col-40.col-center.text-left
+            div.name {{item.name}}
+            div.hit
+                span เกมทาย
+                span.-highlight {{item.hit | number}}
+                span ครั้ง
+        div.col.col-40.col-center.text-right.point
+            span Pts
+            span.label {{item.point | number}}
+
+ion-infinite-scroll(ng-if="result.next" on-infinite="result.loadMore()", distance="5%")
