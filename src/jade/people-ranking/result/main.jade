@@ -1,7 +1,12 @@
 ion-refresher(pulling-text="Pull to refresh...", on-refresh="result.doRefresh()")
 
+div.nodata(ng-if="result.items.length == 0")
+    div.row
+        div.col.col-center.text-center
+            div.text Has no ranking.
+
 div(ng-repeat="item in result.items")
-    div.row.button.button-clear
+    div.row.button.button-clear(ui-sref="people-ranking-detail({id : item.id})")
         div.col.col-20.col-center
             div.circle
                 div.subcircle

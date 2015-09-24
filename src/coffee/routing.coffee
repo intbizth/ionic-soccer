@@ -117,6 +117,11 @@ class Routing extends Config then constructor: (
         controller: 'peopleRankingMainController'
         templateUrl: 'templates/people-ranking/main.html'
 
+    state 'people-ranking-detail',
+        url: '/people-ranking-detail'
+        controller: 'peopleRankingDetailController'
+        templateUrl: 'templates/people-ranking/detail.html'
+
     state 'people-ranking.main',
         url: '/main'
         views:
