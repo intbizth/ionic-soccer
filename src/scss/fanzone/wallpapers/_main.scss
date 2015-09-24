@@ -1,11 +1,18 @@
 @charset "UTF-8";
 
-.wrap {
-    padding: 0;
-    width: 100%;
-    margin-bottom: -5px;
-    img {
+.items {
+    .space {
+        height: 6px;
+        background-color: #0056a2;
+    }
+
+    .detail {
+        position: relative;
         width: 100%;
-        border-bottom: 7px #1e2b44 solid;
+        height: 187px;
+        min-height: 187px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: #f0f0f0;
     }
 }
