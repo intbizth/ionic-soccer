@@ -4,9 +4,15 @@ class Ticket extends Controller then constructor: (
     $scope.share = ->
         return
 
+    $scope.seasonTicket =
+        contact : 'สอบถามรายละเอียดเพิ่มเติม ฝ่ายดูแลสิทธิประโยชน์ และการจําหน่ายตั๋ว สโมสร ชลบุรี เอฟซี 038-467-109,
+                เซ็นทรัล 038-053-822, วีไอพี 038-278-007, ชาร์คเอาท์เลท 038-467-609'
+
     $scope.matchLabel =
         sections: [],
+
         next: false
+
         loadData: ->
             sections = this.fakeSections()
             if sections.length > 0
@@ -17,6 +23,7 @@ class Ticket extends Controller then constructor: (
             this.next = false
             console.log('matchLabel:loadData', this.sections.length, JSON.stringify(this.sections), this.next)
             return
+
         doRefresh: ->
             console.log 'matchLabel:doRefresh'
             $this = this
@@ -27,6 +34,7 @@ class Ticket extends Controller then constructor: (
                 return
             , 2000)
             return
+
         loadMore: ->
             console.log 'matchLabel:loadMore'
             $this = this
@@ -44,12 +52,14 @@ class Ticket extends Controller then constructor: (
                 return
             , 2000)
             return
+
         fakeSection: (datetime)->
             section =
                 id: Und.random(1, 9999999)
                 datetime: Chance.date(datetime)
                 items: this.fakeItems(datetime)
             return section
+
         fakeSections: ->
             sections = []
             i = 0
@@ -70,6 +80,7 @@ class Ticket extends Controller then constructor: (
             sections = Und.sortBy(sections, 'items.datetime')
             return sections
             return
+
         fakeItem: (datetime) ->
             clubs = [
                 logo: './img/live/chonburi@2x.png'
@@ -80,11 +91,14 @@ class Ticket extends Controller then constructor: (
                 name: Chance.name()
                 score: Und.random(0, 99)
             ]
+
             item =
                 id: Und.random(1, 9999999)
                 homeClub: null
                 awayClub: null
                 datetime: Chance.date(datetime)
+                program: 'Thai Premier League'
+                stadium: 'Chonburi Stadium'
                 template: Chance.pick(['before', 'after'])
             if Chance.pick([true, false])
                 item.homeClub = clubs[0]
@@ -93,6 +107,7 @@ class Ticket extends Controller then constructor: (
                 item.homeClub = clubs[1]
                 item.awayClub = clubs[0]
             return item
+
         fakeItems: (datetime) ->
             items = []
             i = 0
@@ -106,81 +121,9 @@ class Ticket extends Controller then constructor: (
 
     $scope.matchLabel.loadData()
 
-    $scope.timeline =
-        isLive : false
-        items : []
-        next : false
-        loadData : ->
-            this.isLive = Chance.pick([true, false])
-            this.items = this.fakeItems()
-            if this.items.length > 0
-                this.next = Chance.pick([true, false])
-            else
-                this.next = false
-            console.log('timeline:loadData', this.items.length, JSON.stringify(this.items), this.next)
-            return
-        doRefresh : ->
-            console.log 'timeline:doRefresh'
-            $this = this
-            $timeout(->
-                console.log 'timeline:doRefresh2'
-                $this.loadData()
-                $scope.$broadcast 'scroll.refreshComplete'
-                return
-            , 2000)
-            return
-        loadMore : ->
-            console.log 'timeline:loadMore'
-            $this = this
-            $timeout(->
-                console.log 'timeline:loadMore2'
-                items = $this.fakeItems()
-                for item in items
-                    $this.items.push item
-                if $this.items.length > 0
-                    $this.next = Chance.pick([true, false])
-                else
-                    $this.next = false
-                console.log('timeline:loadMore', $this.items.length, JSON.stringify($this.items), $this.next)
-                $scope.$broadcast 'scroll.infiniteScrollComplete'
-                return
-            , 2000)
-            return
-        fakeItem : ->
-            item =
-                id : Chance.integer(
-                    min : 1
-                    max : 9999999
-                )
-                template: Chance.pick(['hightlight'])
-                datetime: Chance.date()
-                images : []
-                description: Chance.paragraph(
-                    sentences: Und.random(1, 20)
-                )
-                user:
-                    name: Chance.name()
-                    photo: 'https://placeimg.com/46/46/people?time=' + Chance.hash()
-
-            i = 0
-            ii = Und.random(0, 4)
-            while i < ii
-                item.images.push 'https://placeimg.com/640/640/any?time=' + Chance.hash()
-                i++
-            return item
-        fakeItems : ->
-            items = []
-            i = 0
-            ii = Und.random(0, 10)
-            while i < ii
-                items.push this.fakeItem()
-                i++
-            return items
-
-    $scope.timeline.loadData()
-
     $scope.ticket =
         items : []
+
         loadData : ->
             items = this.fakeItems()
             i = 1
@@ -198,6 +141,7 @@ class Ticket extends Controller then constructor: (
             this.items =  items
             console.log('ticket:loadData', this.items.length, JSON.stringify(this.items))
             return
+
         fakeItem : ->
             item =
                 id : Chance.integer(
@@ -221,6 +165,7 @@ class Ticket extends Controller then constructor: (
             item.seats.sort()
             item.textSeats = item.seats.join ', '
             return item
+
         fakeItems : ->
             items = []
             i = 0
