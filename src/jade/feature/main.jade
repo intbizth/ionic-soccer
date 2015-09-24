@@ -5,45 +5,47 @@ ion-view.feature-main
             i.icon.ion-android-more-vertical
 
     ion-content.content
+        ion-refresher(pulling-text='Pull to refresh...', on-refresh='doRefresh()')
+
         div.profile
             div.row
                 div.col.text-center
-                    img.photo(src="./img/feature/photo.png", srcset="./img/feature/photo@2x.png 2x")
+                    img.photo(ng-src="{{profile.item.photo}}")
             div.row
                 div.col.text-center
-                    span.name {{fullname}}
+                    span.name {{profile.item.name}}
 
         div.point
             div.row.row-center
                 div.col.col-center
                     img.icon(src="./img/feature/icon/point.png", srcset="./img/feature/icon/point@2x.png 2x")
                     span.text เกมทายผลทายสกอร์
-                    span.hightlight {{point1 | number}} Pls
+                    span.hightlight {{profile.item.point1 | number}} Pls
                     span.text เกมทาย11ตัวจริง
-                    span.hightlight {{point2 | number}} Pls
+                    span.hightlight {{profile.item.point2 | number}} Pls
 
         div.menus
             div.row.row-center
-                div.col.col-center.grid.button.button-clear(ui-sref="live-main")
+                div.col.col-center.grid.button.button-clear(ui-sref="live")
                     div.square
                         img.icon.-live-icon(src="./img/feature/menu/live.png",
                         srcset="./img/feature/menu/live@2x.png 2x")
                         span.text.-live-text Live
 
-                div.col.col-center.grid.button.button-clear(ui-sref="timeline-and-update-main")
+                div.col.col-center.grid.button.button-clear(ui-sref="timeline-update.main")
                     div.square
                         img.icon(src="./img/feature/menu/timeline_and_update.png",
                         srcset="./img/feature/menu/timeline_and_update@2x.png 2x")
                         span.text Timeline & Update
 
-                div.col.col-center.grid.button.button-clear(ui-sref="competition-and-table-main")
+                div.col.col-center.grid.button.button-clear(ui-sref="competition-table.main")
                     div.square
                         img.icon(src="./img/feature/menu/competition_and_table.png",
                         srcset="./img/feature/menu/competition_and_table@2x.png 2x")
                         span.text Competition & Table
 
             div.row.row-center
-                div.col.col-center.grid.button.button-clear(ui-sref="ticket-and-membership-main", ng-disabled="true")
+                div.col.col-center.grid.button.button-clear(ui-sref="ticket-membership.main")
                     div.square
                         img.icon(src="./img/feature/menu/ticket_and_membership.png",
                         srcset="./img/feature/menu/ticket_and_membership@2x.png 2x")
@@ -53,24 +55,24 @@ ion-view.feature-main
                         img.icon(src="./img/feature/menu/games.png",
                         srcset="./img/feature/menu/games@2x.png 2x")
                         span.text Games
-                div.col.col-center.grid.button.button-clear(ui-sref="people-ranking-amin", ng-disabled="true")
+                div.col.col-center.grid.button.button-clear(ui-sref="people-ranking.main")
                     div.square
                         img.icon(src="./img/feature/menu/people_ranking.png",
                         srcset="./img/feature/menu/people_ranking@2x.png 2x")
                         span.text People Ranking
 
             div.row.row-center
-                div.col.col-center.grid.button.button-clear(ui-sref="man-of-the-match-main", ng-disabled="true")
+                div.col.col-center.grid.button.button-clear(ui-sref="man-of-the-match", ng-disabled="true")
                     div.square
                         img.icon(src="./img/feature/menu/man_of_the_match.png",
                         srcset="./img/feature/menu/man_of_the_match@2x.png 2x")
                         span.text Man of the Match
-                div.col.col-center.grid.button.button-clear(ui-sref="reward-main", ng-disabled="true")
+                div.col.col-center.grid.button.button-clear(ui-sref="reward", ng-disabled="true")
                     div.square
                         img.icon(src="./img/feature/menu/reward.png",
                         srcset="./img/feature/menu/reward@2x.png 2x")
                         span.text Reward
-                div.col.col-center.grid.button.button-clear(ui-sref="fanzone-main")
+                div.col.col-center.grid.button.button-clear(ui-sref="fanzone.main")
                     div.square
                         img.icon(src="./img/feature/menu/fanzone.png",
                         srcset="./img/feature/menu/fanzone@2x.png 2x")

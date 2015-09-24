@@ -1,0 +1,199 @@
+@charset "UTF-8";
+
+@mixin cover {
+    width: 100%;
+    height: 320px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.match-label {
+    .nodata {
+        .text {
+            padding: 18px 0px 18px 0px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+    }
+
+    .label {
+        background-color: #ffffff;
+
+        .logo {
+            .image {
+                width: 40px;
+                height: 40px;
+                background-color: #f0f0f0;
+            }
+        }
+
+        .name {
+            font-size: 14px;
+        }
+
+        .detail {
+            .score {
+                font-size: 22px;
+                font-weight: bold;
+                color: #0087cf;
+            }
+
+            .time {
+                font-size: 14px;
+                font-weight: bold;
+                color: #0087cf;
+            }
+
+            .date {
+                font-size: 10px;
+                color: #848586;
+            }
+        }
+    }
+    .match-detail {
+        padding-top: 8px;
+        width: 100%;
+        height: 75px;
+        font-size: 14px;
+        background-color: #e6e7e8;
+        color: #58595b;
+    }
+}
+
+.space {
+    height: 6px;
+}
+
+.footer {
+    height: 10px;
+    .share::before {
+        color: #0056a2;
+        opacity: 0.2;
+    }
+}
+
+.detail {
+    background-color: #ffffff;
+
+    .subdetail {
+        margin-left: 4px;
+        background-color: #ffffff;
+    }
+}
+
+.-hightlight {
+    .datetime {
+        background-color: #0056a2;
+        color: #caf906;
+    }
+
+    .cover {
+        background-color: #1388cd;
+    }
+
+    .detail {
+        background-color: #1388cd;
+    }
+}
+
+.banner {
+    width: 100%;
+    height: 170px;
+    background-image: url("../img/ticket-membership/ticket/banner.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.section {
+    .text {
+        padding-left: 6px;
+    }
+}
+
+.match-ticket {
+    .ticket-stadium {
+        width: 100%;
+        height: 425px;
+        background-image: url("../img/ticket-membership/ticket/ticket-stadium.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+}
+
+.ticket {
+    .first {
+        background-color: #00bbe0;
+    }
+
+    .second {
+        background-color: #1388cd;
+    }
+
+    .third {
+        background-color: #0056a5;
+    }
+
+    .seat1 {
+        font-size: 18px;
+        font-weight: bold;
+        color: #ffffff;
+    }
+
+    .seat2 {
+        font-size: 14px;
+        color: #ffffff;
+    }
+
+    .count {
+        font-size: 36px;
+        font-weight: bold;
+        color: #caf906;
+    }
+}
+
+.season-ticket {
+    .class-ticket {
+        margin-top: 5px;
+        .gold {
+            background-color: #A48031;
+        }
+
+        .silver {
+            background-color: #A5A6AA;
+        }
+
+        .bronze {
+            background-color: #302724;
+        }
+
+        .english {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .thai {
+            font-size: 10px;
+            color: #ffffff;
+        }
+
+        .price {
+            font-size: 12px;
+            color: #ffffff;
+        }
+
+        .contact {
+            margin-top: 5px;
+            font-size: 12px;
+        }
+    }
+
+    .space {
+        background-color: #ffffff;
+        width: 100%;
+        height: 10px;
+    }
+}

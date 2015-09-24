@@ -1,0 +1,108 @@
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="doRefresh()")
+
+div.banner
+
+div.next-match
+    div.row.section
+        div.col
+            span.text Next Match
+    div.match-label
+        div.nodata(ng-if="matchLabel.sections.length == 0")
+            div.space
+            div.row
+                div.col.col-center.text-center
+                    div.text Has no match.
+        div(ng-repeat="section in matchLabel.sections")
+            div.nodata(ng-if="section.items.length == 0")
+                div.space
+                div.row
+                    div.col.col-center.text-center
+                        div.text Has no match.
+            div(ng-repeat="item in section.items")
+                div.row.label
+                    div.col.col-15.col-center.logo.text-center
+                        img.image(ng-src="{{item.homeClub.logo}}")
+                    div.col.col-25.col-center.name.text-center
+                        | {{item.homeClub.name}}
+                    div.col.col-20.col-center.detail.text-center
+                        div(ng-show="item.template == 'before'")
+                            div.time
+                                | {{item.datetime | date:'HH:mm'}}
+                            div.date
+                                | {{item.datetime | date:'dd MMM yyyy'}}
+                        div(ng-show="item.template == 'after'")
+                            div.score
+                                | {{item.homeClub.score}}-{{item.awayClub.score}}
+                            div.date
+                                | {{item.datetime | date:'dd MMM yyyy'}}
+                    div.col.col-25.col-center.name.text-center
+                        | {{item.awayClub.name}}
+                    div.col.col-15.col-center.logo.text-center
+                        img.image(ng-src="{{item.awayClub.logo}}")
+                div.match-detail
+                    div.row-center.text-center
+                        | {{item.datetime | date:'EEE dd MMM HH:mm'}}
+                    div.row-center.text-center
+                        | {{ item.program }}
+                    div.row-center.text-center
+                        | {{ item.stadium }}
+
+div.match-ticket
+    div.row.section
+        div.col
+            i.icon.ion-ios-pricetag
+            span.text ตั่วเข้าชมทั่วไป
+    div.ticket-stadium
+
+div.ticket
+    div.row.section
+        div.col
+            i.icon.ion-ios-pricetag
+            span.text ตั่วที่ว่าง
+    div.nodata(ng-if="ticket.items.length == 0")
+        div.row
+            div.col.col-center.text-center
+                div.text Has no tickets.
+    div(ng-repeat="item in ticket.items")
+        div.row.row-center(ng-class="item.class")
+            div.col.col-67.col-center
+                div.seat1 บล็อก {{item.textSeats}}
+                div.seat2  ที่นั่งว่าง
+            div.col.col-33.col-center.text-right
+                span.count {{item.count | number}}
+
+div.season-ticket
+    div.row.section
+        div.col
+            i.icon.ion-ios-pricetag
+            span.text Season Ticket
+    div.nodata(ng-if="seasonTicket.items.length == 0")
+        div.row
+            div.col.col-center.text-center
+                div.text Has no season ticket.
+    div.class-ticket
+        div.row.row-center
+            div.col.col.col-center.gold
+                div.english Gold
+                div.thai โกลด์
+            div.col.col.col-center.silver
+                div.english Silver
+                div.thai ซิลเวอร์
+            div.col.col.col-center.bronze
+                div.english Bronze
+                div.thai บรอนซ์
+        div.row.row-center.space
+        div.row.row-center
+            div.col.col.col-center.gold
+                div.price 3,100 บาท
+            div.col.col.col-center.silver
+                div.price 2,400 บาท
+            div.col.col.col-center.bronze
+                div.price 1,499 บาท
+        div.row.row-center
+            div.col.contact
+                | {{seasonTicket.contact}}
+
+div.footer
+
+ion-infinite-scroll(ng-if="timeline.next" on-infinite="loadMore()", distance="5%")

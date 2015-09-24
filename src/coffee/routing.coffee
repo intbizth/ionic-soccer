@@ -3,35 +3,164 @@ class Routing extends Config then constructor: (
 ) ->
     state = $stateProvider.state
 
-    state 'competition-and-table-main',
-        url: '/competition-and-table/main'
-        templateUrl: 'templates/competition-and-table/main.html',
-        controller: 'competitionAndTableMainController'
+    state 'about-club',
+        abstract: true
+        url: '/about-club'
+        controller: 'aboutClubMainController'
+        templateUrl: 'templates/about-club/main.html'
 
-    state 'feature-main',
-        url: '/feature/main',
-        templateUrl: 'templates/feature/main.html',
+    state 'about-club.main',
+        url: '/main'
+        views:
+            info:
+                controller: 'aboutClubInfoController'
+                templateUrl: 'templates/about-club/info/main.html'
+            team:
+                controller: 'aboutClubTeamController'
+                templateUrl: 'templates/about-club/team/main.html'
+
+    state 'competition-table',
+        abstract: true
+        url: '/competition-table/main'
+        controller: 'competitionTableMainController'
+        templateUrl: 'templates/competition-table/main.html'
+
+    state 'competition-table.main',
+        url: '/main'
+        views:
+            fixture:
+                controller: 'competitionTableFixtureController'
+                templateUrl: 'templates/competition-table/fixture/main.html'
+            results:
+                controller: 'competitionTableResultController'
+                templateUrl: 'templates/competition-table/results/main.html'
+            'position-table':
+                controller: 'competitionTablePositionTableController'
+                templateUrl: 'templates/competition-table/position-table/main.html'
+
+    state 'fanzone',
+        abstract: true
+        url: '/fanzone'
+        controller: 'fanzoneMainController'
+        templateUrl: 'templates/fanzone/main.html'
+
+    state 'fanzone.main',
+        url: '/main'
+        views:
+            products:
+                controller: 'fanzoneProductsController'
+                templateUrl: 'templates/fanzone/products/main.html'
+            wallpapers:
+                controller: 'fanzoneWallpapersController'
+                templateUrl: 'templates/fanzone/wallpapers/main.html'
+            questionary:
+                controller: 'fanzoneQuestionaryController'
+                templateUrl: 'templates/fanzone/questionary/main.html'
+
+    state 'fanzone-product',
+         url: '/fanzone/product/:id'
+         controller: 'fanzoneProductShowController'
+         templateUrl: 'templates/fanzone/products/show.html'
+
+    state 'fanzone.wallpaper',
+         url: '/wallpaper/:id'
+         controller: 'fanzoneWallpaperShowController'
+         templateUrl: 'templates/fanzone/wallpaper/show.html'
+
+    state 'feature',
+        url: '/feature/main'
         controller: 'featureMainController'
+        templateUrl: 'templates/feature/main.html'
 
-    state 'live-main',
+    state 'live',
         url: '/live/main'
-        templateUrl: 'templates/live/main.html',
         controller: 'liveMainController'
+        templateUrl: 'templates/live/main.html'
+
+    state 'match',
+        abstract: true
+        url: '/match'
+        controller: 'matchMainController'
+        templateUrl: 'templates/match/main.html'
+
+    state 'match.main',
+        url: '/main'
+        views:
+            view:
+                controller: 'matchViewController'
+                templateUrl: 'templates/match/view/main.html'
+            highlight:
+                controller: 'matchHighlightController'
+                templateUrl: 'templates/match/highlight/main.html'
+            lineups:
+                controller: 'matchLineupsController'
+                templateUrl: 'templates/match/lineups/main.html'
 
     state 'news-detail',
         url: '/news/detail/:id'
-        templateUrl: 'templates/news/detail.html',
         controller: 'newsDetailController'
+        templateUrl: 'templates/news/detail.html'
 
-    state 'timeline-and-update-main',
-        url: '/timeline-and-update/main',
-        templateUrl: 'templates/timeline-and-update/main.html',
-        controller: 'timelineAndUpdateMainController'
+    state 'product-detail',
+        url: '/product/detail/:id'
+        controller: 'productDetailController'
+        templateUrl: 'templates/product/detail.html'
 
-    state 'fanzone-main',
-        url: '/fanzone/main'
-        templateUrl: 'templates/fanzone/main.html',
-        controller: 'fanzoneMainController'
+    state 'player-detail',
+        url: '/player/detail/:id'
+        controller: 'playerDetailController'
+        templateUrl: 'templates/player/detail.html'
+
+    state 'people-ranking',
+        abstract: true
+        url: '/people-ranking'
+        controller: 'peopleRankingMainController'
+        templateUrl: 'templates/people-ranking/main.html'
+
+    state 'people-ranking.main',
+        url: '/main'
+        views:
+            result:
+                controller: 'peopleRankingResultController'
+                templateUrl: 'templates/people-ranking/result/main.html'
+            score:
+                controller: 'peopleRankingScoreController'
+                templateUrl: 'templates/people-ranking/score/main.html'
+            player:
+                controller: 'peopleRankingPlayerController'
+                templateUrl: 'templates/people-ranking/player/main.html'
+
+    state 'ticket-membership',
+        abstract: true
+        url: '/ticket-membership'
+        controller: 'ticketMembershipMainController'
+        templateUrl: 'templates/ticket-membership/main.html'
+
+    state 'ticket-membership.main',
+        url: '/main'
+        views:
+            ticket:
+                controller: 'ticketController'
+                templateUrl: 'templates/ticket-membership/ticket/main.html'
+            membership:
+                controller: 'membershipController'
+                templateUrl: 'templates/ticket-membership/membership/main.html'
+
+    state 'timeline-update',
+        abstract: true
+        url: '/timeline-update'
+        controller: 'timelineUpdateMainController'
+        templateUrl: 'templates/timeline-update/main.html'
+
+    state 'timeline-update.main',
+        url: '/main'
+        views:
+            timeline:
+                controller: 'timelineController'
+                templateUrl: 'templates/timeline-update/timeline/main.html'
+            update:
+                controller: 'updateController'
+                templateUrl: 'templates/timeline-update/update/main.html'
 
     $urlRouterProvider.otherwise '/feature/main'
     return

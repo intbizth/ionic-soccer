@@ -1,0 +1,45 @@
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="doRefresh()")
+
+div.about(ui-sref="about-club.main")
+    div.text.text-center About ฉลามชล
+
+div.ticket
+    div.row.section
+        div.col
+            i.icon.ion-ios-pricetag
+            span.text Tickets
+    div.nodata(ng-if="ticket.items.length == 0")
+        div.row
+            div.col.col-center.text-center
+                div.text Has no tickets.
+    div(ng-repeat="item in ticket.items")
+        div.row.row-center(ng-class="item.class")
+            div.col.col-67.col-center
+                div.seat1 บล็อก {{item.textSeats}}
+                div.seat2  ที่นั่งว่าง
+            div.col.col-33.col-center.text-right
+                span.count {{item.count | number}}
+
+div.news
+    div.row.section
+        div.col
+            i.icon.ion-ios-paper
+            span.text News
+    div.nodata(ng-if="news.items.length == 0")
+        div.row
+            div.col.col-center.text-center
+                div.text Has no news.
+    div(ng-repeat="item in news.items")
+        div.space
+        div.detail(style="background-image: url('{{item.image}}');" ui-sref="news-detail({id : item.id})")
+            div.subdetail
+                div.row.headline
+                    div.col
+                        span {{item.headline}}
+                div.row.footer
+                    div.col.col-center
+                        div.userbox
+                            img.photo(ng-src="{{item.user.photo}}")
+                            span.name {{item.user.name}}
+
+ion-infinite-scroll(ng-if="timeline.next" on-infinite="loadMore()", distance="5%")

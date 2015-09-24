@@ -1,0 +1,16 @@
+ion-view.about-club
+    ion-nav-buttons(side='left')
+        a.button.button-icon.ion-ios-arrow-left(ng-click='back()')
+            img(src="./img/logo/navbar.png", srcset="./img/logo/navbar@2x.png",style="height:15px; margin-top:10px;")
+    ion-nav-buttons(side="right")
+        a.button.button-clear(ng-click="")
+            i.icon.ion-android-more-vertical
+
+    ion-content.content(scroll="false")
+        ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
+            ion-tab(title="About Chonburi")
+                ion-content.info.fix-tab
+                    div(ui-view="info")
+            ion-tab(title="First Team")
+                ion-content.team.fix-tab
+                    div(ui-view="team")

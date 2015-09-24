@@ -1,62 +1,134 @@
-.live-main {
-  .content {
-    .liveContent {
-      .dateTop {
-        width: 100%;
-        height: 20px;
-        margin-top:44px;
-        font-size: 12px;
-        text-align: center;
-        color: #848586;
-        background-color: #E6E7E8;
-      }
-
-      .teamLogo {
-        > .teamLogo1 {
-          padding-top: 5px;
-        }
-
-        > .teamLogo2 {
-          padding-top: 5px;
-        }
-      }
-
-      .teamName {
-        text-align: center;
-        > .teamName1 {
-          padding-top: 10px;
-        }
-
-        > .teamName2 {
-          padding-top: 10px;
-        }
-      }
-
-      .scoreAndDate {
-        text-align: center;
-        > .score {
-          padding-top: 8px;
-          color: #0087cf;
-          font-size: 25px;
-          font-weight: bold;
-        }
-        
-        > .dateMatch {
-          font-size: 10px;
-          color: #848586;
-        }
-      }
-
-      .videoView {
-        width: 100%;
-        height: 200px;
-      }
-
-      .matchDetail {
-        width: 100%;
-        height: 270px;
-        background-color: #0255A2;
-      }
+.live {
+    .title {
+        background-color: #0056a2;
+        font-size: 18px;
+        font-weight: bold;
+        color: #ffffff;
     }
-  }
+
+    .video {
+        width: 100%;
+        height: 230px;
+    }
+}
+
+.match-label {
+    .nodata {
+        .text {
+            padding: 18px 0px 18px 0px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+    }
+
+    .section {
+        height: 30px;
+        background-color: #e6e7e8;
+        font-size: 14px;
+        color: #58595b;
+    }
+
+    .label {
+        background-color: #ffffff;
+
+        .logo {
+            .image {
+                width: 40px;
+                height: 40px;
+                background-color: #f0f0f0;
+            }
+        }
+
+        .name {
+            font-size: 14px;
+        }
+
+        .detail {
+            .score {
+                font-size: 22px;
+                font-weight: bold;
+                color: #0087cf;
+            }
+
+            .time {
+                font-size: 14px;
+                font-weight: bold;
+                color: #0087cf;
+            }
+
+            .date {
+                font-size: 10px;
+                color: #848586;
+            }
+        }
+    }
+}
+
+.match-events {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: #0056a2;
+
+    .nodata {
+        .text {
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+    }
+
+    .wrap {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .dot {
+        position: relative;
+        &.-normal {
+            font-size: 8px;
+            color: #ffffff;
+        }
+
+        &.-halftime {
+            font-size: 8px;
+            color: #ff0000;
+        }
+
+        &.-large {
+            font-size: 20px;
+            color: #ffffff;
+        }
+    }
+
+    .time {
+        margin: 0px 2px 0px 2px;
+        font-size: 14px;
+        color: #faaf40;
+    }
+
+    .description {
+        margin: 0px 2px 0px 2px;
+        font-size: 14px;
+        color: #faaf40;
+    }
+
+    .name {
+        margin: 0px 2px 0px 2px;
+        font-size: 14px;
+        color: #ffffff;
+    }
+
+    .image {
+        margin: 0px 2px 0px 2px;
+        width: 15px;
+        height: 15px;
+    }
+
+    .line {
+        width: 1px;
+        margin-left: 50%;
+        position: absolute;
+        display: inline-block;
+        background-color: #ffffff;
+    }
 }

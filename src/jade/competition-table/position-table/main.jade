@@ -1,0 +1,34 @@
+ion-refresher(pulling-text='Pull to refresh...', on-refresh='position.doRefresh()')
+
+div.table
+    div.nodata(ng-if="position.items.length == 0")
+        div.space
+        div.row
+            div.col.col-center.text-center
+                div.text Has no info.
+    div.row.header.normal(ng-if="position.items.length > 0")
+        div.col.col-10.text-center
+            | Pos
+        div.col.col-30.text-center
+            | Team
+        div.col.col-20.text-center
+            | Play
+        div.col.col-20.text-center
+            | GD
+        div.col.col-20.text-center
+            | Points
+
+    div(ng-repeat="item in position.items")
+        div.row.row-center(ng-class="{normal : item.template == 'normal', highlight : item.template == 'highlight'}")
+            div.col.col-10.text-center
+                | {{item.position | number}}
+            div.col.col-30.text-center
+                | {{item.name}}
+            div.col.col-20.text-center
+                | {{item.play | number}}
+            div.col.col-20.text-center
+                | {{item.goalDifference | number}}
+            div.col.col-20.text-center
+                | {{item.points | number}}
+
+ion-infinite-scroll(ng-if="position.next" on-infinite="position.loadMore()", distance="5%")
