@@ -7,55 +7,65 @@ ion-view.player-detail
             i.icon.ion-android-more-vertical
 
     ion-content.content
+        ion-refresher(pulling-text="Pull to refresh...", on-refresh="player.doRefresh()")
         div.cover
             img.image(src="./img/player/sinthaweechai.png")
 
         div.player
             div.row
                 div.col.text-left.name
-                    | {{name}}
+                    | {{player.item.fname}}
+                    br
+                    | {{player.item.lname}}
                 div.col.text-right.number
-                    | {{number}}
+                    | {{player.item.number}}
 
         div.event
             div.row
                 div.col.text-right.yellow
                     img(src="./img/icon/yellow_card.png", srcset="./img/icon/yellow_card@2x.png 2x")
-                    | {{score.yellow}}
+                    | {{player.item.score.yellow | number}}
                 div.col.col-20.text-center.red
                     img(src="./img/icon/red_card.png", srcset="./img/icon/red_card@2x.png 2x")
-                    | {{score.red}}
+                    | {{player.item.score.red | number}}
                 div.col.text-left.goal
                     img(src="./img/icon/goal.png", srcset="./img/icon/goal@2x.png 2x")
-                    |  {{score.goal}}
+                    |  {{player.item.score.goal | number}}
 
         div.detail
             div.row.born
-                div.col
+                div.col.topic
                     | Born
-                div.col
-                    | Test
+                div.col.about
+                    | {{player.item.born.birthdate | date: 'MMMM dd, yyyy'}}
+                    | (age {{player.item.born.age}})
+                    | {{player.item.born.province}},
+                    | {{player.item.born.country}}
 
             div.row.position
-                div.col
+                div.col.topic
                     | Position
-                div.col
-                    | Test
+                div.col.about
+                    | {{player.item.position}}
 
             div.row.previous
-                div.col
+                div.col.topic
                     | Previous Club
-                div.col
-                    | Test
+                div.col.about
+                    | {{player.item.previous.name}}
+                    | {{player.item.previous.year}}
 
             div.row.signed
-                div.col
+                div.col.topic
                     | Signed
-                div.col
-                    | Test
+                div.col.about
+                    | {{player.item.signed}}
 
             div.row.bio
-                div.col
+                div.col.topic
                     | Bio
-                div.col
-                    | Test
+
+            div.row.history
+                div.col.about
+                    | {{player.item.bio}}
+                    
