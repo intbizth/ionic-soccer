@@ -7,59 +7,59 @@ ion-view.player-detail
             i.icon.ion-android-more-vertical
 
     ion-content.content
-        ion-refresher(pulling-text="Pull to refresh...", on-refresh="players.doRefresh()")
+        ion-refresher(pulling-text="Pull to refresh...", on-refresh="player.doRefresh()")
         div.cover
             img.image(src="./img/player/sinthaweechai.png")
 
         div.player
             div.row
                 div.col.text-left.name
-                    | {{players.item.fname}}
+                    | {{player.item.fname}}
                     br
-                    | {{players.item.lname}}
+                    | {{player.item.lname}}
                 div.col.text-right.number
-                    | {{players.item.number}}
+                    | {{player.item.number}}
 
         div.event
             div.row
                 div.col.text-right.yellow
                     img(src="./img/icon/yellow_card.png", srcset="./img/icon/yellow_card@2x.png 2x")
-                    | {{players.item.score.yellow | number}}
+                    | {{player.item.score.yellow | number}}
                 div.col.col-20.text-center.red
                     img(src="./img/icon/red_card.png", srcset="./img/icon/red_card@2x.png 2x")
-                    | {{players.item.score.red | number}}
+                    | {{player.item.score.red | number}}
                 div.col.text-left.goal
                     img(src="./img/icon/goal.png", srcset="./img/icon/goal@2x.png 2x")
-                    |  {{players.item.score.goal | number}}
+                    |  {{player.item.score.goal | number}}
 
         div.detail
             div.row.born
                 div.col.topic
                     | Born
                 div.col.about
-                    | {{players.item.born.birthdate | date: 'MMMM dd, yyyy'}}
-                    | (age {{players.item.born.age}})
-                    | {{players.item.born.province}},
-                    | {{players.item.born.country}}
+                    | {{player.item.born.birthdate | date: 'MMMM dd, yyyy'}}
+                    | (age {{player.item.born.age}})
+                    | {{player.item.born.province}},
+                    | {{player.item.born.country}}
 
             div.row.position
                 div.col.topic
                     | Position
                 div.col.about
-                    | {{players.item.position}}
+                    | {{player.item.position}}
 
             div.row.previous
                 div.col.topic
                     | Previous Club
                 div.col.about
-                    | {{players.item.previous.name}}
-                    | {{players.item.previous.year}}
+                    | {{player.item.previous.name}}
+                    | {{player.item.previous.year}}
 
             div.row.signed
                 div.col.topic
                     | Signed
                 div.col.about
-                    | {{players.item.signed}}
+                    | {{player.item.signed}}
 
             div.row.bio
                 div.col.topic
@@ -67,4 +67,5 @@ ion-view.player-detail
 
             div.row.history
                 div.col.about
-                    | {{players.item.bio}}
+                    | {{player.item.bio}}
+                    

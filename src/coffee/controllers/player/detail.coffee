@@ -5,18 +5,18 @@ class playerDetail extends Controller then constructor: (
         $ionicHistory.goBack -1
         return
 
-    $scope.players =
+    $scope.player =
         items: {},
         loadData: ->
             item = this.fakeItem()
             this.item =  item
-            console.log('players:loadData', JSON.stringify(this.item))
+            console.log('player:loadData', JSON.stringify(this.item))
             return
         doRefresh: ->
-            console.log 'players:doRefresh'
+            console.log 'player:doRefresh'
             $this = this
             $timeout(->
-                console.log 'players:doRefresh2'
+                console.log 'player:doRefresh2'
                 $this.loadData()
                 $scope.$broadcast 'scroll.refreshComplete'
                 return
@@ -44,13 +44,5 @@ class playerDetail extends Controller then constructor: (
                 bio:Chance.paragraph({sentences: 2})
             return item
 
-    $scope.players.loadData()
+    $scope.player.loadData()
 
-#    $scope.players =
-#        fname: Chance.first()
-#        lname: Chance.last()
-#        number: Und.random(1, 30)
-#        score:
-#            yellow: Und.random(1, 999)
-#            red: Und.random(1, 999)
-#            goal: Und.random(1, 999)
