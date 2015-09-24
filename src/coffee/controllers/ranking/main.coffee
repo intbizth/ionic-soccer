@@ -1,4 +1,4 @@
-class peopleRankingMain extends Controller then constructor: (
+class rankingMain extends Controller then constructor: (
     $scope, $state, $ionicHistory, $timeout, Und, Chance
 ) ->
     $scope.back = ->

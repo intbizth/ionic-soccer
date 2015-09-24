@@ -1,7 +1,7 @@
-class peopleRankingResult extends Controller then constructor: (
+class rankingPrediction extends Controller then constructor: (
     $scope, $state, $ionicHistory, $timeout, Und, Chance
 ) ->
-    $scope.result =
+    $scope.prediction =
         items: []
         next: false
         loadData: ->
@@ -10,23 +10,23 @@ class peopleRankingResult extends Controller then constructor: (
                 this.next = Chance.pick([true, false])
             else
                 this.next = false
-            console.log('result:loadData', this.items.length, JSON.stringify(this.items), this.next)
+            console.log('prediction:loadData', this.items.length, JSON.stringify(this.items), this.next)
             return
         doRefresh: ->
-            console.log 'result:doRefresh'
+            console.log 'prediction:doRefresh'
             $this = this
             $timeout(->
-                console.log 'result:doRefresh2'
+                console.log 'prediction:doRefresh2'
                 $this.loadData()
                 $scope.$broadcast 'scroll.refreshComplete'
                 return
             , 2000)
             return
         loadMore: ->
-            console.log 'result:loadMore'
+            console.log 'prediction:loadMore'
             $this = this
             $timeout(->
-                console.log 'result:loadMore2'
+                console.log 'prediction:loadMore2'
                 items = $this.fakeItems()
                 for item in items
                     $this.items.push item
@@ -34,7 +34,7 @@ class peopleRankingResult extends Controller then constructor: (
                     $this.next = Chance.pick([true, false])
                 else
                     $this.next = false
-                console.log('result:loadMore', $this.items.length, JSON.stringify($this.items), $this.next)
+                console.log('prediction:loadMore', $this.items.length, JSON.stringify($this.items), $this.next)
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
                 return
             , 2000)
@@ -58,4 +58,4 @@ class peopleRankingResult extends Controller then constructor: (
             items = Und.sortBy(items, 'point').reverse()
             return items
 
-    $scope.result.loadData()
+    $scope.prediction.loadData()

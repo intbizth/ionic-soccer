@@ -4,7 +4,7 @@ div.nodata(ng-if="score.items.length == 0")
         div.col.col-center.text-center
             div.text Has no ranking.
 div(ng-repeat="item in score.items")
-    div.row.button.button-clear(ui-sref="people-ranking-detail({id : item.id})")
+    div.row.button.button-clear(ui-sref="ranking-detail({id : item.id})")
         div.col.col-20.col-center
             div.circle
                 div.subcircle

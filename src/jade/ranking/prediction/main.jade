@@ -1,12 +1,12 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="result.doRefresh()")
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="prediction.doRefresh()")
 
-div.nodata(ng-if="result.items.length == 0")
+div.nodata(ng-if="prediction.items.length == 0")
     div.row
         div.col.col-center.text-center
             div.text Has no ranking.
 
-div(ng-repeat="item in result.items")
-    div.row.button.button-clear(ui-sref="people-ranking-detail({id : item.id})")
+div(ng-repeat="item in prediction.items")
+    div.row.button.button-clear(ui-sref="ranking-detail({id : item.id})")
         div.col.col-20.col-center
             div.circle
                 div.subcircle
@@ -24,4 +24,4 @@ div(ng-repeat="item in result.items")
             span Pts
             span.label {{item.point | number}}
 
-ion-infinite-scroll(ng-if="result.next" on-infinite="result.loadMore()", distance="5%")
+ion-infinite-scroll(ng-if="prediction.next" on-infinite="prediction.loadMore()", distance="5%")

@@ -52,12 +52,12 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     }
 
     .tab-item .tab-title {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: bold;
     }
 }
 
-.people-ranking {
+.ranking {
     .tabs-background-positive .tabs, .tabs-background-positive > .tabs {
         background-color: #111f28;
         background-image: -webkit-linear-gradient(90deg, #111f28, #111f28 50%, transparent 50%);
@@ -74,7 +74,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     }
 
     .tab-item .tab-title {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: bold;
     }
 }

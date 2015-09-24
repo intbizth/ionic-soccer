@@ -111,29 +111,29 @@ class Routing extends Config then constructor: (
         controller: 'playerDetailController'
         templateUrl: 'templates/player/detail.html'
 
-    state 'people-ranking',
+    state 'ranking',
         abstract: true
-        url: '/people-ranking'
-        controller: 'peopleRankingMainController'
-        templateUrl: 'templates/people-ranking/main.html'
+        url: '/ranking'
+        controller: 'rankingMainController'
+        templateUrl: 'templates/ranking/main.html'
 
-    state 'people-ranking-detail',
-        url: '/people-ranking-detail'
-        controller: 'peopleRankingDetailController'
-        templateUrl: 'templates/people-ranking/detail.html'
+    state 'ranking-detail',
+        url: '/ranking-detail'
+        controller: 'rankingDetailController'
+        templateUrl: 'templates/ranking/detail.html'
 
-    state 'people-ranking.main',
+    state 'ranking.main',
         url: '/main'
         views:
-            result:
-                controller: 'peopleRankingResultController'
-                templateUrl: 'templates/people-ranking/result/main.html'
+            prediction:
+                controller: 'rankingPredictionController'
+                templateUrl: 'templates/ranking/prediction/main.html'
             score:
-                controller: 'peopleRankingScoreController'
-                templateUrl: 'templates/people-ranking/score/main.html'
+                controller: 'rankingScoreController'
+                templateUrl: 'templates/ranking/score/main.html'
             player:
-                controller: 'peopleRankingPlayerController'
-                templateUrl: 'templates/people-ranking/player/main.html'
+                controller: 'rankingPlayerController'
+                templateUrl: 'templates/ranking/player/main.html'
 
     state 'ticket-membership',
         abstract: true
