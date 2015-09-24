@@ -1,4 +1,4 @@
-ion-view.people-ranking
+ion-view.ranking
     ion-nav-title
         a.button.button-clear(ng-click="back()", style="margin-top: 5px;")
             i.icon.ion-ios-keypad-outline
@@ -9,9 +9,9 @@ ion-view.people-ranking
 
     ion-content.content(scroll="false")
         ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
-            ion-tab(title="Result")
-                ion-content.result.fix-tab
-                    div(ui-view="result")
+            ion-tab(title="Prediction")
+                ion-content.prediction.fix-tab
+                    div(ui-view="prediction")
             ion-tab(title="Score")
                 ion-content.score.fix-tab
                     div(ui-view="score")

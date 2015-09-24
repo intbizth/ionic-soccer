@@ -1,0 +1,46 @@
+ion-view.ranking-detail
+    ion-nav-buttons(side='left')
+        a.button.button-icon.ion-ios-arrow-left(ng-click='back()')
+            img(src="./img/logo/navbar.png", srcset="./img/logo/navbar@2x.png",style="height:15px; margin-top:10px;")
+
+    ion-content.content
+        ion-refresher(pulling-text="Pull to refresh...", on-refresh="ranking.doRefresh()")
+
+        div.row
+            div.col.col-33
+                div.row.inrow
+                    div.col
+                        div.circle
+                            div.subcircle
+                                img.image(ng-src="{{ranking.item.photo}}")
+                div.row.inrow
+                    div.col
+                        img.club(src="./img/logo/club.png", srcset="./img/logo/club@2x.png 2x")
+            div.col.col-66
+                div.row.name
+                    div.col
+                        | {{ranking.item.name}}
+                div.row.inrow.title
+                    div.col
+                        | Prediction
+                div.row.inrow.detail
+                    div.col.col-30
+                        | Ranking
+                    div.col.col-70.text-right
+                        span.number {{ranking.item.prediction | number}}
+                div.row.inrow.title
+                    div.col
+                        | Score
+                div.row.inrow.detail
+                    div.col.col-30
+                        | Ranking
+                    div.col.col-70.text-right
+                        span.number {{ranking.item.score | number}}
+                div.row.inrow.title
+                    div.col
+                        | Player
+                div.row.inrow.detail
+                    div.col.col-30
+                        | Ranking
+                    div.col.col-70.text-right
+                        span.number {{ranking.item.player | number}}

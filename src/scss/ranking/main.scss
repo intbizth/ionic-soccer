@@ -1,11 +1,11 @@
-.people-ranking {
+.ranking {
     .content {
         margin-top: -66px !important;
     }
 
-    .result {
+    .prediction {
         background-color: #213647;
-        @import "result/main";
+        @import "prediction/main";
     }
 
     .score {
