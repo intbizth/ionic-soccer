@@ -5,14 +5,12 @@ class Ticket extends Controller then constructor: (
         return
 
     $scope.seasonTicket =
-        contact : 'สอบถามรายละเอียดเพิ่มเติม ฝ่ายดูแลสิทธิประโยชน์ และการจําหน่ายตั๋ว สโมสร ชลบุรี เอฟซี 038-467-109,
+        contact: 'สอบถามรายละเอียดเพิ่มเติม ฝ่ายดูแลสิทธิประโยชน์ และการจําหน่ายตั๋ว สโมสร ชลบุรี เอฟซี 038-467-109,
                 เซ็นทรัล 038-053-822, วีไอพี 038-278-007, ชาร์คเอาท์เลท 038-467-609'
 
     $scope.matchLabel =
-        sections: [],
-
+        sections: []
         next: false
-
         loadData: ->
             sections = this.fakeSections()
             if sections.length > 0
@@ -23,7 +21,6 @@ class Ticket extends Controller then constructor: (
             this.next = false
             console.log('matchLabel:loadData', this.sections.length, JSON.stringify(this.sections), this.next)
             return
-
         doRefresh: ->
             console.log 'matchLabel:doRefresh'
             $this = this
@@ -34,7 +31,6 @@ class Ticket extends Controller then constructor: (
                 return
             , 2000)
             return
-
         loadMore: ->
             console.log 'matchLabel:loadMore'
             $this = this
@@ -52,14 +48,12 @@ class Ticket extends Controller then constructor: (
                 return
             , 2000)
             return
-
         fakeSection: (datetime)->
             section =
                 id: Und.random(1, 9999999)
                 datetime: Chance.date(datetime)
                 items: this.fakeItems(datetime)
             return section
-
         fakeSections: ->
             sections = []
             i = 0
@@ -79,19 +73,17 @@ class Ticket extends Controller then constructor: (
                     year++
             sections = Und.sortBy(sections, 'items.datetime')
             return sections
-            return
-
         fakeItem: (datetime) ->
+            club = Chance.club()
             clubs = [
                 logo: './img/live/chonburi@2x.png'
                 name: 'Chonburi FC'
                 score: Und.random(0, 99)
             ,
-                logo: 'https://placeimg.com/80/80/tech?time=' + Chance.timestamp()
-                name: Chance.name()
+                logo: club.image.src
+                name: club.name
                 score: Und.random(0, 99)
             ]
-
             item =
                 id: Und.random(1, 9999999)
                 homeClub: null
@@ -107,7 +99,6 @@ class Ticket extends Controller then constructor: (
                 item.homeClub = clubs[1]
                 item.awayClub = clubs[0]
             return item
-
         fakeItems: (datetime) ->
             items = []
             i = 0
@@ -122,9 +113,8 @@ class Ticket extends Controller then constructor: (
     $scope.matchLabel.loadData()
 
     $scope.ticket =
-        items : []
-
-        loadData : ->
+        items: []
+        loadData: ->
             items = this.fakeItems()
             i = 1
             for item in items
@@ -137,21 +127,15 @@ class Ticket extends Controller then constructor: (
                 i++
                 if i > 3
                     i = 1
-
             this.items =  items
             console.log('ticket:loadData', this.items.length, JSON.stringify(this.items))
             return
-
-        fakeItem : ->
+        fakeItem: ->
             item =
-                id : Chance.integer(
-                    min : 1
-                    max : 9999999
-                )
-                seats : []
-                textSeats : ''
-                count : Und.random(0, 9999)
-
+                id: Und.random(1, 9999999)
+                seats: []
+                textSeats: ''
+                count: Und.random(0, 9999)
             i = 0
             ii = Und.random(1, 20)
             while i < ii
@@ -160,13 +144,11 @@ class Ticket extends Controller then constructor: (
                     casing: 'upper'
                 )
                 i++
-
             item.seats = Und.uniq item.seats
             item.seats.sort()
             item.textSeats = item.seats.join ', '
             return item
-
-        fakeItems : ->
+        fakeItems: ->
             items = []
             i = 0
             ii = Und.random(0, 10)
