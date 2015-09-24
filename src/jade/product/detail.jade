@@ -1,6 +1,6 @@
 ion-view.product
-    ion-nav-buttons(side='left')
-        a.button.button-icon.ion-ios-arrow-left(ng-click='back()')
+    ion-nav-buttons(side="left")
+        a.button.button-icon.ion-ios-arrow-left(ng-click="back()")
             img(src="./img/logo/navbar.png", srcset="./img/logo/navbar@2x.png 2x",style="height:15px; vertical-align: middle;")
     ion-nav-buttons(side="right")
         a.button.button-clear(ng-click="")
@@ -21,7 +21,7 @@ ion-view.product
                     | {{product.item.detail}}
             div.row.price
                 div.col
-                    | ราคา ฿ {{product.item.price}}
+                    | ราคา ฿ {{product.item.price | number}}
             div.row.contact
                 div.col
                     | {{product.item.contact}}

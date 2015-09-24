@@ -27,7 +27,6 @@ class ProductDetail extends Controller then constructor: (
             item =
                 id: Und.random(1, 9999999)
                 title: 'Online Simple store'
-#                image: '../img/fanzone/products/product_' + Und.random(1, 3) + '@2x.png'
                 image: product.image.css
                 name: Chance.sentence()
                 detail: Chance.paragraph()
