@@ -26,10 +26,7 @@ class NewsDetail extends Controller then constructor: (
             update = Chance.update()
             user = Chance.user()
             item =
-                id: Chance.integer(
-                    min: 1
-                    max: 9999999
-                )
+                id: Und.random(1, 9999999)
                 headline: $stateParams.headline || Chance.sentence()
                 image: update.image.src
                 datetime: Chance.date()
