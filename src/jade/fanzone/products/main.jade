@@ -26,6 +26,6 @@ div.items
                         | {{item.name}}
                 div.row.price
                     div.col
-                        | ราคา ฿ {{item.price}}
+                        | ราคา ฿ {{item.price | number}}
 
 ion-infinite-scroll(ng-if="products.next" on-infinite="products.loadMore()", distance="5%")
