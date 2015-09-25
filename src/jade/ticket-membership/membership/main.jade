@@ -2,6 +2,47 @@ ion-refresher(pulling-text="Pull to refresh...", on-refresh="doRefresh()")
 
 div.banner
 
+div.member-ticket
+    div.nodata(ng-if="memberId.items.length == 0")
+        div.row
+            div.col.col-center.text-center
+                div.text Has no you member id.
+    div.row.section
+        div.col
+            i.icon.ion-card
+            span.name You Member ID
+            span.no No.1
+    div.ticket
+        div.row.member
+            div.col.title Member ID
+        div.row.member
+            div.col.col-50.detail
+                div.ticket-no No.1 xxx xxx xxx
+                div.level
+                    div.gold.text-center.text Gold Member
+            div.col.col-50
+                i.icon.ion-ios-trash-outline.delete
+        div.row.position-zone
+            div.col
+                div.row
+                    div.title Position & Zone
+                div.row.position
+                    div.col.col-20
+                        div.text Seat
+                        div.text Block
+                        div.text Gate
+                    div.col.col-80
+                        div.text 07 - 20
+                        div.text F
+                        div.text 15
+
+div.member-zone
+    div.row
+        div.col
+            span.title Member Zone
+    div.row.zone
+
+
 //div.about
     div.text.text-center About ฉลามชล
 
@@ -43,5 +84,3 @@ div.banner
                         div.userbox
                             img.photo(ng-src="{{item.user.photo}}")
                             span.name {{item.user.name}}
-
-ion-infinite-scroll(ng-if="timeline.next" on-infinite="loadMore()", distance="5%")
