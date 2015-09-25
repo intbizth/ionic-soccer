@@ -160,10 +160,9 @@ class Ticket extends Controller then constructor: (
     $scope.ticket.loadData()
 
     $scope.doRefresh = ->
-        $scope.matchLabel.loadData()
-        $scope.timeline.doRefresh()
+        $scope.matchLabel.doRefresh()
+        $scope.ticket.loadData()
         return
 
     $scope.loadMore = ->
-        $scope.timeline.loadMore()
         return
