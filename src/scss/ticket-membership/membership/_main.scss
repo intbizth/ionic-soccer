@@ -89,6 +89,7 @@
                         width: 100%;
                         height: 100%;
                         background-color: #A48031;
+                        content: "Gold";
                     }
 
                     .silver {
@@ -158,5 +159,22 @@
         background-image: url("../img/ticket-membership/membership/member-zone.png");
         background-size: cover;
         background-repeat: no-repeat;
+    }
+
+    .capacity {
+        padding-top: 5px;
+        font-size: 12px;
+    }
+
+    .contact {
+        font-size: 12px;
+    }
+}
+
+.footer {
+    height: 10px;
+    .share::before {
+        color: #0056a2;
+        opacity: 0.2;
     }
 }
