@@ -7,7 +7,7 @@
   <author email="info@intbizth.com" href="http://www.intbizth.com/">
       Intbizth Team Six
     </author>
-  <content src="http://192.168.10.250:8100" original-src="index.html"/>
+  <content src="index.html"/>
   <access origin="*"/>
   <access origin="https://github.com"/>
   <preference name="webviewbounce" value="false"/>

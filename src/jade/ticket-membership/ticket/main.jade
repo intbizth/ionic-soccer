@@ -47,12 +47,55 @@ div.next-match
                     div.row-center.text-center
                         | {{ item.stadium }}
 
-div.match-ticket
+div.match-ticket(ng-hide="permission.login")
     div.row.section
         div.col
             i.icon.ion-ios-pricetag
             span.text ตั่วเข้าชมทั่วไป
     div.ticket-stadium
+
+div.member-ticket(ng-show="permission.login")
+    div.nodata(ng-if="memberTicket.items.length == 0")
+        div.row
+            div.col.col-center.text-center
+                div.text Has no ticket.
+    div(ng-repeat="item in memberTicket.items")
+        div.row.section
+            div.col
+                i.icon.ion-card
+                span.name You Member ID
+                span.no
+                    | No.{{$index+1}}
+        div.ticket
+            div.row.member
+                div.col.title Member ID
+            div.row.member
+                div.col.col-50.detail
+                    div.ticket-no No.{{$index+1}} xxx xxx xxx
+                    div.level
+                        div(ng-class="item.class").text-center.text {{item.level}}
+                div.col.col-50
+                    i.icon.ion-ios-trash-outline.delete(ng-hide="permission.login")
+            div.row.position-zone
+                div.col
+                    div.row
+                        div.title Position & Zone
+                    div.row.position
+                        div.col.col-20
+                            div.text Seat
+                            div.text Block
+                            div.text Gate
+                        div.col.col-80
+                            div.text {{item.seat.row}} - {{item.seat.column}}
+                            div.text {{item.block}}
+                            div.text {{item.gate}}
+
+div.stadium-zone(ng-show="permission.login")
+    div.row
+        div.col
+            span.title Chonburi Stadium Zone
+    div.row.zone
+        div.footer
 
 div.ticket
     div.row.section
@@ -104,5 +147,3 @@ div.season-ticket
                 | {{seasonTicket.contact}}
 
 div.footer
-
-ion-infinite-scroll(ng-if="timeline.next" on-infinite="loadMore()", distance="5%")
