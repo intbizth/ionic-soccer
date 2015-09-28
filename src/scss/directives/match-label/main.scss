@@ -48,31 +48,27 @@
             }
         }
     }
+
+    .label:active {
+        background-color: #cdd2d5;
+    }
 }
 
-// For iPhone 4 and iPhone 5 display.
 @media screen and (max-device-width: 320px) {
     .match-label {
         .label {
-            padding-right: 0px;
-            padding-left: 0px;
+            padding-right: 0;
+            padding-left: 0;
             line-height: 13px;
 
             .name {
                 font-size: 12px;
-                .paddleft {
-                    padding-left: 0px;
-                }
-
-                .paddright {
-                    padding-right: 0px;
-                }
             }
 
             .detail {
+                padding-right: 0;
+                padding-left: 0;
                 line-height: 20px;
-                padding-right: 0px;
-                padding-left: 0px;
             }
         }
     }
