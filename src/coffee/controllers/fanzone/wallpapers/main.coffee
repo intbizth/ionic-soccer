@@ -5,7 +5,7 @@ class FanzoneWallpapers extends Controller then constructor: (
     $scope.wallpapers =
         items: []
         next: false
-        loadData : ->
+        loadData: ->
             items = this.fakeItems()
             this.items =  items
             if this.items.length > 0
@@ -14,7 +14,7 @@ class FanzoneWallpapers extends Controller then constructor: (
                 this.next = false
             console.log('wallpapers:loadData', this.items.length, JSON.stringify(this.items), this.next)
             return
-        doRefresh : ->
+        doRefresh: ->
             console.log 'wallpapers:doRefresh'
             $this = this
             $timeout(->
@@ -24,7 +24,7 @@ class FanzoneWallpapers extends Controller then constructor: (
                 return
             , 2000)
             return
-        loadMore : ->
+        loadMore: ->
             console.log 'wallpapers:loadMore'
             $this = this
             $timeout(->
@@ -42,12 +42,13 @@ class FanzoneWallpapers extends Controller then constructor: (
             , 2000)
             return
         fakeItem: ->
+            wallpaper = Chance.wallpaper()
             item =
                 id: Und.random(1, 9999999)
-                image: Chance.pick(['http://developer.intbizth.co.th/soccer/wallpaper/wallpaper_players_coyer.png', 'http://developer.intbizth.co.th/soccer/wallpaper/wallpaper_sinthaweechai.png', 'http://developer.intbizth.co.th/soccer/wallpaper/wallpaper_kroekrit.png'])
+                image: wallpaper.image.src
                 datetime: Chance.date()
             return item
-        fakeItems : ->
+        fakeItems: ->
             items = []
             i = 0
             ii = Und.random(0, 20)

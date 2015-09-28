@@ -19,13 +19,13 @@ div.address
 div.items
     div(ng-repeat="item in products.items")
         div.space
-        div.detail(style="background-image: url('{{item.image}}');" ui-sref="product-detail({id : item.id})")
+        div.detail(ng-style="{'background-image' : 'url({{item.image}})'}" ui-sref="product-detail({id : item.id})")
             div.subdetail
                 div.row.name
                     div.col
                         | {{item.name}}
                 div.row.price
                     div.col
-                        | ราคา ฿ {{item.price}}
+                        | ราคา ฿ {{item.price | number}}
 
 ion-infinite-scroll(ng-if="products.next" on-infinite="products.loadMore()", distance="5%")
