@@ -54,7 +54,7 @@ class FanzoneProducts extends Controller then constructor: (
                 id: Und.random(1, 9999999)
                 name: Chance.sentence()
                 price: Chance.floating({min: 0, max: 9999999, fixed: 2})
-                image: product.image.css
+                image: product.image.src
                 datetime: Chance.date()
             return item
         fakeItems: ->

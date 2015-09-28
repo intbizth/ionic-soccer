@@ -1,5 +1,3 @@
-@charset "UTF-8";
-
 .match-events {
     padding-top: 6px;
     padding-bottom: 6px;
@@ -13,7 +11,7 @@
         }
     }
 
-    .wrap {
+    .killpadding {
         padding-top: 0px;
         padding-bottom: 0px;
     }
@@ -66,33 +64,5 @@
         position: absolute;
         display: inline-block;
         background-color: #ffffff;
-    }
-}
-
-// For iPhone 4 and iPhone 5 display.
-@media screen and (max-device-width : 320px) {
-    .match-label {
-        .label {
-            padding-right: 0px;
-            padding-left: 0px;
-            line-height: 13px;
-
-            .name {
-                font-size: 12px;
-                .paddleft {
-                    padding-left: 0px;
-                }
-
-                .paddright {
-                    padding-right: 0px;
-                }
-            }
-
-            .detail {
-                line-height: 20px;
-                padding-right: 0px;
-                padding-left: 0px;
-            }
-        }
     }
 }
