@@ -3,52 +3,9 @@ ion-refresher(pulling-text="Pull to refresh...", on-refresh="doRefresh()")
 div.banner
 
 div.next-match
-    div.match-label
-        div.nodata(ng-if="matchLabel.sections.length == 0")
-            div.space
-            div.row
-                div.col.col-center.text-center
-                    div.text Has no match.
-        div(ng-repeat="section in matchLabel.sections")
-            div.row.row-center.section
-                div.col.col-center Next Match
-            div.nodata(ng-if="section.items.length == 0")
-                div.space
-                div.row
-                    div.col.col-center.text-center
-                        div.text Has no match.
-            div(ng-repeat="item in section.items")
-                div.row.label
-                    div.col.col-15.col-center.logo.text-center
-                        img.image(ng-src="{{item.homeClub.logo}}")
-                    div.col.col-25.col-center.name.text-center
-                        | {{item.homeClub.name}}
-                    div.col.col-20.col-center.detail.text-center
-                        div(ng-show="item.template == 'before'")
-                            div.time
-                                | {{item.datetime | date:'HH:mm'}}
-                            div.date
-                                | {{item.datetime | date:'dd MMM yyyy'}}
-                        div(ng-show="item.template == 'after'")
-                            div.score
-                                | {{item.homeClub.score}}-{{item.awayClub.score}}
-                            div.date
-                                | {{item.datetime | date:'dd MMM yyyy'}}
-                    div.col.col-25.col-center.name.text-center
-                        | {{item.awayClub.name}}
-                    div.col.col-15.col-center.logo.text-center
-                        img.image(ng-src="{{item.awayClub.logo}}")
-    div.match-detail
-        div.row-center.text-center Sat 3rd Oct 15:00
-        div.row-center.text-center Thai Premier League
-        div.row-center.text-center Chonburi Stadium
-
-
-//div.live(ng-show="timeline.isLive")
     div.row.section
         div.col
-            span.text Live
-
+            span.text Next Match
     div.match-label
         div.nodata(ng-if="matchLabel.sections.length == 0")
             div.space
@@ -56,9 +13,6 @@ div.next-match
                 div.col.col-center.text-center
                     div.text Has no match.
         div(ng-repeat="section in matchLabel.sections")
-            div.row.row-center.section
-                div.col.col-center.text-center
-                    | {{section.datetime | date : 'MMM yyyy'}}
             div.nodata(ng-if="section.items.length == 0")
                 div.space
                 div.row
@@ -85,33 +39,111 @@ div.next-match
                         | {{item.awayClub.name}}
                     div.col.col-15.col-center.logo.text-center
                         img.image(ng-src="{{item.awayClub.logo}}")
+                div.match-detail
+                    div.row-center.text-center
+                        | {{item.datetime | date:'EEE dd MMM HH:mm'}}
+                    div.row-center.text-center
+                        | {{ item.program }}
+                    div.row-center.text-center
+                        | {{ item.stadium }}
 
-//div.timeline
-    div.nodata(ng-if="timeline.items.length == 0")
-        div.space
+div.match-ticket(ng-hide="permission.login")
+    div.row.section
+        div.col
+            i.icon.ion-ios-pricetag
+            span.text ตั่วเข้าชมทั่วไป
+    div.ticket-stadium
+
+div.member-ticket(ng-show="permission.login")
+    div.nodata(ng-if="memberTicket.items.length == 0")
         div.row
             div.col.col-center.text-center
-                div.text Has no timeline.
-    div(ng-repeat="item in timeline.items")
-        div(ng-class="item.template == 'hightlight' ? '-hightlight' : ''")
-                div.space
-                div.row.datetime
-                    div.col
-                        | {{item.datetime | date :"dd/MM/yyyy | HH:mm"}}
-                div.cover
-                    div.images(ng-show="item.images.length")
-                        img(ng-src="{{item.images[0]}}", width="100%", height="100%")
-                div.detail(ng-class="item.template == 'hightlight' ? '-hightlight' : ''")
-                    div.subdetail
-                        div.row.description
-                            div.col
-                                span {{item.description}}
-                        div.row.footer
-                            div.col.col-90.col-center
-                                div.userbox
-                                    img.photo(ng-src="{{item.user.photo}}")
-                                    span.name {{item.user.name}}
-                            div.col.col-10.col-center(style="margin-left: -4px;")
-                                a.button.button-icon.icon.ion-android-share-alt.share(ng-click="share()")
+                div.text Has no ticket.
+    div(ng-repeat="item in memberTicket.items")
+        div.row.section
+            div.col
+                i.icon.ion-card
+                span.name You Member ID
+                span.no
+                    | No.{{$index+1}}
+        div.ticket
+            div.row.member
+                div.col.title Member ID
+            div.row.member
+                div.col.col-50.detail
+                    div.ticket-no No.{{$index+1}} xxx xxx xxx
+                    div.level
+                        div(ng-class="item.class").text-center.text {{item.level}}
+                div.col.col-50
+                    i.icon.ion-ios-trash-outline.delete(ng-hide="permission.login")
+            div.row.position-zone
+                div.col
+                    div.row
+                        div.title Position & Zone
+                    div.row.position
+                        div.col.col-20
+                            div.text Seat
+                            div.text Block
+                            div.text Gate
+                        div.col.col-80
+                            div.text {{item.seat.row}} - {{item.seat.column}}
+                            div.text {{item.block}}
+                            div.text {{item.gate}}
 
-ion-infinite-scroll(ng-if="timeline.next" on-infinite="loadMore()", distance="5%")
+div.stadium-zone(ng-show="permission.login")
+    div.row
+        div.col
+            span.title Chonburi Stadium Zone
+    div.row.zone
+        div.footer
+
+div.ticket
+    div.row.section
+        div.col
+            i.icon.ion-ios-pricetag
+            span.text ตั่วที่ว่าง
+    div.nodata(ng-if="ticket.items.length == 0")
+        div.row
+            div.col.col-center.text-center
+                div.text Has no tickets.
+    div(ng-repeat="item in ticket.items")
+        div.row.row-center(ng-class="item.class")
+            div.col.col-67.col-center
+                div.seat1 บล็อก {{item.textSeats}}
+                div.seat2  ที่นั่งว่าง
+            div.col.col-33.col-center.text-right
+                span.count {{item.count | number}}
+
+div.season-ticket
+    div.row.section
+        div.col
+            i.icon.ion-ios-pricetag
+            span.text Season Ticket
+    div.nodata(ng-if="seasonTicket.items.length == 0")
+        div.row
+            div.col.col-center.text-center
+                div.text Has no season ticket.
+    div.class-ticket
+        div.row.row-center
+            div.col.col.col-center.gold
+                div.english Gold
+                div.thai โกลด์
+            div.col.col.col-center.silver
+                div.english Silver
+                div.thai ซิลเวอร์
+            div.col.col.col-center.bronze
+                div.english Bronze
+                div.thai บรอนซ์
+        div.row.row-center.space
+        div.row.row-center
+            div.col.col.col-center.gold
+                div.price 3,100 บาท
+            div.col.col.col-center.silver
+                div.price 2,400 บาท
+            div.col.col.col-center.bronze
+                div.price 1,499 บาท
+        div.row.row-center
+            div.col.contact
+                | {{seasonTicket.contact}}
+
+div.footer

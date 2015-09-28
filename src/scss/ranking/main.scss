@@ -1,0 +1,25 @@
+.ranking {
+    .content {
+        margin-top: -66px !important;
+    }
+
+    .prediction {
+        background-color: #213647;
+        @import "prediction/main";
+    }
+
+    .score {
+        background-color: #213647;
+        @import "score/main";
+    }
+
+    .player {
+        background-color: #213647;
+        @import "player/main";
+    }
+}
+
+.fix-tab {
+    top: 112px !important;
+    height: auto !important;
+}

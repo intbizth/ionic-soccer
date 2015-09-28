@@ -1,22 +1,31 @@
-div.wrap
-    img.image(ng-src="{{image}}")
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="products.doRefresh()")
 
-div.store
-    div.header {{header}}
+div.cover
+    img.image(src="./img/fanzone/products/product.png", srcset="./img/fanzone/products/product@2x.png 2x")
 
-    div.detail
-        div.title {{header}}
-        div {{company}}
-        div {{stadium}}
-        div {{address}}
-        div โทรศัพท์.{{tel}}
-        div E-Mail : {{email}}
+div.address
+    div.row.section
+        div.col.text-center
+            | {{title}}
+    div.row.detail
+        div.col
+            div.title {{title}}
+            div {{company}}
+            div {{stadium}}
+            div {{address}}
+            div โทรศัพท์.{{tel}}
+            div E-Mail : {{email}}
 
-div.wrap(ng-repeat="product in products")
-    div(ui-sref="fanzone-product({id : product.id})")
-        div.
-        div.info
-            div {{product.name}}
-            div ราคา ฿ {{product.price}}
-        img.shadow(ng-src="{{shadow}}")
-        img.image(ng-src="{{product.image}}")
+div.items
+    div(ng-repeat="item in products.items")
+        div.space
+        div.detail(ng-style="{'background-image' : 'url({{item.image}})'}" ui-sref="product-detail({id : item.id})")
+            div.subdetail
+                div.row.name
+                    div.col
+                        | {{item.name}}
+                div.row.price
+                    div.col
+                        | ราคา ฿ {{item.price | number}}
+
+ion-infinite-scroll(ng-if="products.next" on-infinite="products.loadMore()", distance="5%")

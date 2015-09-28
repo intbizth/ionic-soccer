@@ -54,8 +54,8 @@ div.timeline
                 div.row.datetime
                     div.col
                         | {{item.datetime | date :"dd/MM/yyyy | HH:mm"}}
-                div.cover
-                    div.images(ng-show="item.images.length")
+                div.cover(ng-if="item.images.length > 0")
+                    div.images
                         img(ng-src="{{item.images[0]}}", width="100%", height="100%")
                 div.detail(ng-class="item.template == 'hightlight' ? '-hightlight' : ''")
                     div.subdetail

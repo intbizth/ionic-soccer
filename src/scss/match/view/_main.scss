@@ -1,0 +1,98 @@
+@charset "UTF-8";
+
+.match-events {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: #0056a2;
+
+    .nodata {
+        .text {
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+    }
+
+    .wrap {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .dot {
+        position: relative;
+        &.-normal {
+            font-size: 8px;
+            color: #ffffff;
+        }
+
+        &.-halftime {
+            font-size: 8px;
+            color: #ff0000;
+        }
+
+        &.-large {
+            font-size: 20px;
+            color: #ffffff;
+        }
+    }
+
+    .time {
+        margin: 0px 2px 0px 2px;
+        font-size: 14px;
+        color: #faaf40;
+    }
+
+    .description {
+        margin: 0px 2px 0px 2px;
+        font-size: 14px;
+        color: #faaf40;
+    }
+
+    .name {
+        margin: 0px 2px 0px 2px;
+        font-size: 14px;
+        color: #ffffff;
+    }
+
+    .image {
+        margin: 0px 2px 0px 2px;
+        width: 15px;
+        height: 15px;
+    }
+
+    .line {
+        width: 1px;
+        margin-left: 50%;
+        position: absolute;
+        display: inline-block;
+        background-color: #ffffff;
+    }
+}
+
+// For iPhone 4 and iPhone 5 display.
+@media screen and (max-device-width : 320px) {
+    .match-label {
+        .label {
+            padding-right: 0px;
+            padding-left: 0px;
+            line-height: 13px;
+
+            .name {
+                font-size: 12px;
+                .paddleft {
+                    padding-left: 0px;
+                }
+
+                .paddright {
+                    padding-right: 0px;
+                }
+            }
+
+            .detail {
+                line-height: 20px;
+                padding-right: 0px;
+                padding-left: 0px;
+            }
+        }
+    }
+}

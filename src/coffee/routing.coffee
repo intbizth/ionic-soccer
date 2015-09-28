@@ -4,7 +4,6 @@ class Routing extends Config then constructor: (
     state = $stateProvider.state
 
     state 'about-club',
-        abstract: true
         url: '/about-club'
         controller: 'aboutClubMainController'
         templateUrl: 'templates/about-club/main.html'
@@ -20,7 +19,6 @@ class Routing extends Config then constructor: (
                 templateUrl: 'templates/about-club/team/main.html'
 
     state 'competition-table',
-        abstract: true
         url: '/competition-table/main'
         controller: 'competitionTableMainController'
         templateUrl: 'templates/competition-table/main.html'
@@ -39,7 +37,6 @@ class Routing extends Config then constructor: (
                 templateUrl: 'templates/competition-table/position-table/main.html'
 
     state 'fanzone',
-        abstract: true
         url: '/fanzone'
         controller: 'fanzoneMainController'
         templateUrl: 'templates/fanzone/main.html'
@@ -78,7 +75,6 @@ class Routing extends Config then constructor: (
         templateUrl: 'templates/live/main.html'
 
     state 'match',
-        abstract: true
         url: '/match'
         controller: 'matchMainController'
         templateUrl: 'templates/match/main.html'
@@ -96,13 +92,46 @@ class Routing extends Config then constructor: (
                 controller: 'matchLineupsController'
                 templateUrl: 'templates/match/lineups/main.html'
 
-    state 'news',
+    state 'news-detail',
         url: '/news/detail/:id'
         controller: 'newsDetailController'
         templateUrl: 'templates/news/detail.html'
 
+    state 'product-detail',
+        url: '/product/detail/:id'
+        controller: 'productDetailController'
+        templateUrl: 'templates/product/detail.html'
+
+    state 'player-detail',
+        url: '/player/detail/:id'
+        controller: 'playerDetailController'
+        templateUrl: 'templates/player/detail.html'
+
+    state 'ranking',
+        url: '/ranking'
+        controller: 'rankingMainController'
+        templateUrl: 'templates/ranking/main.html'
+
+    state 'ranking-detail',
+        url: '/ranking-detail'
+        controller: 'rankingDetailController'
+        templateUrl: 'templates/ranking/detail.html'
+
+    state 'ranking.main',
+        url: '/main'
+        views:
+            prediction:
+                controller: 'rankingPredictionController'
+                templateUrl: 'templates/ranking/prediction/main.html'
+            score:
+                controller: 'rankingScoreController'
+                templateUrl: 'templates/ranking/score/main.html'
+            player:
+                controller: 'rankingPlayerController'
+                templateUrl: 'templates/ranking/player/main.html'
+
+
     state 'ticket-membership',
-        abstract: true
         url: '/ticket-membership'
         controller: 'ticketMembershipMainController'
         templateUrl: 'templates/ticket-membership/main.html'
@@ -118,7 +147,6 @@ class Routing extends Config then constructor: (
                 templateUrl: 'templates/ticket-membership/membership/main.html'
 
     state 'timeline-update',
-        abstract: true
         url: '/timeline-update'
         controller: 'timelineUpdateMainController'
         templateUrl: 'templates/timeline-update/main.html'
