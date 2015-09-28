@@ -1,0 +1,65 @@
+.ranking-detail {
+    .content {
+        background-color: #0056a2;
+
+        .circle {
+            width: 100px;
+            height: 100px;
+            padding: 2px;
+            background-color: #ffffff;
+            border-radius: 50px;
+
+            .subcircle {
+                width: 96px;
+                height: 96px;
+                background-color: #f0f0f0;
+                border-radius: 48px;
+            }
+
+            .image {
+                width: 96px;
+                height: 96px;
+                border-radius: 48px;
+            }
+        }
+
+        .inrow {
+            padding: 0;
+        }
+
+        .club {
+            width: 100px;
+            height: 100px;
+        }
+
+        .name {
+            padding: 12px 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .title {
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        .detail {
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        .no {
+            font-size: 14px;
+            color: #f2a83b;
+        }
+
+        .number {
+            padding: 0 4px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #caf906;
+        }
+    }
+}

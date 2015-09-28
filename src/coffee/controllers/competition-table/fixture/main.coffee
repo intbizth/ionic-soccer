@@ -70,7 +70,7 @@ class CompetitionTableFixture extends Controller then constructor: (
                 name: 'Chonburi FC'
                 score: Und.random(0, 99)
             ,
-                logo: club.src
+                logo: club.image.src
                 name: club.name
                 score: Und.random(0, 99)
             ]

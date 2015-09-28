@@ -8,10 +8,15 @@ ion-view.ticket-membership
             i.icon.ion-android-more-vertical
 
     ion-content.content(scroll="false")
-        ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
+        ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light(ng-show="permission.login")
             ion-tab(title="Ticket")
                 ion-content.ticket.fix-tab
                     div(ui-view="ticket")
             ion-tab(title="Membership")
                 ion-content.membership.fix-tab
                     div(ui-view="membership")
+
+        ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light(ng-hide="permission.login")
+            ion-tab(title="Ticket")
+                ion-content.ticket.fix-tab
+                    div(ui-view="ticket")

@@ -19,13 +19,6 @@
         }
     }
 
-    .section {
-        height: 30px;
-        background-color: #e6e7e8;
-        font-size: 14px;
-        color: #58595b;
-    }
-
     .label {
         background-color: #ffffff;
 
@@ -60,36 +53,22 @@
             }
         }
     }
+    .match-detail {
+        padding-top: 8px;
+        width: 100%;
+        height: 75px;
+        font-size: 14px;
+        background-color: #e6e7e8;
+        color: #58595b;
+    }
 }
 
 .space {
     height: 6px;
-    background-color: #d1d3d4;
-}
-
-.datetime {
-    background-color: #f1f2f2;
-    font-size: 14px;
-    font-weight: bold;
-    color: #6d6e71;
-}
-
-.cover {
-    @include cover();
-}
-
-.images {
-    @include cover();
-    background-color: #f0f0f0;
-}
-
-.description {
-    margin-left: -4px;
-    font-size: 14px;
-    color: #231f20;
 }
 
 .footer {
+    height: 10px;
     .share::before {
         color: #0056a2;
         opacity: 0.2;
@@ -128,9 +107,204 @@
     background-repeat: no-repeat;
 }
 
-.match-detail {
-    width: 100%;
-    height: 65px;
-    background-color: #e6e7e8;
-    color: #58595b;
+.section {
+    .text {
+        padding-left: 6px;
+    }
+}
+
+.match-ticket {
+    .ticket-stadium {
+        width: 100%;
+        height: 425px;
+        background-image: url("../img/ticket-membership/ticket/ticket-stadium.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+}
+
+.ticket {
+    .first {
+        background-color: #00bbe0;
+    }
+
+    .second {
+        background-color: #1388cd;
+    }
+
+    .third {
+        background-color: #0056a5;
+    }
+
+    .seat1 {
+        font-size: 18px;
+        font-weight: bold;
+        color: #ffffff;
+    }
+
+    .seat2 {
+        font-size: 14px;
+        color: #ffffff;
+    }
+
+    .count {
+        font-size: 36px;
+        font-weight: bold;
+        color: #caf906;
+    }
+}
+
+.season-ticket {
+    .class-ticket {
+        margin-top: 5px;
+        .gold {
+            background-color: #A48031;
+        }
+
+        .silver {
+            background-color: #A5A6AA;
+        }
+
+        .bronze {
+            background-color: #302724;
+        }
+
+        .english {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .thai {
+            font-size: 10px;
+            color: #ffffff;
+        }
+
+        .price {
+            font-size: 12px;
+            color: #ffffff;
+        }
+
+        .contact {
+            margin-top: 5px;
+            font-size: 12px;
+        }
+    }
+
+    .space {
+        background-color: #ffffff;
+        width: 100%;
+        height: 10px;
+    }
+}
+
+.member-ticket {
+    .section {
+        .name {
+            padding-left: 6px;
+        }
+
+        .no {
+            float: right;
+            padding-right: 5px;
+        }
+    }
+
+    .ticket {
+        //padding: 0;
+        margin-top: 5px;
+
+        .member {
+            .title {
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .detail {
+                .ticket-no {
+                    padding: 0;
+                    margin-top: 5px;
+                }
+
+                .level {
+                    margin-top: 5px;
+                    width: 55%;
+                    height: 30px;
+                    //background-color: #A48031;
+
+                    .gold {
+                        width: 100%;
+                        height: 100%;
+                        background-color: #A48031;
+                        content: "Gold";
+                    }
+
+                    .silver {
+                        width: 100%;
+                        height: 100%;
+                        background-color: #A5A6AA;
+                    }
+
+                    .bronze {
+                        width: 100%;
+                        height: 100%;
+                        background-color: #302724;
+                    }
+
+                    .text {
+                        padding-top: 5px;
+                        font-size: 12px;
+                        color: #ffffff;
+                    }
+                }
+            }
+
+            .delete {
+                font-size: 40px;
+                color: #0056a5;
+                float: right;
+                padding-top: 15px;
+                padding-right: 15px;
+            }
+        }
+
+        .position-zone {
+            background-color: #e6e7e8;
+            width: 100%;
+            height: 120px;
+            padding: 0;
+            margin-top: 5px;
+
+            .title {
+                padding-top: 5px;
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .position {
+                padding: 0;
+                margin-top: 1px;
+
+                .text {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}
+
+.stadium-zone {
+    padding-top: 15px;
+    .title {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .zone {
+        width: 100%;
+        height: 285px;
+        background-image: url("../img/ticket-membership/ticket/chonburi-stadium.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
 }
