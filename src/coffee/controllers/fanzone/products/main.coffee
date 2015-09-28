@@ -12,7 +12,7 @@ class FanzoneProducts extends Controller then constructor: (
     $scope.products =
         items: []
         next: false
-        loadData : ->
+        loadData: ->
             items = this.fakeItems()
             this.items =  items
             if this.items.length > 0
@@ -21,7 +21,7 @@ class FanzoneProducts extends Controller then constructor: (
                 this.next = false
             console.log('products:loadData', this.items.length, JSON.stringify(this.items), this.next)
             return
-        doRefresh : ->
+        doRefresh: ->
             console.log 'products:doRefresh'
             $this = this
             $timeout(->
@@ -31,7 +31,7 @@ class FanzoneProducts extends Controller then constructor: (
                 return
             , 2000)
             return
-        loadMore : ->
+        loadMore: ->
             console.log 'products:loadMore'
             $this = this
             $timeout(->
@@ -49,15 +49,15 @@ class FanzoneProducts extends Controller then constructor: (
             , 2000)
             return
         fakeItem: ->
+            product = Chance.product()
             item =
                 id: Und.random(1, 9999999)
                 name: Chance.sentence()
                 price: Chance.floating({min: 0, max: 9999999, fixed: 2})
-#                image: 'https://placeimg.com/640/290/any?time=' + Chance.hash()
-                image: '../img/fanzone/products/product_' + Und.random(1, 3) + '@2x.png'
+                image: product.image.src
                 datetime: Chance.date()
             return item
-        fakeItems : ->
+        fakeItems: ->
             items = []
             i = 0
             ii = Und.random(0, 20)
