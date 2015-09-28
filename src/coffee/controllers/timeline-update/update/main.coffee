@@ -87,7 +87,7 @@ class Update extends Controller then constructor: (
             item =
                 id: Und.random(1, 9999999)
                 headline: Chance.sentence()
-                image: update.image.css
+                image: update.image.src
                 user:
                     name: user.name
                     photo: user.image.src
