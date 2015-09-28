@@ -45,7 +45,7 @@ class FanzoneWallpapers extends Controller then constructor: (
             wallpaper = Chance.wallpaper()
             item =
                 id: Und.random(1, 9999999)
-                image: wallpaper.image.css
+                image: wallpaper.image.src
                 datetime: Chance.date()
             return item
         fakeItems: ->

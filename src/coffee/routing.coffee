@@ -135,6 +135,7 @@ class Routing extends Config then constructor: (
                 controller: 'rankingPlayerController'
                 templateUrl: 'templates/ranking/player/main.html'
 
+
     state 'ticket-membership',
         abstract: true
         url: '/ticket-membership'
