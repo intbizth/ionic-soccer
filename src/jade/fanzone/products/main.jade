@@ -19,7 +19,7 @@ div.address
 div.items
     div(ng-repeat="item in products.items")
         div.space
-        div.detail(style="background-image: url('{{item.image}}');" ui-sref="product-detail({id : item.id})")
+        div.detail(ng-style="{'background-image' : 'url({{item.image}})'}" ui-sref="product-detail({id : item.id})")
             div.subdetail
                 div.row.name
                     div.col
