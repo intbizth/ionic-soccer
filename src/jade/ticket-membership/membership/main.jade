@@ -2,46 +2,51 @@ ion-refresher(pulling-text="Pull to refresh...", on-refresh="doRefresh()")
 
 div.banner
 
-//div.about
-    div.text.text-center About ฉลามชล
-
-//div.ticket
-    div.row.section
-        div.col
-            i.icon.ion-ios-pricetag
-            span.text Tickets
-    div.nodata(ng-if="ticket.items.length == 0")
+div.member-ticket
+    div.nodata(ng-if="memberTicket.items.length == 0")
         div.row
             div.col.col-center.text-center
-                div.text Has no tickets.
-    div(ng-repeat="item in ticket.items")
-        div.row.row-center(ng-class="item.class")
-            div.col.col-67.col-center
-                div.seat1 บล็อก {{item.textSeats}}
-                div.seat2  ที่นั่งว่าง
-            div.col.col-33.col-center.text-right
-                span.count {{item.count | number}}
+                div.text Has no ticket.
+    div(ng-repeat="item in memberTicket.items")
+        div.row.section
+            div.col
+                i.icon.ion-card
+                span.name You Member ID
+                span.no
+                    | No.{{$index+1}}
+        div.ticket
+            div.row.member
+                div.col.title Member ID
+            div.row.member
+                div.col.col-50.detail
+                    div.ticket-no No.{{$index+1}} xxx xxx xxx
+                    div.level
+                        div(ng-class="item.class").text-center.text {{item.level}}
+                div.col.col-50
+                    i.icon.ion-ios-trash-outline.delete
+            div.row.position-zone
+                div.col
+                    div.row
+                        div.title Position & Zone
+                    div.row.position
+                        div.col.col-20
+                            div.text Seat
+                            div.text Block
+                            div.text Gate
+                        div.col.col-80
+                            div.text {{item.seat.row}} - {{item.seat.column}}
+                            div.text {{item.block}}
+                            div.text {{item.gate}}
 
-//div.news
-    div.row.section
+div.member-zone
+    div.row
         div.col
-            i.icon.ion-ios-paper
-            span.text News
-    div.nodata(ng-if="news.items.length == 0")
-        div.row
-            div.col.col-center.text-center
-                div.text Has no news.
-    div(ng-repeat="item in news.items")
-        div.space
-        div.detail(style="background-image: url('{{item.image}}');" ui-sref="news({id : item.id})")
-            div.subdetail
-                div.row.headline
-                    div.col
-                        span {{item.headline}}
-                div.row.footer
-                    div.col.col.col-center
-                        div.userbox
-                            img.photo(ng-src="{{item.user.photo}}")
-                            span.name {{item.user.name}}
+            span.title Member Zone
+    div.row.zone
+    div.row
+        div.col.capacity The stadium holds 8,680 people
+    div.row
+        div.col.contact
+            | {{memberZone.contact}}
 
-ion-infinite-scroll(ng-if="timeline.next" on-infinite="loadMore()", distance="5%")
+div.footer
