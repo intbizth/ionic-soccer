@@ -40,7 +40,7 @@ class Update extends Controller then constructor: (
         fakeItems: ->
             items = []
             i = 0
-            ii = Und.random(0, 10)
+            ii = Und.random(0, 2)
             while i < ii
                 items.push this.fakeItem()
                 i++
