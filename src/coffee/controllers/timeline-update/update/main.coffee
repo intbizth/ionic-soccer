@@ -1,6 +1,16 @@
 class Update extends Controller then constructor: (
     $scope, $ionicHistory, $timeout, Und, Chance
 ) ->
+    $scope.data =
+        next: false
+        doRefresh: ->
+            $scope.ticket.loadData()
+            $scope.news.doRefresh()
+            return
+        loadMore: ->
+            $scope.news.loadMore()
+            return
+
     $scope.ticket =
         items: [],
         loadData: ->
@@ -52,7 +62,12 @@ class Update extends Controller then constructor: (
         loadData: ->
             items = this.fakeItems()
             this.items =  items
-            console.log('news:loadData', this.items.length, JSON.stringify(this.items))
+            if this.items.length > 0
+                this.next = Chance.bool()
+            else
+                this.next = false
+            $scope.data.next = this.next
+            console.log('news:loadData', this.items.length, JSON.stringify(this.items), this.next)
             return
         doRefresh: ->
             console.log 'news:doRefresh'
@@ -73,9 +88,10 @@ class Update extends Controller then constructor: (
                 for item in items
                     $this.items.push item
                 if $this.items.length > 0
-                    $this.next = Chance.pick([true, false])
+                    $this.next = Chance.bool()
                 else
                     $this.next = false
+                $scope.data.next = $this.next
                 console.log('news:loadMore', $this.items.length, JSON.stringify($this.items), $this.next)
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
                 return
@@ -103,12 +119,3 @@ class Update extends Controller then constructor: (
 
     $scope.ticket.loadData()
     $scope.news.loadData()
-
-    $scope.doRefresh = ->
-        $scope.ticket.loadData()
-        $scope.news.doRefresh()
-        return
-
-    $scope.loadMore = ->
-        $scope.news.loadMore()
-        return

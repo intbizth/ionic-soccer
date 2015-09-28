@@ -1,4 +1,4 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="doRefresh()")
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="data.doRefresh()")
 
 div.about(ui-sref="about-club.main")
     div.text.text-center About ฉลามชล
@@ -41,5 +41,6 @@ div.news
                         div.userbox
                             img.photo(ng-src="{{item.user.photo}}")
                             span.name {{item.user.name}}
+        div.shadow
 
-ion-infinite-scroll(ng-if="timeline.next" on-infinite="loadMore()", distance="5%")
+ion-infinite-scroll(ng-if="data.next" on-infinite="data.loadMore()", distance="5%")
