@@ -10,58 +10,6 @@
     align-items: center;
 }
 
-.match-label {
-    .nodata {
-        .text {
-            padding: 18px 0px 18px 0px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-    }
-
-    .section {
-        height: 30px;
-        background-color: #e6e7e8;
-        font-size: 14px;
-        color: #58595b;
-    }
-
-    .label {
-        background-color: #ffffff;
-
-        .logo {
-            .image {
-                width: 40px;
-                height: 40px;
-                background-color: #f0f0f0;
-            }
-        }
-
-        .name {
-            font-size: 14px;
-        }
-
-        .detail {
-            .score {
-                font-size: 22px;
-                font-weight: bold;
-                color: #0087cf;
-            }
-
-            .time {
-                font-size: 14px;
-                font-weight: bold;
-                color: #0087cf;
-            }
-
-            .date {
-                font-size: 10px;
-                color: #848586;
-            }
-        }
-    }
-}
-
 .space {
     height: 6px;
     background-color: #d1d3d4;
@@ -117,33 +65,5 @@
 
     .detail {
         background-color: #1388cd;
-    }
-}
-
-// For iPhone 4 and iPhone 5 display.
-@media screen and (max-device-width : 320px) {
-    .match-label {
-        .label {
-            padding-right: 0px;
-            padding-left: 0px;
-            line-height: 13px;
-
-            .name {
-                font-size: 12px;
-                .paddleft {
-                    padding-left: 0px;
-                }
-
-                .paddright {
-                    padding-right: 0px;
-                }
-            }
-
-            .detail {
-                line-height: 20px;
-                padding-right: 0px;
-                padding-left: 0px;
-            }
-        }
     }
 }
