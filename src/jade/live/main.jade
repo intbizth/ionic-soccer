@@ -1,6 +1,6 @@
 ion-view.live
     ion-nav-title
-        a.button.button-clear(ng-click="back()")(style="margin-top:5px;")
+        a.button.button-clear(ng-click="back()", style="margin-top:5px;")
             i.icon.ion-ios-keypad-outline
     ion-nav-buttons(side="right")
         a.button.button-clear(ng-click="")
@@ -12,72 +12,10 @@ ion-view.live
         div.row.title
             div.col.text-center
                 | {{title}}
-        div.match-label
-            div.nodata(ng-if="matchLabel.sections.length == 0")
-                div.space
-                div.row
-                    div.col.col-center.text-center
-                        div.text Has no match.
-            div(ng-repeat="section in matchLabel.sections")
-                div.row.row-center.section
-                    div.col.col-center.text-center
-                        | {{section.datetime | date : 'MMM yyyy'}}
-                div.nodata(ng-if="section.items.length == 0")
-                    div.space
-                    div.row
-                        div.col.col-center.text-center
-                            div.text Has no match.
-                div(ng-repeat="item in section.items")
-                    div.row.label
-                        div.col.col-15.col-center.logo.text-center
-                            img.image(ng-src="{{item.homeClub.logo}}")
-                        div.col.col-25.col-center.name.text-center
-                            | {{item.homeClub.name}}
-                        div.col.col-20.col-center.detail.text-center
-                            div(ng-show="item.template == 'before'")
-                                div.time
-                                    | {{item.datetime | date:'HH:mm'}}
-                                div.date
-                                    | {{item.datetime | date:'dd MMM yyyy'}}
-                            div(ng-show="item.template == 'after'")
-                                div.score
-                                    | {{item.homeClub.score}}-{{item.awayClub.score}}
-                                div.date
-                                    | {{item.datetime | date:'dd MMM yyyy'}}
-                        div.col.col-25.col-center.name.text-center
-                            | {{item.awayClub.name}}
-                        div.col.col-15.col-center.logo.text-center
-                            img.image(ng-src="{{item.awayClub.logo}}")
+
+        match-label(sections="matchLabel.sections")
 
         div.video
             iframe(ng-src="{{video.item.url}}", width="100%", height="230")
 
-        div.match-events(id="match-events")
-            div.line(id="match-events-line")
-            div.nodata(ng-if="matchEvents.items.length == 0")
-                div.row
-                    div.col.col-center.text-center
-                        div.text Has no match events.
-            div(ng-repeat="item in matchEvents.items")
-                div.row.row-center.wrap
-                    div.col.col-center
-                        div.text-right(ng-show="item.align == 'left'")
-                            span.name(ng-show="item.name") {{item.name}}
-                            img.image(ng-show="item.icon" ng-src="./img/icon/{{item.icon}}.png",
-                            srcset="./img/icon/{{item.icon}}@2x.png 2x")
-                            span.description(ng-show="item.description") {{item.description}}
-                            span.time(ng-show="item.time") {{item.time}}
-                    div.col.col-10.col-center.text-center
-                        div.dot.-normal(ng-show="item.dot == 'normal'")
-                            i.icon.ion-record
-                        div.dot.-halftime(ng-show="item.dot == 'halftime'")
-                            i.icon.ion-record
-                        div.dot.-large(ng-show="item.dot == 'large'")
-                            i.icon.ion-ios-circle-filled
-                    div.col.col-center
-                        div.text-left(ng-show="item.align == 'right'")
-                            span.time(ng-show="item.time") {{item.time}}
-                            span.description(ng-show="item.description") {{item.description}}
-                            img.image(ng-show="item.icon" ng-src="./img/icon/{{item.icon}}.png",
-                            srcset="./img/icon/{{item.icon}}@2x.png 2x")
-                            span.name(ng-show="item.name") {{item.name}}
+        match-events(items="matchEvents.items")
