@@ -23,8 +23,21 @@
             }
         }
 
+        .halfcircle {
+            width: 40px;
+            height: 40px;
+            margin-left: -22px;
+            background-color: #213647;
+            border-radius: 20px;
+        }
+
         .inrow {
             padding: 0;
+        }
+
+        .inrow-side {
+            padding-right: 0px;
+            padding-left: 0px;
         }
 
         .club {
@@ -60,6 +73,59 @@
             font-size: 20px;
             font-weight: bold;
             color: #caf906;
+        }
+
+        .topic {
+            margin-bottom: 5px;
+            .headline {
+                padding: 0;
+                background-color: #0088cf;
+            }
+
+            .subtopic {
+                color: #ffffff;
+                background-color: #213647;
+            }
+
+            .head {
+                color: #213647;
+                background-color: #eeeded;
+            }
+
+            .point {
+                font-size: 18px;
+                font-weight: bold;
+                color: #213647;
+                //background-color: #ffffff;
+            }
+                .-sum {
+                    color: #f2a83b;
+                }
+
+                .-big {
+                    font-size: 20px;
+                }
+
+                .-blue {
+                    font-size: 30px;
+                    color: #4188c7;
+                }
+            
+                .-yellow {
+                    font-size: 30px;
+                    color: #f2a83b;
+                }
+
+            .text {
+                color: #213647;
+                background-color: #ffffff;
+            }
+
+            .line {
+                width: 100%;
+                height: 5px;
+                background-color: #549af7;
+            }
         }
     }
 }
