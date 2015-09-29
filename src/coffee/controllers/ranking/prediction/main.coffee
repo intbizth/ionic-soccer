@@ -51,7 +51,7 @@ class rankingPrediction extends Controller then constructor: (
         fakeItems: ->
             items = []
             i = 0
-            ii = Und.random(0, 20)
+            ii = Und.random(0, 300)
             while i < ii
                 items.push this.fakeItem()
                 i++
