@@ -230,6 +230,7 @@ class liveMain extends Controller then constructor: (
             items = Und.sortBy(items, (value) ->
                 return parseFloat value.time
             )
+            items = items.reverse()
             $scope.$broadcast 'match-events.complete'
             return items
 
