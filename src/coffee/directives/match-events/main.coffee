@@ -7,7 +7,7 @@ class MatchEvents extends Directive then constructor: (
         scope: {
             items: '=items'
         }
-        templateUrl: 'templates/directive/match-events/main.html'
+        templateUrl: 'templates/directives/match-events/main.html'
         controller: ->
             matchEvents = document.getElementById 'match-events'
             matchEventsLine = document.getElementById 'match-events-line'

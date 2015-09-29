@@ -2,8 +2,7 @@ class TicketMembershipMain extends Controller then constructor: (
     $scope, $state, $ionicHistory, Chance
 ) ->
     $scope.back = ->
-#        $ionicHistory.goBack -1
-        $state.go 'feature'
+        $ionicHistory.goBack -1
         return
 
     $scope.permission =
