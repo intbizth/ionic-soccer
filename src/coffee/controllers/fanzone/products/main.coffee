@@ -1,6 +1,15 @@
 class FanzoneProducts extends Controller then constructor: (
     $scope, $state, $timeout, Und, Chance
 ) ->
+    $scope.data =
+        next: false
+        doRefresh: ->
+            $scope.products.doRefresh()
+            return
+        loadMore: ->
+            $scope.products.loadMore()
+            return
+
     $scope.title = 'Online Simple store'
 
     $scope.company = 'บริษัท ชาร์ค 360 องศาสตูดิโอ จำกัด'
@@ -19,6 +28,7 @@ class FanzoneProducts extends Controller then constructor: (
                 this.next = Chance.pick([true, false])
             else
                 this.next = false
+            $scope.data.next = this.next
             console.log('products:loadData', this.items.length, JSON.stringify(this.items), this.next)
             return
         doRefresh: ->
@@ -43,6 +53,7 @@ class FanzoneProducts extends Controller then constructor: (
                     $this.next = Chance.pick([true, false])
                 else
                     $this.next = false
+                $scope.data.next = $this.next
                 console.log('products:loadMore', $this.items.length, JSON.stringify($this.items), $this.next)
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
                 return
