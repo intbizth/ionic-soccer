@@ -1,0 +1,10 @@
+ui.t:
+    feature:
+        title: ฟีเจอร์
+        menu:
+            live: ถ่ายทอดสด
+            timelineupdate: ไทม์ไลน์และอัพเดท
+            competitiontable: การแข่งขันและตาราง
+            ticketmembership: ตั๋วและสมาชิก
+            games: เกมส์
+            peapleranking: จัดอันดับผู้เล่น
