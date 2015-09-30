@@ -1,7 +1,11 @@
 ion-view.about-club
-    ion-nav-buttons(side='left')
-        a.button.button-icon.ion-ios-arrow-left(ng-click='back()')
-            img(src="./img/logo/navbar.png", srcset="./img/logo/navbar@2x.png",style="height:15px; margin-top:10px;")
+    ion-nav-title About
+    ion-nav-buttons(side="left")
+        a.button.button-icon.ion-ios-arrow-left(ng-click="back()")
+            img.logo(
+            src="./img/logo/navbar.png"
+            srcset="./img/logo/navbar@2x.png 2x"
+            )
     ion-nav-buttons(side="right")
         a.button.button-clear(ng-click="")
             i.icon.ion-android-more-vertical
