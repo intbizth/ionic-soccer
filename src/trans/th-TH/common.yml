@@ -1,0 +1,3 @@
+ui.t:
+    hello: "สวัสดี, {{displayName}}!!"
+    save: Save
