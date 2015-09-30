@@ -4,21 +4,7 @@ class liveMain extends Controller then constructor: (
     $scope.back = ->
         $ionicHistory.goBack -1
         return
-        
-    matchEvents = document.getElementById 'match-events'
-    matchEventsLine = document.getElementById 'match-events-line'
 
-    $scope.$on('match-events.start', ->
-        matchEventsLine.style.height = '0px';
-    )
-
-    $scope.$on('match-events.complete', ->
-        $timeout(->
-            matchEventsLine.style.height = (parseInt(matchEvents.offsetHeight) - 12) + 'px';
-        ,500)
-    )
-
-    $scope.title = 'Live'
     $scope.matchLabel =
         sections: [],
         next: false
@@ -86,13 +72,14 @@ class liveMain extends Controller then constructor: (
             return sections
             return
         fakeItem: (datetime) ->
+            club = Chance.club()
             clubs = [
                 logo: './img/logo/match_label@2x.png'
                 name: 'Chonburi FC'
                 score: Und.random(0, 99)
             ,
-                logo: 'https://placeimg.com/80/80/tech?time=' + Chance.timestamp()
-                name: Chance.name()
+                logo: club.image.src
+                name: club.name
                 score: Und.random(0, 99)
             ]
             item =
@@ -213,7 +200,6 @@ class liveMain extends Controller then constructor: (
                 item.time = time
             return item
         fakeItems: ->
-            $scope.$broadcast 'match-events.start'
             items = [this.fakeItem({start: true})]
             i = 0
             ii = Und.random(0, 30)
@@ -229,12 +215,14 @@ class liveMain extends Controller then constructor: (
             items = Und.sortBy(items, (value) ->
                 return parseFloat value.time
             )
-            $scope.$broadcast 'match-events.complete'
+            items = items.reverse()
             return items
 
     $scope.matchEvents.loadData()
 
-    $scope.doRefresh = ->
-        $scope.matchLabel.doRefresh()
-        $scope.video.loadData()
-        $scope.matchEvents.doRefresh()
+    $scope.data =
+        doRefresh: ->
+            $scope.matchLabel.doRefresh()
+            $scope.video.loadData()
+            $scope.matchEvents.doRefresh()
+            return

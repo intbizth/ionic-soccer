@@ -1,2 +1,8 @@
-div.wrap(ng-repeat="wallpaper in wallpapers")
-    img.image(ng-src="{{wallpaper.image}}")
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="wallpapers.doRefresh()")
+
+div.items
+    div(ng-repeat="item in wallpapers.items")
+        div.space
+        div.detail(ng-style="{'background-image' : 'url({{item.image}})'}")
+
+ion-infinite-scroll(ng-if="wallpapers.next" on-infinite="wallpapers.loadMore()", distance="5%")

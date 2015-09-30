@@ -28,13 +28,13 @@ class FeatureMain extends Controller then constructor: (
         return
     , false)
     $scope.profile =
-        item : {},
-        loadData : ->
+        item: {},
+        loadData: ->
             item = this.fakeItem()
             this.item =  item
             console.log('profile:loadData', JSON.stringify(this.item))
             return
-        doRefresh : ->
+        doRefresh: ->
             console.log 'profile:doRefresh'
             $this = this
             $timeout(->
@@ -44,13 +44,14 @@ class FeatureMain extends Controller then constructor: (
                 return
             , 2000)
             return
-        fakeItem : ->
+        fakeItem: ->
+            profile = Chance.profile()
             item =
-                id : Und.random(1, 9999999)
-                photo: 'https://placeimg.com/200/200/people?time=' + Chance.hash()
-                name : Chance.name()
-                point1 : Und.random(1, 9999999999)
-                point2 : Und.random(1, 9999999999)
+                id: Und.random(1, 9999999)
+                photo: profile.image.src
+                name: profile.name
+                point1: Und.random(1, 9999999999)
+                point2: Und.random(1, 9999999999)
             return item
     $scope.profile.loadData()
     $scope.doRefresh = ->

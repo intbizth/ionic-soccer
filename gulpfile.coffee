@@ -30,6 +30,7 @@ bower = require 'bower'
 replace = require 'gulp-replace-task'
 fixmyjs = require 'gulp-fixmyjs'
 autoprefixer = require 'gulp-autoprefixer'
+yamlFlatten = require './yaml-flatten'
 del = require 'del'
 $logger = $.util.log
 
@@ -51,6 +52,9 @@ paths =
     ]
     views: [
         './src/jade/**/*.jade'
+    ]
+    trans: [
+        './src/trans/**/*.yml'
     ]
 
 gulp.task 'sass', (done) ->
@@ -95,13 +99,22 @@ gulp.task 'jade', (done) ->
         .pipe($.size(showFiles: true))
         #.on('end', done)
 
+gulp.task 'trans', (done) ->
+    gulp.src(paths.trans)
+        .pipe(yamlFlatten())
+        .pipe($.rename(extname: '.json'))
+        .pipe(gulp.dest('./www/translations'))
+        .pipe($.size(showFiles: true))
+    #.on('end', done)
+
 gulp.task 'watch', ->
     gulp.watch(paths.styles, ['sass'])
     gulp.watch(paths.scripts, ['coffee'])
     gulp.watch(paths.views, ['jade'])
+    gulp.watch(paths.trans, ['trans'])
 
 gulp.task 'build', (callback) ->
-    $run("sass", "coffee", "jade", callback)
+    $run("sass", "coffee", "jade", "trans", callback)
 
 gulp.task 'install', ['git-check'], ->
     bower.commands.install().on 'log', (data) ->
