@@ -1,17 +1,17 @@
 ion-view.live
-    ion-nav-title
-        a.button.button-clear(ng-click="back()")(style="margin-top:5px;")
-            i.icon.ion-ios-keypad-outline
+    ion-nav-title Live
+    ion-nav-buttons(side="left")
+        a.button.button-icon.ion-ios-arrow-left(ng-click="back()")
+            img.logo(
+            src="./img/logo/navbar.png"
+            srcset="./img/logo/navbar@2x.png 2x"
+            )
     ion-nav-buttons(side="right")
         a.button.button-clear(ng-click="")
             i.icon.ion-android-more-vertical
 
     ion-content.content
-        ion-refresher(pulling-text="Pull to refresh...", on-refresh="doRefresh()")
-
-        div.row.title
-            div.col.text-center
-                | {{title}}
+        ion-refresher(pulling-text="Pull to refresh...", on-refresh="data.doRefresh()")
 
         match-label(sections="matchLabel.sections")
 

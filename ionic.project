@@ -5,6 +5,7 @@
     "sass",
     "coffee",
     "jade",
+    "trans",
     "watch"
   ],
   "watchPatterns": [
