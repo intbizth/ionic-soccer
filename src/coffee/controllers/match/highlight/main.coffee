@@ -1,12 +1,26 @@
 class MatchHighlight extends Controller then constructor: (
     $scope, $timeout, Und, Chance
 ) ->
+    $scope.data =
+        next: false
+        doRefresh: ->
+            $scope.highlight.doRefresh()
+            return
+        loadMore: ->
+            $scope.highlight.loadMore()
+            return
+
     $scope.highlight =
         items: [],
         next: false
         loadData: ->
             items = this.tranfromToGrid(this.fakeItems())
             this.items =  items
+            if this.item.length > 0
+                this.next = Chance.pick([true, false])
+            else
+                this.next = false
+            $scope.data.next = this.next
             console.log('highlight:loadData', this.items.length, JSON.stringify(this.items), this.next)
             return
         doRefresh: ->
@@ -31,6 +45,7 @@ class MatchHighlight extends Controller then constructor: (
                     $this.next = Chance.pick([true, false])
                 else
                     $this.next = false
+                $scope.data.next = $this.next
                 console.log('highlight:loadMore', $this.items.length, JSON.stringify($this.items), $this.next)
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
                 return
