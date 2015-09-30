@@ -29,6 +29,6 @@ class TranslationRun extends Run
 
 # add translation packages here
         .addPart 'common'
-        .addPart 'match'
+        .addPart 'feature'
 
         $translate.refresh()
