@@ -1,9 +1,15 @@
 class NewsDetail extends Controller then constructor: (
     $scope, $stateParams, $ionicHistory, $cordovaInAppBrowser, $timeout, Und, Chance
 ) ->
+    $scope.isIOS = ionic.Platform.isIOS()
     $scope.back = ->
         $ionicHistory.goBack -1
         return
+
+    $scope.data =
+        doRefresh: ->
+            $scope.news.doRefresh()
+            return
 
     $scope.news =
         item: {},
