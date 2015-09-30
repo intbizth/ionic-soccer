@@ -1,13 +1,19 @@
-class liveMain extends Controller then constructor: (
+class LiveMain extends Controller then constructor: (
     $scope, $ionicPlatform, $ionicHistory, $sce, $timeout, Und, Chance
 ) ->
     $scope.back = ->
         $ionicHistory.goBack -1
         return
 
+    $scope.data =
+        doRefresh: ->
+            $scope.matchLabel.doRefresh()
+            $scope.video.loadData()
+            $scope.matchEvents.doRefresh()
+            return
+
     $scope.matchLabel =
-        sections: [],
-        next: false
+        sections: []
         loadData: ->
             sections = this.fakeSections()
             if sections.length > 0
@@ -15,8 +21,7 @@ class liveMain extends Controller then constructor: (
                 if sections[0].items.length > 0
                     sections[0].items = [sections[0].items[0]]
             this.sections = sections
-            this.next = false
-            console.log('matchLabel:loadData', this.sections.length, JSON.stringify(this.sections), this.next)
+            console.log('matchLabel:loadData', this.sections.length, JSON.stringify(this.sections))
             return
         doRefresh: ->
             console.log 'matchLabel:doRefresh'
@@ -36,11 +41,7 @@ class liveMain extends Controller then constructor: (
                 sections = $this.fakeSections()
                 for section in sections
                     $this.sections.push section
-                if $this.sections.length > 0
-                    $this.next = Chance.pick([true, false])
-                else
-                    $this.next = false
-                console.log('matchLabel:loadMore', $this.sections.length, JSON.stringify($this.sections), $this.next)
+                console.log('matchLabel:loadMore', $this.sections.length, JSON.stringify($this.sections))
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
                 return
             , 2000)
@@ -140,7 +141,6 @@ class liveMain extends Controller then constructor: (
         match:
             halftime: false
             end: false
-        next: false
         loadData: ->
             items = this.fakeItems()
             this.items =  items
@@ -219,10 +219,3 @@ class liveMain extends Controller then constructor: (
             return items
 
     $scope.matchEvents.loadData()
-
-    $scope.data =
-        doRefresh: ->
-            $scope.matchLabel.doRefresh()
-            $scope.video.loadData()
-            $scope.matchEvents.doRefresh()
-            return
