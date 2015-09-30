@@ -1,8 +1,8 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="wallpapers.doRefresh()")
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="data.doRefresh()")
 
 div.items
     div(ng-repeat="item in wallpapers.items")
         div.space
         div.detail(ng-style="{'background-image' : 'url({{item.image}})'}")
 
-ion-infinite-scroll(ng-if="wallpapers.next" on-infinite="wallpapers.loadMore()", distance="5%")
+ion-infinite-scroll(ng-if="data.next" on-infinite="data.loadMore()", distance="5%")
