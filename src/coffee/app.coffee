@@ -1,6 +1,7 @@
 class App extends App then constructor: ->
     return [
         'ionic'
+        'pascalprecht.translate'
         'ngCordova'
         'ngCordovaOauth'
         'ngIOS9UIWebViewPatch'
