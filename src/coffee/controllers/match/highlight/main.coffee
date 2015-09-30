@@ -49,9 +49,10 @@ class MatchHighlight extends Controller then constructor: (
                 i++
             return newItems
         fakeItem: ->
+            highlight = Chance.matchHighlight()
             item =
                 id: Und.random(1, 9999999)
-                image: 'https://placeimg.com/400/400/any?time=' + Chance.hash()
+                image: highlight.image.src
                 datetime: Chance.date()
 
             return item

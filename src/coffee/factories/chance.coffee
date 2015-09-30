@@ -124,4 +124,15 @@ class Chance extends Factory then constructor: ->
                 src: './img/fake/wallpaper/' + image
                 css: '../img/fake/wallpaper/' + image
         }
+    chance.matchHighlight = ->
+        image = chance.integer(
+            min: 1
+            max: 64
+        ) + '.jpg'
+        return {
+            name: chance.name()
+            image:
+                src: './img/fake/match/highlight/' + image
+                css: '../img/fake/match/highlight/' + image
+        }
     return chance;
