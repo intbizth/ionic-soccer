@@ -16,7 +16,7 @@ class MatchHighlight extends Controller then constructor: (
         loadData: ->
             items = this.tranfromToGrid(this.fakeItems())
             this.items =  items
-            if this.item.length > 0
+            if this.items.length > 0
                 this.next = Chance.pick([true, false])
             else
                 this.next = false
@@ -41,7 +41,7 @@ class MatchHighlight extends Controller then constructor: (
                 items = $this.tranfromToGrid($this.fakeItems())
                 for item in items
                     $this.items.push item
-                if $this.item.length > 0
+                if $this.items.length > 0
                     $this.next = Chance.pick([true, false])
                 else
                     $this.next = false
