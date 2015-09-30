@@ -1,8 +1,8 @@
 class ProductDetail extends Controller then constructor: (
-    $scope, $state, $ionicHistory, $timeout, Und, Chance
+    $scope, $ionicHistory, $timeout, Und, Chance
 ) ->
     $scope.back = ->
-        $state.go 'feature'
+        $ionicHistory.goBack -1
         return
 
     $scope.product =
