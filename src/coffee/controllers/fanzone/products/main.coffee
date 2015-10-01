@@ -1,15 +1,6 @@
 class FanzoneProducts extends Controller then constructor: (
     $scope, $timeout, Und, Chance
 ) ->
-    $scope.data =
-        next: no
-        doRefresh: ->
-            $scope.products.doRefresh()
-            return
-        loadMore: ->
-            $scope.products.loadMore()
-            return
-
     $scope.title = 'Online Simple store'
 
     $scope.company = 'บริษัท ชาร์ค 360 องศาสตูดิโอ จำกัด'
@@ -23,14 +14,14 @@ class FanzoneProducts extends Controller then constructor: (
         next: no
         loadData: ->
             @items = @fakeItems()
-            $scope.data.next = @next = if @items.length > 0 then Chance.bool() else no
+            $scope.next = @next = if @items.length > 0 then Chance.bool() else no
             console.log('products:loadData', @items.length, JSON.stringify(@items), @next)
             return
-        doRefresh: ->
-            console.log 'products:doRefresh'
+        refresh: ->
+            console.log 'products:refresh'
             $this = @
             $timeout(->
-                console.log 'products:doRefresh2'
+                console.log 'products:refresh2'
                 $this.loadData()
                 $scope.$broadcast 'scroll.refreshComplete'
                 return
@@ -44,7 +35,7 @@ class FanzoneProducts extends Controller then constructor: (
                 items = $this.fakeItems()
                 for item in items
                     $this.items.push item
-                $scope.data.next = $this.next = if $this.items.length > 0 then Chance.bool() else no
+                $scope.next = $this.next = if $this.items.length > 0 then Chance.bool() else no
                 console.log('products:loadMore', $this.items.length, JSON.stringify($this.items), $this.next)
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
                 return
@@ -55,7 +46,7 @@ class FanzoneProducts extends Controller then constructor: (
             item =
                 id: Und.random(1, 9999999)
                 name: Chance.sentence()
-                price: Chance.floating({min: 0, max: 9999999, fixed: 2})
+                price: Chance.floating(min: 0, max: 9999999, fixed: 2)
                 image: product.image.src
                 datetime: Chance.date()
             return item
@@ -70,3 +61,11 @@ class FanzoneProducts extends Controller then constructor: (
             return items
 
     $scope.products.loadData()
+
+    $scope.next = no
+    $scope.refresh =
+        $scope.products.refresh()
+        return
+    $scope.loadMore =
+        $scope.products.loadMore()
+        return

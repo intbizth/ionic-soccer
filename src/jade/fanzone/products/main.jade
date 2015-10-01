@@ -1,4 +1,4 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="data.doRefresh()")
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="refresh()")
 
 div.cover
     img.image(src="./img/fanzone/products/product.png", srcset="./img/fanzone/products/product@2x.png 2x")
@@ -29,4 +29,4 @@ div.items
                         | ราคา ฿ {{item.price | number}}
         div.shadow
 
-ion-infinite-scroll(ng-if="data.next" on-infinite="data.loadMore()", distance="5%")
+ion-infinite-scroll(ng-if="next" on-infinite="loadMore()", distance="5%")
