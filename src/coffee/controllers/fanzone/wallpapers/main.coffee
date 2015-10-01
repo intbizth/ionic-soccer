@@ -1,21 +1,12 @@
 class FanzoneWallpapers extends Controller then constructor: (
     $scope, $timeout, Und, Chance
 ) ->
-    $scope.data =
-        next: no
-        doRefresh: ->
-            $scope.wallpapers.doRefresh()
-            return
-        loadMore: ->
-            $scope.wallpapers.loadMore()
-            return
-
     $scope.wallpapers =
         items: []
         next: no
         loadData: ->
             @items = @fakeItems()
-            $scope.data.next = @next = if @items.length > 0 then Chance.bool() else no
+            $scope.next = @next = if @items.length > 0 then Chance.bool() else no
             console.log('wallpapers:loadData', @items.length, JSON.stringify(@items), @next)
             return
         doRefresh: ->
@@ -36,7 +27,7 @@ class FanzoneWallpapers extends Controller then constructor: (
                 items = $this.fakeItems()
                 for item in items
                     $this.items.push item
-                $scope.data.next = $this.next =  if $this.items.length > 0 then Chance.bool() else no
+                $scope.next = $this.next =  if $this.items.length > 0 then Chance.bool() else no
                 console.log('wallpapers:loadMore', $this.items.length, JSON.stringify($this.items), $this.next)
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
                 return
@@ -60,3 +51,11 @@ class FanzoneWallpapers extends Controller then constructor: (
             return items
 
     $scope.wallpapers.loadData()
+
+    $scope.next = no
+    $scope.refresh =
+        $scope.wallpapers.refresh()
+        return
+    $scope.loadMore =
+        $scope.wallpapers.loadMore()
+        return
