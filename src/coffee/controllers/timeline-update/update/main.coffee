@@ -60,7 +60,7 @@ class Update extends Controller then constructor: (
         items: []
         next: no
         loadData: ->
-            items = @fakeItems()
+            @items = @fakeItems()
             $scope.data.next = @next = if @items.length > 0 then Chance.bool() else no
             console.log('news:loadData', @items.length, JSON.stringify(@items), @next)
             return

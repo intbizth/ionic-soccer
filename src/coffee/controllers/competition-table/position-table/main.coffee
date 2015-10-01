@@ -2,22 +2,21 @@ class CompetitionTablePositionTable extends Controller then constructor: (
     $scope, $ionicHistory, $timeout, Und, Chance
 ) ->
     $scope.position =
-        items: [],
+        items: []
         position: 1
         team: 'Chonburi FC'
-        hasTeam: false
-        next: false
+        hasTeam: no
+        next: no
         loadData: ->
-            this.position = 1
-            this.hasTeam = false
-            items = this.fakeItems()
-            this.items = items
-            this.next = Chance.pick([true, false])
-            console.log('position:loadData', this.items.length, JSON.stringify(this.items), this.next)
+            @position = 1
+            @hasTeam = no
+            @items = @fakeItems()
+            @next = Chance.bool()
+            console.log('position:loadData', @items.length, JSON.stringify(@items), @next)
             return
         doRefresh: ->
             console.log 'position:doRefresh'
-            $this = this
+            $this = @
             $timeout(->
                 console.log 'position:doRefresh2'
                 $this.loadData()
@@ -27,16 +26,13 @@ class CompetitionTablePositionTable extends Controller then constructor: (
             return
         loadMore: ->
             console.log 'position:loadMore'
-            $this = this
+            $this = @
             $timeout(->
                 console.log 'position:loadMore2'
                 items = $this.fakeItems()
                 for item in items
                     $this.items.push item
-                if $this.items.length > 0
-                    $this.next = Chance.pick([true, false])
-                else
-                    $this.next = false
+                $this.next = if $this.items.length > 0 then Chance.bool() else no
                 console.log('position:loadMore', $this.items.length, JSON.stringify($this.items), $this.next)
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
                 return
@@ -46,26 +42,26 @@ class CompetitionTablePositionTable extends Controller then constructor: (
             item =
                 id: Und.random(1, 9999999)
                 template: 'normal'
-                position: this.position++
+                position: @position++
                 name: Chance.name()
                 play: Und.random(1, 9999)
                 goalDifference: Und.random(1, 9999)
                 points: Und.random(1, 9999)
             if typeof config isnt 'undefined' and config.team
-                item.name = this.team
+                item.name = @team
                 item.template = 'highlight'
             return item
         fakeItems: ->
-            checkTeam = Chance.pick([true, false])
+            checkTeam = Chance.bool()
             items = []
             i = 0
             ii = Und.random(0, 30)
             while i < ii
-                if checkTeam and !this.hasTeam
-                    this.hasTeam = true
-                    item = this.fakeItem({team: true})
+                if checkTeam and !@hasTeam
+                    @hasTeam = yes
+                    item = @fakeItem(team: yes)
                 else
-                    item = this.fakeItem()
+                    item = @fakeItem()
                 items.push item
                 i++
             items = Und.sortBy(items, 'position')
