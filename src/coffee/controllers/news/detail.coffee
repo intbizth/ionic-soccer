@@ -5,6 +5,11 @@ class NewsDetail extends Controller then constructor: (
         $ionicHistory.goBack -1
         return
 
+    $scope.data =
+        doRefresh: ->
+            $scope.news.doRefresh()
+            return
+
     $scope.news =
         item: {},
         loadData: ->
