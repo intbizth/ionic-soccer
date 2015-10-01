@@ -1,22 +1,17 @@
 class FanzoneWallpapers extends Controller then constructor: (
-    $scope, $state, $timeout, Und, Chance
+    $scope, $timeout, Und, Chance
 ) ->
-
     $scope.wallpapers =
         items: []
-        next: false
+        next: no
         loadData: ->
-            items = this.fakeItems()
-            this.items =  items
-            if this.items.length > 0
-                this.next = Chance.pick([true, false])
-            else
-                this.next = false
-            console.log('wallpapers:loadData', this.items.length, JSON.stringify(this.items), this.next)
+            @items = @fakeItems()
+            $scope.next = @next = if @items.length > 0 then Chance.bool() else no
+            console.log('wallpapers:loadData', @items.length, JSON.stringify(@items), @next)
             return
         doRefresh: ->
             console.log 'wallpapers:doRefresh'
-            $this = this
+            $this = @
             $timeout(->
                 console.log 'wallpapers:doRefresh2'
                 $this.loadData()
@@ -26,16 +21,13 @@ class FanzoneWallpapers extends Controller then constructor: (
             return
         loadMore: ->
             console.log 'wallpapers:loadMore'
-            $this = this
+            $this = @
             $timeout(->
                 console.log 'wallpapers:loadMore2'
                 items = $this.fakeItems()
                 for item in items
                     $this.items.push item
-                if $this.items.length > 0
-                    $this.next = Chance.pick([true, false])
-                else
-                    $this.next = false
+                $scope.next = $this.next =  if $this.items.length > 0 then Chance.bool() else no
                 console.log('wallpapers:loadMore', $this.items.length, JSON.stringify($this.items), $this.next)
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
                 return
@@ -53,9 +45,17 @@ class FanzoneWallpapers extends Controller then constructor: (
             i = 0
             ii = Und.random(0, 20)
             while i < ii
-                items.push this.fakeItem()
+                items.push @fakeItem()
                 i++
             items = Und.sortBy(items, 'datetime')
             return items
 
     $scope.wallpapers.loadData()
+
+    $scope.next = no
+    $scope.refresh =
+        $scope.wallpapers.refresh()
+        return
+    $scope.loadMore =
+        $scope.wallpapers.loadMore()
+        return
