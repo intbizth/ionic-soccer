@@ -1,4 +1,4 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="doRefresh()")
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="data.doRefresh()")
 
 div.live(ng-show="timeline.isLive")
     div.row.section
@@ -35,4 +35,4 @@ div.timeline
                             div.col.col-10.col-center(style="margin-left: -4px;")
                                 a.button.button-icon.icon.ion-android-share-alt.share(ng-click="share()")
 
-ion-infinite-scroll(ng-if="timeline.next" on-infinite="loadMore()", distance="5%")
+ion-infinite-scroll(ng-if="data.next" on-infinite="data.loadMore()", distance="5%")
