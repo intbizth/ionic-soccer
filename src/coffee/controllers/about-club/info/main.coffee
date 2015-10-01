@@ -6,8 +6,6 @@ class aboutClubInfo extends Controller then constructor: (
     $scope.name =
         nameThai: 'ชลบุรี เอฟซี'
         nameEng: 'Chonburi FC'
-#        codeName:
-#        league:
 
     $scope.contact =
         url: 'www.chonburifootballclub.com'
