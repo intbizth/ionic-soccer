@@ -1,3 +1,11 @@
+.platform-android {
+    .feature-ads {
+        .ads {
+            height: 100%;
+        }
+    }
+}
+
 .feature-ads {
     background-color: transparent;
 
@@ -8,11 +16,12 @@
         .subads {
             height: 100%;
             min-height: 100%;
+            max-height: 100%;
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
             background-color: #f0f0f0;
-            border-radius: 6px;
+            border-radius: 4px;
         }
     }
 

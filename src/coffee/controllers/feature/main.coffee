@@ -1,10 +1,12 @@
 class FeatureMain extends Controller then constructor: (
     $scope, $ionicModal, $cordovaAppVersion, $timeout, Und, Chance
 ) ->
+    $scope.ads =
+        item: './img/ads/banners/1@2x.png'
+
     $ionicModal.fromTemplateUrl(
         'templates/feature/ads.html',
          scope: $scope
-         animation: 'no-animation'
     ).then (modal) ->
         $scope.modal = modal
 
