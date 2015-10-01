@@ -40,6 +40,10 @@
             padding-left: 0px;
         }
 
+        .inrow-bot {
+            padding-bottom: 0px;
+        }
+
         .club {
             width: 100px;
             height: 100px;
@@ -83,48 +87,102 @@
             }
 
             .subtopic {
+                padding-left: 30px;
                 color: #ffffff;
                 background-color: #213647;
             }
 
             .head {
-                color: #213647;
-                background-color: #eeeded;
+                font-size:17px;
+                font-weight:bold;
+                color:#ffffff;
             }
 
-            .point {
-                font-size: 18px;
-                font-weight: bold;
-                color: #213647;
-                //background-color: #ffffff;
+            .subhead {
+                font-size: 14px;
+                color: #ffffff;
             }
-                .-sum {
-                    color: #f2a83b;
+
+            .white {
+                background-color: #ffffff;
+            }
+
+            .grey {
+                background-color:#eeeded;
+            }
+
+            .blue {
+                font-size: 26px;
+                font-weight: bold;
+                color: #549af7;
+            }
+
+                .-normal {
+                    font-size: 14px;
+                    font-weight: normal;
+                    color: #549af7;
                 }
+
+            .dark-blue {
+                font-size: 12px;
+                color: #213647;
+            }
 
                 .-big {
-                    font-size: 20px;
+                    font-size: 16px;
+                    font-weight: bold;
                 }
 
-                .-blue {
-                    font-size: 30px;
-                    color: #4188c7;
-                }
-            
-                .-yellow {
-                    font-size: 30px;
-                    color: #f2a83b;
+                .-bigger {
+                    font-size: 18px;
+                    font-weight: bold;
                 }
 
-            .text {
-                color: #213647;
-                background-color: #ffffff;
+            .yellow {
+                font-size: 26px;
+                color: #f2a83b;
+            }
+
+                .-small {
+                    font-size: 16px;
+                    font-weight: bold;
+                }
+
+                .-smaller {
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+
+            .cover {
+                background-color:#f2a83b;
+            }
+
+            .border {
+                border-right: 1px solid #dedfe0;
             }
 
             .line {
                 width: 100%;
                 height: 5px;
                 background-color: #549af7;
+            }
+
+            .big-line {
+                width: 100%;
+                height: 40px;
+                background-color: #213647;
+            }
+
+            .end {
+                background-color: #213647;
+            }
+
+            .history {
+                color: #ffffff;
+                padding: 10px 50px;
+                border: solid silver 1px;
+                font-size: 14px;
+                margin: 5px auto;
             }
         }
     }

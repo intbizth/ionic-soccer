@@ -31,6 +31,59 @@ class rankingDetail extends Controller then constructor: (
                 prediction: Und.random(1, 9999999)
                 score: Und.random(1, 9999999)
                 player: Und.random(1, 9999999)
+                date: Chance.date({string: true, american: false});
+                teamHome:
+                    name: Chance.first()
+                    score: Und.random(0, 10)
+                teamAway:
+                    name: Chance.first()
+                    score: Und.random(0, 10)
             return item
+        fakeItems: ->
+            items = []
+            i = 0
+            ii = Und.random(0, 30)
+            while i < ii
+                items.push this.fakeItem()
+                i++
+            return items
 
     $scope.ranking.loadData()
+
+#    $scope.matchs =
+#        items: [],
+#        loadData: ->
+#            item = this.fakeItem()
+#            this.item =  item
+#            console.log('match:loadData', JSON.stringify(this.item))
+#            return
+#        doRefresh: ->
+#            console.log 'match:doRefresh'
+#            $this = this
+#            $timeout(->
+#                console.log 'match:doRefresh2'
+#                $this.loadData()
+#                $scope.$broadcast 'scroll.refreshComplete'
+#                return
+#            , 2000)
+#            return
+#        fakeItem: ->
+#            item =
+#                date: Chance.date({string: true, american: false});
+#                teamHome:
+#                    name: Chance.first()
+#                    score: Und.random(0, 10)
+#                teamAway:
+#                    name: Chance.first()
+#                    score: Und.random(0, 10)
+#            return item
+#        fakeItems: ->
+#            items = []
+#            i = 0
+#            ii = Und.random(0, 30)
+#            while i < ii
+#                items.push this.fakeItem()
+#                i++
+#            return items
+#
+#    $scope.matchs.loadData()
