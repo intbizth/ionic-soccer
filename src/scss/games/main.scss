@@ -1,6 +1,12 @@
 $game-detail-bg: #1f304c;
 $game-detail-text: #ffffff;
 
+.platform-android {
+    .title.title-left.header-item {
+        left: 0 !important;
+    }
+}
+
 .games {
     .banner {
         width: 100%;
