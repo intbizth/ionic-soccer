@@ -1,8 +1,19 @@
 .feature-ads {
     background-color: transparent;
 
-    .content {
-        margin-top: 10px;
+    .ads {
+        padding: 8px;
+        height: 100vh;
+
+        .subads {
+            height: 100%;
+            min-height: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: #f0f0f0;
+            border-radius: 6px;
+        }
     }
 
     .close {
@@ -18,6 +29,7 @@
             top: 4px;
             left: 4px;
             width: 57px;
+
             height: 37px;
             background-image: url("../img/ads/close/bg.png");
             background-size: 57px 37px;
