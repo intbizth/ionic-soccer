@@ -30,5 +30,6 @@ class TranslationRun extends Run
 # add translation packages here
         .addPart 'common'
         .addPart 'feature'
+        .addPart 'games'
 
         $translate.refresh()
