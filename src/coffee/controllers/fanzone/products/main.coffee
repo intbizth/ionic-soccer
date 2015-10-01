@@ -63,9 +63,9 @@ class FanzoneProducts extends Controller then constructor: (
     $scope.products.loadData()
 
     $scope.next = no
-    $scope.refresh =
+    $scope.refresh = ->
         $scope.products.refresh()
         return
-    $scope.loadMore =
+    $scope.loadMore = ->
         $scope.products.loadMore()
         return

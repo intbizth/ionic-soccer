@@ -53,9 +53,9 @@ class FanzoneWallpapers extends Controller then constructor: (
     $scope.wallpapers.loadData()
 
     $scope.next = no
-    $scope.refresh =
+    $scope.refresh = ->
         $scope.wallpapers.refresh()
         return
-    $scope.loadMore =
+    $scope.loadMore = ->
         $scope.wallpapers.loadMore()
         return
