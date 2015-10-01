@@ -1,12 +1,16 @@
 ion-view.news-detail(view-title='{{news.item.headline}}')
-    ion-nav-buttons(side='left')
-        a.button.button-icon.ion-ios-arrow-left(ng-click='back()')
-
+    ion-nav-title News
+    ion-nav-buttons(side="left")
+        a.button.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
+            img.logo(
+            src="./img/logo/navbar.png"
+            srcset="./img/logo/navbar@2x.png 2x"
+            )
 
     ion-content.content
-        ion-refresher(pulling-text="Pull to refresh...", on-refresh="news.doRefresh()")
+        ion-refresher(pulling-text="Pull to refresh...", on-refresh="data.doRefresh()")
 
-        img.image(ng-src="{{news.item.image}}", width='100%', height='146')
+        img.image(ng-src="{{news.item.image}}")
 
         div.row
             div.col
