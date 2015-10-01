@@ -17,3 +17,9 @@
         color: #0088cf;
     }
 }
+
+@media only screen and (max-device-width : 320px) and (max-device-height : 480px) {
+    .table {
+        font-size: 11px;
+    }
+}
