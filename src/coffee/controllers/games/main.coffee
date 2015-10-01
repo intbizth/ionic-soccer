@@ -5,26 +5,28 @@ class GamesMain extends Controller then constructor: (
         $ionicHistory.goBack -1
         return
 
-    $scope.title = 'Games'
+    $scope.data =
+        next: no
+        doRefresh: ->
+            $scope.matchLabel.doRefresh()
+            return
+        loadMore: ->
+            return
 
     $scope.matchLabel =
         sections: []
-        next: false
-
         loadData: ->
-            sections = this.fakeSections()
+            sections = @fakeSections()
             if sections.length > 0
                 sections = [sections[0]]
                 if sections[0].items.length > 0
                     sections[0].items = [sections[0].items[0]]
-            this.sections = sections
-            this.next = false
-            console.log('matchLabel:loadData', this.sections.length, JSON.stringify(this.sections), this.next)
+            @sections = sections
+            console.log('matchLabel:loadData', @sections.length, JSON.stringify(@sections), @next)
             return
-
         doRefresh: ->
             console.log 'matchLabel:doRefresh'
-            $this = this
+            $this = @
             $timeout(->
                 console.log 'matchLabel:doRefresh2'
                 $this.loadData()
@@ -32,33 +34,26 @@ class GamesMain extends Controller then constructor: (
                 return
             , 2000)
             return
-
         loadMore: ->
             console.log 'matchLabel:loadMore'
-            $this = this
+            $this = @
             $timeout(->
                 console.log 'matchLabel:loadMore2'
                 sections = $this.fakeSections()
                 for section in sections
                     $this.sections.push section
-                if $this.sections.length > 0
-                    $this.next = Chance.pick([true, false])
-                else
-                    $this.next = false
                 console.log('matchLabel:loadMore', $this.sections.length, JSON.stringify($this.sections), $this.next)
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
                 return
             , 2000)
             return
-
         fakeSection: (datetime)->
             section =
                 id: Und.random(1, 9999999)
                 datetime: Chance.date(datetime)
                 season: 'Thai Premier League 2015/2016'
-                items: this.fakeItems(datetime)
+                items: @fakeItems(datetime)
             return section
-
         fakeSections: ->
             sections = []
             i = 0
@@ -69,7 +64,7 @@ class GamesMain extends Controller then constructor: (
                 datetime =
                     year: year
                     month: month
-                section = this.fakeSection(datetime)
+                section = @fakeSection(datetime)
                 sections.push section
                 i++
                 month++
@@ -78,7 +73,6 @@ class GamesMain extends Controller then constructor: (
                     year++
             sections = Und.sortBy(sections, 'items.datetime')
             return sections
-
         fakeItem: (datetime) ->
             club = Chance.club()
             clubs = [
@@ -95,9 +89,9 @@ class GamesMain extends Controller then constructor: (
                 homeClub: null
                 awayClub: null
                 datetime: Chance.date(datetime)
-                isPlaying: true
+                isPlaying: yes
                 template: Chance.pick(['before', 'after'])
-            if Chance.pick([true, false])
+            if Chance.bool()
                 item.homeClub = clubs[0]
                 item.awayClub = clubs[1]
             else
@@ -109,17 +103,10 @@ class GamesMain extends Controller then constructor: (
             i = 0
             ii = Und.random(0, 5)
             while i < ii
-                item = this.fakeItem(datetime)
+                item = @fakeItem(datetime)
                 items.push item
                 i++
             items = Und.sortBy(items, 'datetime')
             return items
 
     $scope.matchLabel.loadData()
-
-    $scope.doRefresh = ->
-        $scope.matchLabel.doRefresh()
-        return
-
-    $scope.loadMore = ->
-        return
