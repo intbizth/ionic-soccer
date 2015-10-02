@@ -1,42 +1,42 @@
-class NgBackboneCollection extends Factory then constructor: (
-    CFG, NgBackbone, NgBackboneModel, $q, $rootScope, $ionicLoading, Und
+class NgBackboneModel extends Factory then constructor: (
+    $q, $rootScope, $http, NgBackbone, Und
 ) ->
-    # TODO: to move up `backbone` into abstract layer inject me as dependency!! or override in sub-class
-    PROXY = CFG.API.getProxy()
-    BASE_URL = CFG.API.getBaseUrl()
+    # Usage: model.$attributes.someKey
+    propertyAccessor = (key) ->
+        Object.defineProperty @$attributes, key,
+            enumerable: true
+            configurable: true
+            get: => @get key
+            set: (newValue) =>
+                @set key, newValue
+                return
+        return
 
-    # TODO:
-    # - subscribe `reset` to make `ordering` of fullCollection to
-    #   `append` or `prepend` eg. in `pull-refuesh` it make sense to be `prepend`
+    # Usage: model.someKey
+    propertyQuickAccessor = (key) ->
+        Object.defineProperty @, key,
+            enumerable: true
+            configurable: true
+            get: =>
+                if Und.isDefined(@attributes[key])
+                    return @$attributes[key]
+                else
+                    return @[key]
 
-    return NgBackbone.PageableCollection.extend
-        model: NgBackboneModel
+            set: (newValue) =>
+                if Und.isDefined(@attributes[key])
+                    @attributes[key] = newValue
+                else @[key] = newValue
+                return
+        return
 
-        # see more https://github.com/backbone-paginator/backbone.paginator
-        mode: 'infinite'
-
-        state:
-            pageSize: 10
-            total: 0
-
-        queryParams:
-            pageSize: 'limit'
-            totalRecords: 'total'
-            totalPages: 'pages'
-
+    return NgBackbone.RelationalModel.extend
         constructor: ->
-            Object.defineProperty @, '$collection',
-                enumerable: no
-                get: =>
-                    return @fullCollection.models if @mode == 'infinite'
-                    return @models
-
-            # initialize status object
             @$status =
-                deleting: no
-                loading: no
-                saving: no
-                syncing: no
+                deleting: false
+                loading: false
+                saving: false
+                syncing: false
 
             @on 'request', (model, xhr, options) ->
                 method = options.method.toUpperCase()
@@ -44,48 +44,22 @@ class NgBackboneCollection extends Factory then constructor: (
                     deleting: method == 'DELETE'
                     loading: method == 'GET'
                     saving: method == 'POST' or method == 'PUT'
-                    syncing: no
+                    syncing: true
 
             @on 'sync error', @resetStatus
-            @on 'destroy', @resetStatus
-            @on 'sync', ->
-                $rootScope.$broadcast 'scroll.infiniteScrollComplete' if @mode == 'infinite'
+            return NgBackbone.RelationalModel::constructor.apply @, arguments
 
-            NgBackbone.PageableCollection::constructor.apply @, arguments
-            return
+        set: (key, val, options) ->
+            output = NgBackbone.RelationalModel::set.apply @, arguments
 
-        parseState: (resp, queryParams, state, options) ->
-            @state.total = resp.data.total
-            @state.totalPages = resp.data.pages
-            return @state
+            # Do not set binding if attributes are invalid
+            @setBinding key, val, options
+            return output
 
-        parseLinks: (resp, options) ->
-            _links = Und.result resp.data, '_links'
+        parse: (resp, xhr) ->
+            return resp.data if Und.isDefined resp.data
+            return resp
 
-            if _links
-                defs = href: ''
-                first = Und.result _links, 'first', defs
-                next = Und.result _links, 'next', defs
-                previous = Und.result _links, 'previous', defs
-
-                return {
-                    first: first.href#.replace PROXY, BASE_URL
-                    next: next.href#.replace PROXY, BASE_URL
-                    prev: previous#.href.replace PROXY, BASE_URL
-                }
-            else return NgBackbone.PageableCollection::parseLinks.apply @, arguments
-
-        # parse hateote data
-        parseRecords: (resp) ->
-            data = Und.result resp.data, '_embedded'
-
-            return data.items if data
-            return resp.data
-
-        # has more page
-        hasMorePage: -> @state.total > 0 and @state.total > @state.totalRecords
-
-        # set on request status
         setStatus: (key, value, options) ->
             return @ if Und.isUndefined(key)
 
@@ -103,95 +77,54 @@ class NgBackboneCollection extends Factory then constructor: (
 
         resetStatus: ->
             @setStatus
-                deleting: no
-                loading: no
-                saving: no
-                syncing: no
+                deleting: false
+                loading: false
+                saving: false
+                syncing: false
 
-        # get collection
-        getCollection: -> @$collection
+        setBinding: (key, val, options) ->
+            return @ if Und.isUndefined(key)
 
-        ###
-        # Shortcut to fetch collection.
-        #
-        # @param {object} options The `options` can be `$scope` for short-hand or
-        #    {
-        #        scope: $scope
-        #        storeKey: 'store' # the name to be used in view.
-        #        collectionKey: 'collection' # the name to be used in view.
-        #    }
-        ###
-        load: (options) ->
-            # need scope
-            $scope = options.scope || options
-            $scope[options.storeKey || 'store'] = @
+            if Und.isObject(key)
+                attrs = key
+                options = val
+            else (attrs = {})[key] = val
 
-            @on 'sync', (store) ->
-                $scope[options.collectionKey || 'collection'] = store.$collection
-                $ionicLoading.hide()
+            options = options or {}
+            @$attributes = {} if Und.isUndefined(@$attributes)
+            unset = options.unset
 
-                # store collection with `alias`
-                if store.alias
-                    $rootScope['$' + store.alias] = @
-
-            # start loading first page.
-            $ionicLoading.show()
-            @getFirstPage()
+            for attr of attrs
+                if unset and @$attributes.hasOwnProperty(attr)
+                    delete @$attributes[attr]
+                else if !unset and !@$attributes[attr]
+                    propertyAccessor.call @, attr
+                    propertyQuickAccessor.call @, attr
             return @
 
-        ###
-        # Shortcut to find model in the collection.
+        removeBinding: (attr, options) ->
+            @setBinding attr, undefined, Und.extend({}, options, unset: true)
+
+        ###*
+        # Get model's embeded links.
         #
-        # @param {object} options The `options` can be `$scope` for short-hand or
-        #    {
-        #        scope: $scope
-        #        key: 'r' # the name to be used in view.
-        #    }
+        # @param {string} name Link name.
+        # @param {function|null} collection A model collection constructor.
         #
-        # @return Promise
+        # @return Promise with (Collection|Model|Object|null)
         # @see https://docs.angularjs.org/api/ng/service/$q
         ###
-        find: (attr, options) ->
-
-            if !Und.isObject attr
-                attr = id: attr
-
-            # find in repo
-            if options
-                $scope = options.scope || options
-
-            # need scope
-            applyOptions = (model) ->
-                if options
-                    $scope = options.scope || options
-                    $scope[options.key || 'r'] = model
-
-            # find form loaded models.
-            if $rootScope['$' + @alias]
-                store = $rootScope['$' + @alias]
-                if store.fullCollection
-                    model = store.fullCollection.get attr.id
-
-            # return promise
+        getLinked: (name, collection) ->
             $q (resolve, reject) =>
-                if model
-                    resolve model
-                    applyOptions.call @, model
+                obj = Und.result @_links, name
+
+                if !obj
+                    resolve null
+                else if collection
+                    # TODO: clear collection ?
+                    new collection().fetch
+                        url: obj.href
+                        success: (store) -> resolve store
+                        error: (xhr) -> reject xhr
                 else
-                    # start loading
-                    # TODO: should be handled from controller ?
-                    $ionicLoading.show()
-
-                    # TODO: support :holder replacement (must to define url for each get, put, post, patch)
-                    model = new @model()
-                    promise = model.fetch
-                        url: (@url + attr.id)
-                        success: (model) ->
-                            resolve model
-                            applyOptions.call @, model
-                        error: (xhr) ->
-                            reject xhr
-                            applyOptions.call @, null
-
-                    # hide loading
-                    promise.finally -> $ionicLoading.hide()
+                    $http # TODO
