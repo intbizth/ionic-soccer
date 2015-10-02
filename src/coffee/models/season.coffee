@@ -31,7 +31,6 @@ class Season extends Factory then constructor: (
 
             # need to load compettions before.
             competitions = $rootScope.$competitions
-
             return unless competitions
 
             link = @_links.competition.href
@@ -40,7 +39,6 @@ class Season extends Factory then constructor: (
             competition = competitions.get id
 
             @set 'competition', competition
-
             return competition if competition
 
             # TODO
