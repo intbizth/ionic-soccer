@@ -38,6 +38,7 @@ $ ionic build ios --release
 ```
 * Android
 ```
+$ export ANDROID_HOME=/android-sdk
 $ ionic plugin remove cordova-plugin-console
 $ ionic build android --release
 $ keytool -genkey -v -keystore Soccer.keystore -alias Soccer -keyalg RSA -keysize 2048 -validity 10000
