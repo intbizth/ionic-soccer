@@ -47,6 +47,6 @@ $ zipalign -v 4 "platforms/android/build/outputs/apk/android-release-unsigned.ap
 
 #### Download
 * iOS
-  - TestFight app
+  - TestFight (https://itunes.apple.com/en/app/testflight/id899247664?mt=8)
 * Android
-  - https://intbizth.com/apps/bypass/soccer
+  - Intbizth Store (https://intbizth.com/apps/bypass/soccer)
