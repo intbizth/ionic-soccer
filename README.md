@@ -44,3 +44,9 @@ $ keytool -genkey -v -keystore Soccer.keystore -alias Soccer -keyalg RSA -keysiz
 $ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore Soccer.keystore "platforms/android/build/outputs/apk/android-release-unsigned.apk" Soccer
 $ zipalign -v 4 "platforms/android/build/outputs/apk/android-release-unsigned.apk" "platforms/android/build/outputs/apk/Soccer.apk"
 ```
+
+#### Download
+##### iOS
+TestFight app
+##### Android
+https://intbizth.com/apps/bypass/soccer
