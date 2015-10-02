@@ -18,25 +18,25 @@ $ ionic platform remove android && ionic platform add android
 ```
 
 #### Run
-##### iOS
+* iOS
 ```shell
 $ ionic run ios -l -c -b
 $ ionic run ios -l -c -b --target="iPhone-4s"
 $ ionic run ios -l -c -b --device"
 ```
-##### Android
+* Android
 ```
 $ ionic run android -l -c -b
 $ ionic run android -l -c -b --device"
 ```
 
 #### Release Builds
-##### iOS
+* iOS
 ```shell
 $ ionic plugin remove cordova-plugin-console
 $ ionic build ios --release
 ```
-##### Android
+* Android
 ```
 $ ionic plugin remove cordova-plugin-console
 $ ionic build android --release
@@ -46,7 +46,7 @@ $ zipalign -v 4 "platforms/android/build/outputs/apk/android-release-unsigned.ap
 ```
 
 #### Download
-##### iOS
-TestFight app
-##### Android
-https://intbizth.com/apps/bypass/soccer
+* iOS
+  - TestFight app
+* Android
+  - https://intbizth.com/apps/bypass/soccer
