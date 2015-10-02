@@ -1,5 +1,3 @@
-ion-refresher(pulling-text='Pull to refresh...', on-refresh='matchLabel.doRefresh()')
-
-match-label(sections="matchLabel.sections")
-
-ion-infinite-scroll(ng-if="matchLabel.next" on-infinite="matchLabel.loadMore()", distance="5%")
+ion-refresher(pulling-text='Pull to refresh...', on-refresh='matchLabel.refresh()')
+match-label(items="matchLabel.items")
+ion-infinite-scroll(ng-if="matchLabel.hasMorePage" on-infinite="matchLabel.loadNext()", distance="1%")
