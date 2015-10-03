@@ -10,6 +10,22 @@ class Chance extends Factory then constructor: ->
                 src: './img/fake/profile/' + image
                 css: '../img/fake/profile/' + image
         }
+    chance.league = ->
+        leagues = [
+            'Thai Premier League'
+            'Barclays Premier League'
+            'Primera División de España'
+            'J League'
+        ]
+        name = chance.pick(leagues)
+        space = new RegExp(' ', 'g')
+        image = name.replace(space, '') + '.png'
+        return {
+        name: name
+        image:
+            src: './img/fake/league/' + image
+            css: '../img/fake/league/' + image
+        }
     chance.club = ->
         clubs = [
             'Air Force Central FC'
