@@ -1,5 +1,31 @@
-ion-refresher(pulling-text='Pull to refresh...', on-refresh='matchLabel.doRefresh()')
-
-match-label(sections="matchLabel.sections")
-
-ion-infinite-scroll(ng-if="matchLabel.next" on-infinite="matchLabel.loadMore()", distance="5%")
+ion-refresher(pulling-text='Pull to refresh...', on-refresh='matchLabel.refresh()')
+div.match-label
+    div.nodata(ng-if="matchLabel.items.length == 0")
+        div.row
+            div.col.col-center.text-center
+                div.text Has no match.
+    div(ng-repeat="item in matchLabel.items")
+        div.row.row-center.section(ng-if="item.type == 'section'")
+            div.col.col-center.text-center
+                | {{section.datetime | date : 'MMM yyyy'}}
+        div.row.label(ng-if="item.type == 'label'", ui-sref="match.detail({id : item.id})")
+            div.col.col-15.col-center.logo.text-center
+                img.image(ng-src="{{item.homeClub.logo}}")
+            div.col.col-25.col-center.name.text-center
+                | {{item.homeClub.name}}
+            div.col.col-20.col-center.detail.text-center
+                div(ng-if="item.template == 'before'")
+                    div.time
+                        | {{item.startTime | date:'HH:mm'}}
+                    div.date
+                        | {{item.startTime | date:'dd MMM yyyy'}}
+                div(ng-if="item.template == 'after'")
+                    div.score
+                        | {{item.homeClub.score}}-{{item.awayClub.score}}
+                    div.date
+                        | {{item.startTime | date:'dd MMM yyyy'}}
+            div.col.col-25.col-center.name.text-center
+                | {{item.awayClub.name}}
+            div.col.col-15.col-center.logo.text-center
+                img.image(ng-src="{{item.awayClub.logo}}")
+ion-infinite-scroll(ng-if="matchLabel.hasMorePage" on-infinite="matchLabel.loadNext()", distance="1%")

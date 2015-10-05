@@ -15,6 +15,7 @@
     "validate": "~0.8.0",
     "velocity-ui-angular": "~0.4.0",
     "ng-cordova-oauth": "0.1.4",
-    "chance": "0.7.7"
+    "chance": "~0.8.0",
+    "moment": "~2.10.6"
   }
 }
