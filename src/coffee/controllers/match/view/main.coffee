@@ -1,35 +1,26 @@
 class MatchView extends Controller then constructor: (
     $scope, $timeout, Und, Chance
 ) ->
-    matchEvents = document.getElementById 'match-events'
-    matchEventsLine = document.getElementById 'match-events-line'
-
-    $scope.$on('match-events.start', ->
-        matchEventsLine.style.height = '0px';
-    )
-
-    $scope.$on('match-events.complete', ->
-        $timeout(->
-            matchEventsLine.style.height = (parseInt(matchEvents.offsetHeight) - 12) + 'px';
-        ,500)
-    )
+    $scope.data =
+        doRefresh: ->
+            $scope.matchLabel.doRefresh()
+            $scope.matchEvents.doRefresh()
+            return
 
     $scope.matchLabel =
-        sections: [],
-        next: false
+        sections: []
         loadData: ->
-            sections = this.fakeSections()
+            sections = @fakeSections()
             if sections.length > 0
                 sections = [sections[0]]
                 if sections[0].items.length > 0
                     sections[0].items = [sections[0].items[0]]
-            this.sections = sections
-            this.next = false
-            console.log('matchLabel:loadData', this.sections.length, JSON.stringify(this.sections), this.next)
+            @sections = sections
+            console.log('matchLabel:loadData', @sections.length, JSON.stringify(@sections))
             return
         doRefresh: ->
             console.log 'matchLabel:doRefresh'
-            $this = this
+            $this = @
             $timeout(->
                 console.log 'matchLabel:doRefresh2'
                 $this.loadData()
@@ -39,17 +30,13 @@ class MatchView extends Controller then constructor: (
             return
         loadMore: ->
             console.log 'matchLabel:loadMore'
-            $this = this
+            $this = @
             $timeout(->
                 console.log 'matchLabel:loadMore2'
                 sections = $this.fakeSections()
                 for section in sections
                     $this.sections.push section
-                if $this.sections.length > 0
-                    $this.next = Chance.pick([true, false])
-                else
-                    $this.next = false
-                console.log('matchLabel:loadMore', $this.sections.length, JSON.stringify($this.sections), $this.next)
+                console.log('matchLabel:loadMore', $this.sections.length, JSON.stringify($this.sections))
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
                 return
             , 2000)
@@ -58,7 +45,7 @@ class MatchView extends Controller then constructor: (
             section =
                 id: Und.random(1, 9999999)
                 datetime: Chance.date(datetime)
-                items: this.fakeItems(datetime)
+                items: @fakeItems(datetime)
             return section
         fakeSections: ->
             sections = []
@@ -70,7 +57,7 @@ class MatchView extends Controller then constructor: (
                 datetime =
                     year: year
                     month: month
-                section = this.fakeSection(datetime)
+                section = @fakeSection(datetime)
                 sections.push section
                 i++
                 month++
@@ -97,7 +84,7 @@ class MatchView extends Controller then constructor: (
                 awayClub: null
                 datetime: Chance.date(datetime)
                 template: Chance.pick(['before', 'after'])
-            if Chance.pick([true, false])
+            if Chance.bool()
                 item.homeClub = clubs[0]
                 item.awayClub = clubs[1]
             else
@@ -109,7 +96,7 @@ class MatchView extends Controller then constructor: (
             i = 0
             ii = Und.random(0, 30)
             while i < ii
-                item = this.fakeItem(datetime)
+                item = @fakeItem(datetime)
                 items.push item
                 i++
             items = Und.sortBy(items, 'datetime')
@@ -120,17 +107,16 @@ class MatchView extends Controller then constructor: (
     $scope.matchEvents =
         items: [],
         match:
-            halftime: false
-            end: false
-        next: false
+            halftime: no
+            end: no
         loadData: ->
-            items = this.fakeItems()
-            this.items =  items
-            console.log('matchEvents:loadData', this.items.length, JSON.stringify(this.items))
+            items = @fakeItems()
+            @items =  items
+            console.log('matchEvents:loadData', @items.length, JSON.stringify(@items))
             return
         doRefresh: ->
             console.log 'matchEvents:doRefresh'
-            $this = this
+            $this = @
             $timeout(->
                 console.log 'matchEvents:doRefresh2'
                 $this.loadData()
@@ -167,13 +153,13 @@ class MatchView extends Controller then constructor: (
                 item.time = time
             else
                 minute = Chance.minute()
-                if Chance.pick([true, false]) then minute += 15
+                if Chance.bool() then minute += 15
                 second = Chance.second()
                 if minute < 10 then minute = '0' + minute
                 if second < 10 then second = '0' + second
                 time =  minute + ':' + second
                 if parseInt(minute) >= 45 and parseInt(second) > 1
-                    this.match.halftime = true
+                    @match.halftime = yes
                 item.icon = Chance.pick(['yellow_card', 'red_card', 'yellow_red_card', 'goal'])
                 item.dot = 'normal'
                 item.name = Chance.name()
@@ -182,27 +168,22 @@ class MatchView extends Controller then constructor: (
                 item.time = time
             return item
         fakeItems: ->
-            $scope.$broadcast 'match-events.start'
-            items = [this.fakeItem({start: true})]
+            items = [@fakeItem(start: yes)]
             i = 0
             ii = Und.random(0, 30)
             while i < ii
-                item = this.fakeItem()
+                item = @fakeItem()
                 items.push item
                 i++
             if this.match.halftime
-                items.push this.fakeItem({halftime: true})
-            if Chance.pick([true, false])
-                this.match.end = true
-                items.push this.fakeItem({end: true})
+                items.push @fakeItem(halftime: yes)
+            if Chance.bool()
+                @match.end = yes
+                items.push @fakeItem(end: yes)
             items = Und.sortBy(items, (value) ->
                 return parseFloat value.time
             )
-            $scope.$broadcast 'match-events.complete'
+            items = items.reverse()
             return items
 
     $scope.matchEvents.loadData()
-
-    $scope.doRefresh = ->
-        $scope.matchLabel.doRefresh()
-        $scope.activities.doRefresh()

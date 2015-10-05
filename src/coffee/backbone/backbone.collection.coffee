@@ -1,13 +1,9 @@
 class NgBackboneCollection extends Factory then constructor: (
-    CFG, NgBackbone, NgBackboneModel, $q, $rootScope, $ionicLoading, Und
+    CFG, NgBackbone, NgBackboneModel, $q, $rootScope, Und
 ) ->
     # TODO: to move up `backbone` into abstract layer inject me as dependency!! or override in sub-class
     PROXY = CFG.API.getProxy()
     BASE_URL = CFG.API.getBaseUrl()
-
-    # TODO:
-    # - subscribe `reset` to make `ordering` of fullCollection to
-    #   `append` or `prepend` eg. in `pull-refuesh` it make sense to be `prepend`
 
     return NgBackbone.PageableCollection.extend
         model: NgBackboneModel
@@ -24,7 +20,13 @@ class NgBackboneCollection extends Factory then constructor: (
             totalRecords: 'total'
             totalPages: 'pages'
 
-        constructor: ->
+        numLoaded: 0
+        prepend: no
+
+        constructor: (models, options) ->
+            if options and options.url
+                @url = options.url
+
             Object.defineProperty @, '$collection',
                 enumerable: no
                 get: =>
@@ -51,6 +53,22 @@ class NgBackboneCollection extends Factory then constructor: (
             @on 'sync', ->
                 $rootScope.$broadcast 'scroll.infiniteScrollComplete' if @mode == 'infinite'
 
+            # handle prepend/append mode
+            @on 'reset', (col) ->
+                num = @state.totalRecords - @numLoaded
+
+                # not first load
+                if num and @numLoaded and @prepend
+                    num = @state.totalRecords - num
+                    models = @fullCollection.models
+                    cols = models.splice 0, num
+
+                    models = [].concat models, cols
+                    @fullCollection.models = models
+
+                @numLoaded = @state.totalRecords
+                @prepend = no
+
             NgBackbone.PageableCollection::constructor.apply @, arguments
             return
 
@@ -71,7 +89,7 @@ class NgBackboneCollection extends Factory then constructor: (
                 return {
                     first: first.href#.replace PROXY, BASE_URL
                     next: next.href#.replace PROXY, BASE_URL
-                    prev: previous#.href.replace PROXY, BASE_URL
+                    prev: previous.href#.replace PROXY, BASE_URL
                 }
             else return NgBackbone.PageableCollection::parseLinks.apply @, arguments
 
@@ -125,19 +143,25 @@ class NgBackboneCollection extends Factory then constructor: (
             # need scope
             $scope = options.scope || options
             $scope[options.storeKey || 'store'] = @
+            collectionKey = options.collectionKey
 
-            @on 'sync', (store) ->
-                $scope[options.collectionKey || 'collection'] = store.$collection
-                $ionicLoading.hide()
-
-                # store collection with `alias`
-                if store.alias
-                    $rootScope['$' + store.alias] = @
+            delete options.collectionKey
+            delete options.storeKey
+            delete options.scope
 
             # start loading first page.
-            $ionicLoading.show()
-            @getFirstPage()
-            return @
+            promise = @getFirstPage options
+
+            $q (resolve, reject) =>
+                promise.then (xhr) =>
+                    $scope[collectionKey || 'collection'] = @$collection
+                    # store collection with `alias`
+                    $rootScope['$' + @alias] = @ if @alias
+
+                    resolve @$collection
+
+                # error
+                , (xhr) -> reject xhr
 
         ###
         # Shortcut to find model in the collection.
@@ -178,20 +202,13 @@ class NgBackboneCollection extends Factory then constructor: (
                     resolve model
                     applyOptions.call @, model
                 else
-                    # start loading
-                    # TODO: should be handled from controller ?
-                    $ionicLoading.show()
-
                     # TODO: support :holder replacement (must to define url for each get, put, post, patch)
                     model = new @model()
                     promise = model.fetch
-                        url: (@url + attr.id)
+                        url: (model.url + attr.id)
                         success: (model) ->
                             resolve model
                             applyOptions.call @, model
                         error: (xhr) ->
                             reject xhr
                             applyOptions.call @, null
-
-                    # hide loading
-                    promise.finally -> $ionicLoading.hide()

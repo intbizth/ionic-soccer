@@ -1,8 +1,60 @@
+$game-detail-bg: #1f304c;
+$game-detail-text: #ffffff;
+$ml-section-bg: #e0e1e2;
+$ml-section-gameweek-text: #f7a032;
+$ml-label-bg: #1f304c;
+
+.platform-android {
+    .title.title-left.header-item {
+        left: 0 !important;
+    }
+}
+
 .games {
-    .title {
-        background-color: #0056a2;
-        font-size: 18px;
-        font-weight: bold;
-        color: #ffffff;
+    .banner {
+        width: 100%;
+        height: 170px;
+        background-image: url("../img/games/games-banner.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .games-detail {
+        background-color: $game-detail-bg;
+
+        .text {
+            font-size: 14px;
+            color: $game-detail-text;
+        }
+    }
+}
+
+.match-label {
+    .section {
+        background-color: $ml-section-bg;
+
+        .logo {
+            .image {
+                padding-top: 4px;
+                width: 25px;
+                height: 25px;
+            }
+        }
+
+        .league {
+            padding-left: 6px;
+        }
+
+        .gameweek {
+            color: $ml-section-gameweek-text;
+        }
+    }
+
+    .label {
+        background-color: $ml-label-bg;
+
+        .detail {
+
+        }
     }
 }

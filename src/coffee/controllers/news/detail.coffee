@@ -5,16 +5,20 @@ class NewsDetail extends Controller then constructor: (
         $ionicHistory.goBack -1
         return
 
+    $scope.data =
+        doRefresh: ->
+            $scope.news.doRefresh()
+            return
+
     $scope.news =
         item: {},
         loadData: ->
-            item = this.fakeItem()
-            this.item =  item
-            console.log('news:loadData', JSON.stringify(this.item))
+            @item = @fakeItem()
+            console.log('news:loadData', JSON.stringify(@item))
             return
         doRefresh: ->
             console.log 'news:doRefresh'
-            $this = this
+            $this = @
             $timeout(->
                 console.log 'news:doRefresh2'
                 $this.loadData()

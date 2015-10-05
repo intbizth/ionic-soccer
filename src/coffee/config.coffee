@@ -20,7 +20,6 @@ class CFG extends Constant then constructor: ->
                     #baseUrl: 'http://127.0.0.1:8000'
                     baseUrl: 'http://demo.balltoro.com/api/'
                     proxy: ''
-
     ApiConfig = Config.ENVIRONMENT['@@environment'].api
     return angular.extend Config,
         API:
