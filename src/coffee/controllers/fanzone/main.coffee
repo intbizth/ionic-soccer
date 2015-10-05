@@ -1,5 +1,5 @@
 class FanzoneMain extends Controller then constructor: (
-    $scope, $state, $ionicHistory
+    $scope, $ionicHistory
 ) ->
     $scope.back = ->
         $ionicHistory.goBack -1

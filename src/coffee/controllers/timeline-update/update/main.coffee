@@ -2,7 +2,7 @@ class Update extends Controller then constructor: (
     $scope, $ionicHistory, $timeout, Und, Chance
 ) ->
     $scope.data =
-        next: false
+        next: no
         doRefresh: ->
             $scope.ticket.loadData()
             $scope.news.doRefresh()
@@ -14,7 +14,7 @@ class Update extends Controller then constructor: (
     $scope.ticket =
         items: [],
         loadData: ->
-            items = this.fakeItems()
+            items = @fakeItems()
             i = 1
             for item in items
                 if i == 1
@@ -26,8 +26,8 @@ class Update extends Controller then constructor: (
                 i++
                 if i > 3
                     i = 1
-            this.items =  items
-            console.log('ticket:loadData', this.items.length, JSON.stringify(this.items))
+            @items =  items
+            console.log('ticket:loadData', @items.length, JSON.stringify(@items))
             return
         fakeItem: ->
             item =
@@ -39,7 +39,7 @@ class Update extends Controller then constructor: (
             ii = Und.random(1, 20)
             while i < ii
                 item.seats.push Chance.character(
-                    alpha: true
+                    alpha: yes
                     casing: 'upper'
                 )
                 i++
@@ -52,26 +52,21 @@ class Update extends Controller then constructor: (
             i = 0
             ii = Und.random(0, 2)
             while i < ii
-                items.push this.fakeItem()
+                items.push @fakeItem()
                 i++
             return items
 
     $scope.news =
         items: []
-        next: false
+        next: no
         loadData: ->
-            items = this.fakeItems()
-            this.items =  items
-            if this.items.length > 0
-                this.next = Chance.bool()
-            else
-                this.next = false
-            $scope.data.next = this.next
-            console.log('news:loadData', this.items.length, JSON.stringify(this.items), this.next)
+            @items = @fakeItems()
+            $scope.data.next = @next = if @items.length > 0 then Chance.bool() else no
+            console.log('news:loadData', @items.length, JSON.stringify(@items), @next)
             return
         doRefresh: ->
             console.log 'news:doRefresh'
-            $this = this
+            $this = @
             $timeout(->
                 console.log 'news:doRefresh2'
                 $this.loadData()
@@ -81,17 +76,13 @@ class Update extends Controller then constructor: (
             return
         loadMore: ->
             console.log 'news:loadMore'
-            $this = this
+            $this = @
             $timeout(->
                 console.log 'news:loadMore2'
                 items = $this.fakeItems()
                 for item in items
                     $this.items.push item
-                if $this.items.length > 0
-                    $this.next = Chance.bool()
-                else
-                    $this.next = false
-                $scope.data.next = $this.next
+                $scope.data.next = $this.next = if $this.items.length > 0 then Chance.bool() else no
                 console.log('news:loadMore', $this.items.length, JSON.stringify($this.items), $this.next)
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
                 return
@@ -113,7 +104,7 @@ class Update extends Controller then constructor: (
             i = 0
             ii = Und.random(0, 10)
             while i < ii
-                items.push this.fakeItem()
+                items.push @fakeItem()
                 i++
             return items
 

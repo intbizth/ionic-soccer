@@ -2,17 +2,16 @@ class CompetitionTableResult extends Controller then constructor: (
     $scope, $ionicHistory, $timeout, Und, Chance
 ) ->
     $scope.matchLabel =
-        sections: [],
-        next: false
+        sections: []
+        next: no
         loadData: ->
-            sections = this.fakeSections()
-            this.sections = sections
-            this.next = Chance.pick([true, false])
-            console.log('matchLabel:loadData', this.sections.length, JSON.stringify(this.sections), this.next)
+            @sections = @fakeSections()
+            @next = if @sections.length > 0 then Chance.bool() else no
+            console.log('matchLabel:loadData', @sections.length, JSON.stringify(@sections), @next)
             return
         doRefresh: ->
             console.log 'matchLabel:doRefresh'
-            $this = this
+            $this = @
             $timeout(->
                 console.log 'matchLabel:doRefresh2'
                 $this.loadData()
@@ -22,16 +21,13 @@ class CompetitionTableResult extends Controller then constructor: (
             return
         loadMore: ->
             console.log 'matchLabel:loadMore'
-            $this = this
+            $this = @
             $timeout(->
                 console.log 'matchLabel:loadMore2'
                 sections = $this.fakeSections()
                 for section in sections
                     $this.sections.push section
-                if $this.sections.length > 0
-                    $this.next = Chance.pick([true, false])
-                else
-                    $this.next = false
+                $this.next = if $this.sections.length > 0 then Chance.bool() else no
                 console.log('matchLabel:loadMore', $this.sections.length, JSON.stringify($this.sections), $this.next)
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
                 return
@@ -41,7 +37,7 @@ class CompetitionTableResult extends Controller then constructor: (
             section =
                 id: Und.random(1, 9999999)
                 datetime: Chance.date(datetime)
-                items: this.fakeItems(datetime)
+                items: @fakeItems(datetime)
             return section
         fakeSections: ->
             sections = []
@@ -53,7 +49,7 @@ class CompetitionTableResult extends Controller then constructor: (
                 datetime =
                     year: year
                     month: month
-                section = this.fakeSection(datetime)
+                section = @fakeSection(datetime)
                 sections.push section
                 i++
                 month++
@@ -62,7 +58,6 @@ class CompetitionTableResult extends Controller then constructor: (
                     year++
             sections = Und.sortBy(sections, 'items.datetime')
             return sections
-            return
         fakeItem: (datetime) ->
             club = Chance.club()
             clubs = [
@@ -80,7 +75,7 @@ class CompetitionTableResult extends Controller then constructor: (
                 awayClub: null
                 datetime: Chance.date(datetime)
                 template: Chance.pick(['before', 'after'])
-            if Chance.pick([true, false])
+            if Chance.bool()
                 item.homeClub = clubs[0]
                 item.awayClub = clubs[1]
             else
@@ -92,7 +87,7 @@ class CompetitionTableResult extends Controller then constructor: (
             i = 0
             ii = Und.random(0, 30)
             while i < ii
-                item = this.fakeItem(datetime)
+                item = @fakeItem(datetime)
                 items.push item
                 i++
             items = Und.sortBy(items, 'datetime')

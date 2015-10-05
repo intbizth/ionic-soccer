@@ -1,10 +1,12 @@
 class FeatureMain extends Controller then constructor: (
-    $scope, $ionicHistory, $ionicModal, $cordovaAppVersion, $timeout, Und, Chance
+    $scope, $ionicModal, $cordovaAppVersion, $timeout, Und, Chance
 ) ->
+    $scope.ads =
+        item: './img/ads/banners/1@2x.png'
+
     $ionicModal.fromTemplateUrl(
         'templates/feature/ads.html',
          scope: $scope
-         animation: 'no-animation'
     ).then (modal) ->
         $scope.modal = modal
 
@@ -30,13 +32,12 @@ class FeatureMain extends Controller then constructor: (
     $scope.profile =
         item: {},
         loadData: ->
-            item = this.fakeItem()
-            this.item =  item
-            console.log('profile:loadData', JSON.stringify(this.item))
+            @item = @fakeItem()
+            console.log('profile:loadData', JSON.stringify(@item))
             return
-        doRefresh: ->
+        refresh: ->
             console.log 'profile:doRefresh'
-            $this = this
+            $this = @
             $timeout(->
                 console.log 'profile:doRefresh2'
                 $this.loadData()
@@ -53,7 +54,9 @@ class FeatureMain extends Controller then constructor: (
                 point1: Und.random(1, 9999999999)
                 point2: Und.random(1, 9999999999)
             return item
+
     $scope.profile.loadData()
-    $scope.doRefresh = ->
-        $scope.profile.doRefresh()
+
+    $scope.refresh = ->
+        $scope.profile.refresh()
         return
