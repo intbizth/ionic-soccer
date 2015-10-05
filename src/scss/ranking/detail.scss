@@ -174,7 +174,11 @@
             }
 
             .end {
-                background-color: #213647;
+                background: -webkit-linear-gradient(#213647, #22455f, #213647);
+                background: -o-linear-gradient(#213647, #22455f, #213647);
+                background: -moz-linear-gradient(#213647, #22455f, #213647);
+                background: linear-gradient(#213647, #22455f, #213647);
+                //background-color: #213647;
             }
 
             .history {

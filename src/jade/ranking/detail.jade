@@ -1,5 +1,5 @@
 ion-view.ranking-detail
-    ion-nav-title Ranking
+    ion-nav-title Detail
     ion-nav-buttons(side="left")
         a.button.button-icon.ion-ios-arrow-left(ng-click="back()")
             img.logo(
@@ -8,7 +8,7 @@ ion-view.ranking-detail
             )
 
     ion-content.content
-        ion-refresher(pulling-text="Pull to refresh...", on-refresh="ranking.doRefresh()")
+        ion-refresher(pulling-text="Pull to refresh...", on-refresh="data.doRefresh()")
 
         div.row
             div.col.col-33
@@ -69,17 +69,17 @@ ion-view.ranking-detail
                         | ทีมเยือน
                 div.row.inrow.white
                     div.col.dark-blue.-big.text-right
-                        | 24
+                        | {{seasons.item.result.homeScore}}
                     div.col.dark-blue.-big
-                        | 8
+                        | {{seasons.item.result.homeRound}}
                     div.col.dark-blue.-big.text-right
-                        | 15
+                        | {{seasons.item.result.withdrawScore}}
                     div.col.dark-blue.-big
-                        | 5
+                        | {{seasons.item.result.withdrawRound}}
                     div.col.dark-blue.-big.text-right
-                        | 3
+                        | {{seasons.item.result.awayScore}}
                     div.col.dark-blue.-big
-                        | 2
+                        | {{seasons.item.result.awayRound}}
                 div.row.inrow.white
                     div.col.dark-blue.text-right
                         | คะแนน
@@ -104,19 +104,19 @@ ion-view.ranking-detail
                         | คะแนน
                 div.row.text-center.inrow-bot.white
                     div.col.col-25.border.dark-blue.-big
-                        | 15
+                        | {{seasons.item.result.volume}}
                     div.col.col-25.border.dark-blue.-big
-                        | 14
+                        | {{seasons.item.result.right}}
                     div.col.col-25.border.dark-blue.-big
-                        | 1
+                        | {{seasons.item.result.wrong}}
                     div.col.col-25.yellow.-small
-                        | 45
+                        | {{seasons.item.result.point}}
                 div.line
                 div.row.white
                     div.col.col-67.dark-blue.-bigger
                         | ความแม่นยำ
                     div.col.col-33.blue
-                        | 92
+                        | {{seasons.item.result.accuracy}}
                         span.dark-blue.-bigger  %
 
 
@@ -137,27 +137,27 @@ ion-view.ranking-detail
                         | คะแนน
                 div.row.text-center.inrow-bot.white
                     div.col.col-20.border.dark-blue.-big
-                        | 1
+                        | {{seasons.item.score.volume}}
                     div.col.col-20.border.dark-blue.-big
-                        | 2
+                        | {{seasons.item.score.right}}
                     div.col.col-20.border.dark-blue.-big
-                        | 3
+                        | {{seasons.item.score.almost}}
                     div.col.col-20.border.dark-blue.-big
-                        | 4
-                    div.col.col-20.dark-blue.-big
-                        | 5
+                        | {{seasons.item.score.wrong}}
+                    div.col.col-20.yellow.-small
+                        | {{seasons.item.score.point}}
                 div.line
                 div.row.white
                     div.col.col-67.dark-blue.-bigger
                         | ความแม่นยำ
                     div.col.col-33.blue
-                        | 75
+                        | {{seasons.item.score.accuracy}}
                         span.dark-blue.-bigger  %
                 div.row.grey
                     div.col.col-67.dark-blue.-bigger
                         | คะแนนรวม
                     div.col.col-33.yellow.-bigger
-                        | 79
+                        | {{seasons.item.score.total}}
                         span.dark-blue.-bigger  คะแนน
 
         div.month.topic
@@ -180,17 +180,17 @@ ion-view.ranking-detail
                         | ทีมเยือน
                 div.row.inrow.white
                     div.col.dark-blue.-big.text-right
-                        | 24
+                        | {{months.item.result.homeScore}}
                     div.col.dark-blue.-big
-                        | 8
+                        | {{months.item.result.homeRound}}
                     div.col.dark-blue.-big.text-right
-                        | 15
+                        | {{months.item.result.withdrawScore}}
                     div.col.dark-blue.-big
-                        | 5
+                        | {{months.item.result.withdrawRound}}
                     div.col.dark-blue.-big.text-right
-                        | 3
+                        | {{months.item.result.awayScore}}
                     div.col.dark-blue.-big
-                        | 2
+                        | {{months.item.result.awayRound}}
                 div.row.inrow.white
                     div.col.dark-blue.text-right
                         | คะแนน
@@ -215,13 +215,13 @@ ion-view.ranking-detail
                         | คะแนน
                 div.row.text-center.inrow-bot.white
                     div.col.col-25.border.dark-blue.-big
-                        | 15
+                        | {{months.item.result.volume}}
                     div.col.col-25.border.dark-blue.-big
-                        | 14
+                        | {{months.item.result.right}}
                     div.col.col-25.border.dark-blue.-big
-                        | 1
+                        | {{months.item.result.wrong}}
                     div.col.col-25.yellow.-small
-                        | 45
+                        | {{months.item.result.point}}
                 div.line
 
             div.score
@@ -241,21 +241,21 @@ ion-view.ranking-detail
                         | คะแนน
                 div.row.text-center.inrow-bot.white
                     div.col.col-20.border.dark-blue.-big
-                        | 1
+                        | {{months.item.score.volume}}
                     div.col.col-20.border.dark-blue.-big
-                        | 2
+                        | {{months.item.score.right}}
                     div.col.col-20.border.dark-blue.-big
-                        | 3
+                        | {{months.item.score.almost}}
                     div.col.col-20.border.dark-blue.-big
-                        | 4
-                    div.col.col-20.dark-blue.-big
-                        | 5
+                        | {{months.item.score.wrong}}
+                    div.col.col-20.yellow.-small
+                        | {{months.item.score.point}}
                 div.line
                 div.row.grey
                     div.col.col-67.dark-blue.-bigger
                         | คะแนนรวม
                     div.col.col-33.yellow.-bigger
-                        | 79
+                        | {{months.item.score.total}}
                         span.dark-blue.-bigger  คะแนน
 
         div.last.topic
@@ -269,57 +269,57 @@ ion-view.ranking-detail
                 div.row.subtopic
                     div.col.col-center
                         | เกมทายผล
-                div.predict
+                div.predict(ng-repeat="last in lasts.items")
                     div.row.grey
                         div.col
-                            | {{ranking.item.date}}
+                            | {{last.result.datetime}}
                     div.row.white
                         div.col.col-33.text-right
-                            span(ng-class="{'cover' : ranking.item.teamHome.score > ranking.item.teamAway.score }")
-                                | {{ranking.item.teamHome.name}} {{ ranking.item.teamHome.score}}
+                            span(ng-class="{'cover' : last.teamHome.score > last.teamAway.score }")
+                                | {{last.teamHome.name}} {{ last.teamHome.score}}
                         div.col.text-center.blue.-normal
                             | - 1.50
                         div.col.col-33
-                            span(ng-class="{'cover' : ranking.item.teamHome.score < ranking.item.teamAway.score }")
-                                | {{ranking.item.teamAway.name}} {{ ranking.item.teamAway.score}}
+                            span(ng-class="{'cover' : last.teamHome.score < last.teamAway.score }")
+                                | {{last.teamAway.name}} {{ last.teamAway.score}}
                         div.col.col-20.yellow.-smaller
-                            | 5 คะแนน
+                            | {{last.result.point}} คะแนน
                 div.line
                 div.row.grey
                     div.col.col-67.dark-blue.-bigger
                         | คะแนนรวม
                     div.col.col-33.yellow.-bigger
-                        | 79
+                        | {{last.result.total}}
                         span.dark-blue.-bigger  คะแนน
                 div.big-line
-                div.real
+                div.real(ng-repeat="last in lasts.items")
                     div.row.grey
                         div.col
-                            | {{ranking.item.date}}
+                            | {{last.result.datetime}}
                     div.row.white
                         div.col.col-33.text-right
-                            span(ng-class="{'cover' : ranking.item.teamHome.score > ranking.item.teamAway.score }")
-                                | {{ranking.item.teamHome.name}} {{ ranking.item.teamHome.score}}
+                            span(ng-class="{'cover' : last.teamHome.score > last.teamAway.score }")
+                                | {{last.teamHome.name}} {{ last.teamHome.score}}
                         div.col.text-center.blue.-normal
                             | - 1.50
                         div.col.col-33
-                            span(ng-class="{'cover' : ranking.item.teamHome.score < ranking.item.teamAway.score }")
-                                | {{ranking.item.teamAway.name}} {{ ranking.item.teamAway.score}}
+                            span(ng-class="{'cover' : last.teamHome.score < last.teamAway.score }")
+                                | {{last.teamAway.name}} {{ last.teamAway.score}}
                         div.col.col-20.yellow.-smaller
-                            | 5 คะแนน
+                            | {{last.result.point}} คะแนน
                     div.row.white
                         div.col.col-33.text-right
                             | สกอร์จริง
                         div.col
-                            | 4 - 2
+                            | {{ last.teamHome.score}} - {{ last.teamAway.score}}
                 div.line
                 div.row.grey
                     div.col.col-67.dark-blue.-bigger
                         | คะแนนรวม
                     div.col.col-33.yellow.-bigger
-                        | 79
+                        | {{last.real.total}}
                         span.dark-blue.-bigger  คะแนน
                 div.line
                 div.row.end
                     div.history History ประวัติการทายผลทั้งหมด
-
+                div.line
