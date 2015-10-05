@@ -1,14 +1,16 @@
 class CompetitionTableFixture extends Controller then constructor: (
-#    $scope, $ionicHistory, $timeout, Und, Chance
-    $scope, Matches, $timeout, Und
+    $scope, $ionicLoading, Matches, Und
 ) ->
     promise = null
+
     store = new Matches null,
-#        url: Matches::url + 'nexts/28'
-        url: Matches::url
+        url: Matches::url + 'nexts/28'
         state: pageSize: 20
+
     options =
         scope: $scope
+        storeKey: 'matchStore'
+        collectionKey: 'matchCollection'
 
     $scope.matchLabel =
         items: []
@@ -16,33 +18,29 @@ class CompetitionTableFixture extends Controller then constructor: (
         loadData: ->
             promise = store.load options
             promise.then ->
-                $scope.matchLabel.items = store.dataTranform.competitionTable.fixture(store.getCollection())
+                $scope.matchLabel.items = store.dataTranform.competitionTable.fixture store.getCollection()
                 $scope.matchLabel.hasMorePage = store.hasMorePage()
-                console.log('loadData:items', JSON.stringify($scope.matchLabel.items))
-                console.log('loadData:hasMorePage', $scope.matchLabel.hasMorePage)
-                return
-            return
+                $ionicLoading.hide()
+            , $ionicLoading.hide()
         refresh: ->
-            promise = store.fetch options
+            options.fetch = yes
+            promise = store.getFirstPage options
             promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
             promise.then ->
-                $scope.matchLabel.items = store.dataTranform.competitionTable.fixture(store.getCollection())
+                $scope.matchLabel.items = store.dataTranform.competitionTable.fixture store.getCollection()
                 $scope.matchLabel.hasMorePage = store.hasMorePage()
-                console.log('refresh:items', JSON.stringify($scope.matchLabel.items))
-                console.log('refresh:hasMorePage', $scope.matchLabel.hasMorePage)
-                return
-            return
         loadNext: ->
-            promise = store.fetch options
+            store.prepend = yes
+            promise = store.getNextPage options
             promise.finally -> $scope.$broadcast 'scroll.infiniteScrollComplete'
             promise.then ->
-                items = store.dataTranform.competitionTable.fixture(store.getCollection())
-                for item in items
-                    $scope.matchLabel.items.push item
+                items = store.dataTranform.competitionTable.fixture(store.getCollection().slice 0, store.state.pageSize)
+                $scope.matchLabel.items = $scope.matchLabel.items.concat(items)
                 $scope.matchLabel.hasMorePage = store.hasMorePage()
-                console.log('loadNext:items', JSON.stringify(items))
-                console.log('loadNext:hasMorePage', $scope.matchLabel.hasMorePage)
-                return
-            return
 
     $scope.matchLabel.loadData()
+
+    $ionicLoading.show(
+        noBackdrop: no
+        template: '<p><ion-spinner></ion-spinner></p>'
+    )
