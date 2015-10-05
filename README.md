@@ -1,20 +1,66 @@
-Soccer Mobile Project - IONIC
-===============================
+IONIC - Soccer
+=============================
 
-#### Install
-
-```shell
-$ sudo npm install
+#### Help
+```
+If you need help, Go read Wiki.
+https://github.com/intbizth/ionic-soccer/wiki
 ```
 
-#### RUN
-
-```shell
-$ ionic serve -l -c -b
+#### App Progress
+```
+Difficulty Level
+0 : Easy
+1 : Normal
+2 : Hard
+3 : Very Hard
+4 : Extreme
 ```
 
-#### Rock 'n Roll
+```
+* Overall system |####################| - loading...
+```
 
-```shell
-$ ionic run ios -l -c -s
+```
+* Ads: 0 |##################**| - 90%...
+```
+
+```
+* Feature: 2 |#################***| - 85%...
+```
+
+```
+* Live: 2 |################****| - 80%...
+```
+
+```
+* Timeline & Update: 2 |################****| - 80%...
+```
+
+```
+* Competition & Table: 3 |###############*****| - 75%...
+```
+
+```
+* Ticket & Membership: 4 |##########**********| - 50%...
+```
+
+```
+* Game: 4 |#*******************| - 5%...
+```
+
+```
+* People Ranking: 2 |###############*****| - 75%...
+```
+
+```
+* Man of The Match: null |####################| - loading...
+```
+
+```
+* Reward: null |####################| - loading...
+```
+
+```
+* Fabzone: 3 |#############*******| - 65%...
 ```

@@ -1,6 +1,6 @@
-class MatchMain extends Controller then constructor: (
+class MatchDetail extends Controller then constructor: (
     $scope, $state, $ionicHistory, $timeout, Und, Chance
 ) ->
     $scope.back = ->
-        $state.go 'competition-table.main'
+        $ionicHistory.goBack -1
         return
