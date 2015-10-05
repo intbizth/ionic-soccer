@@ -127,10 +127,10 @@ class Routing extends Config then constructor: (
         controller: 'rankingDetailController'
         templateUrl: 'templates/ranking/detail.html'
         
-    state 'ranking-player',
-        url: '/ranking-player'
-        controller: 'rankingPlayerController'
-        templateUrl: 'templates/ranking/player.html'
+    state 'ranking-player-detail',
+        url: '/ranking-player-detail'
+        controller: 'rankingPlayerDetailController'
+        templateUrl: 'templates/ranking/player-detail.html'
 
     state 'ranking.main',
         url: '/main'
