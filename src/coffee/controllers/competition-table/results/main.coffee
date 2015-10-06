@@ -24,6 +24,7 @@ class CompetitionTableResult extends Controller then constructor: (
             , $ionicLoading.hide()
         refresh: ->
             options.fetch = yes
+            # TODO getFirstPage
             promise = store.getFirstPage options
             promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
             promise.then ->
@@ -40,7 +41,4 @@ class CompetitionTableResult extends Controller then constructor: (
 
     $scope.matchLabel.loadData()
 
-    $ionicLoading.show(
-        noBackdrop: no
-        template: '<i class="icon ion-ios-close-empty activity-icon"></i><div class="activity-text">Loading...</div>'
-    )
+    $ionicLoading.show()
