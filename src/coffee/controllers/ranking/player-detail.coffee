@@ -62,5 +62,7 @@ class rankingPlayerDetail extends Controller then constructor: (
     $scope.ranking.loadData()
     $scope.seasons.loadData()
 
-    $scope.ranking.doRefresh()
-    $scope.seasons.doRefresh()
+    $scope.data =
+        doRefresh: ->
+            $scope.ranking.doRefresh()
+            $scope.seasons.doRefresh()

@@ -8,7 +8,7 @@ ion-view.ranking-player-detail
             )
 
     ion-content.content
-        ion-refresher(pulling-text="Pull to refresh...", on-refresh="ranking.doRefresh()")
+        ion-refresher(pulling-text="Pull to refresh...", on-refresh="data.doRefresh()")
 
         div.row
             div.col.col-33
@@ -105,5 +105,3 @@ ion-view.ranking-player-detail
             div.row.inrow.date
                 div.col.inrow
                     span 19/01/15
-
-            match-label(sections="matchLabel.sections")
