@@ -126,7 +126,7 @@ class Routing extends Config then constructor: (
         url: '/ranking-detail'
         controller: 'rankingDetailController'
         templateUrl: 'templates/ranking/detail.html'
-        
+
     state 'ranking-player-detail',
         url: '/ranking-player-detail'
         controller: 'rankingPlayerDetailController'
@@ -176,5 +176,5 @@ class Routing extends Config then constructor: (
                 controller: 'updateController'
                 templateUrl: 'templates/timeline-update/update/main.html'
 
-    $urlRouterProvider.otherwise '/about-club/main'
+    $urlRouterProvider.otherwise '/feature/main'
     return
