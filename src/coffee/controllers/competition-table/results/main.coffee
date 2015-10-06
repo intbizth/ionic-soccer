@@ -42,5 +42,5 @@ class CompetitionTableResult extends Controller then constructor: (
 
     $ionicLoading.show(
         noBackdrop: no
-        template: '<p><ion-spinner></ion-spinner></p>'
+        template: '<i class="icon ion-ios-close-empty activity-icon"></i><div class="activity-text">Loading...</div>'
     )
