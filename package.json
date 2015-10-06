@@ -45,7 +45,11 @@
     "cordova-plugin-statusbar",
     "cordova-plugin-inappbrowser",
     "com.ionic.keyboard",
-    "cordova-plugin-app-version"
+    "cordova-plugin-app-version",
+    {
+      "locator": "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git",
+      "id": "cordova-plugin-x-socialsharing"
+    }
   ],
   "cordovaPlatforms": [
     "android",
