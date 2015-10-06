@@ -107,15 +107,15 @@ class Routing extends Config then constructor: (
         controller: 'newsDetailController'
         templateUrl: 'templates/news/detail.html'
 
+    state 'personal-detail',
+        url: '/personal/detail/:id'
+        controller: 'personalDetailController'
+        templateUrl: 'templates/personal/detail.html'
+
     state 'product-detail',
         url: '/product/detail/:id'
         controller: 'productDetailController'
         templateUrl: 'templates/product/detail.html'
-
-    state 'player-detail',
-        url: '/player/detail/:id'
-        controller: 'playerDetailController'
-        templateUrl: 'templates/player/detail.html'
 
     state 'ranking',
         url: '/ranking'
@@ -176,5 +176,5 @@ class Routing extends Config then constructor: (
                 controller: 'updateController'
                 templateUrl: 'templates/timeline-update/update/main.html'
 
-    $urlRouterProvider.otherwise '/feature/main'
+    $urlRouterProvider.otherwise '/about-club/main'
     return
