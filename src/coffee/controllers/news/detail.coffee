@@ -19,7 +19,7 @@ class NewsDetail extends Controller then constructor: (
 
     paperId = $stateParams.id ||
 
-    promise null
+    promise = null
 
     options =
         scope: $scope
