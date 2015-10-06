@@ -1,4 +1,4 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="players.doRefresh()")
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="personals.refresh()")
 
 div.cover
     img.image(src="./img/about-club/team/cover.png")
@@ -6,24 +6,25 @@ div.cover
 div.headline
     div.title.text-center {{headline}}
 
-div.player
-    div.nodata(ng-if="players.items.length == 0")
+div.personal
+    div.nodata(ng-if="personals.items.length == 0")
         div.row
             div.col.col-center.text-center
-                div.text Has no players.
+                div.text Has no personals.
 
-    div(ng-repeat="player in players.items")
-        div.row.button.button-clear(ui-sref="player-detail")
-            div.col.col-center.text-center
-                div.position(ng-class="{'-keeper' : player.position == 'G', " +
-                "'-defender' : player.position == 'D', " + "'-midfield' : player.position == 'M', " +
-                "'-forword' : player.position == 'F'}")
-                    span.job {{player.position}}
-            div.col.col-center.circle
-                div.circle-start
-                    div.circle-in
-                        img.photo(ng-src="{{player.photo}}")
-            div.col.col-67.col-center.text-left.name {{player.name}}
-            div.col.col-center.text-center.number \#{{player.number}}
+    div(ng-repeat="personal in personals.items")
+        div.detail
+            div.row(ui-sref="personal-detail({id : item.id})")
+                div.col.col-center.text-center
+                    div.position(ng-class="personals.getPositionClass(personal.position.shortName)")
+                        span.job {{personal.position.shortName}}
+                div.col.col-center
+                    div.circle
+                        div.subcircle
+                            img.image(ng-src="{{personal.image}}")
+                div.col.col-67.col-center.text-left
+                    span.fullname {{personal.fullname}}
+                div.col.col-center.text-center
+                    span.no \#{{personal.no}}
 
-ion-infinite-scroll(ng-if="players.next" on-infinite="players.loadMore()", distance="5%")
+ion-infinite-scroll(ng-if="personals.hasMorePage" on-infinite="personals.loadNext()", distance="1%")

@@ -176,5 +176,5 @@ class Routing extends Config then constructor: (
                 controller: 'updateController'
                 templateUrl: 'templates/timeline-update/update/main.html'
 
-    $urlRouterProvider.otherwise '/feature/main'
+    $urlRouterProvider.otherwise '/about-club/main'
     return
