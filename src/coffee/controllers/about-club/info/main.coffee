@@ -12,7 +12,6 @@ class aboutClubInfo extends Controller then constructor: (
         emailAddress: 'info@chonburifootballclub.com'
 
     $scope.stadium =
-        name: 'ชลบุรีเสตเดี้ยม'
+        name: 'ชลบุรีสเตเดียม'
         capacityNumber: '8,600'
         location: '107/12 หมู่ 2 ตำบลเสม็ด อำเภอเมือง จังหวัดชลบุรี 20000'
-
