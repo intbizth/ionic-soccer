@@ -17,26 +17,29 @@ class CompetitionTableResult extends Controller then constructor: (
         hasMorePage: no
         loadData: ->
             promise = matchStore.load options
+            promise.finally -> $ionicLoading.hide()
             promise.then ->
-                $scope.matchLabel.items = matchStore.dataTranform.competitionTable.fixture matchStore.getCollection()
+                $scope.matchLabel.items = Und.map matchStore.getCollection(), (item) ->
+                    return item.dataTranformToResults()
                 $scope.matchLabel.hasMorePage = matchStore.hasMorePage()
-                $ionicLoading.hide()
-            , $ionicLoading.hide()
         refresh: ->
             options.fetch = yes
             # TODO getFirstPage
             promise = matchStore.getFirstPage options
             promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
             promise.then ->
-                $scope.matchLabel.items = matchStore.dataTranform.competitionTable.fixture matchStore.getCollection()
+                $scope.matchLabel.items = Und.map matchStore.getCollection(), (item) ->
+                    return item.dataTranformToResults()
                 $scope.matchLabel.hasMorePage = matchStore.hasMorePage()
         loadNext: ->
             matchStore.prepend = yes
             promise = matchStore.getNextPage options
             promise.finally -> $scope.$broadcast 'scroll.infiniteScrollComplete'
             promise.then ->
-                items = matchStore.dataTranform.competitionTable.fixture(matchStore.getCollection().slice 0, matchStore.state.pageSize)
-                $scope.matchLabel.items = $scope.matchLabel.items.concat(items)
+                items = matchStore.getCollection().slice 0, matchStore.state.pageSize
+                items = Und.map items, (item) ->
+                    return item.dataTranformToResults()
+                $scope.matchLabel.items = $scope.matchLabel.items.concat items
                 $scope.matchLabel.hasMorePage = matchStore.hasMorePage()
 
     $scope.matchLabel.loadData()
