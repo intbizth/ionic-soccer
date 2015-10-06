@@ -1,5 +1,5 @@
-class NewsStore extends Factory then constructor: (
-    NgBackboneCollection, News, Und, Helper
+class Papers extends Factory then constructor: (
+    NgBackboneCollection, Paper, Und, Helper
 ) ->
     dataTranform =
         timelineUpdate:
@@ -28,13 +28,14 @@ class NewsStore extends Factory then constructor: (
                 return items
 
     return NgBackboneCollection.extend
-        model: News
-        url: News::url
-        alias: 'news'
+        model: Paper
+        url: Paper::url
+        alias: 'papers'
         dataTranform: dataTranform
 
-class News extends Factory then constructor: (
+class Paper extends Factory then constructor: (
     CFG, NgBackboneModel
 ) ->
     return NgBackboneModel.extend
         url: CFG.API.getPath 'news/'
+        relations: []
