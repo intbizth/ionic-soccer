@@ -1,25 +1,33 @@
 class Timeline extends Controller then constructor: (
     $scope, $ionicHistory, $timeout, Und, Chance
 ) ->
+    $scope.data =
+        next: no
+        doRefresh: ->
+            $scope.matchLabel.loadData()
+            $scope.timeline.doRefresh()
+            return
+        loadMore: ->
+            $scope.timeline.loadMore()
+            return
+
     $scope.share = ->
         return
 
     $scope.matchLabel =
         sections: [],
-        next: false
         loadData: ->
-            sections = this.fakeSections()
+            sections = @fakeSections()
             if sections.length > 0
                 sections = [sections[0]]
                 if sections[0].items.length > 0
                     sections[0].items = [sections[0].items[0]]
-            this.sections = sections
-            this.next = false
-            console.log('matchLabel:loadData', this.sections.length, JSON.stringify(this.sections), this.next)
+            @sections = sections
+            console.log('matchLabel:loadData', @sections.length, JSON.stringify(@sections))
             return
         doRefresh: ->
             console.log 'matchLabel:doRefresh'
-            $this = this
+            $this = @
             $timeout(->
                 console.log 'matchLabel:doRefresh2'
                 $this.loadData()
@@ -29,17 +37,13 @@ class Timeline extends Controller then constructor: (
             return
         loadMore: ->
             console.log 'matchLabel:loadMore'
-            $this = this
+            $this = @
             $timeout(->
                 console.log 'matchLabel:loadMore2'
                 sections = $this.fakeSections()
                 for section in sections
                     $this.sections.push section
-                if $this.sections.length > 0
-                    $this.next = Chance.pick([true, false])
-                else
-                    $this.next = false
-                console.log('matchLabel:loadMore', $this.sections.length, JSON.stringify($this.sections), $this.next)
+                console.log('matchLabel:loadMore', $this.sections.length, JSON.stringify($this.sections))
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
                 return
             , 2000)
@@ -48,7 +52,7 @@ class Timeline extends Controller then constructor: (
             section =
                 id: Und.random(1, 9999999)
                 datetime: Chance.date(datetime)
-                items: this.fakeItems(datetime)
+                items: @fakeItems(datetime)
             return section
         fakeSections: ->
             sections = []
@@ -60,7 +64,7 @@ class Timeline extends Controller then constructor: (
                 datetime =
                     year: year
                     month: month
-                section = this.fakeSection(datetime)
+                section = @fakeSection(datetime)
                 sections.push section
                 i++
                 month++
@@ -69,7 +73,6 @@ class Timeline extends Controller then constructor: (
                     year++
             sections = Und.sortBy(sections, 'items.datetime')
             return sections
-            return
         fakeItem: (datetime) ->
             club = Chance.club()
             clubs = [
@@ -87,7 +90,7 @@ class Timeline extends Controller then constructor: (
                 awayClub: null
                 datetime: Chance.date(datetime)
                 template: Chance.pick(['before', 'after'])
-            if Chance.pick([true, false])
+            if Chance.bool()
                 item.homeClub = clubs[0]
                 item.awayClub = clubs[1]
             else
@@ -99,7 +102,7 @@ class Timeline extends Controller then constructor: (
             i = 0
             ii = Und.random(0, 30)
             while i < ii
-                item = this.fakeItem(datetime)
+                item = @fakeItem(datetime)
                 items.push item
                 i++
             items = Und.sortBy(items, 'datetime')
@@ -108,21 +111,18 @@ class Timeline extends Controller then constructor: (
     $scope.matchLabel.loadData()
 
     $scope.timeline =
-        isLive: false
+        isLive: no
         items: []
-        next: false
+        next: no
         loadData: ->
-            this.isLive = Chance.pick([true, false])
-            this.items = this.fakeItems()
-            if this.items.length > 0
-                this.next = Chance.pick([true, false])
-            else
-                this.next = false
-            console.log('timeline:loadData', this.items.length, JSON.stringify(this.items), this.next)
+            @.isLive = Chance.bool()
+            @.items = @fakeItems()
+            $scope.data.next = @next = if @items.length > 0 then Chance.bool() else no
+            console.log('timeline:loadData', @items.length, JSON.stringify(@items), @next)
             return
         doRefresh: ->
             console.log 'timeline:doRefresh'
-            $this = this
+            $this = @
             $timeout(->
                 console.log 'timeline:doRefresh2'
                 $this.loadData()
@@ -132,16 +132,13 @@ class Timeline extends Controller then constructor: (
             return
         loadMore: ->
             console.log 'timeline:loadMore'
-            $this = this
+            $this = @
             $timeout(->
                 console.log 'timeline:loadMore2'
                 items = $this.fakeItems()
                 for item in items
                     $this.items.push item
-                if $this.items.length > 0
-                    $this.next = Chance.pick([true, false])
-                else
-                    $this.next = false
+                $scope.data.next = $this.next = if $this.items.length > 0 then Chance.bool() else no
                 console.log('timeline:loadMore', $this.items.length, JSON.stringify($this.items), $this.next)
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
                 return
@@ -172,7 +169,7 @@ class Timeline extends Controller then constructor: (
             i = 0
             ii = Und.random(0, 10)
             while i < ii
-                items.push this.fakeItem()
+                items.push @fakeItem()
                 i++
             return items
 
@@ -181,7 +178,7 @@ class Timeline extends Controller then constructor: (
     $scope.ticket =
         items: []
         loadData: ->
-            items = this.fakeItems()
+            items = @fakeItems()
             i = 1
             for item in items
                 if i == 1
@@ -194,8 +191,8 @@ class Timeline extends Controller then constructor: (
                 if i > 3
                     i = 1
 
-            this.items =  items
-            console.log('ticket:loadData', this.items.length, JSON.stringify(this.items))
+            @items =  items
+            console.log('ticket:loadData', @items.length, JSON.stringify(@items))
             return
         fakeItem: ->
             item =
@@ -208,7 +205,7 @@ class Timeline extends Controller then constructor: (
             ii = Und.random(1, 20)
             while i < ii
                 item.seats.push Chance.character(
-                    alpha: true
+                    alpha: yes
                     casing: 'upper'
                 )
                 i++
@@ -222,17 +219,8 @@ class Timeline extends Controller then constructor: (
             i = 0
             ii = Und.random(0, 10)
             while i < ii
-                items.push this.fakeItem()
+                items.push @fakeItem()
                 i++
             return items
 
     $scope.ticket.loadData()
-
-    $scope.doRefresh = ->
-        $scope.matchLabel.loadData()
-        $scope.timeline.doRefresh()
-        return
-
-    $scope.loadMore = ->
-        $scope.timeline.loadMore()
-        return

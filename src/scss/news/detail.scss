@@ -1,5 +1,13 @@
+.platform-android {
+    .title.title-left.header-item {
+        left: 0 !important;
+    }
+}
+
 .news-detail {
     .image {
+        width: 100%;
+        height: 146px;
         background-color: #f0f0f0;
     }
 
@@ -38,10 +46,13 @@
     }
 
     .headline {
-        background-color: #1388cd;
+        border-color: #ffffff #ffffff #ffffff #1388cd;
+        border-style: none none solid solid;
+        border-width: 1px 1px 1px 4px;
         font-size: 18px;
 
         .subheadline {
+            height: 100%;
             margin-left: 4px;
             padding-left: 8px;
             background-color: #ffffff;

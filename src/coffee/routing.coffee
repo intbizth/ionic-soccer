@@ -81,11 +81,11 @@ class Routing extends Config then constructor: (
 
     state 'match',
         url: '/match'
-        controller: 'matchMainController'
-        templateUrl: 'templates/match/main.html'
+        controller: 'matchDetailController'
+        templateUrl: 'templates/match/detail.html'
 
-    state 'match.main',
-        url: '/main'
+    state 'match.detail',
+        url: '/detail'
         views:
             view:
                 controller: 'matchViewController'
@@ -96,6 +96,11 @@ class Routing extends Config then constructor: (
             lineups:
                 controller: 'matchLineupsController'
                 templateUrl: 'templates/match/lineups/main.html'
+
+    state 'match-detail',
+        url: '/match/detail/:id'
+        controller: 'matchDetailController'
+        templateUrl: 'templates/match/detail.html'
 
     state 'news-detail',
         url: '/news/detail/:id'
@@ -121,6 +126,11 @@ class Routing extends Config then constructor: (
         url: '/ranking-detail'
         controller: 'rankingDetailController'
         templateUrl: 'templates/ranking/detail.html'
+        
+    state 'ranking-player-detail',
+        url: '/ranking-player-detail'
+        controller: 'rankingPlayerDetailController'
+        templateUrl: 'templates/ranking/player-detail.html'
 
     state 'ranking.main',
         url: '/main'
