@@ -33,7 +33,8 @@ div.timeline
                                 img.photo(ng-src="{{item.user.profilePicture}}")
                                 span.name {{item.user.displayname}}
                         div.col.col-10.col-center(style="margin-left: -4px;")
-                            // TODO share to social networks
-                            a.button.button-icon.icon.ion-android-share-alt.share(ng-click="share()")
+                            a.button.button-icon.icon.ion-android-share-alt.share(
+                            ng-click="share(item.description, item.headline, '' , 'http://balltoro.com')"
+                            )
 
 ion-infinite-scroll(ng-if="papers.hasMorePage" on-infinite="papers.loadNext()", distance="1%")

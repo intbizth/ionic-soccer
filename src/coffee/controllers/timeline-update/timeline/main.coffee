@@ -1,9 +1,15 @@
 class Timeline extends Controller then constructor: (
-    $scope, $ionicLoading, Papers, Und
+    $scope, $ionicLoading, $cordovaSocialSharing, Papers, Und
 ) ->
-    # TODO share to social networks
-    $scope.share = ->
-        return
+    $scope.share = (message, subject, file, link) ->
+        message = message || ''
+        subject = subject || ''
+        file = file || ''
+        link = link || ''
+        $cordovaSocialSharing.share(message, subject, file, link).then (result) ->
+            return
+        , (error) ->
+            return
 
     promise = null
 
