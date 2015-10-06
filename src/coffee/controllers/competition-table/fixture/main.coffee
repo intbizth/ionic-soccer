@@ -3,41 +3,41 @@ class CompetitionTableFixture extends Controller then constructor: (
 ) ->
     promise = null
 
-    store = new Matches null,
+    matchStore = new Matches null,
         url: Matches::url + 'nexts/28'
         state: pageSize: 20
 
     options =
         scope: $scope
-        storeKey: 'matchStore'
+        matchStoreKey: 'matchStore'
         collectionKey: 'matchCollection'
 
     $scope.matchLabel =
         items: []
         hasMorePage: no
         loadData: ->
-            promise = store.load options
+            promise = matchStore.load options
             promise.then ->
-                $scope.matchLabel.items = store.dataTranform.competitionTable.fixture store.getCollection()
-                $scope.matchLabel.hasMorePage = store.hasMorePage()
+                $scope.matchLabel.items = matchStore.dataTranform.competitionTable.fixture matchStore.getCollection()
+                $scope.matchLabel.hasMorePage = matchStore.hasMorePage()
                 $ionicLoading.hide()
             , $ionicLoading.hide()
         refresh: ->
             options.fetch = yes
             # TODO getFirstPage
-            promise = store.getFirstPage options
+            promise = matchStore.getFirstPage options
             promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
             promise.then ->
-                $scope.matchLabel.items = store.dataTranform.competitionTable.fixture store.getCollection()
-                $scope.matchLabel.hasMorePage = store.hasMorePage()
+                $scope.matchLabel.items = matchStore.dataTranform.competitionTable.fixture matchStore.getCollection()
+                $scope.matchLabel.hasMorePage = matchStore.hasMorePage()
         loadNext: ->
-            store.prepend = yes
-            promise = store.getNextPage options
+            matchStore.prepend = yes
+            promise = matchStore.getNextPage options
             promise.finally -> $scope.$broadcast 'scroll.infiniteScrollComplete'
             promise.then ->
-                items = store.dataTranform.competitionTable.fixture(store.getCollection().slice 0, store.state.pageSize)
+                items = matchStore.dataTranform.competitionTable.fixture(matchStore.getCollection().slice 0, matchStore.state.pageSize)
                 $scope.matchLabel.items = $scope.matchLabel.items.concat(items)
-                $scope.matchLabel.hasMorePage = store.hasMorePage()
+                $scope.matchLabel.hasMorePage = matchStore.hasMorePage()
 
     $scope.matchLabel.loadData()
 
