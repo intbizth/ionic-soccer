@@ -46,7 +46,7 @@ class CFG extends Constant then constructor: ->
             getPath: (path) -> ApiConfig.baseUrl + path
             getProxy: -> ApiConfig.proxy
             getBaseUrl: -> ApiConfig.baseUrl
-            getUserInfo: -> ApiConfig.baseUrl + '/me'
+            getUserInfo: -> ApiConfig.baseUrl + 'me'
 
         OAuth:
             getConfig: -> OAuthConfig
