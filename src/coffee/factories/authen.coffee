@@ -12,6 +12,22 @@ class Authen extends Factory then constructor: (
         OAuthToken.removeToken()
         $rootScope.authen.busy = no
 
+    _getUserInfo = (resp) ->
+        $http.get(_userInfoPath).then (resp)->
+            $sessionStorage.user = resp.data
+
+            authService.loginConfirmed resp.data, (config) ->
+                return config
+
+        , (err) ->
+            _reset()
+            $rootScope.authen.error = "Can't access to user info."
+
+    _somethingWrong = (err) ->
+        if err.status is 500
+            _reset()
+            $rootScope.authen.error = err.statusText
+
     @init = (params) ->
         _dialogTemplate = params.dialogTemplate || 'templates/user/login.html'
         _userInfoPath = params.userInfoPath
@@ -21,21 +37,7 @@ class Authen extends Factory then constructor: (
         OAuth.getAccessToken({
             username: username
             password: password
-        }).then (resp) ->
-            $http.get(_userInfoPath).then (resp)->
-                $sessionStorage.user = resp.data
-
-                authService.loginConfirmed resp.data, (config) ->
-                    return config
-
-            , (err) ->
-                _reset()
-                $rootScope.authen.error = "Can't access to user info."
-
-        , (err) ->
-            if err.status is 500
-                _reset()
-                $rootScope.authen.error = err.statusText
+        }).then _getUserInfo , _somethingWrong
 
     @logout = (rejection) ->
         _reset()
@@ -95,7 +97,7 @@ class Authen extends Factory then constructor: (
         return
 
     $rootScope.$on 'event:auth-forbidden', ->
-        OAuth.getRefreshToken()
+        OAuth.getRefreshToken().then _getUserInfo , _somethingWrong
         return
 
     $rootScope.$on 'event:auth-loginConfirmed', ->
