@@ -7,7 +7,7 @@ class Authen extends Factory then constructor: (
     _dialogTemplate = null
     _userInfoPath = null
 
-    reset = ->
+    _reset = ->
         delete $sessionStorage.user
         OAuthToken.removeToken()
         $rootScope.authen.busy = no
@@ -28,15 +28,17 @@ class Authen extends Factory then constructor: (
                 authService.loginConfirmed resp.data, (config) ->
                     return config
 
-            , (err) -> reset()
+            , (err) ->
+                _reset()
+                $rootScope.authen.error = "Can't access to user info."
 
         , (err) ->
             if err.status is 500
-                reset()
+                _reset()
                 $rootScope.authen.error = err.statusText
 
     @logout = (rejection) ->
-        reset()
+        _reset()
         $rootScope.$broadcast('event:auth-logout', rejection)
         return
 
@@ -60,6 +62,7 @@ class Authen extends Factory then constructor: (
             data = $rootScope.authen
 
             if !data.username or !data.password
+                $rootScope.authen.error = 'Empty username or password.'
                 throw new Error('Please implement form validation on your controller.')
 
             @login data.username, data.password
