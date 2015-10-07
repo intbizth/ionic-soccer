@@ -1,0 +1,137 @@
+ion-view.ranking-player-detail
+    ion-nav-title Player Detail
+    ion-nav-buttons(side="left")
+        a.button.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
+            img.logo(
+            src="./img/logo/navbar.png"
+            srcset="./img/logo/navbar@2x.png 2x"
+            )
+
+    ion-content.content
+        ion-refresher(pulling-text="Pull to refresh...", on-refresh="data.doRefresh()")
+
+        div.row
+            div.col.col-33
+                div.row.inrow
+                    div.col
+                        div.circle
+                            div.subcircle
+                                img.image(ng-src="{{ranking.item.photo}}")
+                div.row.inrow
+                    div.col
+                        img.club(src="./img/logo/club.png", srcset="./img/logo/club@2x.png 2x")
+            div.col.col-66
+                div.row.name
+                    div.col
+                        | {{ranking.item.name}}
+                div.row.inrow.title
+                    div.col
+                        | Prediction
+                div.row.inrow.detail
+                    div.col.col-30
+                        | Ranking
+                    div.col.col-70.text-right
+                        span.number {{ranking.item.prediction | number}}
+                div.row.inrow.title
+                    div.col
+                        | Score
+                div.row.inrow.detail
+                    div.col.col-30
+                        | Ranking
+                    div.col.col-70.text-right
+                        span.number {{ranking.item.score | number}}
+                div.row.inrow.title
+                    div.col
+                        | Player
+                div.row.inrow.detail
+                    div.col.col-30
+                        | Ranking
+                    div.col.col-70.text-right
+                        span.number {{ranking.item.player | number}}
+
+        div.season.topic
+            div.row.headline
+                div.col.inrow
+                    div.halfcircle
+                div.col.inrow.col-90.col-center
+                    span.head Season Points
+                    span.subhead  คะแนนรวมทั้งฤดูกาล
+            div.row.inrow.title
+                div.col.col-67.inrow
+                    span.left-side Chonburi FC 20 เกม
+                div.col.col-33.inrow.text-center
+                    | คะแนนรวม
+            div.row.inrow.text-center.score
+                div.col.col-33.border
+                    | ทาย {{seasons.item.predict}} เกม
+                div.col.col-33.border
+                    | ถูก {{seasons.item.right}} คน
+                div.col.col-33
+                    | {{seasons.item.sum}} คะแนน
+            div.line
+            div.row.inrow
+                div.col.inrow.accuracy.text-right
+                    span.yellow ความแม่นยำ
+                    span.white  {{seasons.item.accuracy}} %
+
+        div.month.topic
+            div.row.headline
+                div.col.inrow
+                    div.halfcircle
+                div.col.inrow.col-90.col-center
+                    span.head Month Points
+                    span.subhead  คะแนนรวมประจำเดือน {{month}}
+            div.row.inrow.title
+                div.col.col-67.inrow
+                    span.left-side Chonburi FC 20 เกม
+                div.col.col-33.inrow.text-center
+                    | คะแนนรวม
+            div.row.inrow.text-center.score
+                div.col.col-33.border
+                    | ทาย 18 เกม
+                div.col.col-33.border
+                    | ถูก 175 คน
+                div.col.col-33
+                    | 175 คะแนน
+            div.line
+
+        div.last.topic
+            div.row.headline
+                div.col.inrow
+                    div.halfcircle
+                div.col.inrow.col-90.col-center
+                    span.head Lasted Match
+                    span.subhead  คะแนน 5 นัดล่าสุด
+            div.row.inrow.date
+                div.col.inrow
+                    span 19/01/15
+
+            div.match-label
+                div.nodata(ng-if="items.length == 0")
+                    div.row
+                        div.col.col-center.text-center
+                            div.text Has no match.
+                div(ng-repeat="item in items")
+                    div.row.row-center.section(ng-if="item.type == 'section'")
+                        div.col.col-center.text-center
+                            | {{section.datetime | date : 'MMM yyyy'}}
+                    div.row.label(ng-if="item.type == 'label'", ui-sref="match.detail({id : item.id})")
+                        div.col.col-15.col-center.logo.text-center
+                            img.image(ng-src="{{item.homeClub.logo}}")
+                        div.col.col-25.col-center.name.text-center
+                            | {{item.homeClub.name}}
+                        div.col.col-20.col-center.detail.text-center
+                            div(ng-if="item.template == 'before'")
+                                div.time
+                                    | {{item.startTime | date:'HH:mm'}}
+                                div.date
+                                    | {{item.startTime | date:'dd MMM yyyy'}}
+                            div(ng-if="item.template == 'after'")
+                                div.score
+                                    | {{item.homeClub.score}}-{{item.awayClub.score}}
+                                div.date
+                                    | {{item.startTime | date:'dd MMM yyyy'}}
+                        div.col.col-25.col-center.name.text-center
+                            | {{item.awayClub.name}}
+                        div.col.col-15.col-center.logo.text-center
+                            img.image(ng-src="{{item.awayClub.logo}}")

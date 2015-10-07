@@ -1,4 +1,10 @@
-.player-detail {
+.platform-android {
+    .title.title-left.header-item {
+        left: 0 !important;
+    }
+}
+
+.personal-detail {
     .content {
         .cover {
             width: 100%;
@@ -12,14 +18,15 @@
             }
         }
 
-        .player {
+        .personal {
             background-color: #0056a5;
-            .name {
+
+            .firstname, .lastname {
                 font-size: 16px;
                 color: #ffffff;
             }
 
-            .number {
+            .no {
                 color: #c9da2b;
                 padding-top: 15px;
                 font-size: 42px;
