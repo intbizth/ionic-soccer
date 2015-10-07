@@ -1,0 +1,73 @@
+ion-view.games
+    ion-nav-title
+        | {{ 'ui.t.games.title'|trans }}
+
+    ion-nav-buttons(side="left")
+        a.button.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
+            img.logo(
+                src="./img/logo/navbar.png"
+                srcset="./img/logo/navbar@2x.png 2x"
+            )
+
+    ion-nav-buttons(side="right")
+        a.button.button-clear(ng-click="")
+            i.icon.ion-android-more-vertical
+
+    ion-content.content
+        ion-refresher(pulling-text="Pull to refresh...", on-refresh="data.doRefresh()")
+
+        div.banner
+
+        div.games-detail
+            div.row
+                div.col.text.text-center
+                    | {{ 'ui.t.games.detail'|trans }}
+
+        //div.match
+            //div.row.section
+                div.col
+                    img.logo.image("")
+                    span.text Thai Premier League 2015/2016
+
+        div.match-label
+            div.nodata(ng-if="matchLabel.sections.length == 0")
+                div.space
+                div.row
+                    div.col.col-center.text-center
+                        div.text Has no match.
+            div(ng-repeat="section in matchLabel.sections")
+                div.row.row-center.section
+                    div.logo
+                        img.image(src="./img/logo/match_label@2x.png")
+                    div.league
+                        | {{section.name}} {{section.datetime|date : 'yyyy'}}
+                    //div.col
+                    div.gameweek
+                        | &nbsp; gameweek\#{{section.week}}
+                div.nodata(ng-if="section.items.length == 0")
+                    div.space
+                    div.row
+                        div.col.col-center.text-center
+                            div.text Has no match.
+                div(ng-repeat="item in section.items")
+                    div.row.label
+                        div.col.col-15.col-center.logo.text-center
+                            img.image(ng-src="{{item.homeClub.logo}}")
+                        div.col.col-25.col-center.name.text-center
+                            | {{item.homeClub.name}}
+                        div.col.col-20.col-center.detail.text-center
+                            div(ng-show="item.template == 'before'")
+                                div.time
+                                    | {{item.datetime | date:'HH:mm'}}
+                                div.date
+                                    | {{item.datetime | date:'dd MMM yyyy'}}
+                            div(ng-show="item.template == 'after'")
+                                div.score
+                                    | {{item.homeClub.score}}-{{item.awayClub.score}}
+                                div.date
+                                    | {{item.datetime | date:'dd MMM yyyy'}}
+                        div.col.col-25.col-center.name.text-center
+                            | {{item.awayClub.name}}
+                        div.col.col-15.col-center.logo.text-center
+                            img.image(ng-src="{{item.awayClub.logo}}")
+
