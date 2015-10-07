@@ -3,44 +3,45 @@ class CompetitionTableResult extends Controller then constructor: (
 ) ->
     promise = null
 
-    store = new Matches null,
+    matchStore = new Matches null,
         url: Matches::url + 'nexts/28'
         state: pageSize: 20
 
     options =
         scope: $scope
-        storeKey: 'matchStore'
+        matchStoreKey: 'matchStore'
         collectionKey: 'matchCollection'
 
     $scope.matchLabel =
         items: []
         hasMorePage: no
         loadData: ->
-            promise = store.load options
+            promise = matchStore.load options
+            promise.finally -> $ionicLoading.hide()
             promise.then ->
-                $scope.matchLabel.items = store.dataTranform.competitionTable.fixture store.getCollection()
-                $scope.matchLabel.hasMorePage = store.hasMorePage()
-                $ionicLoading.hide()
-            , $ionicLoading.hide()
+                $scope.matchLabel.items = Und.map matchStore.getCollection(), (item) ->
+                    return item.dataTranformToResults()
+                $scope.matchLabel.hasMorePage = matchStore.hasMorePage()
         refresh: ->
             options.fetch = yes
-            promise = store.getFirstPage options
+            # TODO getFirstPage
+            promise = matchStore.getFirstPage options
             promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
             promise.then ->
-                $scope.matchLabel.items = store.dataTranform.competitionTable.fixture store.getCollection()
-                $scope.matchLabel.hasMorePage = store.hasMorePage()
+                $scope.matchLabel.items = Und.map matchStore.getCollection(), (item) ->
+                    return item.dataTranformToResults()
+                $scope.matchLabel.hasMorePage = matchStore.hasMorePage()
         loadNext: ->
-            store.prepend = yes
-            promise = store.getNextPage options
+            matchStore.prepend = yes
+            promise = matchStore.getNextPage options
             promise.finally -> $scope.$broadcast 'scroll.infiniteScrollComplete'
             promise.then ->
-                items = store.dataTranform.competitionTable.fixture(store.getCollection().slice 0, store.state.pageSize)
-                $scope.matchLabel.items = $scope.matchLabel.items.concat(items)
-                $scope.matchLabel.hasMorePage = store.hasMorePage()
+                items = matchStore.getCollection().slice 0, matchStore.state.pageSize
+                items = Und.map items, (item) ->
+                    return item.dataTranformToResults()
+                $scope.matchLabel.items = $scope.matchLabel.items.concat items
+                $scope.matchLabel.hasMorePage = matchStore.hasMorePage()
 
     $scope.matchLabel.loadData()
 
-    $ionicLoading.show(
-        noBackdrop: no
-        template: '<i class="icon ion-ios-close-empty activity-icon"></i><div class="activity-text">Loading...</div>'
-    )
+    $ionicLoading.show()

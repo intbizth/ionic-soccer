@@ -1,7 +1,7 @@
-ion-view.player-detail
-    ion-nav-title Player Detail
+ion-view.personal-detail
+    ion-nav-title Personal Detail
     ion-nav-buttons(side="left")
-        a.button.button-icon.ion-ios-arrow-left(ng-click="back()")
+        a.button.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
             img.logo(
             src="./img/logo/navbar.png"
             srcset="./img/logo/navbar@2x.png 2x"
@@ -11,59 +11,56 @@ ion-view.player-detail
             i.icon.ion-android-more-vertical
 
     ion-content.content
-        ion-refresher(pulling-text="Pull to refresh...", on-refresh="player.doRefresh()")
+        ion-refresher(pulling-text="Pull to refresh...", on-refresh="personal.refresh()")
         div.cover
-            img.image(src="./img/player/sinthaweechai.png")
+            img.image(ng-src="{{personal.item.image}}")
 
-        div.player
+        div.personal
             div.row
                 div.col.text-left.name
-                    | {{player.item.fname}}
-                    br
-                    | {{player.item.lname}}
-                div.col.text-right.number
-                    | {{player.item.number}}
+                    div.firstname {{personal.item.firstname}}
+                    div.lastname {{personal.item.lastname}}
+                div.col.text-right.no
+                    span.no {{personal.item.no}}
 
         div.event
             div.row
                 div.col.text-right.yellow
                     img(src="./img/icon/yellow_card.png", srcset="./img/icon/yellow_card@2x.png 2x")
-                    | {{player.item.score.yellow | number}}
+                    | {{personal.item.score.yellow | number}}
                 div.col.col-20.text-center.red
                     img(src="./img/icon/red_card.png", srcset="./img/icon/red_card@2x.png 2x")
-                    | {{player.item.score.red | number}}
+                    | {{personal.item.score.red | number}}
                 div.col.text-left.goal
                     img(src="./img/icon/goal.png", srcset="./img/icon/goal@2x.png 2x")
-                    |  {{player.item.score.goal | number}}
+                    |  {{personal.item.score.goal | number}}
 
         div.detail
             div.row.born
                 div.col.topic
                     | Born
                 div.col.about
-                    | {{player.item.born.birthdate | date: 'MMMM dd, yyyy'}}
-                    | (age {{player.item.born.age}})
-                    | {{player.item.born.province}},
-                    | {{player.item.born.country}}
+                    | {{personal.item.birthday | date: 'MMMM dd, yyyy'}}
+                    | (age {{personal.item.age}})
 
             div.row.position
                 div.col.topic
                     | Position
                 div.col.about
-                    | {{player.item.position}}
+                    | {{personal.item.position.name}}
 
             div.row.previous
                 div.col.topic
                     | Previous Club
                 div.col.about
-                    | {{player.item.previous.name}}
-                    | {{player.item.previous.year}}
+                    | {{personal.item.previous.name}}
+                    | {{personal.item.previous.year}}
 
             div.row.signed
                 div.col.topic
                     | Signed
                 div.col.about
-                    | {{player.item.signed}}
+                    | {{personal.item.signed}}
 
             div.row.bio
                 div.col.topic
@@ -71,5 +68,5 @@ ion-view.player-detail
 
             div.row.history
                 div.col.about
-                    | {{player.item.bio}}
+                    | {{personal.item.bio}}
                     

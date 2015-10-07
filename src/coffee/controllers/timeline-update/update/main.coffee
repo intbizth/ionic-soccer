@@ -1,15 +1,49 @@
 class Update extends Controller then constructor: (
-    $scope, $ionicLoading, News, Und
+    $scope, $ionicLoading, Papers, Und
 ) ->
-    $scope.data =
-        next: no
-        doRefresh: ->
-            $scope.ticket.loadData()
-            $scope.news.doRefresh()
-            return
-        loadMore: ->
-            $scope.news.loadMore()
-            return
+    promise = null
+
+    papersStore = new Papers null,
+        url: Papers::url
+        state: pageSize: 10
+
+    options =
+        scope: $scope
+        storeKey: 'papersStore'
+        collectionKey: 'papersCollection'
+
+    $scope.papers =
+        items: []
+        hasMorePage: no
+        loadData: ->
+            promise = papersStore.load options
+            promise.finally -> $ionicLoading.hide()
+            promise.then ->
+                $scope.papers.items = Und.map papersStore.getCollection(), (item) ->
+                    return item.dataTranformToUpdate()
+                $scope.papers.hasMorePage = papersStore.hasMorePage()
+        refresh: ->
+            options.fetch = yes
+            promise = papersStore.getFirstPage options
+            promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
+            promise.then ->
+                $scope.papers.items = Und.map papersStore.getCollection(), (item) ->
+                    return item.dataTranformToUpdate()
+                $scope.papers.hasMorePage = papersStore.hasMorePage()
+        loadNext: ->
+            papersStore.prepend = yes
+            promise = papersStore.getNextPage options
+            promise.finally -> $scope.$broadcast 'scroll.infiniteScrollComplete'
+            promise.then ->
+                items = papersStore.getCollection().slice 0, papersStore.state.pageSize
+                items = Und.map items, (item) ->
+                    return item.dataTranformToUpdate()
+                $scope.papers.items = $scope.papers.items.concat items
+                $scope.papers.hasMorePage = papersStore.hasMorePage()
+
+    $scope.papers.loadData()
+
+    $ionicLoading.show()
 
 #    $scope.ticket =
 #        items: [],
@@ -55,42 +89,3 @@ class Update extends Controller then constructor: (
 #                items.push @fakeItem()
 #                i++
 #            return items
-
-    promise = null
-
-    store = new News null,
-        url: News::url
-        state: pageSize: 20
-
-    options =
-        scope: $scope
-        storeKey: 'newsStore'
-        collectionKey: 'newsCollection'
-
-    $scope.news =
-        items: []
-        hasMorePage: no
-        loadData: ->
-            promise = store.load options
-            promise.then ->
-                $scope.news.items = store.dataTranform.competitionTable.fixture store.getCollection()
-                $scope.news.hasMorePage = store.hasMorePage()
-                $ionicLoading.hide()
-            , $ionicLoading.hide()
-        refresh: ->
-            options.fetch = yes
-            promise = store.getFirstPage options
-            promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
-            promise.then ->
-                $scope.news.items = store.dataTranform.competitionTable.fixture store.getCollection()
-                $scope.news.hasMorePage = store.hasMorePage()
-        loadNext: ->
-            store.prepend = yes
-            promise = store.getNextPage options
-            promise.finally -> $scope.$broadcast 'scroll.infiniteScrollComplete'
-            promise.then ->
-                items = store.dataTranform.competitionTable.fixture(store.getCollection().slice 0, store.state.pageSize)
-                $scope.news.items = $scope.news.items.concat(items)
-                $scope.news.hasMorePage = store.hasMorePage()
-
-    $scope.news.loadData()
