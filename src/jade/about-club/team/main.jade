@@ -12,19 +12,19 @@ div.personal
             div.col.col-center.text-center
                 div.text Has no personals.
 
-    div(ng-repeat="personal in personals.items")
+    div(ng-repeat="item in personals.items")
         div.detail
             div.row(ui-sref="personal-detail({id : item.id})")
                 div.col.col-center.text-center
-                    div.position(ng-class="personals.getPositionClass(personal.position.shortName)")
-                        span.job {{personal.position.shortName}}
+                    div.position(ng-class="personals.getPositionClass(item.position.shortName)")
+                        span.job {{item.position.shortName}}
                 div.col.col-center
                     div.circle
                         div.subcircle
-                            img.image(ng-src="{{personal.image}}")
+                            img.image(ng-src="{{item.image}}")
                 div.col.col-67.col-center.text-left
-                    span.fullname {{personal.fullname}}
+                    span.fullname {{item.fullname}}
                 div.col.col-center.text-center
-                    span.no \#{{personal.no}}
+                    span.no \#{{item.no}}
 
 ion-infinite-scroll(ng-if="personals.hasMorePage" on-infinite="personals.loadNext()", distance="1%")
