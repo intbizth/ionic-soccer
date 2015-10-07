@@ -1,7 +1,7 @@
 ion-view.ranking-player-detail
     ion-nav-title Player Detail
     ion-nav-buttons(side="left")
-        a.button.button-icon.ion-ios-arrow-left(ng-click="back()")
+        a.button.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
             img.logo(
             src="./img/logo/navbar.png"
             srcset="./img/logo/navbar@2x.png 2x"
@@ -105,3 +105,33 @@ ion-view.ranking-player-detail
             div.row.inrow.date
                 div.col.inrow
                     span 19/01/15
+
+            div.match-label
+                div.nodata(ng-if="items.length == 0")
+                    div.row
+                        div.col.col-center.text-center
+                            div.text Has no match.
+                div(ng-repeat="item in items")
+                    div.row.row-center.section(ng-if="item.type == 'section'")
+                        div.col.col-center.text-center
+                            | {{section.datetime | date : 'MMM yyyy'}}
+                    div.row.label(ng-if="item.type == 'label'", ui-sref="match.detail({id : item.id})")
+                        div.col.col-15.col-center.logo.text-center
+                            img.image(ng-src="{{item.homeClub.logo}}")
+                        div.col.col-25.col-center.name.text-center
+                            | {{item.homeClub.name}}
+                        div.col.col-20.col-center.detail.text-center
+                            div(ng-if="item.template == 'before'")
+                                div.time
+                                    | {{item.startTime | date:'HH:mm'}}
+                                div.date
+                                    | {{item.startTime | date:'dd MMM yyyy'}}
+                            div(ng-if="item.template == 'after'")
+                                div.score
+                                    | {{item.homeClub.score}}-{{item.awayClub.score}}
+                                div.date
+                                    | {{item.startTime | date:'dd MMM yyyy'}}
+                        div.col.col-25.col-center.name.text-center
+                            | {{item.awayClub.name}}
+                        div.col.col-15.col-center.logo.text-center
+                            img.image(ng-src="{{item.awayClub.logo}}")
