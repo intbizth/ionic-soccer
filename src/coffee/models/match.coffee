@@ -13,7 +13,7 @@ class Matches extends Factory then constructor: (
         alias: 'matches'
 
 class Match extends Factory then constructor: (
-    CFG, NgBackboneModel, Club, Season, Helper
+    CFG, NgBackboneModel, Club, Season, Helper, Und
 ) ->
     return NgBackboneModel.extend
         # root url for single model.
@@ -80,7 +80,7 @@ class Match extends Factory then constructor: (
         dataTranformToLive: ->
             item =
                 id: 'id'
-                steaming: 'steaming'
+                streaming: 'streaming'
                 homeClub:
                     id: 'home_club.id'
                     name: 'home_club.name'
@@ -98,8 +98,24 @@ class Match extends Factory then constructor: (
             item.type = 'label'
             item.template = 'after'
             return item
-        dataTranformToMatchEvent: ->
+        dataTranformToMatchEvents: ->
             item =
                 id: 'id'
+                isHalfTime: 'is_half_time'
+                endMatch: 'end_match'
                 activities: 'activities'
-            return Helper.traverseProperties @, item
+            item = Helper.traverseProperties @, item
+            activity =
+                actor: 'actor'
+                time: 'activity_time'
+                side: 'activity_side'
+                type: 'activity_type'
+                ownGoal: 'own_goal'
+            item.activities = Und.map item.activities, (itemActivity) ->
+                itemActivity = Helper.traverseProperties itemActivity, activity
+                if itemActivity.type == 'score'
+                    itemActivity.icon = 'goal.png'
+                else
+                    itemActivity.icon = itemActivity.type + '.png'
+                return itemActivity
+            return item

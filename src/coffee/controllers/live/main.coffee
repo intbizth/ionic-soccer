@@ -25,7 +25,7 @@ class LiveMain extends Controller then constructor: (
             promise.then ->
                 $scope.matchLabel.items = Und.map matchStore.getCollection(), (item) ->
                     $scope.steaming.item.url = item.steaming
-                    $scope.matchEvents.items = item.dataTranformToMatchEvent()
+                    Und.extend  $scope.matchEvents item.dataTranformToMatchEvents()
                     return item.dataTranformToLive()
         refresh: ->
             options.fetch = yes
@@ -35,21 +35,17 @@ class LiveMain extends Controller then constructor: (
             promise.then ->
                 $scope.matchLabel.items = Und.map matchStore.getCollection(), (item) ->
                     $scope.steaming.item.url = item.steaming
-                    $scope.matchEvents.items = item.dataTranformToMatchEvent()
+                    Und.extend  $scope.matchEvents item.dataTranformToMatchEvents()
                     return item.dataTranformToLive()
 
     $scope.matchLabel.loadData()
 
     $ionicLoading.show()
 
-    $scope.steaming =
+    $scope.streaming =
         item: url: null
 
-    $scope.matchEvents =
-        items: []
-        match:
-            halftime: no
-            end: no
+    $scope.matchEvents = {}
 
     $scope.refresh = ->
         $scope.matchLabel.refresh()

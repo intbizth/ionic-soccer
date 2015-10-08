@@ -55,11 +55,11 @@ ion-view.live
                     div.col.col-center.text-center
                         div.text Has no match events.
 
-            div(ng-repeat="item in items")
+            div(ng-repeat="item in matchEvents.activities")
                 div.row.row-center.killpadding
                     div.col.col-center
-                        div.text-right(ng-if="item.align == 'left'")
-                            span.name(ng-if="item.name") {{item.name}}
+                        div.text-right(ng-if="item.side == 'home'")
+                            span.name(ng-if="item.actor") {{item.actor}}
                             img.image(
                             ng-if="item.icon"
                             ng-src="./img/icon/{{item.icon}}.png"
@@ -75,7 +75,7 @@ ion-view.live
                         div.dot.-large(ng-if="item.dot == 'large'")
                             i.icon.ion-ios-circle-filled
                     div.col.col-center
-                        div.text-left(ng-if="item.align == 'right'")
+                        div.text-left(ng-if="item.side == 'away'")
                             span.time(ng-if="item.time") {{item.time}}
                             span.description(ng-if="item.description") {{item.description}}
                             img.image(
@@ -83,5 +83,5 @@ ion-view.live
                             ng-src="./img/icon/{{item.icon}}.png"
                             srcset="./img/icon/{{item.icon}}@2x.png 2x"
                             )
-                            span.name(ng-if="item.name") {{item.name}}
+                            span.name(ng-if="item.actor") {{item.actor}}
 
