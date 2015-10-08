@@ -5,7 +5,7 @@ class MatchLabel extends Directive then constructor: (
         restrict: 'E'
         transclude: true
         scope: {
-            sections: '=sections'
+            items: '=items'
         }
         templateUrl: 'templates/directives/match-label/main.html'
     }
