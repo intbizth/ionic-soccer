@@ -53,14 +53,14 @@ ion-view.personal-detail
                 div.col.topic
                     | Previous Club
                 div.col.about
-                    | {{personal.item.previous.name}}
-                    | {{personal.item.previous.year}}
+                    | {{personal.item.previousClub.name}}
+                    | {{personal.item.previousClub.startDate | date: 'yyyy'}}
 
             div.row.signed
                 div.col.topic
                     | Signed
                 div.col.about
-                    | {{personal.item.signed}}
+                    | {{personal.item.previousClub.signedDate | date: 'yyyy'}}
 
             div.row.bio
                 div.col.topic

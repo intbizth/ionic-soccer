@@ -1,10 +1,11 @@
 class CompetitionTableResult extends Controller then constructor: (
     $scope, $ionicLoading, Matches, Und
 ) ->
+    clubId = 28
     promise = null
 
     matchStore = new Matches null,
-        url: Matches::url + 'nexts/28'
+        url: Matches::url + 'latest/' + clubId
         state: pageSize: 20
 
     options =
