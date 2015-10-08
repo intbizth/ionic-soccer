@@ -40,18 +40,15 @@
   "cordovaPlugins": [
     "cordova-plugin-device",
     "cordova-plugin-console",
-    "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "cordova-plugin-inappbrowser",
     "com.ionic.keyboard",
-    "cordova-plugin-app-version"
+    "cordova-plugin-app-version",
+    "cordova-plugin-whitelist"
   ],
   "cordovaPlatforms": [
     "android",
     "ios"
-  ],
-  "scripts": {
-    "install": "sudo npm install -g cordova ionic ios-sim ios-deploy gulp bower coffee-script sass && bower install"
-  }
+  ]
 }

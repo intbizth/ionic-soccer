@@ -1,6 +1,8 @@
 @charset "UTF-8";
 
 .cover {
+    background-color: #f0f0f0;
+    
     .image {
         width: 100%;
         height: auto;
@@ -46,6 +48,6 @@
     background-color: #0255a5;
     .image {
         width: 100%;
-        height: auto;
+        height: 50px;
     }
 }
