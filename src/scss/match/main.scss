@@ -1,8 +1,34 @@
-.match {
-    .content {
-        margin-top: -66px !important;
+.platform-ios {
+    .match {
+        .content {
+            margin-top: -66px !important;
+        }
+
+        .fix-tab {
+            top: 112px !important;
+            height: auto !important;
+        }
+    }
+}
+
+.platform-android {
+    .title.title-left.header-item {
+        left: 0 !important;
     }
 
+    .match {
+        .content {
+            margin-top: -44px !important;
+        }
+
+        .fix-tab {
+            top: 90px !important;
+            height: auto !important;
+        }
+    }
+}
+
+.match {
     .view {
         @import "view/main";
     }
@@ -15,9 +41,4 @@
     .lineups {
         @import "lineups/main";
     }
-}
-
-.fix-tab {
-    top: 112px !important;
-    height: auto !important;
 }

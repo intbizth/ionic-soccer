@@ -78,6 +78,7 @@ class Match extends Factory then constructor: (
                 startTime: 'start_time'
             item = Helper.traverseProperties @, item
             item.type = 'label'
+            item.is_full_time = yes
             if !item.is_live and !item.is_half_time and !item.is_full_time
                 item.template = 'before'
             if item.is_full_time

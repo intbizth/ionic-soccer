@@ -8,7 +8,7 @@
       Intbizth Team Six
     </author>
   <content src="index.html"/>
-  <allow-navigation href="*" />
+  <allow-navigation href="*"/>
   <access origin="*"/>
   <access origin="https://github.com"/>
   <preference name="webviewbounce" value="false"/>
