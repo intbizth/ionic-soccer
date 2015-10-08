@@ -48,13 +48,27 @@ $ml-label-bg: #1f304c;
         .gameweek {
             color: $ml-section-gameweek-text;
         }
-    }
-
-    .label {
-        background-color: $ml-label-bg;
 
         .detail {
 
         }
+    }
+
+    .label {
+        background-color: $game-detail-bg;
+
+        .slot {
+            //background-color: greenyellow;
+
+        //    .detail {
+        //        //background-color: $game-detail-bg;
+        //    }
+        }
+    }
+
+    .space {
+        background-color: $game-detail-bg;
+        height: 2px;
+        width: 100%;
     }
 }
