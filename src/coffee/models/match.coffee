@@ -80,10 +80,7 @@ class Match extends Factory then constructor: (
         dataTranformToLive: ->
             item =
                 id: 'id'
-                is_live: 'is_live'
-                is_half_time: 'is_half_time'
-                is_full_time: 'is_full_time'
-                activities: 'activities'
+                steaming: 'steaming'
                 homeClub:
                     id: 'home_club.id'
                     name: 'home_club.name'
@@ -101,3 +98,8 @@ class Match extends Factory then constructor: (
             item.type = 'label'
             item.template = 'after'
             return item
+        dataTranformToMatchEvent: ->
+            item =
+                id: 'id'
+                activities: 'activities'
+            return Helper.traverseProperties @, item
