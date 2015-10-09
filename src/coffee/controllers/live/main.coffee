@@ -24,7 +24,11 @@ class LiveMain extends Controller then constructor: (
             if Und.isObject($rootScope.live) and Und.size($rootScope.live) > 0
                 $scope.streaming.item.url = $rootScope.live.streaming
                 Und.extend $scope.matchEvents, $rootScope.live.dataTranformToMatchEvents()
-                $scope.matchLabel.items = [$rootScope.live.dataTranformToLive()]
+                label = $rootScope.live.dataTranformToLive()
+                section =
+                    type: 'section'
+                    startTime: label.startTime
+                $scope.matchLabel.items = [section, label]
                 $timeout(->
                     if pull
                         $scope.$broadcast 'scroll.refreshComplete'
@@ -42,7 +46,11 @@ class LiveMain extends Controller then constructor: (
                     $rootScope.live = model
                     $scope.streaming.item.url = model.streaming
                     Und.extend $scope.matchEvents, model.dataTranformToMatchEvents()
-                    $scope.matchLabel.items = [model.dataTranformToLive()]
+                    label = model.dataTranformToLive()
+                    section =
+                        type: 'section'
+                        startTime: label.startTime
+                    $scope.matchLabel.items = [section, label]
         refresh: ->
             $scope.matchLabel.loadData(pull: yes)
 
