@@ -11,8 +11,6 @@ class Matches extends Factory then constructor: (
         # defind alias name to refer to this collection in application wide
         # eg. $rootScope.$matches
         alias: 'matches'
-        buildToMatchEvents: ->
-            return
 
 class Match extends Factory then constructor: (
     CFG, NgBackboneModel, Club, Season, Helper, Und
