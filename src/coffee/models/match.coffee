@@ -11,6 +11,8 @@ class Matches extends Factory then constructor: (
         # defind alias name to refer to this collection in application wide
         # eg. $rootScope.$matches
         alias: 'matches'
+        buildToMatchEvents: ->
+            return
 
 class Match extends Factory then constructor: (
     CFG, NgBackboneModel, Club, Season, Helper, Und
@@ -101,21 +103,56 @@ class Match extends Factory then constructor: (
         dataTranformToMatchEvents: ->
             item =
                 id: 'id'
+                isLive: 'is_live'
                 isHalfTime: 'is_half_time'
+                isFullTime: 'is_full_time'
                 endMatch: 'end_match'
                 activities: 'activities'
             item = Helper.traverseProperties @, item
-            activity =
-                actor: 'actor'
-                time: 'activity_time'
-                side: 'activity_side'
-                type: 'activity_type'
-                ownGoal: 'own_goal'
-            item.activities = Und.map item.activities, (itemActivity) ->
-                itemActivity = Helper.traverseProperties itemActivity, activity
-                if itemActivity.type == 'score'
-                    itemActivity.icon = 'goal.png'
-                else
-                    itemActivity.icon = itemActivity.type + '.png'
-                return itemActivity
+            if item.activities.length > 0
+                item.activities = Und.map item.activities, (itemActivity) ->
+                    activity =
+                        id: 'id'
+                        actor: 'actor'
+                        time: 'activity_time'
+                        side: 'activity_side'
+                        type: 'activity_type'
+                        ownGoal: 'own_goal'
+                    itemActivity = Helper.traverseProperties itemActivity, activity
+                    itemActivity.dot = 'normal'
+                    itemActivity.icon = if itemActivity.type != 'score' then itemActivity.type else 'goal'
+                    return itemActivity
+                item.activities.unshift(
+                    id: 'id'
+                    actor: null
+                    time: 0
+                    description: 'เริ่มการแข่งขัน'
+                    side: 'away'
+                    type: null
+                    dot: 'large'
+                )
+                if item.isHalfTime
+                    item.activities.push(
+                        id: 'id'
+                        actor: null
+                        time: 45
+                        description: 'ครึ่งหลัง'
+                        side: 'away'
+                        type: null
+                        dot: 'halftime'
+                    )
+                item.activities = Und.sortBy(item.activities, (value) ->
+                    return parseFloat value.time
+                )
+                if item.isFullTime
+                    item.activities.push(
+                        id: 'id'
+                        actor: null
+                        time: null
+                        description: 'จบการแข่งขัน'
+                        side: 'away'
+                        type: null
+                        dot: 'large'
+                    )
+                item.activities.reverse()
             return item
