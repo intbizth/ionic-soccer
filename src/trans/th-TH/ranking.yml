@@ -1,0 +1,11 @@
+ui.t:
+    ranking:
+        title: People Ranking
+        nodata: ไม่มีข้อมูล
+        hittitle: เกมทาย
+        hitunit: ครั้ง
+        points: แต้ม
+        tabs:
+            prediction: Prediction
+            score: Score
+            player: Player
