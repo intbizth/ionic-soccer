@@ -26,15 +26,16 @@ ion-view.feature-main
 
         div.menus
             div.row.row-center
-                div.col.col-center.grid.button.button-clear(ui-sref="live")
-                    div.square
-                        img.icon.-live-icon(
-                        src="./img/feature/menu/live.png"
-                        srcset="./img/feature/menu/live@2x.png 2x"
-                        )
-                        span.text.-live-text Live
+                div.col.col-center.grid(ui-sref="live")
+                    div.square.square-active
+                        div.live
+                            img.icon(
+                            src="./img/feature/menu/live.png"
+                            srcset="./img/feature/menu/live@2x.png 2x"
+                            )
+                            div.text Live
 
-                div.col.col-center.grid.button.button-clear(ui-sref="timeline-update.main")
+                div.col.col-center.grid(ui-sref="timeline-update.main")
                     div.square
                         img.icon(
                         src="./img/feature/menu/timeline_and_update.png"
@@ -42,7 +43,7 @@ ion-view.feature-main
                         )
                         span.text Timeline & Update
 
-                div.col.col-center.grid.button.button-clear(ui-sref="competition-table.main")
+                div.col.col-center.grid(ui-sref="competition-table.main")
                     div.square
                         img.icon(
                         src="./img/feature/menu/competition_and_table.png"
@@ -51,44 +52,43 @@ ion-view.feature-main
                         span.text Competition & Table
 
             div.row.row-center
-                div.col.col-center.grid.button.button-clear(ui-sref="ticket-membership.main")
+                div.col.col-center.grid(ui-sref="ticket-membership.main")
                     div.square
                         img.icon(
                         src="./img/feature/menu/ticket_and_membership.png"
                         srcset="./img/feature/menu/ticket_and_membership@2x.png 2x"
                         )
                         span.text Ticket & Membership
-                div.col.col-center.grid.button.button-clear(ui-sref="games")
+                div.col.col-center.grid(ui-sref="games")
                     div.square
                         img.icon(
                         src="./img/feature/menu/games.png"
                         srcset="./img/feature/menu/games@2x.png 2x"
                         )
                         span.text Games
-                div.col.col-center.grid.button.button-clear(ui-sref="ranking.main")
+                div.col.col-center.grid(ui-sref="ranking.main")
                     div.square
                         img.icon(
                         src="./img/feature/menu/people_ranking.png"
                         srcset="./img/feature/menu/people_ranking@2x.png 2x"
                         )
                         span.text People Ranking
-
             div.row.row-center
-                div.col.col-center.grid.button.button-clear(ui-sref="man-of-the-match", ng-disabled="true")
+                div.col.col-center.grid(ui-sref="man-of-the-match", ng-disabled="true")
                     div.square
                         img.icon(
                         src="./img/feature/menu/man_of_the_match.png"
                         srcset="./img/feature/menu/man_of_the_match@2x.png 2x"
                         )
                         span.text Man of the Match
-                div.col.col-center.grid.button.button-clear(ui-sref="reward", ng-disabled="true")
+                div.col.col-center.grid(ui-sref="reward", ng-disabled="true")
                     div.square
                         img.icon(
                         src="./img/feature/menu/reward.png"
                         srcset="./img/feature/menu/reward@2x.png 2x"
                         )
                         span.text Reward
-                div.col.col-center.grid.button.button-clear(ui-sref="fanzone.main")
+                div.col.col-center.grid(ui-sref="fanzone.main")
                     div.square
                         img.icon(
                         src="./img/feature/menu/fanzone.png"
@@ -97,7 +97,7 @@ ion-view.feature-main
                         span.text Fanzone
 
             div.row.row-center
-                div.col.col-center.grid.button.button-clear(ui-sref="about-club.main")
+                div.col.col-center.grid(ui-sref="about-club.main")
                     div.square
                         img.icon(
                         src="./img/feature/menu/about_club.png"
