@@ -1,61 +1,51 @@
 class rankingScore extends Controller then constructor: (
-    $scope, $state, $ionicHistory, $timeout, Und, Chance
+    $scope, $state, $ionicHistory, $timeout, Und, Chance, GamesScores, $ionicLoading
 ) ->
+    clubId = 28
+    promise = null
+
+    gamesScoreStore = new GamesScores null,
+        url: GamesScores::url + 'result/' + clubId
+        state: pageSize: 20
+
+    options =
+        scope: $scope
+        gamesScoreStoreKey: 'gamesScoreStore'
+        collectionKey: 'gamesScoreCollection'
+
     $scope.score =
         items: []
-        next: false
+        hasMorePage: no
+
         loadData: ->
-            this.items = this.fakeItems()
-            if this.items.length > 0
-                this.next = Chance.pick([true, false])
-            else
-                this.next = false
-            console.log('score:loadData', this.items.length, JSON.stringify(this.items), this.next)
-            return
-        doRefresh: ->
-            console.log 'score:doRefresh'
-            $this = this
-            $timeout(->
-                console.log 'score:doRefresh2'
-                $this.loadData()
-                $scope.$broadcast 'scroll.refreshComplete'
-                return
-            , 2000)
-            return
-        loadMore: ->
-            console.log 'score:loadMore'
-            $this = this
-            $timeout(->
-                console.log 'score:loadMore2'
-                items = $this.fakeItems()
-                for item in items
-                    $this.items.push item
-                if $this.items.length > 0
-                    $this.next = Chance.pick([true, false])
-                else
-                    $this.next = false
-                console.log('score:loadMore', $this.items.length, JSON.stringify($this.items), $this.next)
-                $scope.$broadcast 'scroll.infiniteScrollComplete'
-                return
-            , 2000)
-            return
-        fakeItem: ->
-            profile = Chance.profile()
-            item =
-                id: Und.random(1, 9999999)
-                name: profile.name
-                photo: profile.image.src
-                hit: Und.random(1, 9999999)
-                point: Und.random(1, 9999999)
-            return item
-        fakeItems: ->
-            items = []
-            i = 0
-            ii = Und.random(0, 300)
-            while i < ii
-                items.push this.fakeItem()
-                i++
-            items = Und.sortBy(items, 'point').reverse()
-            return items
+            promise = gamesScoreStore.load options
+            promise.finally -> $ionicLoading.hide()
+            promise.then ->
+                $scope.score.items = Und.map gamesScoreStore.getCollection(), (item) ->
+                    return item.dataTranformToGamesScore()
+                $scope.score.hasMorePage = gamesScoreStore.hasMorePage()
+
+        refresh: ->
+            options.fetch = yes
+            # TODO getFirstPage
+            promise = gamesScoreStore.getFirstPage options
+            promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
+            promise.then ->
+                $scope.score.items = Und.map gamesScoreStore.getCollection(), (item) ->
+                    return item.dataTranformToGamesScore()
+                $scope.score.hasMorePage = gamesScoreStore.hasMorePage()
+
+        loadNext: ->
+            gamesScoreStore.prepend = yes
+            promise = gamesScoreStore.getNextPage options
+            promise.finally -> $scope.$broadcast 'scroll.infiniteScrollComplete'
+            promise.then ->
+                items = gamesScoreStore.getCollection().slice 0, gamesScoreStore.state.pageSize
+                items = Und.map items, (item) ->
+                    return item.dataTranformToGamesScore()
+                $scope.score.items = $scope.score.items.concat items
+                $scope.score.hasMorePage = gamesScoreStore.hasMorePage()
 
     $scope.score.loadData()
+
+    $ionicLoading.show()

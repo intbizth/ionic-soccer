@@ -13,14 +13,14 @@ ion-list.ranking-list
                         div.subcircle2
                             | {{$index + 1}}
             div.col.col-40.col-center.text-left
-                div.name {{item.name}}
+                div.name {{item.displayName}}
                 div.hit
                     span เกมทาย
-                    span.-highlight {{item.hit | number}}
+                    span.-highlight {{item.times | number}}
                     span ครั้ง
             div.col.col-40.col-center.text-right.point
                 span Pts
-                span.label {{item.point | number}}
+                span.label {{item.points | number}}
 ion-infinite-scroll(ng-if="score.next" on-infinite="scorer.loadMore()", distance="5%")
 
 //ranking-list(data="score")
