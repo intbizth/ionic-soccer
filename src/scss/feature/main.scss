@@ -74,35 +74,46 @@
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
+            text-align: center;
 
             .icon {
+                margin-right: 16%;
+                margin-left: 16%;
                 width: 50px;
                 height: 46px;
             }
 
             .text {
                 width: 90%;
+                height: auto;
+                margin-bottom: 0px;
                 font-size: 12px;
                 font-weight: bold;
                 line-height: 1.2;
+                text-align: center;
                 color: #ffffff;
             }
 
-            .-live-icon {
-                margin-top: 18px;
+            .live {
                 width: 75px;
                 height: 51px;
-            }
+                text-align: center;
 
-            .-live-text {
-                margin-top: -52px;
-                margin-left: -8px;
-                width: 90%;
-                font-size: 12px;
-                font-weight: bold;
-                line-height: 1.2;
-                color: #ffffff;
+                .icon {
+                    margin: 0;
+                    width: 75px;
+                    height: 51px;
+                }
+
+                .text {
+                    margin-top: -24px;
+                }
             }
+        }
+
+        // TODO not work on android
+        .square:active {
+            background-color: #005481;
         }
     }
 
