@@ -43,6 +43,7 @@ class Routing extends Config then constructor: (
 
     state 'fanzone.main',
         url: '/main'
+        secure: yes
         views:
             products:
                 controller: 'fanzoneProductsController'
@@ -53,16 +54,6 @@ class Routing extends Config then constructor: (
             questionary:
                 controller: 'fanzoneQuestionaryController'
                 templateUrl: 'templates/fanzone/questionary/main.html'
-
-    state 'fanzone-product',
-         url: '/fanzone/product/:id'
-         controller: 'fanzoneProductShowController'
-         templateUrl: 'templates/fanzone/products/show.html'
-
-    state 'fanzone.wallpaper',
-         url: '/wallpaper/:id'
-         controller: 'fanzoneWallpaperShowController'
-         templateUrl: 'templates/fanzone/wallpaper/show.html'
 
     state 'feature',
         url: '/feature/main'
@@ -81,11 +72,11 @@ class Routing extends Config then constructor: (
 
     state 'match',
         url: '/match'
-        controller: 'matchMainController'
-        templateUrl: 'templates/match/main.html'
+        controller: 'matchDetailController'
+        templateUrl: 'templates/match/detail.html'
 
-    state 'match.main',
-        url: '/main'
+    state 'match.detail',
+        url: '/detail'
         views:
             view:
                 controller: 'matchViewController'
@@ -97,20 +88,25 @@ class Routing extends Config then constructor: (
                 controller: 'matchLineupsController'
                 templateUrl: 'templates/match/lineups/main.html'
 
+    state 'match-detail',
+        url: '/match/detail/:id'
+        controller: 'matchDetailController'
+        templateUrl: 'templates/match/detail.html'
+
     state 'news-detail',
         url: '/news/detail/:id'
         controller: 'newsDetailController'
         templateUrl: 'templates/news/detail.html'
 
+    state 'personal-detail',
+        url: '/personal/detail/:id'
+        controller: 'personalDetailController'
+        templateUrl: 'templates/personal/detail.html'
+
     state 'product-detail',
         url: '/product/detail/:id'
         controller: 'productDetailController'
         templateUrl: 'templates/product/detail.html'
-
-    state 'player-detail',
-        url: '/player/detail/:id'
-        controller: 'playerDetailController'
-        templateUrl: 'templates/player/detail.html'
 
     state 'ranking',
         url: '/ranking'
@@ -121,6 +117,11 @@ class Routing extends Config then constructor: (
         url: '/ranking-detail'
         controller: 'rankingDetailController'
         templateUrl: 'templates/ranking/detail.html'
+
+    state 'ranking-player-detail',
+        url: '/ranking-player-detail'
+        controller: 'rankingPlayerDetailController'
+        templateUrl: 'templates/ranking/player-detail.html'
 
     state 'ranking.main',
         url: '/main'
@@ -134,7 +135,6 @@ class Routing extends Config then constructor: (
             player:
                 controller: 'rankingPlayerController'
                 templateUrl: 'templates/ranking/player/main.html'
-
 
     state 'ticket-membership',
         url: '/ticket-membership'

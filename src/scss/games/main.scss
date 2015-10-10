@@ -1,5 +1,8 @@
 $game-detail-bg: #1f304c;
 $game-detail-text: #ffffff;
+$ml-section-bg: #e0e1e2;
+$ml-section-gameweek-text: #f7a032;
+$ml-label-bg: #1f304c;
 
 .platform-android {
     .title.title-left.header-item {
@@ -16,7 +19,7 @@ $game-detail-text: #ffffff;
         background-repeat: no-repeat;
     }
 
-    .detail {
+    .games-detail {
         background-color: $game-detail-bg;
 
         .text {
@@ -26,20 +29,32 @@ $game-detail-text: #ffffff;
     }
 }
 
-.match {
+.match-label {
     .section {
-        background-color: #e0e1e2;
+        background-color: $ml-section-bg;
 
         .logo {
             .image {
-                width: 40px;
-                height: 40px;
-                background-color: #f0f0f0;
+                padding-top: 4px;
+                width: 25px;
+                height: 25px;
             }
         }
 
-        .name {
+        .league {
             padding-left: 6px;
+        }
+
+        .gameweek {
+            color: $ml-section-gameweek-text;
+        }
+    }
+
+    .label {
+        background-color: $ml-label-bg;
+
+        .detail {
+
         }
     }
 }

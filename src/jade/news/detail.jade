@@ -1,4 +1,4 @@
-ion-view.news-detail(view-title='{{news.item.headline}}')
+ion-view.news-detail
     ion-nav-title News
     ion-nav-buttons(side="left")
         a.button.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
@@ -8,31 +8,31 @@ ion-view.news-detail(view-title='{{news.item.headline}}')
             )
 
     ion-content.content
-        ion-refresher(pulling-text="Pull to refresh...", on-refresh="data.doRefresh()")
+        ion-refresher(pulling-text="Pull to refresh...", on-refresh="paper.refresh()")
 
-        img.image(ng-src="{{news.item.image}}")
+        img.image(ng-src="{{paper.item.image}}")
 
         div.row
             div.col
                 div.userbox
-                    img.photo(ng-src="{{news.item.user.photo}}")
-                    span.name {{news.item.user.name}}
+                    img.photo(ng-src="{{paper.item.user.profilePicture}}")
+                    span.name {{paper.item.user.displayname}}
 
         div.row.datetime
             div.col.col-33
                 div.line
-                    span.text {{news.item.datetime | date: 'dd MMM yyyy'}}
+                    span.text {{paper.item.publishedDate | date: 'dd MMM yyyy'}}
 
-        div.row.url(ng-click="openURL(news.item.creditUrl)")
+        div.row.url(ng-click="openURL(paper.item.creditUrl)")
             div.col
-                span {{news.item.creditUrl}}
+                span {{paper.item.creditUrl}}
 
         div.row
             div.col
                 div.headline
                     div.subheadline
-                        span {{news.item.headline}}
+                        span {{paper.item.headline}}
 
         div.row.description
             div.col
-                span {{news.item.description}}
+                span {{paper.item.description}}
