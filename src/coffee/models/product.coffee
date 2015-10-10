@@ -16,6 +16,13 @@ class Product extends Factory then constructor: (
             item =
                 id: 'id'
                 name: 'name'
+                price: 'price'
+                image: 'image.media.url'
+            return Helper.traverseProperties @, item
+        dataTranformToDetail: ->
+            item =
+                id: 'id'
+                name: 'name'
                 model: 'model'
                 description: 'description'
                 price: 'price'
