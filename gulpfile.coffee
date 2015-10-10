@@ -31,7 +31,6 @@ replace = require 'gulp-replace-task'
 fixmyjs = require 'gulp-fixmyjs'
 autoprefixer = require 'gulp-autoprefixer'
 yamlFlatten = require './yaml-flatten'
-del = require 'del'
 $logger = $.util.log
 
 $logger 'Environment: ' + ($.util.colors.yellow environment)
@@ -44,7 +43,7 @@ paths =
     ]
     scripts: [
         './src/coffee/app.coffee'
-        './src/coffee/toro.coffee'
+        './src/coffee/setting.coffee'
         './src/coffee/run.coffee'
         './src/coffee/config.coffee'
         './src/coffee/routing.coffee'
@@ -75,8 +74,8 @@ gulp.task 'coffee', (done) ->
         #.pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
         .pipe($.ngClassify(appName: appName))
         .pipe($.coffee(bare: no).on('error', $logger))
-        .pipe($.jshint(".jshintrc"))
-        .pipe($.jshint.reporter('jshint-stylish'))
+        #.pipe($.jshint(".jshintrc"))
+        #.pipe($.jshint.reporter('jshint-stylish'))
         .pipe($.concat('app.js'))
         .pipe($.insert.prepend("'use strict';\n"))
         .pipe(replace({patterns: replacements}))
