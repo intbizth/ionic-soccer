@@ -1,11 +1,8 @@
 class CompetitionTableFixture extends Controller then constructor: (
-    $scope, $ionicLoading, Matches, Und
+    $rootScope, $scope, $ionicLoading, Matches, Und
 ) ->
-    clubId = 28
-    promise = null
-
     matchStore = new Matches null,
-        url: Matches::url + 'nexts/' + clubId
+        url: Matches::url + 'nexts/' + $rootScope.clubId
         state: pageSize: 20
 
     options =
