@@ -43,6 +43,7 @@ class Routing extends Config then constructor: (
 
     state 'fanzone.main',
         url: '/main'
+        secure: yes
         views:
             products:
                 controller: 'fanzoneProductsController'
@@ -53,16 +54,6 @@ class Routing extends Config then constructor: (
             questionary:
                 controller: 'fanzoneQuestionaryController'
                 templateUrl: 'templates/fanzone/questionary/main.html'
-
-    state 'fanzone-product',
-         url: '/fanzone/product/:id'
-         controller: 'fanzoneProductShowController'
-         templateUrl: 'templates/fanzone/products/show.html'
-
-    state 'fanzone.wallpaper',
-         url: '/wallpaper/:id'
-         controller: 'fanzoneWallpaperShowController'
-         templateUrl: 'templates/fanzone/wallpaper/show.html'
 
     state 'feature',
         url: '/feature/main'
@@ -144,7 +135,6 @@ class Routing extends Config then constructor: (
             player:
                 controller: 'rankingPlayerController'
                 templateUrl: 'templates/ranking/player/main.html'
-
 
     state 'ticket-membership',
         url: '/ticket-membership'
