@@ -27,11 +27,11 @@
         padding: 18px 0px 18px 0px;
         font-size: 14px;
         font-weight: bold;
+        color: #ffffff;
     }
 }
 
-.player {
-    background-color: #1e2b44;
+.personal {
     .position {
         width: 28px;
         height: 20px;
@@ -39,64 +39,66 @@
         border-radius: 4px;
         font-weight: bold;
         color: #ffffff;
-    }
-    .-keeper {
-        background-color: #7e1420;
+
+        &.-goalkeeper {
+            background-color: #7e1420;
+        }
+
+        &.-defender {
+            background-color: #fbaf42;
+        }
+
+        &.-midfielder {
+            background-color: #3ab44a;
+        }
+
+        &.-forwarder {
+            background-color: #0188cf;
+        }
     }
 
-    .-defender {
-        background-color: #fbaf42;
-    }
-
-    .-midfield {
-        background-color: #3ab44a;
-    }
-
-    .-forword {
-        background-color: #0188cf;
+    .detail {
+        padding-bottom: 6px;
+        background-color: #1e2b44;
     }
 
     .row {
         padding: 0px;
-        margin-bottom: 4px;
-        line-height: 20px;
         background-color: #213647;
     }
 
+    .row:active {
+        background-color: #0088cf;
+    }
+
     .circle {
-        padding-left: 15px;
-        padding-right: 12px;
-    }
+        width: 40px;
+        height: 40px;
+        border: solid #ffffff 1px;
+        border-radius: 20px;
 
-    .circle-start {
-        width: 32px;
-        height: 32px;
-        //margin-left: 15%;
-        border: 1px solid #fff;
-        border-radius: 16px;
-
-        .circle-in {
-            width: 26px;
-            height: 26px;
-            margin-top: 2px;
-            margin-left: 2px;
-            background-color: #d2d3d4;
-            border-radius: 13px;
+        .subcircle {
+            margin: 1px 0 0 1px;
+            width: 36px;
+            height: 36px;
+            background-color: #f0f0f0;
+            border-radius: 18px;
         }
 
-        .photo {
-            width: 26px;
-            height: 26px;
-            border-radius: 13px;
+        .image {
+            width: 36px;
+            height: 36px;
+            border-radius: 18px;
         }
     }
 
-    .name {
+    .fullname {
+        padding: 0 6px;
         font-size: 14px;
         color: #ffffff;
     }
 
-    .number {
+    .no {
         font-size: 14px;
         color: #ffffff;
     }

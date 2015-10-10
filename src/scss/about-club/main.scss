@@ -1,8 +1,34 @@
-.about-club {
-    .content {
-         margin-top: -66px !important;
-     }
+.platform-ios {
+    .about-club {
+        .content {
+            margin-top: -66px !important;
+        }
 
+        .fix-tab {
+            top: 112px !important;
+            height: auto !important;
+        }
+    }
+}
+
+.platform-android {
+    .title.title-left.header-item {
+        left: 0 !important;
+    }
+
+    .about-club {
+        .content {
+            margin-top: -44px !important;
+        }
+
+        .fix-tab {
+            top: 90px !important;
+            height: auto !important;
+        }
+    }
+}
+
+.about-club {
     .info {
         @import "info/main";
     }
@@ -10,9 +36,4 @@
     .team {
         @import "team/main";
     }
-}
-
-.fix-tab {
-    top: 112px !important;
-    height: auto !important;
 }

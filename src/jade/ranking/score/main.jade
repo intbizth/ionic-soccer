@@ -1,1 +1,26 @@
-ranking-list(data="score")
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="score.doRefresh()")
+ion-list.ranking-list
+    ion-item.nodata(ng-if="score.items.length == 0")
+        div.text Has no ranking.
+    ion-item(ng-repeat="item in score.items")
+        div.row(ui-sref="ranking-detail({id : item.id})")
+            div.col.col-20.col-center
+                div.avatar
+                    div.circle
+                        div.subcircle
+                            img.photo(ng-src="{{item.photo}}")
+                    div.circle2
+                        div.subcircle2
+                            | {{$index + 1}}
+            div.col.col-40.col-center.text-left
+                div.name {{item.name}}
+                div.hit
+                    span เกมทาย
+                    span.-highlight {{item.hit | number}}
+                    span ครั้ง
+            div.col.col-40.col-center.text-right.point
+                span Pts
+                span.label {{item.point | number}}
+ion-infinite-scroll(ng-if="score.next" on-infinite="scorer.loadMore()", distance="5%")
+
+//ranking-list(data="score")

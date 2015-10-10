@@ -1,17 +1,27 @@
 class MatchHighlight extends Controller then constructor: (
     $scope, $timeout, Und, Chance
 ) ->
+    $scope.data =
+        next: no
+        doRefresh: ->
+            $scope.highlight.doRefresh()
+            return
+        loadMore: ->
+            $scope.highlight.loadMore()
+            return
+
     $scope.highlight =
-        items: [],
-        next: false
+        items: []
+        next: no
         loadData: ->
-            items = this.tranfromToGrid(this.fakeItems())
-            this.items =  items
-            console.log('highlight:loadData', this.items.length, JSON.stringify(this.items), this.next)
+            items = @tranfromToGrid(@fakeItems())
+            @items =  items
+            $scope.data.next = @next = if @items.length > 0 then Chance.bool() else no
+            console.log('highlight:loadData', @items.length, JSON.stringify(@items), @next)
             return
         doRefresh: ->
+            $this = @
             console.log 'highlight:doRefresh'
-            $this = this
             $timeout(->
                 console.log 'highlight:doRefresh2'
                 $this.loadData()
@@ -20,17 +30,14 @@ class MatchHighlight extends Controller then constructor: (
             , 2000)
             return
         loadMore: ->
+            $this = @
             console.log 'highlight:loadMore'
-            $this = this
             $timeout(->
                 console.log 'highlight:loadMore2'
                 items = $this.tranfromToGrid($this.fakeItems())
                 for item in items
                     $this.items.push item
-                if $this.item.length > 0
-                    $this.next = Chance.pick([true, false])
-                else
-                    $this.next = false
+                $scope.data.next = $this.next = if $this.items.length > 0 then Chance.bool() else no
                 console.log('highlight:loadMore', $this.items.length, JSON.stringify($this.items), $this.next)
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
                 return
@@ -49,9 +56,10 @@ class MatchHighlight extends Controller then constructor: (
                 i++
             return newItems
         fakeItem: ->
+            highlight = Chance.matchHighlight()
             item =
                 id: Und.random(1, 9999999)
-                image: 'https://placeimg.com/400/400/any?time=' + Chance.hash()
+                image: highlight.image.src
                 datetime: Chance.date()
 
             return item
@@ -62,7 +70,7 @@ class MatchHighlight extends Controller then constructor: (
             if ii % 2 != 0
                 ii++
             while i < ii
-                item = this.fakeItem()
+                item = @fakeItem()
                 items.push item
                 i++
             items = Und.sortBy(items, 'datetime')

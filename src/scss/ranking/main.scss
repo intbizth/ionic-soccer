@@ -1,8 +1,34 @@
-.ranking {
-    .content {
-        margin-top: -66px !important;
+.platform-ios {
+    .ranking {
+        .content {
+            margin-top: -66px !important;
+        }
+
+        .fix-tab {
+            top: 112px !important;
+            height: auto !important;
+        }
+    }
+}
+
+.platform-android {
+    .title.title-left.header-item {
+        left: 0 !important;
     }
 
+    .ranking {
+        .content {
+            margin-top: -44px !important;
+        }
+
+        .fix-tab {
+            top: 90px !important;
+            height: auto !important;
+        }
+    }
+}
+
+.ranking {
     .prediction {
         @import "prediction/main";
     }
@@ -16,9 +42,4 @@
         background-color: #213647;
         @import "player/main";
     }
-}
-
-.fix-tab {
-    top: 112px !important;
-    height: auto !important;
 }

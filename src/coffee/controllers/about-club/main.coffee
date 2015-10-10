@@ -1,5 +1,5 @@
-class aboutClubMain extends Controller then constructor: (
-    $scope, $state, $ionicHistory
+class AboutClubMain extends Controller then constructor: (
+    $scope, $ionicHistory
 ) ->
     $scope.back = ->
         $ionicHistory.goBack -1
