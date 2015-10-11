@@ -1,8 +1,6 @@
 class aboutClubInfo extends Controller then constructor: (
     $rootScope, $scope, $ionicLoading, $timeout, Clubs, Und
 ) ->
-    clubId = 28
-
     clubStore = new Clubs()
 
     options =
@@ -22,7 +20,7 @@ class aboutClubInfo extends Controller then constructor: (
                         $ionicLoading.hide()
                 ,600)
             else
-                promise = clubStore.find clubId, options
+                promise = clubStore.find $rootScope.clubId, options
                 promise.finally ->
                     if pull
                         $scope.$broadcast 'scroll.refreshComplete'

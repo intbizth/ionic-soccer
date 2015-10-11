@@ -1,11 +1,10 @@
 class FanzoneProducts extends Controller then constructor: (
-    $scope, $ionicLoading, Products, Und
+    $rootScope, $scope, $ionicLoading, Products, Und
 ) ->
-    clubId = 28
-    promise = null
     productStore = new Products null,
-        url: Products::url + 'club/' + clubId
+        url: Products::url + 'club/' + $rootScope.clubId
         state: pageSize: 20
+
     options =
         scope: $scope
         productStoreKey: 'productStore'

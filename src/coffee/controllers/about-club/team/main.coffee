@@ -1,12 +1,10 @@
 class aboutClubTeam extends Controller then constructor: (
-    $scope, $ionicLoading, Personals, Und
+    $rootScope, $scope, $ionicLoading, Personals, Und
 ) ->
     $scope.headline = 'CHALARMCHON'
 
-    promise = null
-
     personalStore = new Personals null,
-        url: Personals::url + 'club/28'
+        url: Personals::url + 'club/' + $rootScope.clubId
         state: pageSize: 100
 
     options =

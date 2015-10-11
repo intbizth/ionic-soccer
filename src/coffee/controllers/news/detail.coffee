@@ -17,24 +17,25 @@ class NewsDetail extends Controller then constructor: (
             # error
             return
 
-    paperId = $stateParams.id ||
-
-    promise = null
-
+    paperId = $stateParams.id || ''
+    paperStore = new Papers()
     options =
         scope: $scope
         key: 'r'
 
     $scope.paper =
         item: {}
-        loadData: ->
-            promise = new Papers().find paperId, options
-            promise.finally -> $ionicLoading.hide()
+        loadData: (args) ->
+            pull = if !Und.isUndefined(args) and !Und.isUndefined(args.pull) and Und.isBoolean(args.pull) then args.pull else no
+            promise = paperStore.find paperId, options
+            promise.finally ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
             promise.then (model) -> $scope.paper.item = model.dataTranformToUpdate()
         refresh: ->
-            promise = new Papers().find paperId, options
-            promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
-            promise.then (model) -> $scope.paper.item = model.dataTranformToUpdate()
+            $scope.paper.loadData(pull: true)
 
     $scope.paper.loadData()
 

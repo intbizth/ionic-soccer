@@ -31,7 +31,6 @@ replace = require 'gulp-replace-task'
 fixmyjs = require 'gulp-fixmyjs'
 autoprefixer = require 'gulp-autoprefixer'
 yamlFlatten = require './yaml-flatten'
-del = require 'del'
 $logger = $.util.log
 
 $logger 'Environment: ' + ($.util.colors.yellow environment)
