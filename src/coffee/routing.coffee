@@ -43,7 +43,6 @@ class Routing extends Config then constructor: (
 
     state 'fanzone.main',
         url: '/main'
-        secure: yes
         views:
             products:
                 controller: 'fanzoneProductsController'

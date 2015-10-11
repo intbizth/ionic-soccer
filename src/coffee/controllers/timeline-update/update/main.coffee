@@ -1,8 +1,6 @@
 class Update extends Controller then constructor: (
-    $scope, $ionicLoading, Papers, Und
+    $rootScope, $scope, $ionicLoading, Papers, Und
 ) ->
-    promise = null
-
     papersStore = new Papers null,
         url: Papers::url
         state: pageSize: 10
