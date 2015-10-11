@@ -6,6 +6,12 @@ IONIC - Soccer
 If you need help, Go read Wiki.
 https://github.com/intbizth/ionic-soccer/wiki
 ```
+
+#### Install
+```
+./install
+```
+
 #### Download
 ```
 https://github.com/intbizth/ionic-soccer/wiki/Download
