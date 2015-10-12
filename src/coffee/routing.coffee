@@ -71,11 +71,11 @@ class Routing extends Config then constructor: (
 
     state 'match',
         url: '/match'
-        controller: 'matchDetailController'
-        templateUrl: 'templates/match/detail.html'
+        controller: 'matchMainController'
+        templateUrl: 'templates/match/main.html'
 
     state 'match.detail',
-        url: '/detail'
+        url: 'match/detail/:id'
         views:
             view:
                 controller: 'matchViewController'
@@ -86,11 +86,6 @@ class Routing extends Config then constructor: (
             lineups:
                 controller: 'matchLineupsController'
                 templateUrl: 'templates/match/lineups/main.html'
-
-    state 'match-detail',
-        url: '/match/detail/:id'
-        controller: 'matchDetailController'
-        templateUrl: 'templates/match/detail.html'
 
     state 'news-detail',
         url: '/news/detail/:id'
