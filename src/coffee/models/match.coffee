@@ -98,6 +98,26 @@ class Match extends Factory then constructor: (
             item.type = 'label'
             item.template = 'after'
             return item
+        dataTranformToView: ->
+            item =
+                id: 'id'
+                homeClub:
+                    id: 'home_club.id'
+                    name: 'home_club.name'
+                    short_name: 'home_club.short_name'
+                    logo: 'home_club._links.logo_70x70.href'
+                    score: 'home_score'
+                awayClub:
+                    id: 'away_club.id'
+                    name: 'away_club.name'
+                    short_name: 'away_club.short_name'
+                    logo: 'away_club._links.logo_70x70.href'
+                    score: 'away_score'
+                startTime: 'start_time'
+            item = Helper.traverseProperties @, item
+            item.type = 'label'
+            item.template = 'after'
+            return item
         dataTranformToMatchEvents: ->
             item =
                 id: 'id'
@@ -107,7 +127,7 @@ class Match extends Factory then constructor: (
                 endMatch: 'end_match'
                 activities: 'activities'
             item = Helper.traverseProperties @, item
-            if item.activities.length > 0
+            if item.activities and item.activities.length > 0
                 item.activities = Und.map item.activities, (itemActivity) ->
                     activity =
                         id: 'id'
