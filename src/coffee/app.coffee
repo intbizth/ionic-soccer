@@ -7,6 +7,7 @@ class App extends App then constructor: ->
         'ngIOS9UIWebViewPatch'
         'angular-oauth2'
         'http-auth-interceptor'
+        'angular-md5'
     ]
 
 # TODO:
