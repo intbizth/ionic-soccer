@@ -35,19 +35,5 @@
     "run-sequence": "~0.3.6",
     "shelljs": "^0.3.0",
     "yargs": "~1.2.1"
-  },
-  "cordovaPlugins": [
-    "cordova-plugin-device",
-    "cordova-plugin-console",
-    "cordova-plugin-splashscreen",
-    "cordova-plugin-statusbar",
-    "cordova-plugin-inappbrowser",
-    "com.ionic.keyboard",
-    "cordova-plugin-app-version",
-    "cordova-plugin-whitelist",
-    {
-      "locator": "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git",
-      "id": "cordova-plugin-x-socialsharing"
-    }
-  ]
+  }
 }
