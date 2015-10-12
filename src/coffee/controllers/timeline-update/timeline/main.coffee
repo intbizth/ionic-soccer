@@ -1,5 +1,5 @@
 class Timeline extends Controller then constructor: (
-    $scope, $ionicLoading, $cordovaSocialSharing, Papers, Und
+    $rootScope, $scope, $ionicLoading, $cordovaSocialSharing, MicroChats, Und
 ) ->
     $scope.share = (message, subject, file, link) ->
         message = message || ''
@@ -11,46 +11,44 @@ class Timeline extends Controller then constructor: (
         , (error) ->
             return
 
-    promise = null
-
-    papersStore = new Papers null,
-        url: Papers::url
-        state: pageSize: 10
+    microChatsStore = new MicroChats null,
+        url: MicroChats::url + 'latest/' + $rootScope.clubId
+        state: pageSize: 20
 
     options =
         scope: $scope
-        storeKey: 'papersStore'
-        collectionKey: 'papersCollection'
+        storeKey: 'microChatsStore'
+        collectionKey: 'microChatsCollection'
 
-    $scope.papers =
+    $scope.microChats =
         items: []
         hasMorePage: no
         loadData: ->
-            promise = papersStore.load options
+            promise = microChatsStore.load options
             promise.finally -> $ionicLoading.hide()
             promise.then ->
-                $scope.papers.items = Und.map papersStore.getCollection(), (item) ->
+                $scope.microChats.items = Und.map microChatsStore.getCollection(), (item) ->
                     return item.dataTranformToTimeline()
-                $scope.papers.hasMorePage = papersStore.hasMorePage()
+                $scope.microChats.hasMorePage = microChatsStore.hasMorePage()
         refresh: ->
             options.fetch = yes
-            promise = papersStore.getFirstPage options
+            promise = microChatsStore.getFirstPage options
             promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
             promise.then ->
-                $scope.papers.items = Und.map papersStore.getCollection(), (item) ->
+                $scope.microChats.items = Und.map microChatsStore.getCollection(), (item) ->
                     return item.dataTranformToTimeline()
-                $scope.papers.hasMorePage = papersStore.hasMorePage()
+                $scope.microChats.hasMorePage = microChatsStore.hasMorePage()
         loadNext: ->
-            papersStore.prepend = yes
-            promise = papersStore.getNextPage options
+            microChatsStore.prepend = yes
+            promise = microChatsStore.getNextPage options
             promise.finally -> $scope.$broadcast 'scroll.infiniteScrollComplete'
             promise.then ->
-                items = papersStore.getCollection().slice 0, papersStore.state.pageSize
+                items = microChatsStore.getCollection().slice 0, microChatsStore.state.pageSize
                 items = Und.map items, (item) ->
                     return item.dataTranformToTimeline()
-                $scope.papers.items = $scope.papers.items.concat items
-                $scope.papers.hasMorePage = papersStore.hasMorePage()
+                $scope.microChats.items = $scope.microChats.items.concat items
+                $scope.microChats.hasMorePage = microChatsStore.hasMorePage()
 
-    $scope.papers.loadData()
+    $scope.microChats.loadData()
 
     $ionicLoading.show()

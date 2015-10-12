@@ -1,8 +1,6 @@
 class CompetitionTablePositionTable extends Controller then constructor: (
-    $scope, $ionicLoading, Rankings, Und
+    $rootScope, $scope, $ionicLoading, Rankings, Und
 ) ->
-    promise = null
-
     rankingStore = new Rankings null,
         url: Rankings::url + 'fixtures/tpl/2015-2016'
         state: pageSize: 100

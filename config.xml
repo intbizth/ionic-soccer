@@ -22,6 +22,8 @@
   <preference name="StatusBarStyle" value="lightcontent"/>
   <preference name="StatusBarOverlaysWebView" value="true"/>
   <preference name="StatusBarBackgroundColor" value="#0056a2"/>
+  <preference name="AndroidPersistentFileLocation" value="Compatibility"/>
+  <preference name="orientation" value="portrait"/>
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>

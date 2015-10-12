@@ -1,0 +1,20 @@
+#!/bin/bash
+sudo rm -rf node_modules
+echo "removed node_modules"
+sudo rm -rf platforms
+echo "removed platforms"
+sudo rm -rf plugins
+echo "removed plugins"
+sudo npm install
+bower install
+ionic plugin add cordova-plugin-device
+ionic plugin add cordova-plugin-console
+ionic plugin add cordova-plugin-splashscreen
+ionic plugin add cordova-plugin-statusbar
+ionic plugin add cordova-plugin-inappbrowser
+ionic plugin add com.ionic.keyboard
+ionic plugin add cordova-plugin-app-version
+ionic plugin add cordova-plugin-whitelist
+ionic plugin add https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git
+ionic plugin add cordova-plugin-file-transfer
+ionic platform add ios && ionic platform add android
