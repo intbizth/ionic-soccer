@@ -6,6 +6,7 @@ class LiveMain extends Controller then constructor: (
         return
 
     matchStore = new Matches()
+
     options =
         url: Matches::url + 'live/'
         scope: $scope
@@ -56,6 +57,3 @@ class LiveMain extends Controller then constructor: (
     $scope.matchLabel.loadData()
 
     $ionicLoading.show()
-
-    $scope.refresh = ->
-        $scope.matchLabel.refresh()
