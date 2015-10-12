@@ -111,7 +111,7 @@ class Match extends Factory then constructor: (
                 item.activities = Und.map item.activities, (itemActivity) ->
                     activity =
                         id: 'id'
-                        actor: 'actor'
+                        actor: 'actor.fullname'
                         time: 'activity_time'
                         side: 'activity_side'
                         type: 'activity_type'
