@@ -49,10 +49,10 @@ class FeatureMain extends Controller then constructor: (
             profile = Chance.profile()
             item =
                 id: Und.random(1, 9999999)
-                photo: profile.image.src
-                name: profile.name
-                point1: Und.random(1, 9999999999)
-                point2: Und.random(1, 9999999999)
+                photo: './img/feature/profile@2x.png'
+                name: 'Firstname Lastname'
+                point1: 0
+                point2: 0
             return item
 
     $scope.profile.loadData()
