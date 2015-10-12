@@ -2,10 +2,8 @@ IONIC - Soccer
 =============================
 
 #### Help
-```
 If you need help, Go read Wiki.
 https://github.com/intbizth/ionic-soccer/wiki
-```
 
 #### Install
 ```
@@ -13,9 +11,7 @@ https://github.com/intbizth/ionic-soccer/wiki
 ```
 
 #### Download
-```
 https://github.com/intbizth/ionic-soccer/wiki/Download
-```
 
 #### App Progress
 ```
