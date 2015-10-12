@@ -1,4 +1,5 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="score.doRefresh()")
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="score.refresh()")
+
 ion-list.ranking-list
     ion-item.nodata(ng-if="score.items.length == 0")
         div.text
@@ -22,6 +23,5 @@ ion-list.ranking-list
             div.col.col-40.col-center.text-right.point
                 span Pts
                 span.label {{item.points | number}}
-ion-infinite-scroll(ng-if="score.next" on-infinite="scorer.loadMore()", distance="5%")
 
-//ranking-list(data="score")
+ion-infinite-scroll(ng-if="score.next" on-infinite="scorer.loadNexte()", distance="1%")

@@ -16,7 +16,6 @@ class rankingScore extends Controller then constructor: (
     $scope.score =
         items: []
         hasMorePage: no
-
         loadData: ->
             promise = gamesScoreStore.load options
             promise.finally -> $ionicLoading.hide()
@@ -24,7 +23,6 @@ class rankingScore extends Controller then constructor: (
                 $scope.score.items = Und.map gamesScoreStore.getCollection(), (item) ->
                     return item.dataTranformToGamesScore()
                 $scope.score.hasMorePage = gamesScoreStore.hasMorePage()
-
         refresh: ->
             options.fetch = yes
             # TODO getFirstPage
@@ -34,7 +32,6 @@ class rankingScore extends Controller then constructor: (
                 $scope.score.items = Und.map gamesScoreStore.getCollection(), (item) ->
                     return item.dataTranformToGamesScore()
                 $scope.score.hasMorePage = gamesScoreStore.hasMorePage()
-
         loadNext: ->
             gamesScoreStore.prepend = yes
             promise = gamesScoreStore.getNextPage options
