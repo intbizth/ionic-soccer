@@ -1,11 +1,8 @@
 class rankingScore extends Controller then constructor: (
-    $scope, $state, $ionicHistory, $timeout, Und, Chance, GamesScores, $ionicLoading
+    $rootScope, $scope, $ionicLoading, GamesScores, Und
 ) ->
-    clubId = 28
-    promise = null
-
     gamesScoreStore = new GamesScores null,
-        url: GamesScores::url + 'result/' + clubId
+        url: GamesScores::url + 'result/' + $rootScope.clubId
         state: pageSize: 20
 
     options =
