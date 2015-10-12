@@ -6,9 +6,9 @@ ion-view.personal-detail
             src="./img/logo/navbar.png"
             srcset="./img/logo/navbar@2x.png 2x"
             )
-    ion-nav-buttons(side="right")
-        a.button.button-clear(ng-click="")
-            i.icon.ion-android-more-vertical
+    //ion-nav-buttons(side="right")
+    //    a.button.button-clear(ng-click="")
+    //        i.icon.ion-android-more-vertical
 
     ion-content.content
         ion-refresher(pulling-text="Pull to refresh...", on-refresh="personal.refresh()")
@@ -53,14 +53,14 @@ ion-view.personal-detail
                 div.col.topic
                     | Previous Club
                 div.col.about
-                    | {{personal.item.previous.name}}
-                    | {{personal.item.previous.year}}
+                    | {{personal.item.previousClub.name}}
+                    | {{personal.item.previousClub.startDate | date: 'yyyy'}}
 
             div.row.signed
                 div.col.topic
                     | Signed
                 div.col.about
-                    | {{personal.item.signed}}
+                    | {{personal.item.previousClub.signedDate | date: 'yyyy'}}
 
             div.row.bio
                 div.col.topic

@@ -16,6 +16,8 @@
     "velocity-ui-angular": "~0.4.0",
     "ng-cordova-oauth": "0.1.4",
     "chance": "~0.8.0",
-    "moment": "~2.10.6"
+    "moment": "~2.10.6",
+    "angular-http-auth": "~1.2.2",
+    "angular-oauth2": "git@github.com:liverbool/angular-oauth2.git#~3.1.2"
   }
 }
