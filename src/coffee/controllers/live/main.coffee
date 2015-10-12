@@ -5,7 +5,6 @@ class LiveMain extends Controller then constructor: (
         $ionicHistory.goBack -1
         return
 
-    clubId = 28
     matchStore = new Matches()
     options =
         url: Matches::url + 'live/'
@@ -36,7 +35,7 @@ class LiveMain extends Controller then constructor: (
                         $ionicLoading.hide()
                 ,600)
             else
-                promise = matchStore.find clubId, options
+                promise = matchStore.find $rootScope.clubId, options
                 promise.finally ->
                     if pull
                         $scope.$broadcast 'scroll.refreshComplete'
