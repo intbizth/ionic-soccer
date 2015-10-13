@@ -5,7 +5,8 @@ ion-list.ranking-list
         div.text
             | {{'ui.t.ranking.nodata' | trans}}
     ion-item(ng-repeat="item in score.items")
-        div.row(ui-sref="ranking-detail({id : item.id})")
+        //div.row(ui-sref="ranking-detail({id : item.id})")
+        div.row
             div.col.col-20.col-center
                 div.avatar
                     div.circle
