@@ -1,5 +1,5 @@
 class MatchView extends Controller then constructor: (
-    $rootScope, $scope, $stateParams, $ionicHistory, $ionicLoading, Matches, Und
+    $rootScope, $scope, $stateParams, $ionicLoading, $timeout, Matches, Und
 ) ->
     matchId = $stateParams.id || ''
 
