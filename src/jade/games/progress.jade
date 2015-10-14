@@ -1,0 +1,8 @@
+.progress-bars
+    .bars
+        .progressed(
+        ng-repeat="progress in progressData",
+        style="width:{{progress.value}}%;background-color:{{progress.color}}",
+        )
+            div(ng-if="progress.won")
+                div(class="{{progress.status}}")

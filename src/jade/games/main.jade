@@ -28,7 +28,8 @@ ion-view.games
                 div.space
                 div.row
                     div.col.col-center.text-center
-                        div.text Has no match.
+                        div.text
+                            | {{ 'ui.t.games.nomatch'|trans }}
             div(ng-repeat="section in matchLabel.sections")
                 div.row.row-center.section
                     div.logo
@@ -41,9 +42,26 @@ ion-view.games
                     //div.space
                     div.row
                         div.col.col-center.text-center
-                            div.text Has no match.
+                            div.text
+                                | {{ 'ui.t.games.nomatch'|trans }}
                 div(ng-repeat="item in section.items")
-                    div.row.label
+                    .row.label
+                        .col-40.col-center.club
+                            img.logo(ng-src="{{item.homeClub.logo}}")
+                            span.name.text-center {{item.homeClub.name}}
+
+                        .col-20.col-center.vs.-nextmatch.detail.text-center
+                            div.time
+                                | {{item.datetime | date:'HH:mm'}}
+                            div.date
+                                | {{item.datetime | date:'dd MMM yyyy'}}
+
+                        .col-40.col-center.club
+                            img.logo.-right(ng-src="{{item.awayClub.logo}}")
+                            span.name.text-center {{item.awayClub.name}}
+                    .space
+
+                    //div.row.label
                         div.col.col-15.col-center.logo.text-center
                             img.image(ng-src="{{item.homeClub.logo}}")
                         div.col.col-25.col-center.name.text-center
@@ -54,14 +72,9 @@ ion-view.games
                                     | {{item.datetime | date:'HH:mm'}}
                                 div.date
                                     | {{item.datetime | date:'dd MMM yyyy'}}
-                            div(ng-show="item.template == 'after'")
-                                div.score
-                                    | {{item.homeClub.score}}-{{item.awayClub.score}}
-                                div.date
-                                    | {{item.datetime | date:'dd MMM yyyy'}}
                         div.col.col-25.col-center.name.text-center
                             | {{item.awayClub.name}}
                         div.col.col-15.col-center.logo.text-center
                             img.image(ng-src="{{item.awayClub.logo}}")
-                    div.space
+                    //div.space
                 div.footer-section

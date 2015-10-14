@@ -2,3 +2,4 @@ ui.e:
     games:
         title: Games
         detail: Choose team for play game prediction and 11 real players.
+        nomatch: Has no match.
