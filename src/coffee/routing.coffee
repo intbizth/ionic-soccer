@@ -54,16 +54,6 @@ class Routing extends Config then constructor: (
                 controller: 'fanzoneQuestionaryController'
                 templateUrl: 'templates/fanzone/questionary/main.html'
 
-    state 'fanzone-product',
-         url: '/fanzone/product/:id'
-         controller: 'fanzoneProductShowController'
-         templateUrl: 'templates/fanzone/products/show.html'
-
-    state 'fanzone.wallpaper',
-         url: '/wallpaper/:id'
-         controller: 'fanzoneWallpaperShowController'
-         templateUrl: 'templates/fanzone/wallpaper/show.html'
-
     state 'feature',
         url: '/feature/main'
         controller: 'featureMainController'
@@ -84,8 +74,8 @@ class Routing extends Config then constructor: (
         controller: 'matchMainController'
         templateUrl: 'templates/match/main.html'
 
-    state 'match.main',
-        url: '/main'
+    state 'match.detail',
+        url: 'match/detail/:id'
         views:
             view:
                 controller: 'matchViewController'
@@ -102,15 +92,15 @@ class Routing extends Config then constructor: (
         controller: 'newsDetailController'
         templateUrl: 'templates/news/detail.html'
 
+    state 'personal-detail',
+        url: '/personal/detail/:id'
+        controller: 'personalDetailController'
+        templateUrl: 'templates/personal/detail.html'
+
     state 'product-detail',
         url: '/product/detail/:id'
         controller: 'productDetailController'
         templateUrl: 'templates/product/detail.html'
-
-    state 'player-detail',
-        url: '/player/detail/:id'
-        controller: 'playerDetailController'
-        templateUrl: 'templates/player/detail.html'
 
     state 'ranking',
         url: '/ranking'
@@ -121,6 +111,11 @@ class Routing extends Config then constructor: (
         url: '/ranking-detail'
         controller: 'rankingDetailController'
         templateUrl: 'templates/ranking/detail.html'
+
+    state 'ranking-player-detail',
+        url: '/ranking-player-detail'
+        controller: 'rankingPlayerDetailController'
+        templateUrl: 'templates/ranking/player-detail.html'
 
     state 'ranking.main',
         url: '/main'
@@ -134,7 +129,6 @@ class Routing extends Config then constructor: (
             player:
                 controller: 'rankingPlayerController'
                 templateUrl: 'templates/ranking/player/main.html'
-
 
     state 'ticket-membership',
         url: '/ticket-membership'

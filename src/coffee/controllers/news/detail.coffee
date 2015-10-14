@@ -1,55 +1,42 @@
 class NewsDetail extends Controller then constructor: (
-    $scope, $stateParams, $ionicHistory, $cordovaInAppBrowser, $timeout, Und, Chance
+    $scope, $stateParams, $ionicHistory, $ionicLoading, $cordovaInAppBrowser, Papers, Und
 ) ->
     $scope.back = ->
         $ionicHistory.goBack -1
         return
 
-    $scope.news =
-        item: {},
-        loadData: ->
-            item = this.fakeItem()
-            this.item =  item
-            console.log('news:loadData', JSON.stringify(this.item))
-            return
-        doRefresh: ->
-            console.log 'news:doRefresh'
-            $this = this
-            $timeout(->
-                console.log 'news:doRefresh2'
-                $this.loadData()
-                $scope.$broadcast 'scroll.refreshComplete'
-                return
-            , 2000)
-            return
-        fakeItem: ->
-            update = Chance.update()
-            user = Chance.user()
-            item =
-                id: Und.random(1, 9999999)
-                headline: $stateParams.headline || Chance.sentence()
-                image: update.image.src
-                datetime: Chance.date()
-                creditUrl: Chance.url()
-                description: Chance.paragraph(
-                    sentences: Und.random(5, 50)
-                )
-                user:
-                    name: user.name
-                    photo: user.image.src
-            return item
-
-    $scope.news.loadData()
-
-    options =
-        location: 'yes'
-        clearcache: 'yes'
-        toolbar: 'yes'
-
     $scope.openURL = (url) ->
-        $cordovaInAppBrowser.open(url, '_blank', options).then((event) ->
+        $cordovaInAppBrowser.open(url, '_blank',
+            location: 'yes'
+            clearcache: 'yes'
+            toolbar: 'yes'
+        ).then((event) ->
             # success
             return
         ).catch (event) ->
             # error
             return
+
+    paperId = $stateParams.id || ''
+    paperStore = new Papers()
+    options =
+        scope: $scope
+        key: 'r'
+
+    $scope.paper =
+        item: {}
+        loadData: (args) ->
+            pull = if !Und.isUndefined(args) and !Und.isUndefined(args.pull) and Und.isBoolean(args.pull) then args.pull else no
+            promise = paperStore.find paperId, options
+            promise.finally ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            promise.then (model) -> $scope.paper.item = model.dataTranformToUpdate()
+        refresh: ->
+            $scope.paper.loadData(pull: true)
+
+    $scope.paper.loadData()
+
+    $ionicLoading.show()

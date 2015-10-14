@@ -1,5 +1,5 @@
 class CompetitionTableMain extends Controller then constructor: (
-    $scope, $state, $ionicHistory, $timeout, Und, Chance
+    $scope, $ionicHistory
 ) ->
     $scope.back = ->
         $ionicHistory.goBack -1

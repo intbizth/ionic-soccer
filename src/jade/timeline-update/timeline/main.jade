@@ -1,38 +1,38 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="doRefresh()")
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="microChats.refresh()")
 
-div.live(ng-show="timeline.isLive")
-    div.row.section
-        div.col
-            span.text Live
-
-    match-label(sections="matchLabel.sections")
+//div.live(ng-show="timeline.isLive")
+//    div.row.section
+//        div.col
+//            span.text Live
+//
+//    match-label(sections="matchLabel.sections")
 
 div.timeline
-    div.nodata(ng-if="timeline.items.length == 0")
+    div.nodata(ng-if="microChats.items.length == 0")
         div.space
         div.row
             div.col.col-center.text-center
                 div.text Has no timeline.
-    div(ng-repeat="item in timeline.items")
+    div(ng-repeat="item in microChats.items")
         div(ng-class="item.template == 'hightlight' ? '-hightlight' : ''")
-                div.space
-                div.row.datetime
-                    div.col
-                        | {{item.datetime | date :"dd/MM/yyyy | HH:mm"}}
-                div.cover(ng-if="item.images.length > 0")
-                    div.images
-                        img(ng-src="{{item.images[0]}}", width="100%", height="100%")
-                div.detail(ng-class="item.template == 'hightlight' ? '-hightlight' : ''")
-                    div.subdetail
-                        div.row.description
-                            div.col
-                                span {{item.description}}
-                        div.row.footer
-                            div.col.col-90.col-center
-                                div.userbox
-                                    img.photo(ng-src="{{item.user.photo}}")
-                                    span.name {{item.user.name}}
-                            div.col.col-10.col-center(style="margin-left: -4px;")
-                                a.button.button-icon.icon.ion-android-share-alt.share(ng-click="share()")
+            div.space
+            div.row.datetime
+                div.col
+                    | {{item.publishedDate | date :'dd/MM/yyyy | HH:mm'}}
+            div.cover(ng-if="item.image")
+                div.images
+                    img(ng-src="{{item.image}}", width="100%", height="100%")
+            div.detail(ng-class="item.template == 'hightlight' ? '-hightlight' : ''")
+                div.subdetail
+                    div.row.message
+                        div.col
+                            span {{item.message}}
+                    div.row.footer
+                        div.col.col-90.col-center
+                            div.userbox
+                                img.photo(ng-src="{{item.user.profilePicture}}")
+                                span.name {{item.user.displayname}}
+                        div.col.col-10.col-center(style="margin-left: -4px;")
+                            //a.button.button-icon.icon.ion-android-share-alt.share(ng-click="share(item.message, '', '', '')")
 
-ion-infinite-scroll(ng-if="timeline.next" on-infinite="loadMore()", distance="5%")
+ion-infinite-scroll(ng-if="microChats.hasMorePage" on-infinite="microChats.loadNext()", distance="1%")

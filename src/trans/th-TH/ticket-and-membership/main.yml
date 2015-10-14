@@ -1,0 +1,6 @@
+ui.t:
+    ticket-and-membership:
+        title: ตั๋วและข้อมูลสมาชิก
+        tab:
+            ticket: ตั๋ว
+            membership: ข้อมูลสมาชิก

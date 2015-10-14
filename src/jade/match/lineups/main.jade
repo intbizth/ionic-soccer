@@ -1,0 +1,43 @@
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="lineUp.refresh()")
+
+div.headline
+    div.row.inrow
+        div.col.col-20.col-center
+            img.image(ng-src="{{lineUp.item.club.logo}}")
+        div.col.col-80.col-center
+            span.text {{lineUp.item.club.name}}
+div.map
+    div.row.inrow
+        div.col.col-center
+            a.button.button-icon.ion-ios-arrow-left
+        div.col.col-80.col-center.text-center
+            span.text {{lineUp.item.club.formation.name}}
+        div.col.col-center
+            a.button.button-icon.ion-ios-arrow-right
+    div.row.inrow.field
+        div.col.inrow
+            img.image(
+            src="./img/match/field2.png"
+            srcset="./img/match/field2@2x.png 2x"
+            )
+
+div.personal
+    div.nodata(ng-if="personals.items.length == 0")
+        div.row
+            div.col.col-center.text-center
+                div.text Has no personals.
+
+    div(ng-repeat="item in personals.items")
+        div.detail
+            div.row(ui-sref="personal-detail({id : item.id})")
+                div.col.col-center.text-center
+                    div.position(ng-class="personals.getPositionClass(item.position.shortName)")
+                        span.job {{item.position.shortName}}
+                div.col.col-center
+                    div.circle
+                        div.subcircle
+                            img.image(ng-src="{{item.image}}")
+                div.col.col-67.col-center.text-left
+                    span.fullname {{item.fullname}}
+                div.col.col-center.text-center
+                    span.no \#{{item.no}}

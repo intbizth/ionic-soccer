@@ -1,0 +1,5 @@
+ui.e:
+    update:
+        news: News
+        nodata: Has no news.
+        

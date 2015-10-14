@@ -1,20 +1,35 @@
 class aboutClubInfo extends Controller then constructor: (
-    $scope
+    $rootScope, $scope, $ionicLoading, $timeout, Clubs, Und
 ) ->
-    $scope.headline = 'CHALARMCHON'
+    clubStore = new Clubs()
 
-    $scope.name =
-        nameThai: 'ชลบุรี เอฟซี'
-        nameEng: 'Chonburi FC'
-#        codeName:
-#        league:
+    options =
+        scope: $scope
+        key: 'r'
 
-    $scope.contact =
-        url: 'www.chonburifootballclub.com'
-        emailAddress: 'info@chonburifootballclub.com'
+    $scope.club =
+        item: {}
+        loadData: (args)->
+            pull = if !Und.isUndefined(args) and !Und.isUndefined(args.pull) and Und.isBoolean(args.pull) then args.pull else no
+            if Und.isObject($rootScope.club) and Und.size($rootScope.club) > 0
+                $scope.club.item = $rootScope.club
+                $timeout(->
+                    if pull
+                        $scope.$broadcast 'scroll.refreshComplete'
+                    else
+                        $ionicLoading.hide()
+                ,600)
+            else
+                promise = clubStore.find $rootScope.clubId, options
+                promise.finally ->
+                    if pull
+                        $scope.$broadcast 'scroll.refreshComplete'
+                    else
+                        $ionicLoading.hide()
+                promise.then (model) -> $rootScope.club = $scope.club.item = model.dataTranformToInfo()
+        refresh: ->
+            $scope.club.loadData(pull: yes)
 
-    $scope.stadium =
-        name: 'ชลบุรีเสตเดี้ยม'
-        capacityNumber: '8,600'
-        location: '107/12 หมู่ 2 ตำบลเสม็ด อำเภอเมือง จังหวัดชลบุรี 20000'
+    $scope.club.loadData()
 
+    $ionicLoading.show()

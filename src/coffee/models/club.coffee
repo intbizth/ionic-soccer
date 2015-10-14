@@ -1,21 +1,33 @@
 class Clubs extends Factory then constructor: (
-    CFG, NgBackboneCollection, Club
+    NgBackboneCollection, Club
 ) ->
     return NgBackboneCollection.extend
         model: Club
-        url: CFG.API.getPath 'clubs/'
-        alias: 'clubs'
+        url: Club::url
+        alias: 'Clubs'
 
 class Club extends Factory then constructor: (
-    NgBackboneModel, Und
+    CFG, NgBackboneModel, Helper
 ) ->
     return NgBackboneModel.extend
-        defaults:
-            _links: null
-
-        getLogo: (size) ->
-            logo = if Und.isUndefined(size) or Und.isUndefined(@._links['logo_' + size])
-                @._links.logo
-            else @._links['logo_' + size]
-
-            return Und.result logo, 'href'
+        url: CFG.API.getPath 'clubs/'
+        dataTranformToInfo: ->
+            item =
+                id: 'id'
+                name: 'name'
+                shortName: 'short_name'
+                signatureName: 'signature_name'
+                estYear: 'est_year'
+                logo: 'logo.media.url'
+                stadiumCapacity: 'stadium_capacity'
+                stadiumImage: 'stadium_image'
+                website: 'website'
+                email: 'email'
+                location: 'location'
+                country:
+                    id: 'country.id'
+                    name: 'country.name'
+                clubClass:
+                    id: 'club_class.id'
+                    name: 'club_class.name'
+            return Helper.traverseProperties @, item

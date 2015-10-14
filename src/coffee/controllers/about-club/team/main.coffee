@@ -1,60 +1,54 @@
 class aboutClubTeam extends Controller then constructor: (
-    $scope, $timeout, Und, Chance
+    $rootScope, $scope, $ionicLoading, Personals, Und
 ) ->
     $scope.headline = 'CHALARMCHON'
-    $scope.players =
-        items: []
-        next: false
-        loadData: ->
-            items = this.fakeItems()
-            this.items =  items
-            if this.items.length > 0
-                this.next = Chance.pick([true, false])
-            else
-                this.next = false
-            console.log('players:loadData', this.items.length, JSON.stringify(this.items), this.next)
-            return
-        doRefresh: ->
-            console.log 'players:doRefresh'
-            $this = this
-            $timeout(->
-                console.log 'players:doRefresh2'
-                $this.loadData()
-                $scope.$broadcast 'scroll.refreshComplete'
-                return
-            , 2000)
-            return
-        loadMore: ->
-            console.log 'players:loadMore'
-            $this = this
-            $timeout(->
-                console.log 'players:loadMore2'
-                items = $this.fakeItems()
-                for item in items
-                    $this.items.push item
-                if $this.items.length > 0
-                    $this.next = Chance.pick([true, false])
-                else
-                    $this.next = false
-                console.log('players:loadMore', $this.items.length, JSON.stringify($this.items), $this.next)
-                $scope.$broadcast 'scroll.infiniteScrollComplete'
-                return
-            , 2000)
-            return
-        fakeItem: ->
-            item =
-                position: Chance.pick(['D', 'F', 'G', 'M'])
-                photo: 'https://placeimg.com/46/46/people?time=' + Chance.hash()
-                name: Chance.name()
-                number: Und.random(1, 31)
-            return item
-        fakeItems: ->
-            items = []
-            i = 0
-            ii = Und.random(0, 30)
-            while i < ii
-                items.push this.fakeItem()
-                i++
-            return items
 
-    $scope.players.loadData()
+    personalStore = new Personals null,
+        url: Personals::url + 'club/' + $rootScope.clubId
+        state: pageSize: 100
+
+    options =
+        scope: $scope
+        personalStoreKey: 'personalStore'
+        collectionKey: 'personalCollection'
+
+    $scope.personals =
+        items: []
+        hasMorePage: no
+        getPositionClass: (shortName)->
+            switch shortName
+                when 'GK' then '-goalkeeper'
+                when 'DF' then '-defender'
+                when 'MF' then '-midfielder'
+                when 'FW' then '-forwarder'
+                else ''
+        loadData: ->
+            promise = personalStore.load options
+            promise.finally -> $ionicLoading.hide()
+            promise.then ->
+                $scope.personals.items = Und.map personalStore.getCollection(), (item) ->
+                    return item.dataTranformToTeam()
+                $scope.personals.hasMorePage = personalStore.hasMorePage()
+        refresh: ->
+            options.fetch = yes
+            # TODO getFirstPage
+            promise = personalStore.getFirstPage options
+            promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
+            promise.then ->
+                $scope.personals.items = Und.map personalStore.getCollection(), (item) ->
+                    return item.dataTranformToTeam()
+                $scope.personals.hasMorePage = personalStore.hasMorePage()
+        loadNext: ->
+            personalStore.prepend = yes
+            promise = personalStore.getNextPage options
+            promise.finally -> $scope.$broadcast 'scroll.infiniteScrollComplete'
+            promise.then ->
+                items = personalStore.getCollection().slice 0, personalStore.state.pageSize
+                items = Und.map items, (item) ->
+                    return item.dataTranformToTeam()
+                $scope.personals.items = $scope.personals.items.concat items
+                $scope.personals.hasMorePage = personalStore.hasMorePage()
+
+    $scope.personals.loadData()
+
+    $ionicLoading.show()

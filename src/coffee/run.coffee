@@ -1,18 +1,15 @@
 class Run extends Run then constructor: (
-    $rootScope, $ionicPlatform, $location, $cordovaKeyboard
+    $rootScope, $ionicPlatform, $cordovaKeyboard, Authen, CFG
 ) ->
-    # default spinner icon
-    $rootScope.$spinnerIcon = 'ripple'
+    $rootScope.isAndroid = ionic.Platform.isAndroid()
+    $rootScope.isIOS = ionic.Platform.isIOS()
+    $rootScope.clubId = 28
+
+    Authen.init
+        userInfoPath: CFG.API.getUserInfo()
 
     $ionicPlatform.ready ->
-        # Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-        # for form inputs)
-        if window.cordova and window.cordova.plugins and window.cordova.plugins.Keyboard # native mode
+        if window.cordova and window.cordova.plugins and window.cordova.plugins.Keyboard
             $cordovaKeyboard.hideAccessoryBar yes
             $cordovaKeyboard.disableScroll yes
-
         return
-
-    #console.log $rootScope
-    #$rootScope.$on '$locationChangeStart', (e) ->
-    #    console.log e

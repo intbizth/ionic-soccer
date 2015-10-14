@@ -1,0 +1,7 @@
+ui.e:
+    competitionAndTable:
+        title: Competition and Table
+        tab:
+            fixture: Fixture
+            result: Results
+            position-table: Position Table
