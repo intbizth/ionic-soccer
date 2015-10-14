@@ -95,7 +95,7 @@ class GamesMain extends Controller then constructor: (
                 homeClub: null
                 awayClub: null
                 datetime: Chance.date(datetime)
-                template: Chance.pick(['before', 'after'])
+                template: Chance.pick(['before'])
             if Chance.pick([true, false])
                 item.homeClub = clubs[0]
                 item.awayClub = clubs[1]

@@ -71,4 +71,11 @@ $ml-label-bg: #1f304c;
         height: 2px;
         width: 100%;
     }
+
+    .footer-section {
+        margin-top: -2px !important;
+        background-color: $game-detail-bg;
+        height: 8px;
+        width: 100%;
+    }
 }
