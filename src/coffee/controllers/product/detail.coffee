@@ -1,38 +1,30 @@
 class ProductDetail extends Controller then constructor: (
-    $scope, $ionicHistory, $timeout, Und, Chance
+    $scope, $stateParams, $ionicHistory, $ionicLoading, Products, Und
 ) ->
     $scope.back = ->
         $ionicHistory.goBack -1
         return
 
+    productId = $stateParams.id || ''
+    productStore = new Products()
+    options =
+        scope: $scope
+        key: 'r'
+
     $scope.product =
-        item : {},
-        loadData : ->
-            item = this.fakeItem()
-            this.item =  item
-            console.log('product:loadData', JSON.stringify(this.item))
-            return
-        doRefresh : ->
-            console.log 'product:doRefresh'
-            $this = this
-            $timeout(->
-                console.log 'product:doRefresh2'
-                $this.loadData()
-                $scope.$broadcast 'scroll.refreshComplete'
-                return
-            , 2000)
-            return
-        fakeItem : ->
-            product = Chance.product()
-            item =
-                id: Und.random(1, 9999999)
-                title: 'Online Simple store'
-                image: product.image.css
-                name: Chance.sentence()
-                detail: Chance.paragraph()
-                price: Chance.floating({min: 0, max: 9999999, fixed: 2})
-                contact: Chance.sentence()
-                datetime: Chance.date()
-            return item
+        item: {}
+        loadData: (args) ->
+            pull = if !Und.isUndefined(args) and !Und.isUndefined(args.pull) and Und.isBoolean(args.pull) then args.pull else no
+            promise = productStore.find productId, options
+            promise.finally ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            promise.then (model) -> $scope.product.item = model.dataTranformToDetail()
+        refresh: ->
+            $scope.product.loadData(pull: yes)
 
     $scope.product.loadData()
+
+    $ionicLoading.show()

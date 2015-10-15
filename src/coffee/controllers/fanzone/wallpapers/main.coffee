@@ -1,61 +1,94 @@
 class FanzoneWallpapers extends Controller then constructor: (
-    $scope, $timeout, Und, Chance
+    $rootScope, $scope, $ionicLoading, $ionicPopup, $cordovaFileTransfer, $timeout, md5, Wallpapers, Und
 ) ->
+    $scope.downloadFile = (url) ->
+        confirmPopup = $ionicPopup.confirm(
+            title: 'Confirm',
+            template: 'Are you sure you want to download this wallpaper?'
+            cancelText: 'Cancel'
+            okText: 'Save'
+        )
+
+        confirmPopup.then (res) ->
+            console.log res
+            if res
+                name = md5.createHash(url) + '.png'
+                url = url || ''
+                targetPath = ''
+                if $rootScope.isIOS
+                    targetPath = cordova.file.dataDirectory
+                else if $rootScope.isAndroid
+                    targetPath = cordova.file.externalApplicationStorageDirectory
+                targetPath += name
+                options = {}
+                trustHosts = yes
+
+                console.warn 'name', name, JSON.stringify name
+                console.warn 'targetPath', targetPath
+
+                $ionicLoading.show()
+
+                $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then (result) ->
+                    console.warn 'result', result, JSON.stringify result
+                    $ionicPopup.alert(
+                        title: 'Saved.'
+                        okText: 'Ok'
+                    )
+                    $ionicLoading.hide()
+                , (error) ->
+                    console.warn 'error', error, JSON.stringify error
+                    $ionicPopup.alert(
+                        title: 'Can\'t save.'
+                        okText: 'Ok'
+                    )
+                    $ionicLoading.hide()
+                , (progress) ->
+                    $timeout(->
+                        $scope.downloadProgress = (progress.loaded / progress.total) * 100;
+                        console.warn 'downloadProgress', $scope.downloadProgress
+                    )
+            return
+
+    wallpaperStore = new Wallpapers null,
+        url: Wallpapers::url + 'club/' + $rootScope.clubId
+        state: pageSize: 20
+
+    options =
+        scope: $scope
+        wallpaperStoreKey: 'wallpaperStore'
+        collectionKey: 'wallpaperCollection'
+
     $scope.wallpapers =
         items: []
-        next: no
+        hasMorePage: no
         loadData: ->
-            @items = @fakeItems()
-            $scope.next = @next = if @items.length > 0 then Chance.bool() else no
-            console.log('wallpapers:loadData', @items.length, JSON.stringify(@items), @next)
-            return
-        doRefresh: ->
-            console.log 'wallpapers:doRefresh'
-            $this = @
-            $timeout(->
-                console.log 'wallpapers:doRefresh2'
-                $this.loadData()
-                $scope.$broadcast 'scroll.refreshComplete'
-                return
-            , 2000)
-            return
-        loadMore: ->
-            console.log 'wallpapers:loadMore'
-            $this = @
-            $timeout(->
-                console.log 'wallpapers:loadMore2'
-                items = $this.fakeItems()
-                for item in items
-                    $this.items.push item
-                $scope.next = $this.next =  if $this.items.length > 0 then Chance.bool() else no
-                console.log('wallpapers:loadMore', $this.items.length, JSON.stringify($this.items), $this.next)
-                $scope.$broadcast 'scroll.infiniteScrollComplete'
-                return
-            , 2000)
-            return
-        fakeItem: ->
-            wallpaper = Chance.wallpaper()
-            item =
-                id: Und.random(1, 9999999)
-                image: wallpaper.image.src
-                datetime: Chance.date()
-            return item
-        fakeItems: ->
-            items = []
-            i = 0
-            ii = Und.random(0, 20)
-            while i < ii
-                items.push @fakeItem()
-                i++
-            items = Und.sortBy(items, 'datetime')
-            return items
+            promise = wallpaperStore.load options
+            promise.finally -> $ionicLoading.hide()
+            promise.then ->
+                $scope.wallpapers.items = Und.map wallpaperStore.getCollection(), (item) ->
+                    return item.dataTranformToFanzone()
+                $scope.wallpapers.hasMorePage = wallpaperStore.hasMorePage()
+        refresh: ->
+            options.fetch = yes
+            # TODO getFirstPage
+            promise = wallpaperStore.getFirstPage options
+            promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
+            promise.then ->
+                $scope.wallpapers.items = Und.map wallpaperStore.getCollection(), (item) ->
+                    return item.dataTranformToFanzone()
+                $scope.wallpapers.hasMorePage = wallpaperStore.hasMorePage()
+        loadNext: ->
+            wallpaperStore.prepend = yes
+            promise = wallpaperStore.getNextPage options
+            promise.finally -> $scope.$broadcast 'scroll.infiniteScrollComplete'
+            promise.then ->
+                items = wallpaperStore.getCollection().slice 0, wallpaperStore.state.pageSize
+                items = Und.map items, (item) ->
+                    return item.dataTranformToFanzone()
+                $scope.wallpapers.items = $scope.wallpapers.items.concat items
+                $scope.wallpapers.hasMorePage = wallpaperStore.hasMorePage()
 
     $scope.wallpapers.loadData()
 
-    $scope.next = no
-    $scope.refresh = ->
-        $scope.wallpapers.refresh()
-        return
-    $scope.loadMore = ->
-        $scope.wallpapers.loadMore()
-        return
+    $ionicLoading.show()
+    

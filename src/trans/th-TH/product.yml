@@ -1,0 +1,4 @@
+ui.t:
+    product:
+        title: ผลิตภัณฑ์
+        price: ราคา
