@@ -10,8 +10,13 @@ class LineupMain extends Controller then constructor: (
     $scope.format = $scope.format.join '-'
 
     footballField = angular.element $document[0].body.getElementsByClassName('football-field')
+    $scope.footballField = footballField[0]
+    $scope.footballField.centerX = $scope.footballField.offsetWidth / 2
+    $scope.footballField.centerY = $scope.footballField.offsetHeight / 2
 
-    console.warn 'footballField', typeof footballField, footballField
-
-    console.warn 'footballField[0].offsetWidth', typeof footballField[0].offsetWidth, footballField[0].offsetWidth
-    console.warn 'footballField[0].offsetHeight', typeof footballField[0].offsetHeight, footballField[0].offsetHeight
+    console.warn '$scope.footballField', typeof $scope.footballField, $scope.footballField
+    console.warn '$scope.footballField', typeof $scope.footballField, $scope.footballField
+    console.warn '$scope.footballField.offsetWidth', typeof $scope.footballField.offsetWidth, $scope.footballField.offsetWidth
+    console.warn '$scope.footballField.offsetHeight', typeof $scope.footballField.offsetHeight, $scope.footballField.offsetHeight
+    console.warn '$scope.footballField.centerX', typeof $scope.footballField.centerX, $scope.footballField.centerX
+    console.warn '$scope.footballField.centerY', typeof $scope.footballField.centerY, $scope.footballField.centerY
