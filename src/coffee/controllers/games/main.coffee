@@ -95,6 +95,9 @@ class GamesMain extends Controller then constructor: (
                 homeClub: null
                 awayClub: null
                 datetime: Chance.date(datetime)
+                is_live: Chance.bool({
+                    likelihood: 30
+                })
                 template: Chance.pick(['before'])
             if Chance.pick([true, false])
                 item.homeClub = clubs[0]
@@ -106,7 +109,7 @@ class GamesMain extends Controller then constructor: (
         fakeItems: (datetime) ->
             items = []
             i = 0
-            ii = Und.random(0, 5)
+            ii = Und.random(0, 3)
             while i < ii
                 item = this.fakeItem(datetime)
                 items.push item

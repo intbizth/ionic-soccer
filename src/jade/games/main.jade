@@ -45,36 +45,31 @@ ion-view.games
                             div.text
                                 | {{ 'ui.t.games.nomatch'|trans }}
                 div(ng-repeat="item in section.items")
-                    .row.label
-                        .col-40.col-center.club
-                            img.logo(ng-src="{{item.homeClub.logo}}")
-                            span.name.text-center {{item.homeClub.name}}
+                    div.row.label
+                        div.col-40.col-center.club
+                            div.row
+                                div.col.col-75.col-center.text-center
+                                    span.name.text-center {{item.homeClub.name}}
+                                div.col.col-25.col-center
+                                    img.logo.-right(ng-src="{{item.homeClub.logo}}")
 
-                        .col-20.col-center.vs.-nextmatch.detail.text-center
+                        div.col-20.col-center.vs.-live(ng-if="item.is_live").detail.text-center
+                            div.live
+                                | {{ 'ui.t.games.live'|trans }}
+                            div.time
+                                | {{item.datetime | date:'HH:MM'}}
+
+                        div.col-20.col-center.vs.-nextmatch(ng-if="!item.is_live").detail.text-center
                             div.time
                                 | {{item.datetime | date:'HH:mm'}}
                             div.date
                                 | {{item.datetime | date:'dd MMM yyyy'}}
 
-                        .col-40.col-center.club
-                            img.logo.-right(ng-src="{{item.awayClub.logo}}")
-                            span.name.text-center {{item.awayClub.name}}
-                    .space
-
-                    //div.row.label
-                        div.col.col-15.col-center.logo.text-center
-                            img.image(ng-src="{{item.homeClub.logo}}")
-                        div.col.col-25.col-center.name.text-center
-                            | {{item.homeClub.name}}
-                        div.col.col-20.col-center.detail.text-center
-                            div(ng-show="item.template == 'before'")
-                                div.time
-                                    | {{item.datetime | date:'HH:mm'}}
-                                div.date
-                                    | {{item.datetime | date:'dd MMM yyyy'}}
-                        div.col.col-25.col-center.name.text-center
-                            | {{item.awayClub.name}}
-                        div.col.col-15.col-center.logo.text-center
-                            img.image(ng-src="{{item.awayClub.logo}}")
-                    //div.space
+                        div.col-40.col-center.club
+                            div.row
+                                div.col.col-25.col-center
+                                    img.logo(ng-src="{{item.awayClub.logo}}")
+                                div.col.col-75.col-center.-left.text-center
+                                    div.name.text-center {{item.awayClub.name}}
+                    div.space
                 div.footer-section
