@@ -2,10 +2,15 @@ $game-detail-bg: #1f304c;
 $game-detail-text: #ffffff;
 $ml-section-bg: #e0e1e2;
 $ml-section-gameweek-text: #f7a032;
+$ml-section-footer: #094e99;
 $ml-label-club-name: #000000;
-$ml-label-vs-bg: #1f304c;
+$ml-label-vs-bg: $ml-section-footer;
 $ml-label-vs-textup: #ffffff;
 $ml-label-vs-textdown: #ffffff;
+$ml-label-footer: $ml-label-vs-bg;
+$ml-progress-bars: #094e99;
+$ml-progressed-right: #FAAF40;
+$ml-progressed-left: #FF3B30;
 
 .platform-android {
     .title.title-left.header-item {
@@ -68,8 +73,8 @@ $ml-label-vs-textdown: #ffffff;
 
             .logo {
                 width: 30px;
-                margin-top: 3px;
-                margin-left: 5px;
+                //margin-top: 3px;
+                //margin-left: 5px;
             }
 
             .name {
@@ -127,14 +132,56 @@ $ml-label-vs-textdown: #ffffff;
     }
 
     .space {
-        background-color: $game-detail-bg;
+        background-color: $ml-label-footer;
         height: 2px;
         width: 100%;
     }
 
+    .progress-bars {
+        height: 30px;
+        overflow: hidden;
+        background: $ml-progress-bars;
+        padding-top: 0px;
+
+        .bars {
+            margin: 0 auto;
+            width: 50%;
+
+            .progressed {
+                height: 6px;
+                float: left;
+                position: relative;
+
+                .-right {
+                    z-index: 1;
+                    position: absolute;
+                    width: 0;
+                    height: 0;
+                    left: -6px;
+                    border-top: 6px solid $ml-progressed-right;
+                    border-left: 6px solid transparent;
+                }
+
+                .-left {
+                    z-index: 1;
+                    position: absolute;
+                    width: 0;
+                    height: 0;
+                    right: -6px;
+                    border-top: 6px solid $ml-progressed-left;
+                    border-right: 6px solid transparent;
+                }
+            }
+        }
+
+        .text {
+            color: #ffffff;
+        }
+    }
+
     .footer-section {
         margin-top: -2px !important;
-        background-color: $game-detail-bg;
+        background-color: $ml-section-footer;
         height: 8px;
         width: 100%;
     }

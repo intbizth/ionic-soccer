@@ -33,7 +33,7 @@ ion-view.games
             div(ng-repeat="section in matchLabel.sections")
                 div.row.row-center.section
                     div.logo
-                        img.image(src="./img/logo/match_label@2x.png")
+                        img.image(src="{{section.logo}}")
                     div.league
                         | {{section.name}} {{section.datetime|date : 'yyyy'}}
                     div.gameweek
@@ -53,13 +53,13 @@ ion-view.games
                                 div.col.col-25.col-center
                                     img.logo.-right(ng-src="{{item.homeClub.logo}}")
 
-                        div.col-20.col-center.vs.-live(ng-if="item.is_live").detail.text-center
+                        div.col-20.col-center.vs.-live(ng-if="item.isLive").detail.text-center
                             div.live
                                 | {{ 'ui.t.games.live'|trans }}
                             div.time
                                 | {{item.datetime | date:'HH:MM'}}
 
-                        div.col-20.col-center.vs.-nextmatch(ng-if="!item.is_live").detail.text-center
+                        div.col-20.col-center.vs.-nextmatch(ng-if="!item.isLive").detail.text-center
                             div.time
                                 | {{item.datetime | date:'HH:mm'}}
                             div.date
@@ -71,5 +71,22 @@ ion-view.games
                                     img.logo(ng-src="{{item.awayClub.logo}}")
                                 div.col.col-75.col-center.-left.text-center
                                     div.name.text-center {{item.awayClub.name}}
-                    div.space
-                div.footer-section
+
+                    div.space(ng-if="!item.isLive")
+
+                    div(ng-if="item.isLive")
+                        .progress-bars
+                            .row.row-center
+                                .col-20.text-right.text
+                                    | {{item.leftValue}}%
+                                .col.bars
+                                    .progressed(
+                                    ng-repeat="progress in item.progressData",
+                                    style="width:{{progress.value}}%;background-color:{{progress.color}}",
+                                    )
+                                        div(ng-if="progress.won")
+                                            div(class="{{progress.status}}")
+                                .col-20.text
+                                    | {{item.rightValue}}%
+
+            div.footer-section
