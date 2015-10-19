@@ -1,0 +1,26 @@
+ion-view.games-show
+    ion-nav-title Games show
+    ion-nav-buttons(side="left")
+        a.button.button-icon.ion-ios-arrow-left(ng-if="isIOS",ng-click="back()")
+            img.logo(
+            src="./img/logo/navbar.png"
+            srcset="./img/logo/navbar@2x.png 2x"
+            )
+    ion-nav-buttons(side="right")
+        a.button.button-clear(ng-click="")
+            i.icon.ion-android-more-vertical
+
+    ion-content.content(scroll="false")
+        ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
+            ion-tab(title="Prediction")
+                ion-content.score.fix-tab
+                    div(ui-view="score")
+            ion-tab(title="11 Players")
+                ion-content.player.fix-tab
+                    div(ui-view="player")
+            ion-tab(title="Statistic")
+                ion-content.statistic.fix-tab
+                    div(ui-view="statistic")
+            ion-tab(title="Live")
+                ion-content.statistic.fix-tab
+                    div(ui-view="live")

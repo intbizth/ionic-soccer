@@ -64,6 +64,24 @@ class Routing extends Config then constructor: (
         controller: 'gamesMainController'
         templateUrl: 'templates/games/main.html'
 
+    state 'games-show',
+        url: '/games/show/main'
+        controller: 'gamesShowMainController'
+        templateUrl: 'templates/games/show/main.html'
+
+    state 'games-show.main',
+        url: '/main'
+        views:
+            score:
+                controller: 'gamesScoreController'
+                templateUrl: 'templates/games/show/score/main.html'
+            player:
+                controller: 'gamesPlayerController'
+                templateUrl: 'templates/games/show/player/main.html'
+            statistic:
+                controller: 'gamesStatisticController'
+                templateUrl: 'templates/games/show/statistic/main.html'
+
     state 'live',
         url: '/live/main'
         controller: 'liveMainController'

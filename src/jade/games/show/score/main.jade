@@ -1,0 +1,86 @@
+div.match-label
+    div.row.row-center.section
+        div.logo
+            img.image(src="./img/logo/match_label@2x.png")
+        div.league
+            | {{section.name}} {{section.datetime|date : 'yyyy'}}
+    div.row.label
+        div.col-40.col-center.club
+            img.logo(ng-src="{{item.homeClub.logo}}")
+            span.name.text-center {{item.homeClub.name}}
+
+        div.col-20.col-center.vs.-nextmatch.detail.text-center
+            div.time
+                | {{item.datetime | date:'HH:mm'}}
+            div.date
+                | {{item.datetime | date:'dd MMM yyyy'}}
+
+        div.col-40.col-center.club
+            img.logo.-right(ng-src="{{item.awayClub.logo}}")
+            span.name.text-center {{item.awayClub.name}}
+
+div.handycap
+    div.row
+        div.col.col-center.text-center
+            span Handicap
+            span  - 0.25
+
+div.predict
+    div.row
+        div.col
+            | ทายผล
+    div.row
+        div.col.col-33
+            | Chonburi FC
+        div.col.col-33
+            | Draw
+        div.col.col-33
+            | Suphanburi FC
+
+div.rate
+    div.row
+        div.col
+        div.col
+
+div.table
+    div.row
+        div.col
+            | League Table
+    div.row.head
+        div.col.col-10
+            | Pos
+        div.col.col-50
+            | Team
+        div.col.col-10
+            | P
+        div.col.col-10
+            | GD
+        div.col.col-10
+            | Pts
+        div.col.col-10
+    div.row.teamHome
+        div.col.col-10
+            | 1
+        div.col.col-50
+            | Chonburi FC
+        div.col.col-10
+            | 10
+        div.col.col-10
+            | 20
+        div.col.col-10
+            | 25
+        div.col.col-10
+            | >.<
+    div.row.teamAway
+        div.col.col-10
+            | 5
+        div.col.col-50
+            | Suphanburi FC
+        div.col.col-10
+            | 10
+        div.col.col-10
+            | 5
+        div.col.col-10
+            | 25
+        div.col.col-10
+            | >.<

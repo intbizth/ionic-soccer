@@ -1,0 +1,46 @@
+.platform-ios {
+    .games-show {
+        .content {
+            margin-top: -66px !important;
+        }
+
+        .fix-tab {
+            top: 112px !important;
+            height: auto !important;
+        }
+    }
+}
+
+.platform-android {
+    .title.title-left.header-item {
+        left: 0 !important;
+    }
+
+    .games-show {
+        .content {
+            margin-top: -44px !important;
+        }
+
+        .fix-tab {
+            top: 90px !important;
+            height: auto !important;
+        }
+    }
+}
+
+.games-show {
+    .score {
+        //background-color: #0056a2;
+        @import "score/main";
+    }
+
+//    .player {
+//        background-color: #0056a2;
+//        @import "player/main";
+//    }
+//
+//    .statistic {
+//        background-color: #0056a2;
+//        @import "statistic/main";
+//    }
+}

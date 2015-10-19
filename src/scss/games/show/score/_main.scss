@@ -1,0 +1,88 @@
+$game-detail-bg: #1f304c;
+$game-detail-text: #ffffff;
+$ml-section-bg: #e0e1e2;
+$ml-section-gameweek-text: #f7a032;
+$ml-label-bg: #1f304c;
+
+$match-header-text: #fff;
+$match-item-name-item: #000;
+$match-item-live-vs: #549AF7;
+$match-item-live-vs-text: $match-header-text;
+$match-item-nextmatch-text: $match-item-name-item;
+$match-vs-ft: $match-item-live-vs;
+$match-vs-ft-color: #fff;
+
+.match-label {
+    .section {
+        background-color: $ml-section-bg;
+
+        .logo {
+            .image {
+                padding-top: 4px;
+                width: 25px;
+                height: 25px;
+            }
+        }
+
+        .league {
+            padding-left: 6px;
+        }
+    }
+
+    .label {
+        overflow: hidden;
+        border-width: 0;
+        padding: 0px 5px;
+        //min-height: 80px;
+        height: 65px;
+        .club {
+            width: 40%;
+            float: left;
+            .logo {
+                width: 30px;
+                margin-top: 3px;
+                margin-left: 5px;
+            }
+            .name {
+                margin-left: 1px;
+                text-align: center;
+                position: absolute;
+                //padding-top: 8px;
+                font-size: 13px;
+                width: 24%;
+                white-space: normal;
+                color: $match-item-name-item;
+            }
+            .-right {
+                float: right !important;
+                margin-right: 2px;
+            }
+        }
+
+        .vs {
+            width: 20%;
+            text-align: center;
+            //padding-top: 8px;
+            float: left;
+            margin: 0 auto;
+            height: 100%;
+
+            background-color: #1f304c;
+
+            &.-nextmatch {
+                padding-top: 8px;
+                //font-size: 1em;
+                //color: #ffffff;
+
+                .time {
+                    color: #ffffff;
+                }
+
+                .date {
+                    color: #ffffff;
+                }
+            }
+
+        }
+    }
+}

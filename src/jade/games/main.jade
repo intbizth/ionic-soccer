@@ -45,7 +45,7 @@ ion-view.games
                             div.text
                                 | {{ 'ui.t.games.nomatch'|trans }}
                 div(ng-repeat="item in section.items")
-                    .row.label
+                    .row.label(ui-sref="games-show")
                         .col-40.col-center.club
                             img.logo(ng-src="{{item.homeClub.logo}}")
                             span.name.text-center {{item.homeClub.name}}
