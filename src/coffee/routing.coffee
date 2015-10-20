@@ -1,6 +1,4 @@
-class Routing extends Config then constructor: (
-    $stateProvider, $urlRouterProvider
-) ->
+class Routing extends Config then constructor: ($stateProvider, $urlRouterProvider) ->
     state = $stateProvider.state
 
     state 'about-club',
@@ -63,6 +61,18 @@ class Routing extends Config then constructor: (
         url: '/games'
         controller: 'gamesMainController'
         templateUrl: 'templates/games/main.html'
+
+    state 'games-detail',
+        url: '/games-detail/main'
+        controller: 'gamesDetailMainController'
+        templateUrl: 'templates/games-detail/main.html'
+
+    state 'games-detail.main',
+        url: '/main'
+        views:
+            gamesPrediction:
+                controller: 'gamesDetailPredictionController'
+                templateUrl: 'templates/games-detail/prediction/main.html'
 
     state 'live',
         url: '/live/main'
