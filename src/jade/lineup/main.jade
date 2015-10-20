@@ -1,12 +1,15 @@
 ion-view.lineup
     ion-nav-title Lineup
+    ion-nav-buttons(side="right")
+        a.button.button-clear(ng-click="footballField.toggleLock()")
+            i.icon.ion-ios-checkmark-outline(ng-if="footballField.isLock")
+            i.icon.ion-ios-circle-outline(ng-if="!footballField.isLock")
 
     ion-content.content
         div.row.format
             div.col.col-center {{format}}
 
         div.football-field
-            div.lineX.-chart(ng-style="{'left': footballField.centerX + 'px'}")
-            div.lineY.-chart(ng-style="{'top': footballField.centerY + 'px'}")
+            div.player(draggable)
 
-        h1 Test lineup
+        div {{content}}
