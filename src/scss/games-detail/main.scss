@@ -32,4 +32,16 @@
     .prediction {
         @import "prediction/main";
     }
+
+    .coacher11 {
+        @import "coacher11/main";
+    }
+
+    .ranking {
+        @import "ranking/main";
+    }
+
+    .live {
+        @import "live/main";
+    }
 }
