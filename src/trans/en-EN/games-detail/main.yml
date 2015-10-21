@@ -1,0 +1,8 @@
+ui.e:
+    gamesdetail:
+        title: Games Detail
+        tab:
+            prediction: Prediction
+            coacher11: Coacher 11
+            ranking: Ranking
+            live: Live

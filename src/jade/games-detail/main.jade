@@ -1,6 +1,6 @@
 ion-view.games-detail
     ion-nav-title
-        | เล่นเกมทายผล
+        | {{navBarTitle.titleName}}
 
     ion-nav-buttons(side="left")
         a.button.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
@@ -10,15 +10,15 @@ ion-view.games-detail
             )
     ion-content.content(scroll="false")
         ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
-            ion-tab(title="เกมทายผลสกอร์")
+            ion-tab(title="{{'ui.t.gamesdetail.tab.prediction' | trans}}", on-select="navBarTitle.setTitle('{{'ui.t.gamesdetail.tab.prediction'|trans}}')")
                 ion-content.prediction.fix-tab
                     div(ui-view='prediction')
-            ion-tab(title="เกมทาย 11 ตัวจริง")
+            ion-tab(title="{{'ui.t.gamesdetail.tab.coacher11' | trans}}", on-select="navBarTitle.setTitle('{{'ui.t.gamesdetail.tab.coacher11'|trans}}')")
                 ion-content.coacher11.fix-tab
                     div(ui-view='coacher11')
-            ion-tab(title="สถิติ")
+            ion-tab(title="{{'ui.t.gamesdetail.tab.ranking' | trans}}", on-select="navBarTitle.setTitle('{{'ui.t.gamesdetail.tab.ranking'|trans}}')")
                 ion-content.ranking.fix-tab
                     div(ui-view='ranking')
-            ion-tab(title="สถิติ")
+            ion-tab(title="{{'ui.t.gamesdetail.tab.live' | trans}}", on-select="navBarTitle.setTitle('{{'ui.t.gamesdetail.tab.live'|trans}}')")
                 ion-content.live.fix-tab
                     div(ui-view='live')
