@@ -13,6 +13,6 @@ ion-view.lineup
 
         div.football-field
             div(ng-repeat="position in footballField.player.positions")
-                div.player(ng-style="position.style", ng-class="position.className")
+                div.player(data-id="{{position.id}}", ng-style="position.style", ng-class="position.className")
 
         div {{content}}

@@ -17,6 +17,7 @@ class LineupMain extends Controller then constructor: (
             $ionicScrollDelegate.scrollTop yes
             $ionicScrollDelegate.freezeAllScrolls @isLock
         element: angular.element $document[0].body.getElementsByClassName 'football-field'
+        data: []
         player:
             positions: []
             color: [
@@ -37,7 +38,9 @@ class LineupMain extends Controller then constructor: (
                 player = $scope.footballField.player
                 player.color = Und.shuffle player.color
 
-                console.log element
+                console.warn 'offsetTop', element[0].offsetTop
+                console.warn 'offsetHeight', element[0].offsetHeight
+                console.warn 'offsetWidth', element[0].offsetWidth
 
                 i = 1
                 ii = player.color.length
@@ -47,14 +50,27 @@ class LineupMain extends Controller then constructor: (
                         top: Und.random(element[0].offsetTop, element[0].offsetTop + element[0].offsetHeight - 50) + 'px'
                         left: Und.random(0, element[0].offsetWidth - 50) + 'px'
                     player.positions.push
+                        id: Chance.hash()
                         className: className
                         style: style
                     i++
-                    console.warn 'className', className
-                    console.warn 'style', JSON.stringify style
 
     $scope.footballField.player.randomPosition()
 
     $timeout(->
-        $('.player').draggable containment: '.football-field', scroll: false
+        $('.player').draggable(
+            scroll: no
+            containment: '.football-field'
+            stop: (event, ui) ->
+                $('.player').each (index) ->
+                    offset = $(@).offset()
+                    width = $(@).width()
+                    height = $(@).height()
+
+                    $scope.footballField.data.push
+                        id: $(@).data 'id'
+                        x: offset.left + width / 2
+                        y: (offset.top + height / 2) - $scope.footballField.element[0].offsetTop
+                console.warn $scope.footballField.data
+        )
     )
