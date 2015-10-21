@@ -12,6 +12,7 @@ ion-view.lineup
             div.col.col-center {{format}}
 
         div.football-field
-            div.player
+            div(ng-repeat="position in footballField.player.positions")
+                div.player(ng-style="position.style", ng-class="position.className")
 
         div {{content}}
