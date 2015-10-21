@@ -1,7 +1,7 @@
 ion-view.lineup
     ion-nav-title Lineup
     ion-nav-buttons(side="right")
-        a.button.button-clear(ng-click="footballField.toggleLock()")
+        a.button.button-clear(ng-click="footballField.setLock(!footballField.isLock)")
             i.icon.ion-ios-checkmark-outline(ng-if="footballField.isLock")
             i.icon.ion-ios-circle-outline(ng-if="!footballField.isLock")
             span(ng-if="!footballField.isLock") can scroll
@@ -12,7 +12,8 @@ ion-view.lineup
             div.col.col-center {{format}}
 
         div.football-field
-            div(ng-repeat="position in footballField.player.positions")
-                div.player(data-id="{{position.id}}", ng-style="position.style", ng-class="position.className")
+            div(ng-repeat="personal in personals.items")
+                div.player(data-id="{{personal.id}}", ng-style="{'top':personal.top,'left':personal.left}")
+                    div.centerPoint {{personal.centerPoint.x}},{{personal.centerPoint.y}}
 
         div {{content}}

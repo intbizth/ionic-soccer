@@ -2,8 +2,8 @@ class LineupMain extends Controller then constructor: (
     $rootScope, $scope, $ionicScrollDelegate, $document, $timeout, Chance, Und
 ) ->
     $scope.format = []
-    random = Chance.integer(min: 3, max: 4)
     i = 1
+    random = Und.random(3, 4)
     while i <= random
         $scope.format.push 0
         i++
@@ -11,66 +11,95 @@ class LineupMain extends Controller then constructor: (
     $scope.content = Chance.paragraph(sentences: Und.random(20, 200))
 
     $scope.footballField =
-        isLock: no
-        toggleLock: ->
-            @isLock = !@isLock
-            $ionicScrollDelegate.scrollTop yes
-            $ionicScrollDelegate.freezeAllScrolls @isLock
-        element: angular.element $document[0].body.getElementsByClassName 'football-field'
-        data: []
+        className: 'football-field'
+        getElement: ->
+            angular.element $document[0].body.getElementsByClassName @className
+        isLock: yes
+        setLock: (value) ->
+            $ionicScrollDelegate.scrollTop value
+            $ionicScrollDelegate.freezeAllScrolls value
+            @isLock = value
         player:
-            positions: []
-            color: [
-                '-yellow'
-                '-red'
-                '-greenyellow'
-                '-blue'
-                '-blueviolet'
-                '-saddlebrown'
-                '-tan'
-                '-hotpink'
-                '-aqua'
-                '-black'
-                '-cornsilk'
-            ]
-            randomPosition: ->
-                element = $scope.footballField.element
-                player = $scope.footballField.player
-                player.color = Und.shuffle player.color
+            width: 70
+            height: 70
 
-                console.warn 'offsetTop', element[0].offsetTop
-                console.warn 'offsetHeight', element[0].offsetHeight
-                console.warn 'offsetWidth', element[0].offsetWidth
+    $scope.personals =
+        items: []
+        data: []
+        getCenterPoint: (element) ->
+            footballField = $scope.footballField.getElement()
+            return {
+                x: element.offset().left + element.width() / 2
+                y: (element.offset().top + element.height() / 2) - footballField[0].offsetTop
+            }
+        centerPointToPosition: (point) ->
+            return {
+                top: (point.y - ($scope.footballField.player.height / 2)) + 'px'
+                left: (point.x - ($scope.footballField.player.width / 2)) + 'px'
+            }
+        loadDrag: ->
+            $timeout(->
+                $scope.footballField.setLock($scope.footballField.isLock)
+                $('.player').draggable(
+                    scroll: no
+                    containment: '.' + $scope.footballField.className
+                    start: (event, ui) ->
+                        centerPoint =
+                            x: ui.position.left + ($scope.footballField.player.width / 2)
+                            y: ui.position.top + ($scope.footballField.player.height / 2)
+                        $(@).find('.centerPoint').html centerPoint.x + ',' + centerPoint.y
+                    drag: (event, ui) ->
+                        centerPoint =
+                            x: ui.position.left + ($scope.footballField.player.width / 2)
+                            y: ui.position.top + ($scope.footballField.player.height / 2)
+                        $(@).find('.centerPoint').html centerPoint.x + ',' + centerPoint.y
+                    stop: (event, ui) ->
+                        centerPoint =
+                            x: ui.position.left + ($scope.footballField.player.width / 2)
+                            y: ui.position.top + ($scope.footballField.player.height / 2)
+                        $(@).find('.centerPoint').html centerPoint.x + ',' + centerPoint.y
+                        $('.player').each (index) ->
+                            centerPoint = $scope.personals.getCenterPoint($(@))
+                            $scope.personals.data.push
+                                 id: $(@).data 'id'
+                                 x: centerPoint.x
+                                 y: centerPoint.y
+                        console.warn $scope.personals.data
+                )
+                console.warn $scope.personals.items
+            )
+        fakeCenterPoint: ->
+            footballField = $scope.footballField.getElement()
+            x =
+                min: 0
+                max: footballField[0].offsetWidth - $scope.footballField.player.width
+            y =
+                min: footballField[0].offsetTop
+                max: footballField[0].offsetTop + footballField[0].offsetHeight - $scope.footballField.player.width
+            x.random = Und.random(x.min, x.max)
+            y.random = Und.random(y.min, y.max)
+            return {
+                x: x.random + ($scope.footballField.player.height / 2)
+                y: y.random + ($scope.footballField.player.width / 2)
+            }
+        fakeItems: ->
+            i = 1
+            ii = 11
+            while i <= ii
+                centerPoint = $scope.personals.fakeCenterPoint()
+                position = $scope.personals.centerPointToPosition centerPoint
+                @items.push
+                    id: Chance.hash()
+                    top: position.top
+                    left: position.left
+                    centerPoint: centerPoint
+                i++
 
-                i = 1
-                ii = player.color.length
-                while i <= ii
-                    className = player.color[i - 1]
-                    style =
-                        top: Und.random(element[0].offsetTop, element[0].offsetTop + element[0].offsetHeight - 50) + 'px'
-                        left: Und.random(0, element[0].offsetWidth - 50) + 'px'
-                    player.positions.push
-                        id: Chance.hash()
-                        className: className
-                        style: style
-                    i++
+    footballField = $scope.footballField.getElement()
 
-    $scope.footballField.player.randomPosition()
+    console.warn 'footballField', 'top', footballField[0].offsetTop
+    console.warn 'footballField', 'width', footballField[0].offsetWidth
+    console.warn 'footballField', 'height', footballField[0].offsetHeight
 
-    $timeout(->
-        $('.player').draggable(
-            scroll: no
-            containment: '.football-field'
-            stop: (event, ui) ->
-                $('.player').each (index) ->
-                    offset = $(@).offset()
-                    width = $(@).width()
-                    height = $(@).height()
-
-                    $scope.footballField.data.push
-                        id: $(@).data 'id'
-                        x: offset.left + width / 2
-                        y: (offset.top + height / 2) - $scope.footballField.element[0].offsetTop
-                console.warn $scope.footballField.data
-        )
-    )
+    $scope.personals.fakeItems()
+    $scope.personals.loadDrag()
