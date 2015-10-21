@@ -17,3 +17,5 @@ class LineupMain extends Controller then constructor: (
     $scope.format = $scope.format.join '-'
 
     $scope.content = Chance.paragraph(sentences: Und.random(20, 200))
+
+    $('.player').draggable containment: '.football-field', scroll: false

@@ -4,12 +4,14 @@ ion-view.lineup
         a.button.button-clear(ng-click="footballField.toggleLock()")
             i.icon.ion-ios-checkmark-outline(ng-if="footballField.isLock")
             i.icon.ion-ios-circle-outline(ng-if="!footballField.isLock")
+            span(ng-if="!footballField.isLock") can scroll
+            span(ng-if="footballField.isLock") can't scroll
 
     ion-content.content
         div.row.format
             div.col.col-center {{format}}
 
         div.football-field
-            div.player(draggable)
+            div.player
 
         div {{content}}
