@@ -1,4 +1,127 @@
 @charset "UTF-8";
 
-.live {
+//$game-detail-bg: #1f304c;
+//$game-detail-text: #ffffff;
+//$ml-section-bg: #e0e1e2;
+//$ml-section-gameweek-text: #f7a032;
+//$ml-section-footer: #094e99;
+//$ml-label-club-name: #000000;
+//$ml-label-vs-bg: $ml-section-footer;
+//$ml-label-vs-textup: #ffffff;
+//$ml-label-vs-textdown: #ffffff;
+//$ml-label-footer: $ml-label-vs-bg;
+//$ml-progress-bars: #094e99;
+//$ml-progressed-right: #FAAF40;
+//$ml-progressed-left: #FF3B30;
+
+.games-live {
+    .inrow {
+        padding: 0px;
+    }
+    .match-label {
+        height: 50px;
+        .logo {
+            .image {
+                width: 30px;
+            }
+        }
+
+        .vs {
+            padding-top: 14px;
+            height: 50px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #0056a2;
+        }
+    }
+
+    .headline {
+        color: #ffffff;
+        background-color: #162a38;
+        .time {
+            margin-right: 5px;
+            .yellow {
+                color: #faaf40;
+            }
+        }
+        .image {
+            width: 50px;
+            margin-left: 7px;
+        }
+    }
+
+    .steaming {
+        width: 100%;
+        height: 230px;
+        //background-color: #000000;
+    }
+
+    .match-events {
+        padding-top: 6px;
+        padding-bottom: 6px;
+        background-color: #0056a2;
+
+        .nodata {
+            .text {
+                font-size: 14px;
+                font-weight: bold;
+                color: #ffffff;
+            }
+        }
+
+        .killpadding {
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+
+        .dot {
+            position: relative;
+            &.-normal {
+                font-size: 8px;
+                color: #ffffff;
+            }
+
+            &.-halftime {
+                font-size: 8px;
+                color: #ff0000;
+            }
+
+            &.-large {
+                font-size: 20px;
+                color: #ffffff;
+            }
+        }
+
+        .time {
+            margin: 0px 2px 0px 2px;
+            font-size: 14px;
+            color: #faaf40;
+        }
+
+        .description {
+            margin: 0px 2px 0px 2px;
+            font-size: 14px;
+            color: #faaf40;
+        }
+
+        .name {
+            margin: 0px 2px 0px 2px;
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        .image {
+            margin: 0px 2px 0px 2px;
+            width: 15px;
+            height: 15px;
+        }
+
+        .line {
+            width: 1px;
+            margin-left: 50%;
+            position: absolute;
+            display: inline-block;
+            background-color: #ffffff;
+        }
+    }
 }
