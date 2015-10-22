@@ -126,6 +126,34 @@ class LineupMain extends Controller then constructor: (
                 y: y.random + ($scope.footballField.player.width / 2)
             }
         fakeItems: ->
+            photos = [
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/01.pitthawas.chumnongchob.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/02.noppanon.kotchpalayuk.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/04.kroekrit.thawikan.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/05.niweat.siriwong.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/06.suttinun.phukhom.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/07.chakrit.buathong.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/08.therdsak.chaiman.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/10.popob.onmo.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/11.korrakot.wiriyaudomsiri.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/15.puritat.jarikanon.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/16.alongkon.prarhumwong.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/17.leandro.asssumpcao.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/18.sinthaweechai.hathairattanakool.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/19.adul.lahsoh.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/21.visarut.vaingan.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/24.byungkuk.cho.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/25.chonlatit.jantakam.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/26.anderson.dos-santos.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/29.watthanaphong.tabutda.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/30.chakhon.philakhlang.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/31.nurul.sriyankem.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/35.wanit.laisaen.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/36.surawich.logarwit.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/37.thiago.cunha.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/39.kirati.keawsombut.jpg'
+                'http://demo.balltoro.com/media/c/size_70x70/cms/medias/personals/th/28-cho/40.warut.supphaso.jpg'
+            ]
             i = 1
             ii = 11
             while i <= ii
@@ -133,9 +161,10 @@ class LineupMain extends Controller then constructor: (
                 position = $scope.personals.centerPointToPosition centerPoint
                 @items.push
                     id: Chance.hash()
-                    top: position.top
-                    left: position.left
+                    position: position
                     centerPoint: centerPoint
+                    photo: Chance.pick photos
+                    fullname: Chance.first() + ' ' + Chance.last()
                 i++
 
     footballField = $scope.footballField.getElement()

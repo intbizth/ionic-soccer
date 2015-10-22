@@ -16,9 +16,19 @@ ion-view.lineup
             div.col.col-center {{format}}
 
         div.football-field
-            div(ng-repeat="personal in personals.items")
-                div.personal(id="personal-{{personal.id}}", data-item-id="{{personal.id}}", ng-style="{'top':personal.top,'left':personal.left}", ng-click="personals.popup(personal.id)")
-                    div.testState {{personals.checkLock(personal.id) ? "lock" : "drag"}}
-                    div.testCenterPoint {{personal.centerPoint.x}},{{personal.centerPoint.y}}
+            div.personal(
+            ng-repeat="personal in personals.items"
+            id="personal-{{personal.id}}"
+            data-item-id="{{personal.id}}"
+            ng-style="{'top':personal.position.top,'left':personal.position.left}"
+            ng-click="personals.popup(personal.id)"
+            ng-class="{'-testDrag' : !personals.checkLock(personal.id), '-testLock' : personals.checkLock(personal.id)}"
+            )
+                div.avatar
+                    div.circle
+                        div.subcircle
+                            img.photo(ng-src="{{personal.photo}}")
+                div.fullname {{personal.fullname}}
+                div.testCenterPoint {{personal.centerPoint.x}},{{personal.centerPoint.y}}
 
         div {{content}}
