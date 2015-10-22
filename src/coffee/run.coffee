@@ -1,5 +1,5 @@
 class Run extends Run then constructor: (
-    $rootScope, $ionicPlatform, $cordovaKeyboard, Authen, CFG
+    $rootScope, $ionicPlatform, $cordovaKeyboard, Authen, CFG, $cordovaGoogleAnalytics
 ) ->
     $rootScope.isAndroid = ionic.Platform.isAndroid()
     $rootScope.isIOS = ionic.Platform.isIOS()
@@ -13,3 +13,5 @@ class Run extends Run then constructor: (
             $cordovaKeyboard.hideAccessoryBar yes
             $cordovaKeyboard.disableScroll yes
         return
+
+        $cordovaGoogleAnalytics.startTrackerWithId('UA-69117679-1')
