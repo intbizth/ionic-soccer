@@ -26,47 +26,52 @@ class LineupMain extends Controller then constructor: (
     $scope.personals =
         items: []
         data: []
-        getCenterPoint: (element) ->
-            footballField = $scope.footballField.getElement()
+        footballField: $scope.footballField
+        positionToCenterPoint: (position) ->
             return {
-                x: element.offset().left + element.width() / 2
-                y: (element.offset().top + element.height() / 2) - footballField[0].offsetTop
+                x: position.left + @footballField.player.width / 2
+                y: (position.top + @footballField.player.height / 2) - @footballField.getElement()[0].offsetTop
             }
         centerPointToPosition: (point) ->
             return {
-                top: (point.y - ($scope.footballField.player.height / 2)) + 'px'
-                left: (point.x - ($scope.footballField.player.width / 2)) + 'px'
+                top: (point.y - (@footballField.player.height / 2)) + 'px'
+                left: (point.x - (@footballField.player.width / 2)) + 'px'
             }
+        loadDataCenterPoints: ->
+            $this = @
+            $this.data = []
+            $('.football-field .player').each (index) ->
+                centerPoint = $this.positionToCenterPoint($(@).offset())
+                $this.data.push
+                    id: $(@).data 'id'
+                    x: centerPoint.x
+                    y: centerPoint.y
+            console.warn $this.data
         loadDrag: ->
+            $this = @
             $timeout(->
-                $scope.footballField.setLock($scope.footballField.isLock)
-                $('.player').draggable(
+                $this.footballField.setLock($this.footballField.isLock)
+                $('.football-field .player').draggable(
                     scroll: no
-                    containment: '.' + $scope.footballField.className
+                    containment: '.' + $this.footballField.className
                     start: (event, ui) ->
                         centerPoint =
-                            x: ui.position.left + ($scope.footballField.player.width / 2)
-                            y: ui.position.top + ($scope.footballField.player.height / 2)
+                            x: ui.position.left + ($this.footballField.player.width / 2)
+                            y: ui.position.top + ($this.footballField.player.height / 2)
                         $(@).find('.centerPoint').html centerPoint.x + ',' + centerPoint.y
                     drag: (event, ui) ->
                         centerPoint =
-                            x: ui.position.left + ($scope.footballField.player.width / 2)
-                            y: ui.position.top + ($scope.footballField.player.height / 2)
+                            x: ui.position.left + ($this.footballField.player.width / 2)
+                            y: ui.position.top + ($this.footballField.player.height / 2)
                         $(@).find('.centerPoint').html centerPoint.x + ',' + centerPoint.y
                     stop: (event, ui) ->
                         centerPoint =
-                            x: ui.position.left + ($scope.footballField.player.width / 2)
-                            y: ui.position.top + ($scope.footballField.player.height / 2)
+                            x: ui.position.left + ($this.footballField.player.width / 2)
+                            y: ui.position.top + ($this.footballField.player.height / 2)
                         $(@).find('.centerPoint').html centerPoint.x + ',' + centerPoint.y
-                        $('.player').each (index) ->
-                            centerPoint = $scope.personals.getCenterPoint($(@))
-                            $scope.personals.data.push
-                                 id: $(@).data 'id'
-                                 x: centerPoint.x
-                                 y: centerPoint.y
-                        console.warn $scope.personals.data
+                        $this.loadDataCenterPoints()
                 )
-                console.warn $scope.personals.items
+                console.warn $this.items
             )
         fakeCenterPoint: ->
             footballField = $scope.footballField.getElement()
