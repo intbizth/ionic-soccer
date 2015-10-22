@@ -1,30 +1,30 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="live.doRefresh()")
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="matchLabel.refresh()")
 
 div.games-live
     div.match-label
-        div.row.inrow
-            div.col.col-center.logo
-                img.image(src="./img/logo/club.png", srcset="./img/logo/club@2x.png 2x")
+        div.row.inrow(ng-repeat="item in matchLabel.items")
+            div.col.col-center.text-right.logo
+                img.image(ng-src="{{item.homeClub.logo}}")
             div.col.col-33.col-center.text-center.name
-                | {{HomeName}}
+                | {{item.homeClub.name}}
             div.col.col-10.col-center.text-center.vs
                 | vs
             div.col.col-33.col-center.text-center.name
-                | {{AwayName}}
-            div.col.col-center.logo
-                img.image(src="./img/logo/club.png", srcset="./img/logo/club@2x.png 2x")
+                | {{item.awayClub.name}}
+            div.col.col-center.text-left.logo
+                img.image(ng-src="{{item.awayClub.logo}}")
 
     div.headline
         div.row.inrow
             div.col.col-20.col-center
                 img.image(src="./img/logo/club.png", srcset="./img/logo/club@2x.png 2x")
             div.col.col-center
-                | Chonburi FC
+                | {{'ui.t.live.name'|trans}}
                 br
-                | {{StadiumName}}
+                | {{'ui.t.live.stadium'|trans}}
             div.col.col-center.text-right.time
-                span.yellow เวลาที่เหลือ
-                span  {{timeRemain }} m
+                span.yellow {{'ui.t.live.timeremain'|trans}}
+                span  {{timeRemain }} {{'ui.t.live.minute'|trans}}
 
     div.steaming
         iframe(ng-src="https://www.youtube.com/embed/7bbbvHO69gE", width="100%", height="230")
@@ -61,7 +61,3 @@ div.games-live
                         srcset="./img/icon/{{item.icon}}@2x.png 2x"
                         )
                         span.name(ng-if="item.actor") {{item.actor}}
-
-
-
-//ion-infinite-scroll(ng-if="prediction.next" on-infinite="prediction.loadMore()", distance="5%")
