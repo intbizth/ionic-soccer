@@ -1,5 +1,5 @@
 class LineupMain extends Controller then constructor: (
-    $rootScope, $scope, $ionicScrollDelegate, $document, $timeout, Chance, Und
+    $rootScope, $scope, $ionicScrollDelegate, $ionicPopup, $document, $timeout, Chance, Und
 ) ->
     $scope.format = []
     i = 1
@@ -16,14 +16,16 @@ class LineupMain extends Controller then constructor: (
             angular.element $document[0].body.getElementsByClassName @className
         isLock: yes
         setLock: (value) ->
-            $ionicScrollDelegate.scrollTop value
-            $ionicScrollDelegate.freezeAllScrolls value
             @isLock = value
+            $ionicScrollDelegate.scrollTop @isLock
+            $ionicScrollDelegate.freezeAllScrolls @isLock
         player:
             width: 70
             height: 70
 
     $scope.personals =
+        idName: 'personal'
+        className: 'personal'
         items: []
         data: []
         footballField: $scope.footballField
@@ -37,42 +39,78 @@ class LineupMain extends Controller then constructor: (
                 top: (point.y - (@footballField.player.height / 2)) + 'px'
                 left: (point.x - (@footballField.player.width / 2)) + 'px'
             }
+        isLock: yes
+        setLock: (id, value) ->
+            value = if value then 'disable' else 'enable'
+            elementName = '#' + @idName + '-' + id
+            $(elementName).draggable(value)
+            return
+        setLockAll: (value) ->
+            @isLock = value
+            value = if @isLock then 'disable' else 'enable'
+            elementName = [@footballField.className, @className]
+            elementName = Und.map elementName, (value) ->
+                '.' + value
+            elementName = elementName.join(' ')
+            $(elementName).draggable(value)
+            return
+        checkLock: (id) ->
+            elementName = '#' + @idName + '-' + id
+            $(elementName).hasClass('ui-draggable-disabled')
         loadDataCenterPoints: ->
             $this = @
             $this.data = []
-            $('.football-field .player').each (index) ->
+            elementName = [@footballField.className, @className]
+            elementName = Und.map elementName, (value) ->
+                '.' + value
+            elementName = elementName.join(' ')
+            $(elementName).each (index) ->
                 centerPoint = $this.positionToCenterPoint($(@).offset())
                 $this.data.push
-                    id: $(@).data 'id'
+                    id: $(@).data 'item-id'
                     x: centerPoint.x
                     y: centerPoint.y
             console.warn $this.data
         loadDrag: ->
             $this = @
             $timeout(->
-                $this.footballField.setLock($this.footballField.isLock)
-                $('.football-field .player').draggable(
+                $('.personal').draggable(
                     scroll: no
                     containment: '.' + $this.footballField.className
                     start: (event, ui) ->
                         centerPoint =
                             x: ui.position.left + ($this.footballField.player.width / 2)
                             y: ui.position.top + ($this.footballField.player.height / 2)
-                        $(@).find('.centerPoint').html centerPoint.x + ',' + centerPoint.y
+                        $(@).find('.testCenterPoint').html centerPoint.x + ',' + centerPoint.y
                     drag: (event, ui) ->
                         centerPoint =
                             x: ui.position.left + ($this.footballField.player.width / 2)
                             y: ui.position.top + ($this.footballField.player.height / 2)
-                        $(@).find('.centerPoint').html centerPoint.x + ',' + centerPoint.y
+                        $(@).find('.testCenterPoint').html centerPoint.x + ',' + centerPoint.y
                     stop: (event, ui) ->
                         centerPoint =
                             x: ui.position.left + ($this.footballField.player.width / 2)
                             y: ui.position.top + ($this.footballField.player.height / 2)
-                        $(@).find('.centerPoint').html centerPoint.x + ',' + centerPoint.y
-                        $this.loadDataCenterPoints()
+                        $(@).find('.testCenterPoint').html centerPoint.x + ',' + centerPoint.y
                 )
                 console.warn $this.items
+
+                $this.footballField.setLock $this.footballField.isLock
+                $this.setLockAll $this.isLock
             )
+        popup: (id) ->
+            $this = @
+            confirmPopup = $ionicPopup.confirm
+                title: 'Confirm'
+                template: id
+                cancelText: 'drag'
+                cancelType: 'button-positive'
+                okText: 'lock'
+                okType: 'button-assertive'
+            confirmPopup.then((res) ->
+                $this.setLock id, res
+            )
+            return
         fakeCenterPoint: ->
             footballField = $scope.footballField.getElement()
             x =

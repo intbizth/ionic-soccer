@@ -22,7 +22,7 @@ $player-height: 70px;
         background-color: #213547;
     }
 
-    .player {
+    .personal {
         position: absolute;
         width: $player-width;
         height: $player-height;
@@ -33,7 +33,15 @@ $player-height: 70px;
         -o-animation: fadein 4s;
         animation: fadein 4s;
 
-        .centerPoint {
+        .testState {
+            position: absolute;
+            bottom: -18px;
+            left: 0;
+            font-size: 10px;
+            color: blue;
+        }
+
+        .testCenterPoint {
             position: absolute;
             bottom: -18px;
             right: 0;

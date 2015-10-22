@@ -1,11 +1,15 @@
 ion-view.lineup
-    ion-nav-title Lineup
-    ion-nav-buttons(side="right")
-        a.button.button-clear(ng-click="footballField.setLock(!footballField.isLock)")
-            i.icon.ion-ios-checkmark-outline(ng-if="footballField.isLock")
-            i.icon.ion-ios-circle-outline(ng-if="!footballField.isLock")
-            span(ng-if="!footballField.isLock") can scroll
-            span(ng-if="footballField.isLock") can't scroll
+    ion-nav-title
+        a.button.button-clear(ng-click="footballField.setLock(!footballField.isLock)", style="font-size:12px;")
+            i.icon(
+            ng-class="{'ion-ios-close-outline' : footballField.isLock, 'ion-ios-circle-outline' : !footballField.isLock}"
+            ) {{footballField.isLock ? "scroll lock" : "can scroll"}}
+        a.button.button-clear(ng-click="personals.setLockAll(!personals.isLock)", style="font-size:12px;")
+            i.icon(
+            ng-class="{'ion-ios-close-outline' : personals.isLock, 'ion-ios-circle-outline' : !personals.isLock}"
+            ) {{personals.isLock ? "drag lock" : "can drag"}}
+        a.button.button-clear(ng-click="personals.loadDataCenterPoints()", style="font-size:12px;")
+            i.icon.ion-ios-checkmark-outline save
 
     ion-content.content
         div.row.format
@@ -13,7 +17,8 @@ ion-view.lineup
 
         div.football-field
             div(ng-repeat="personal in personals.items")
-                div.player(data-id="{{personal.id}}", ng-style="{'top':personal.top,'left':personal.left}")
-                    div.centerPoint {{personal.centerPoint.x}},{{personal.centerPoint.y}}
+                div.personal(id="personal-{{personal.id}}", data-item-id="{{personal.id}}", ng-style="{'top':personal.top,'left':personal.left}", ng-click="personals.popup(personal.id)")
+                    div.testState {{personals.checkLock(personal.id) ? "lock" : "drag"}}
+                    div.testCenterPoint {{personal.centerPoint.x}},{{personal.centerPoint.y}}
 
         div {{content}}
