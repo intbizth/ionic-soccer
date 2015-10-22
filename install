@@ -19,3 +19,4 @@ ionic plugin add https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin
 ionic plugin add cordova-plugin-file-transfer
 ionic platform add ios && ionic platform add android
 ionic browser add crosswalk
+cordova plugin add https://github.com/danwilson/google-analytics-plugin.git
