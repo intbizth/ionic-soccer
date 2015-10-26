@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[[ $CORDOVA_PLATFORMS == *"ios"* ]] || exit 0
+
 PLIST=platforms/ios/*/*-Info.plist
 
 cat << EOF |

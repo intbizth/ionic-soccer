@@ -1,6 +1,9 @@
 class FeatureMain extends Controller then constructor: (
-    $scope, $ionicModal, $cordovaAppVersion, $timeout, Und, Chance
+    $cordovaAppVersion, $cordovaGoogleAnalytics, $ionicModal, $ionicPlatform, $scope, $timeout, Chance, Und
 ) ->
+    $ionicPlatform.ready ->
+        $cordovaGoogleAnalytics.trackView 'feature'
+
     $scope.ads =
         item: './img/ads/banners/1@2x.png'
 
@@ -16,9 +19,11 @@ class FeatureMain extends Controller then constructor: (
         )
         return
     $scope.openAds = ->
+        $cordovaGoogleAnalytics.trackEvent 'ads', 'show'
         $scope.modal.show()
         return
     $scope.closeAds = ->
+        $cordovaGoogleAnalytics.trackEvent 'ads', 'hide'
         $scope.modal.hide()
         return
     $scope.version = '0.0.0'
