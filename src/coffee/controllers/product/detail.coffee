@@ -1,8 +1,8 @@
 class ProductDetail extends Controller then constructor: (
-    $cordovaGoogleAnalytics, $ionicHistory, $ionicLoading, $ionicPlatform, $scope, $state, $stateParams, Products, Und
+    $cordovaGoogleAnalytics, $ionicHistory, $ionicLoading, $ionicPlatform, $scope, $stateParams, Products, Und
 ) ->
     $ionicPlatform.ready ->
-        $cordovaGoogleAnalytics.trackView $state.current.name
+        $cordovaGoogleAnalytics.trackView 'product-detail' + $scope.product.item.name
 
     $scope.back = ->
         $ionicHistory.goBack -1
