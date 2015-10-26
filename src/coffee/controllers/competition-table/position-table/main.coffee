@@ -1,6 +1,8 @@
 class CompetitionTablePositionTable extends Controller then constructor: (
-    $rootScope, $scope, $ionicLoading, Rankings, Und
+    $rootScope, $scope, $ionicLoading, $cordovaGoogleAnalytics, $state, Rankings, Und
 ) ->
+    $cordovaGoogleAnalytics.trackView position-table
+
     rankingStore = new Rankings null,
         url: Rankings::url + 'fixtures/tpl/2015-2016'
         state: pageSize: 100
