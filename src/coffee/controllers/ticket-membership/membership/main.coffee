@@ -1,7 +1,7 @@
 class Membership extends Controller then constructor: (
-    $scope, $ionicHistory, $cordovaGoogleAnalytics, $state, $timeout, Und, Chance
+    $scope, $ionicHistory, $cordovaGoogleAnalytics, $timeout, Und, Chance
 ) ->
-    $cordovaGoogleAnalytics.trackView membership
+    $cordovaGoogleAnalytics.trackView 'membership'
 
     $scope.memberZone =
         contact: 'สอบถามรายละเอียดเพิ่มเติม ฝ่ายดูแลสิทธิประโยชน์ และการจําหน่ายตั๋ว สโมสร ชลบุรี เอฟซี 038-467-109,
