@@ -1,7 +1,7 @@
 class LiveMain extends Controller then constructor: (
     $rootScope, $scope, $ionicHistory, $ionicLoading, $cordovaGoogleAnalytics, $state, $timeout, Matches, Und
 ) ->
-    $cordovaGoogleAnalytics.trackView($state.current.name)
+    $cordovaGoogleAnalytics.trackView $state.current.name
 
     $scope.back = ->
         $ionicHistory.goBack -1
