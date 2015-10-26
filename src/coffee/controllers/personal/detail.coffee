@@ -1,8 +1,8 @@
 class personalDetail extends Controller then constructor: (
-    $cordovaGoogleAnalytics, $ionicHistory, $ionicLoading, $ionicPlatform, $scope, $state, $stateParams, Personals, Und
+    $cordovaGoogleAnalytics, $ionicHistory, $ionicLoading, $ionicPlatform, $scope, $stateParams, Personals, Und
 ) ->
     $ionicPlatform.ready ->
-    $cordovaGoogleAnalytics.trackView $state.current.name
+        $cordovaGoogleAnalytics.trackView 'personal-detail' + $scope.personal.item.fullname
 
     $scope.back = ->
         $ionicHistory.goBack -1
