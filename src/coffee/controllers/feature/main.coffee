@@ -1,8 +1,8 @@
 class FeatureMain extends Controller then constructor: (
-    $cordovaAppVersion, $cordovaGoogleAnalytics, $ionicModal, $ionicPlatform, $scope, $state, $timeout, Chance, Und
+    $cordovaAppVersion, $cordovaGoogleAnalytics, $ionicModal, $ionicPlatform, $scope, $timeout, Chance, Und
 ) ->
     $ionicPlatform.ready ->
-        $cordovaGoogleAnalytics.trackView $state.current.name
+        $cordovaGoogleAnalytics.trackView 'feature'
 
     $scope.ads =
         item: './img/ads/banners/1@2x.png'
