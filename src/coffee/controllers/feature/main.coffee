@@ -1,5 +1,5 @@
 class FeatureMain extends Controller then constructor: (
-    $scope, $ionicModal, $ionicPlatform, $cordovaAppVersion, $cordovaGoogleAnalytics, $state, $timeout, Und, Chance
+    $cordovaAppVersion, $cordovaGoogleAnalytics, $ionicModal, $ionicPlatform, $scope, $state, $timeout, Chance, Und
 ) ->
     $ionicPlatform.ready ->
         $cordovaGoogleAnalytics.trackView $state.current.name
