@@ -1,8 +1,8 @@
 class NewsDetail extends Controller then constructor: (
-    $cordovaGoogleAnalytics, $cordovaInAppBrowser, $ionicHistory, $ionicLoading, $ionicPlatform, $scope, $state, $stateParams, Papers, Und
+    $cordovaGoogleAnalytics, $cordovaInAppBrowser, $ionicHistory, $ionicLoading, $ionicPlatform, $scope, $stateParams, Papers, Und
 ) ->
     $ionicPlatform.ready ->
-        $cordovaGoogleAnalytics.trackView $state.current.name
+        $cordovaGoogleAnalytics.trackView 'news-detail' + $scope.paper.item.headline
 
     $scope.back = ->
         $ionicHistory.goBack -1
