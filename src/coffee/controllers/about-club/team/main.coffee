@@ -1,6 +1,8 @@
 class aboutClubTeam extends Controller then constructor: (
-    $rootScope, $scope, $ionicLoading, Personals, Und
+    $ionicLoading, $rootScope, $state, $scope, Personals, Und
 ) ->
+    $cordovaGoogleAnalytics.trackView 'team'
+
     $scope.headline = 'CHALARMCHON'
 
     personalStore = new Personals null,
