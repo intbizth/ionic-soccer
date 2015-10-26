@@ -21,8 +21,8 @@ ion-view.lineup
             id="personal-{{personal.id}}"
             data-item-id="{{personal.id}}"
             ng-style="{'top':personal.position.top,'left':personal.position.left}"
-            ng-click="personals.popup(personal.id)"
-            ng-class="{'-testDrag' : !personals.checkLock(personal.id), '-testLock' : personals.checkLock(personal.id)}"
+            ng-click="personals.popup(personal.itemId)"
+            ng-class="{'-testDrag' : !personals.checkLock(personal.itemId), '-testLock' : personals.checkLock(personal.itemId)}"
             )
                 div.avatar
                     div.circle

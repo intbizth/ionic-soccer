@@ -160,11 +160,12 @@ class LineupMain extends Controller then constructor: (
                 centerPoint = $scope.personals.fakeCenterPoint()
                 position = $scope.personals.centerPointToPosition centerPoint
                 @items.push
-                    id: Chance.hash()
-                    position: position
-                    centerPoint: centerPoint
+                    id: Und.random(1, 9999999)
                     photo: Chance.pick photos
                     fullname: Chance.first() + ' ' + Chance.last()
+                    itemId: Chance.hash()
+                    position: position
+                    centerPoint: centerPoint
                 i++
 
     footballField = $scope.footballField.getElement()
