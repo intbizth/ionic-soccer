@@ -1,6 +1,62 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="ranking.doRefresh()")
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="matchLabel.doRefresh()")
 
 div.games-ranking
-    | GAMES_RANKING
+    div.match-label
+        div(ng-repeat="section in matchLabel.sections")
+            div.row.row-center.section
+                div.logo
+                    img.image(src="{{section.logo}}")
+                div.league
+                    | {{section.name}} {{section.datetime|date : 'yyyy'}}
+        div.row.label
+            div.col-40.col-center.club
+                div.row
+                    div.col.col-75.col-center.text-center
+                        span.name.text-center {{item.homeClub.name}}
+                    div.col.col-25.col-center
+                        img.logo.-right(ng-src="{{item.homeClub.logo}}")
 
-//ion-infinite-scroll(ng-if="prediction.next" on-infinite="prediction.loadMore()", distance="5%")
+            div.col-20.col-center.vs.-live(ng-if="item.isLive").detail.text-center
+                div.live
+                    | {{ 'ui.t.games.live'|trans }}
+                div.time
+                    | {{item.datetime | date:'HH:MM'}}
+
+            div.col-20.col-center.vs.-nextmatch(ng-if="!item.isLive").detail.text-center
+                div.time
+                    | {{item.datetime | date:'HH:mm'}}
+                div.date
+                    | {{item.datetime | date:'dd MMM yyyy'}}
+
+            div.col-40.col-center.club
+                div.row
+                    div.col.col-25.col-center
+                        img.logo(ng-src="{{item.awayClub.logo}}")
+                    div.col.col-75.col-center.-left.text-center
+                        div.name.text-center {{item.awayClub.name}}
+
+        div.space(ng-if="!item.isLive")
+
+        div(ng-if="item.isLive")
+            .progress-bars
+                .row.row-center
+                    .col-20.text-right.text
+                        | {{item.leftValue}}%
+                    .col.bars
+                        .progressed(
+                        ng-repeat="progress in item.progressData",
+                        style="width:{{progress.value}}%;background-color:{{progress.color}}",
+                        )
+                            div(ng-if="progress.won")
+                                div(class="{{progress.status}}")
+                    .col-20.text
+                        | {{item.rightValue}}%
+
+        div.row.inrow.rate
+            div.col(style="background-color:#ffffff;")
+                div.boxleft.win.text-center
+                    | W
+            div.col-offset-20
+            div.col
+                div.boxright.lose.text-center
+                    | L
