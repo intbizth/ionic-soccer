@@ -1,17 +1,7 @@
 class FeatureMain extends Controller then constructor: (
-    $scope, $ionicModal, $cordovaAppVersion, $timeout, Und, Chance, $cordovaGoogleAnalytics, $ionicPlatform
+    $scope, $ionicModal, $cordovaAppVersion, $cordovaGoogleAnalytics, $state, $timeout, Und, Chance
 ) ->
-#    $cordovaGoogleAnalytics.debugMode();
-#    $cordovaGoogleAnalytics.startTrackerWithId('UA-69117679-1');
-#    $cordovaGoogleAnalytics.trackView('Feature');
-
-#    $ionicPlatform.reasdy ->
-#        if typeof $cordovaGoogleAnalytics != undefined
-#            $cordovaGoogleAnalytics.startTrackerWithId('UA-69117679-1')
-#        else
-#            console.log "Google Analytics Unavailable"
-
-    $cordovaGoogleAnalytics.trackView('Screen Title')
+    $cordovaGoogleAnalytics.trackView($state.current.name)
 
     $scope.ads =
         item: './img/ads/banners/1@2x.png'
@@ -28,9 +18,11 @@ class FeatureMain extends Controller then constructor: (
         )
         return
     $scope.openAds = ->
+        $cordovaGoogleAnalytics.trackEvent('ads', 'show')
         $scope.modal.show()
         return
     $scope.closeAds = ->
+        $cordovaGoogleAnalytics.trackEvent('ads', 'hide')
         $scope.modal.hide()
         return
     $scope.version = '0.0.0'
