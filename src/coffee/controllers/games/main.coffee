@@ -1,8 +1,8 @@
 class GamesMain extends Controller then constructor: (
-    $cordovaGoogleAnalytics, $ionicHistory, $ionicPlatform, $sce, $scope, $state, $timeout, Chance, Und
+    $cordovaGoogleAnalytics, $ionicHistory, $ionicPlatform, $sce, $scope, $timeout, Chance, Und
 ) ->
     $ionicPlatform.ready ->
-        $cordovaGoogleAnalytics.trackView $state.current.name
+        $cordovaGoogleAnalytics.trackView 'games'
 
     $scope.isIOS = ionic.Platform.isIOS()
     $scope.back = ->
