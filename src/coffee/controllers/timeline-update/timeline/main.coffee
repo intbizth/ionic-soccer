@@ -1,7 +1,7 @@
 class Timeline extends Controller then constructor: (
-    $rootScope, $scope, $ionicLoading, $cordovaSocialSharing, $cordovaGoogleAnalytics, $state, MicroChats, Und
+    $rootScope, $scope, $ionicLoading, $cordovaSocialSharing, $cordovaGoogleAnalytics, MicroChats, Und
 ) ->
-    $cordovaGoogleAnalytics.trackView timeline
+    $cordovaGoogleAnalytics.trackView 'timeline'
 
     $scope.share = (message, subject, file, link) ->
         message = message || ''
