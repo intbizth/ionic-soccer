@@ -10,7 +10,7 @@ class CFG extends Constant then constructor: ->
         ENVIRONMENT:
             dev:
                 api:
-                    baseUrl: 'http://127.0.0.1:8000/api/'
+                    baseUrl: 'http://demo.balltoro.com/api/'
                 oauth:
                     baseUrl: 'http://127.0.0.1:8000'
                     grantPath: '/oauth/v2/token'
