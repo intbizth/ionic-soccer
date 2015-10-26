@@ -1,7 +1,8 @@
 class rankingScore extends Controller then constructor: (
-    $rootScope, $scope, $ionicLoading, $cordovaGoogleAnalytics, GamesScores, Und
+    $cordovaGoogleAnalytics, $ionicLoading, $ionicPlatform, $rootScope, $scope, GamesScores, Und
 ) ->
-    $cordovaGoogleAnalytics.trackView 'score'
+    $ionicPlatform.ready ->
+        $cordovaGoogleAnalytics.trackView 'score'
 
     gamesScoreStore = new GamesScores null,
         url: GamesScores::url + 'result/' + $rootScope.clubId

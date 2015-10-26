@@ -1,7 +1,8 @@
 class rankingPlayer extends Controller then constructor: (
-    $scope, $state, $ionicHistory, $cordovaGoogleAnalytics, $timeout, Und, Chance
+    $cordovaGoogleAnalytics, $ionicHistory, $ionicPlatform, $scope, $state, $timeout, Chance, Und
 ) ->
-    $cordovaGoogleAnalytics.trackView 'player'
+    $ionicPlatform.ready ->
+        $cordovaGoogleAnalytics.trackView 'player'
 
     $scope.player =
         items: []

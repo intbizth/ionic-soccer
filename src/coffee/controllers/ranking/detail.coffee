@@ -1,6 +1,9 @@
 class rankingDetail extends Controller then constructor: (
-    $scope, $state, $ionicHistory, $timeout, Und, Chance
+    $cordovaGoogleAnalytics, $scope, $state, $ionicHistory, $ionicPlatform, $timeout, Und, Chance
 ) ->
+    $ionicPlatform.ready ->
+        $cordovaGoogleAnalytics.trackView $state.current.name
+
     $scope.back = ->
         $ionicHistory.goBack -1
         return

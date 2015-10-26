@@ -1,7 +1,8 @@
 class rankingPrediction extends Controller then constructor: (
-    $scope, $state, $ionicHistory, $cordovaGoogleAnalytics, $timeout, Und, Chance
+    $cordovaGoogleAnalytics, $ionicHistory, $ionicPlatform, $scope, $state, $timeout, Chance, Und
 ) ->
-    $cordovaGoogleAnalytics.trackView 'prediction'
+    $ionicPlatform.ready ->
+        $cordovaGoogleAnalytics.trackView 'prediction'
 
     $scope.prediction =
         items: []
