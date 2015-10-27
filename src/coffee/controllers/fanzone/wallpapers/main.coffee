@@ -1,6 +1,9 @@
 class FanzoneWallpapers extends Controller then constructor: (
-    $rootScope, $scope, $ionicLoading, $ionicPopup, $cordovaFileTransfer, $timeout, md5, Wallpapers, Und
+    $cordovaGoogleAnalytics, $cordovaFileTransfer, $ionicLoading, $ionicPlatform, $ionicPopup, $rootScope, $scope, $timeout, md5, Und, Wallpapers
 ) ->
+    $ionicPlatform.ready ->
+        $cordovaGoogleAnalytics.trackView 'wallpapers'
+
     $scope.downloadFile = (url) ->
         confirmPopup = $ionicPopup.confirm(
             title: 'Confirm',

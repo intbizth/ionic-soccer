@@ -1,6 +1,7 @@
 class ProductDetail extends Controller then constructor: (
-    $scope, $stateParams, $ionicHistory, $ionicLoading, Products, Und
+    $cordovaGoogleAnalytics, $ionicHistory, $ionicLoading, $scope, $stateParams, Products, Und
 ) ->
+
     $scope.back = ->
         $ionicHistory.goBack -1
         return
@@ -21,7 +22,10 @@ class ProductDetail extends Controller then constructor: (
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
                     $ionicLoading.hide()
-            promise.then (model) -> $scope.product.item = model.dataTranformToDetail()
+            promise.then (model) ->
+                $scope.product.item = model.dataTranformToDetail()
+                $cordovaGoogleAnalytics.trackView 'product-detail ' + $scope.product.item.name
+
         refresh: ->
             $scope.product.loadData(pull: yes)
 

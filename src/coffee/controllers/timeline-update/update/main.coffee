@@ -1,6 +1,9 @@
 class Update extends Controller then constructor: (
-    $rootScope, $scope, $ionicLoading, Papers, Und
+    $cordovaGoogleAnalytics, $ionicLoading, $ionicPlatform, $rootScope, $scope, Papers, Und
 ) ->
+    $ionicPlatform.ready ->
+        $cordovaGoogleAnalytics.trackView 'update'
+
     papersStore = new Papers null,
         url: Papers::url
         state: pageSize: 10
