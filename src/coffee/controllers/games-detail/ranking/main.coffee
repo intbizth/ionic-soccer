@@ -1,11 +1,6 @@
 class GamesDetailRanking extends Controller then constructor: (
-    $scope, $ionicPlatform, $ionicHistory, $sce, $timeout, Und, Chance
+    $scope, $timeout, Und, Chance, GoogleAnalytics
 ) ->
-    $scope.isIOS = ionic.Platform.isIOS()
-    $scope.back = ->
-        $ionicHistory.goBack -1
-        return
-
     $scope.data =
         next: no
         doRefresh: ->
@@ -31,7 +26,7 @@ class GamesDetailRanking extends Controller then constructor: (
                 $this.loadData()
                 $scope.$broadcast 'scroll.refreshComplete'
                 return
-            , 1000)
+            , 2000)
             return
         loadMore: ->
             console.log 'matchLabel:loadMore'
@@ -97,11 +92,13 @@ class GamesDetailRanking extends Controller then constructor: (
                 isLive: Chance.bool({
                     likelihood: 30
                 })
+                endMatch: false
                 progressData: []
                 leftValue: null
                 rightValue: null
+                handicap: chance.floating({min: -3, max: 3, fixed: 2})
                 template: Chance.pick(['before'])
-            if item.isLive == true
+            if item.isLive == true || item.isLive == false
                 randomValue = Und.random(1, 100)
                 leftWon = null
                 rightWon = null
@@ -118,6 +115,10 @@ class GamesDetailRanking extends Controller then constructor: (
                     { value:item.leftValue , color:'#FF3B30', won:leftWon, status:'-left' }
                     { value:item.rightValue , color:'#FAAF40', won:rightWon, status:'-right' }
                 ]
+            if item.isLive == false
+                item.endMatch = Chance.bool({
+                    likelihood: 30
+                })
             if Chance.pick([true, false])
                 item.homeClub = clubs[0]
                 item.awayClub = clubs[1]
@@ -128,7 +129,7 @@ class GamesDetailRanking extends Controller then constructor: (
         fakeItems: (datetime) ->
             items = []
             i = 0
-            ii = Und.random(0, 3)
+            ii = Und.random(1, 1)
             while i < ii
                 item = this.fakeItem(datetime)
                 items.push item

@@ -2,77 +2,225 @@ ion-refresher(pulling-text="Pull to refresh...", on-refresh="matchLabel.doRefres
 
 div.games-ranking
     div.match-label
+        div.nodata(ng-if="matchLabel.sections.length == 0")
+            div.space
+            div.row
+                div.col.col-center.text-center
+                    div.text "ไม่มีข้อมูล"
         div(ng-repeat="section in matchLabel.sections")
             div.row.row-center.section
                 div.logo
                     img.image(src="{{section.logo}}")
                 div.league
                     | {{section.name}} {{section.datetime|date : 'yyyy'}}
-        div.row.label
-            div.col-40.col-center.club
+            div.nodata(ng-if="section.items.length == 0")
                 div.row
-                    div.col.col-75.col-center.text-center
-                        span.name.text-center {{item.homeClub.name}}
-                    div.col.col-25.col-center
-                        img.logo.-right(ng-src="{{item.homeClub.logo}}")
+                    div.col.col-center.text-center
+                        div.text
+                            | {{ 'ui.t.games.nomatch'|trans }}
+            div(ng-repeat="item in section.items")
+                div.row.label
+                    div.col-40.col-center.club
+                        div.row
+                            div.col.col-75.col-center.text-center
+                                span.name.text-center {{item.homeClub.name}}
+                            div.col.col-25.col-center
+                                img.logo.-right(ng-src="{{item.homeClub.logo}}")
 
-            div.col-20.col-center.vs.-live(ng-if="item.isLive").detail.text-center
-                div.live
-                    | {{ 'ui.t.games.live'|trans }}
-                div.time
-                    | {{item.datetime | date:'HH:MM'}}
+                    div.col-20.col-center.vs.-live(ng-if="item.isLive").detail.text-center
+                        div.live
+                            | {{ 'ui.t.games.live'|trans }}
+                        div.time
+                            | {{item.datetime | date:'HH:MM'}}
 
-            div.col-20.col-center.vs.-nextmatch(ng-if="!item.isLive").detail.text-center
-                div.time
-                    | {{item.datetime | date:'HH:mm'}}
-                div.date
-                    | {{item.datetime | date:'dd MMM yyyy'}}
+                    div.col-20.col-center.vs.-nextmatch(ng-if="!item.isLive").detail.text-center
+                        div.time
+                            | {{item.datetime | date:'HH:mm'}}
+                        div.date
+                            | {{item.datetime | date:'dd MMM yyyy'}}
 
-            div.col-40.col-center.club
-                div.row
-                    div.col.col-25.col-center
-                        img.logo(ng-src="{{item.awayClub.logo}}")
-                    div.col.col-75.col-center.-left.text-center
-                        div.name.text-center {{item.awayClub.name}}
+                    div.col-40.col-center.club
+                        div.row
+                            div.col.col-25.col-center
+                                img.logo(ng-src="{{item.awayClub.logo}}")
+                            div.col.col-75.col-center.-left.text-center
+                                div.name.text-center {{item.awayClub.name}}
 
-        div.space(ng-if="!item.isLive")
+                div.progress-bars
+                    .row.row-center
+                        .col-20.text-right.text
+                            | {{item.leftValue}}%
+                        .col.bars
+                            .progressed(
+                            ng-repeat="progress in item.progressData",
+                            style="width:{{progress.value}}%;background-color:{{progress.color}}",
+                            )
+                                div(ng-if="progress.won")
+                                    div(class="{{progress.status}}")
+                        .col-20.text
+                            | {{item.rightValue}}%
 
-        div(ng-if="item.isLive")
-            .progress-bars
-                .row.row-center
-                    .col-20.text-right.text
-                        | {{item.leftValue}}%
-                    .col.bars
-                        .progressed(
-                        ng-repeat="progress in item.progressData",
-                        style="width:{{progress.value}}%;background-color:{{progress.color}}",
-                        )
-                            div(ng-if="progress.won")
-                                div(class="{{progress.status}}")
-                    .col-20.text
-                        | {{item.rightValue}}%
-
-        div.row.inrow.rate
-            div.col(style="background-color:#ffffff;")
-                div.boxleft.win.text-center
+        div.row.rate
+            div.col.boxleft
+                div.box.win.text-center
                     | W
-                div.boxleft.win.text-center
+                div.box.win.text-center
                     | W
-                div.boxleft.draw.text-center
+                div.box.draw.text-center
                     | D
-                div.boxleft.lose.text-center
+                div.box.lose.text-center
                     | L
-                div.boxleft.lose.text-center
+                div.box.lose.text-center
                     | L
             div.col-offset-20
-            div.col
-                div.boxright.draw.text-center
+            div.col.boxright
+                div.box.draw.text-center
                     | D
-                div.boxleft.draw.text-center
+                div.box.draw.text-center
                     | D
-                div.boxleft.lose.text-center
+                div.box.lose.text-center
                     | L
-                div.boxleft.win.text-center
+                div.box.win.text-center
                     | W
-                div.boxleft.win.text-center
+                div.box.win.text-center
                     | W
+
+    div.label
+        div.head2head
+            div.row.topic
+                div.col.col-67
+                    | Head to Head สถิติการพบกัน 5 นัดล่าสุด
+                div.col
+            div.row.head
+                div.col.col-10.text-center
+                    | Pos
+                div.col.col-20
+                    | Date
+                div.col
+                div.col.col-10.text-center
+                    | FT
+            div.row.odd
+                div.col.col-10.text-center
+                    | TPL
+                div.col.col-20
+                    | 15/15/15
+                div.col
+                    | Chonburi FC - Suphanburi FC
+                div.col.col-10.text-center
+                    | 2-1
+            div.row.even
+                div.col.col-10.text-center
+                    | TPL
+                div.col.col-20
+                    | 15/15/15
+                div.col
+                    | Chonburi FC - Suphanburi FC
+                div.col.col-10.text-center
+                    | 2-1
+
+        div.hometeam
+            div.row.topic
+                div.col.col-67
+                    | Chonburi FC
+                div.col
+            div.row.head
+                div.col.col-10.text-center
+                    | Pos
+                div.col.col-20
+                    | Date
+                div.col
+                div.col.col-10.text-center
+                    | FT
+            div.row.odd
+                div.col.col-10.text-center
+                    | TPL
+                div.col.col-20
+                    | 15/15/15
+                div.col
+                    | Chonburi FC - Suphanburi FC
+                div.col.col-10.text-center
+                    | 2-1
+            div.row.even
+                div.col.col-10.text-center
+                    | TPL
+                div.col.col-20
+                    | 15/15/15
+                div.col
+                    | Chonburi FC - Suphanburi FC
+                div.col.col-10.text-center
+                    | 2-1
+
+        div.awayteam
+            div.row.topic
+                div.col.col-67
+                    | Suphanburi FC
+                div.col
+            div.row.head
+                div.col.col-10.text-center
+                    | Pos
+                div.col.col-20
+                    | Date
+                div.col
+                div.col.col-10.text-center
+                    | FT
+            div.row.odd
+                div.col.col-10.text-center
+                    | TPL
+                div.col.col-20
+                    | 15/15/15
+                div.col
+                    | Chonburi FC - Suphanburi FC
+                div.col.col-10.text-center
+                    | 2-1
+            div.row.even
+                div.col.col-10.text-center
+                    | TPL
+                div.col.col-20
+                    | 15/15/15
+                div.col
+                    | Chonburi FC - Suphanburi FC
+                div.col.col-10.text-center
+                    | 2-1
+
+        div.table
+            div.row.topic
+                div.col.col-67
+                    | League Table
+            div.row.head
+                div.col.col-10.text-center
+                    | Pos
+                div.col
+                    | Team
+                div.col.col-10.text-center
+                    | P
+                div.col.col-10.text-center
+                    | GD
+                div.col.col-10.text-center
+                    | Pts
+                div.col.col-10
+            div.row.tableodd
+                div.col.col-10.text-center
+                    | 1
+                div.col
+                    | Chonburi FC
+                div.col.col-10.text-center
+                    | 10
+                div.col.col-10.text-center
+                    | 20
+                div.col.col-10.text-center
+                    | 25
+                div.col.col-10.text-center
+                    img.image(src="./img/games-ranking/up.png")
+            div.row.tableeven
+                div.col.col-10.text-center
+                    | 5
+                div.col
+                    | Suphanburi FC
+                div.col.col-10.text-center
+                    | 10
+                div.col.col-10.text-center
+                    | 5
+                div.col.col-10.text-center
+                    | 25
+                div.col.col-10.text-center
+                    img.image(src="./img/games-ranking/down.png")

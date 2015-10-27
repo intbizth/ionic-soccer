@@ -78,8 +78,6 @@ $ml-progressed-left: #FF3B30;
                 margin: 0 auto;
                 height: 100%;
 
-                background-color: $ml-label-vs-bg;
-
                 &.-live {
                     padding-top: 14px;
 
@@ -118,7 +116,7 @@ $ml-progressed-left: #FF3B30;
         .progress-bars {
             height: 30px;
             overflow: hidden;
-            background: $ml-progress-bars;
+            background-color: #0156a2;
             padding-top: 0px;
 
             .bars {
@@ -161,19 +159,21 @@ $ml-progressed-left: #FF3B30;
             font-weight: bold;
             background-color: $ml-section-footer;
             .boxleft {
-                width: 20px;
-                height: 20px;
-                float: right;
-                margin-left: 3px;
-                background-color: red;
+                .box {
+                    width: 20px;
+                    height: 20px;
+                    margin-left: 3px;
+                    float: right;
+                }
             }
 
             .boxright {
-                width: 20px;
-                height: 20px;
-                float: left;
-                margin-right: 3px;
-                background-color: red;
+                .box {
+                    width: 20px;
+                    height: 20px;
+                    margin-right: 3px;
+                    float: left;
+                }
             }
 
             .win {
@@ -187,6 +187,83 @@ $ml-progressed-left: #FF3B30;
             .lose {
                 background-color: #fe3b2f;
             }
+        }
+    }
+
+    .label {
+        .head2head {
+            .topic {
+                width: 100%;
+                height: auto;
+                font-size: 13px;
+                color: #ffffff;
+                background-color: #fe3b2f;
+            }
+        }
+
+        .hometeam {
+            .topic {
+                width: 100%;
+                height: auto;
+                font-size: 13px;
+                color: #ffffff;
+                background-color: #0188cf
+            }
+        }
+
+        .awayteam {
+            .topic {
+                width: 100%;
+                height: auto;
+                font-size: 13px;
+                color: #ffffff;
+                background-color: #0188cf
+            }
+        }
+
+        .table {
+            .topic {
+                width: 100%;
+                height: auto;
+                font-size: 13px;
+                color: #ffffff;
+                background-color: #0188cf
+            }
+
+            .tableodd {
+                color: #ffffff;
+                background-color: #0056a2;
+            }
+
+            .tableeven {
+                color: #ffffff;
+                background-color: #162a38;
+            }
+
+            .image {
+                height: 10px;
+            }
+        }
+
+        .head {
+            width: 100%;
+            height: auto;
+            background-color: #383a3b;
+            color: #ffffff;
+        }
+
+        .odd {
+            color: #ffffff;
+            background-color: #213647;
+        }
+
+        .even {
+            color: #ffffff;
+            background-color: #162a38;
+        }
+
+        .winner {
+            color: #549af7;
         }
     }
 
