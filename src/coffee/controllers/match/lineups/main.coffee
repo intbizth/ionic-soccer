@@ -1,8 +1,8 @@
 class MatchLineups extends Controller then constructor: (
-    $cordovaGoogleAnalytics, $ionicLoading, $ionicPlatform, $rootScope, $scope, $stateParams, $timeout, Matches, Personals, Und
+    $ionicLoading, $ionicPlatform, $rootScope, $scope, $stateParams, $timeout, GoogleAnalytics, Matches, Personals, Und
 ) ->
     $ionicPlatform.ready ->
-        $cordovaGoogleAnalytics.trackView 'lineups'
+        GoogleAnalytics.trackView 'lineups'
 
     matchId = $stateParams.id || ''
 

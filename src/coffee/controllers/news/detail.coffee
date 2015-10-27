@@ -1,5 +1,5 @@
 class NewsDetail extends Controller then constructor: (
-    $cordovaGoogleAnalytics, $cordovaInAppBrowser, $ionicHistory, $ionicLoading, $scope, $stateParams, Papers, Und
+    $cordovaInAppBrowser, $ionicHistory, $ionicLoading, $scope, $stateParams, GoogleAnalytics, Papers, Und
 ) ->
 
     $scope.back = ->
@@ -36,7 +36,7 @@ class NewsDetail extends Controller then constructor: (
                     $ionicLoading.hide()
             promise.then (model) ->
                 $scope.paper.item = model.dataTranformToUpdate()
-                $cordovaGoogleAnalytics.trackView 'news-detail ' + $scope.paper.item.headline
+                GoogleAnalytics.trackView 'news-detail ' + $scope.paper.item.headline
 
         refresh: ->
             $scope.paper.loadData(pull: true)
