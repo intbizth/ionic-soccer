@@ -1,0 +1,25 @@
+style:
+    - css/style.min.css
+script:
+    - lib/ionic/js/ionic.bundle.min.js
+    - lib/validate/validate.min.js
+    - lib/pluralize/pluralize.js
+    - lib/ngstorage/ngStorage.min.js
+    - lib/angular-http-auth/src/http-auth-interceptor.js
+    - lib/angular-oauth2/dist/angular-oauth2.min.js
+    - lib/angular-translate/angular-translate.min.js
+    - lib/angular-translate-loader-partial/angular-translate-loader-partial.min.js
+    - lib/angular-md5/angular-md5.min.js
+    - lib/chance/dist/chance.min.js
+    - lib/moment/min/moment-with-locales.min.js
+    - lib/underscore/underscore.min.js
+    - lib/backbone/backbone.min.js
+    - lib/backbone.paginator/lib/backbone.paginator.min.js
+    - lib/backbone-relational/backbone-relational.js
+    - lib/jquery/dist/jquery.min.js
+    - lib/jquery-ui/jquery-ui.min.js
+    - lib/jqueryui-touch-punch/jquery.ui.touch-punch.min.js
+    - lib/ngCordova/dist/ng-cordova.min.js
+    - lib/ng-cordova-oauth/dist/ng-cordova-oauth.min.js
+    - cordova.js
+    - js/app.min.js

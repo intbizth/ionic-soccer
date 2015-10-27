@@ -1,0 +1,25 @@
+style:
+    - css/style.css
+script:
+    - lib/ionic/js/ionic.bundle.js
+    - lib/validate/validate.js
+    - lib/pluralize/pluralize.js
+    - lib/ngstorage/ngStorage.js
+    - lib/angular-http-auth/src/http-auth-interceptor.js
+    - lib/angular-oauth2/dist/angular-oauth2.js
+    - lib/angular-translate/angular-translate.js
+    - lib/angular-translate-loader-partial/angular-translate-loader-partial.js
+    - lib/angular-md5/angular-md5.js
+    - lib/chance/chance.js
+    - lib/moment/moment-with-locales.js
+    - lib/underscore/underscore.js
+    - lib/backbone/backbone.js
+    - lib/backbone.paginator/lib/backbone.paginator.js
+    - lib/backbone-relational/backbone-relational.js
+    - lib/jquery/dist/jquery.js
+    - lib/jquery-ui/jquery-ui.js
+    - lib/jqueryui-touch-punch/jquery.ui.touch-punch.js
+    - lib/ngCordova/dist/ng-cordova.js
+    - lib/ng-cordova-oauth/dist/ng-cordova-oauth.js
+    - cordova.js
+    - js/app.js
