@@ -1,3 +1,7 @@
 ui.e:
     live:
         title: Live
+        name: Chonburi FC
+        stadium: Chonburi Stadium
+        timeremain: Time remaining
+        minute: m
