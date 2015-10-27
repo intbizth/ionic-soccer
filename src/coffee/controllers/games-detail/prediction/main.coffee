@@ -138,3 +138,5 @@ class GamesDetailPrediction extends Controller then constructor: (
             return items
 
     $scope.matchLabel.loadData()
+
+    $scope.matchEvents = {}
