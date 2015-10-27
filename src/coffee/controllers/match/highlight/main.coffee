@@ -1,6 +1,9 @@
 class MatchHighlight extends Controller then constructor: (
-    $scope, $timeout, Und, Chance
+    $cordovaGoogleAnalytics, $ionicPlatform, $scope, $timeout, Chance, Und
 ) ->
+    $ionicPlatform.ready ->
+        $cordovaGoogleAnalytics.trackView 'highlight'
+
     $scope.data =
         next: no
         doRefresh: ->

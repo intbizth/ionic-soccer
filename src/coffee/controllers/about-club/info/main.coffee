@@ -1,6 +1,9 @@
 class aboutClubInfo extends Controller then constructor: (
-    $rootScope, $scope, $ionicLoading, $timeout, Clubs, Und
+    $cordovaGoogleAnalytics, $ionicLoading, $ionicPlatform, $rootScope, $scope, $timeout, Clubs, Und
 ) ->
+    $ionicPlatform.ready ->
+        $cordovaGoogleAnalytics.trackView 'info'
+
     clubStore = new Clubs()
 
     options =
