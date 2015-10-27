@@ -20,7 +20,7 @@ class Club extends Factory then constructor: (
                 estYear: 'est_year'
                 logo: 'logo.media.url'
                 stadiumCapacity: 'stadium_capacity'
-                stadiumImage: 'stadium_image'
+                stadiumImage: 'stadium_image.media.url'
                 website: 'website'
                 email: 'email'
                 location: 'location'

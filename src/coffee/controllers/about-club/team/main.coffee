@@ -1,5 +1,5 @@
 class aboutClubTeam extends Controller then constructor: (
-    $ionicLoading, ionicPlatform, $rootScope, $scope, GoogleAnalytics, Personals, Und
+    $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Personals, Und
 ) ->
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'team'
