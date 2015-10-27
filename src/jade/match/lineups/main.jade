@@ -1,30 +1,29 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="personals.refresh()")
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="lineUp.refresh()")
 
-div.headline
-    div.row.inrow
-        div.col.col-20.col-center
-            img.image(
-                src="./img/logo/club.png",
-                srcset="./img/logo/club@2x.png 2x"
-            )
-        div.col.col-80.col-center
-            span.text Chonburi FC
-            br
-            span.text Chonburi Stadium
-div.map
-    div.row.inrow
-        div.col.col-center
-            a.button.button-icon.ion-ios-arrow-left
-        div.col.col-80.col-center.text-center
-            span.text 4 - 4 - 2
-        div.col.col-center
-            a.button.button-icon.ion-ios-arrow-right
-    div.row.inrow.field
-        div.col.inrow
-            img.image(
-            src="./img/match/field.png"
-            srcset="./img/match/field@2x.png 2x"
-            )
+div.row.headline
+    div.col.col-center
+        img.image(ng-src="{{lineUp.item.club.logo}}")
+        span {{lineUp.item.club.name}}
+
+div.row.format(ng-if="!lineUp.item.club.formation.name")
+    div.col.col-center {{lineUp.item.club.formation.name}}
+
+div.football-field(ng-if="!lineUp.item.club.formation.name")
+    div.content
+        div.dot(
+        ng-repeat="dot in dots.items"
+        id="personal-{{dot.id}}"
+        data-item-id="{{dot.id}}"
+        ng-style="{'top':dot.position.top,'left':dot.position.left}"
+        ng-click="dots.popup(dot.itemId)"
+        ng-class="{'-testDrag' : !dots.checkLock(dot.itemId), '-testLock' : dots.checkLock(dot.itemId)}"
+        )
+            div.avatar
+                div.circle
+                    div.subcircle
+                        img.photo(ng-src="{{dot.photo}}")
+            div.fullname {{dot.fullname}}
+            div.testCenterPoint {{dot.centerPoint.x}},{{dot.centerPoint.y}}
 
 div.personal
     div.nodata(ng-if="personals.items.length == 0")

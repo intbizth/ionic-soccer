@@ -1,0 +1,12 @@
+ui.t:
+    about-chonburi:
+        fullname: ชื่อสโมสร
+        halfname: ชื่อย่อ
+        nickname: ฉายา
+        league: ลีก
+        contact: ติดต่อสโมสร
+        website: เว็บไซต์
+        email: อีเมลล์
+        stadiumName: สนาม
+        stadiumCapacity: ความจุ (คน)
+        location: ที่ตั้ง

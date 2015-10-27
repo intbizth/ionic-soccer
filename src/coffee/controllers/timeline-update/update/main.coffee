@@ -1,7 +1,8 @@
 class Update extends Controller then constructor: (
-    $scope, $ionicLoading, Papers, Und
+    $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Papers, Und
 ) ->
-    promise = null
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'update'
 
     papersStore = new Papers null,
         url: Papers::url

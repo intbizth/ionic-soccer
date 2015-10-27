@@ -1,6 +1,9 @@
 class CompetitionTableFixture extends Controller then constructor: (
-    $rootScope, $scope, $ionicLoading, Matches, Und
+    $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Matches, Und
 ) ->
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'fixture'
+
     matchStore = new Matches null,
         url: Matches::url + 'nexts/' + $rootScope.clubId
         state: pageSize: 20

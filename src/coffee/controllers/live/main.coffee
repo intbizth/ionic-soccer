@@ -1,11 +1,15 @@
 class LiveMain extends Controller then constructor: (
-    $rootScope, $scope, $ionicHistory, $ionicLoading, $timeout, Matches, Und
+    $ionicHistory, $ionicLoading, $ionicPlatform, $rootScope, $scope, $timeout, GoogleAnalytics, Matches, Und
 ) ->
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'live'
+
     $scope.back = ->
         $ionicHistory.goBack -1
         return
 
     matchStore = new Matches()
+
     options =
         url: Matches::url + 'live/'
         scope: $scope
@@ -56,6 +60,3 @@ class LiveMain extends Controller then constructor: (
     $scope.matchLabel.loadData()
 
     $ionicLoading.show()
-
-    $scope.refresh = ->
-        $scope.matchLabel.refresh()
