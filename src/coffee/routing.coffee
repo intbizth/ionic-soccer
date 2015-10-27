@@ -165,5 +165,5 @@ class Routing extends Config then constructor: (
         controller: 'lineupMainController'
         templateUrl: 'templates/lineup/main.html'
 
-    $urlRouterProvider.otherwise '/lineup/main'
+    $urlRouterProvider.otherwise '/feature/main'
     return
