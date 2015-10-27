@@ -57,35 +57,54 @@ paths =
     ]
 
 gulp.task 'sass', (done) ->
-    gulp.src(paths.styles)
+    if environment == 'dev'
+        gulp.src(paths.styles)
         #.pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
         .pipe($.sass(errLogToConsole: true))
         .pipe(autoprefixer({browsers: ['last 4 versions']}))
         .pipe($.concat('style.css'))
         .pipe(gulp.dest('./www/css'))
+        .pipe($.size(showFiles: true))
+    else
+        gulp.src(paths.styles)
+        #.pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
+        .pipe($.sass(errLogToConsole: true))
+        .pipe(autoprefixer({browsers: ['last 4 versions']}))
+        .pipe($.concat('style.css'))
         .pipe($.minifyCss(keepSpecialComments: 0))
         .pipe($.rename(extname: '.min.css'))
         .pipe(gulp.dest('./www/css/'))
         .pipe($.size(showFiles: true))
-    #.on('end', done)
 
 gulp.task 'coffee', (done) ->
-    gulp.src(paths.scripts)
-        #.pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
-        .pipe($.ngClassify(appName: appName))
-        .pipe($.coffee(bare: no).on('error', $logger))
-        #.pipe($.jshint(".jshintrc"))
-        #.pipe($.jshint.reporter('jshint-stylish'))
-        .pipe($.concat('app.js'))
-        .pipe($.insert.prepend("'use strict';\n"))
-        .pipe(replace({patterns: replacements}))
-        .pipe(fixmyjs({
-            # JSHint settings here
-        }))
-        .pipe(gulp.dest('./www/js'))
-        .pipe($.size(showFiles: true))
-        # TODO: jsmin
-    #.on('end', done)
+    if environment == 'dev'
+        gulp.src(paths.scripts)
+            #.pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
+            .pipe($.ngClassify(appName: appName))
+            .pipe($.coffee(bare: no).on('error', $logger))
+            .pipe($.jshint(".jshintrc"))
+            .pipe($.jshint.reporter('jshint-stylish'))
+            .pipe($.concat('app.js'))
+            .pipe($.insert.prepend("'use strict';\n"))
+            .pipe(replace(patterns: replacements))
+            .pipe(fixmyjs())
+            .pipe(gulp.dest('./www/js'))
+            .pipe($.size(showFiles: true))
+    else
+        gulp.src(paths.scripts)
+            #.pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
+            .pipe($.ngClassify(appName: appName))
+            .pipe($.coffee(bare: no).on('error', $logger))
+            .pipe($.jshint(".jshintrc"))
+            .pipe($.jshint.reporter('jshint-stylish'))
+            .pipe($.concat('app.js'))
+            .pipe($.insert.prepend("'use strict';\n"))
+            .pipe(replace(patterns: replacements))
+            .pipe(fixmyjs())
+            .pipe($.minify())
+            .pipe($.rename(extname: '.min.js'))
+            .pipe(gulp.dest('./www/js'))
+            .pipe($.size(showFiles: true))
 
 gulp.task 'jade', (done) ->
     gulp.src(paths.views)
@@ -114,6 +133,8 @@ gulp.task 'watch', ->
 
 gulp.task 'build', (callback) ->
     $run("sass", "coffee", "jade", "trans", callback)
+
+gulp.task 'clean', (callback) ->
 
 gulp.task 'install', ['git-check'], ->
     bower.commands.install().on 'log', (data) ->
