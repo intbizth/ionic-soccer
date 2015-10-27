@@ -1,5 +1,5 @@
 class FanzoneQuestionary extends Controller then constructor: (
-    $cordovaGoogleAnalytics, $ionicPlatform, $scope
+    $ionicPlatform, $scope, GoogleAnalytics
 ) ->
     $ionicPlatform.ready ->
-        $cordovaGoogleAnalytics.trackView 'questions'
+        GoogleAnalytics.trackView 'questions'

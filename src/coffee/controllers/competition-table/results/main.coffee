@@ -1,8 +1,8 @@
 class CompetitionTableResult extends Controller then constructor: (
-    $cordovaGoogleAnalytics, $ionicLoading, $ionicPlatform, $rootScope, $scope, Matches, Und
+    $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Matches, Und
 ) ->
     $ionicPlatform.ready ->
-        $cordovaGoogleAnalytics.trackView 'results'
+        GoogleAnalytics.trackView 'results'
 
     matchStore = new Matches null,
         url: Matches::url + 'latest/' + $rootScope.clubId
