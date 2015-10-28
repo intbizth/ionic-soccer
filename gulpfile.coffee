@@ -34,6 +34,7 @@ autoprefixer = require 'gulp-autoprefixer'
 yamlFlatten = require './yaml-flatten'
 fs = require 'fs'
 yaml = require 'js-yaml'
+minifyHTML = require 'gulp-minify-html'
 $logger = $.util.log
 
 $logger 'Environment: ' + ($.util.colors.yellow environment)
@@ -157,6 +158,7 @@ gulp.task 'index', (done) ->
                     .pipe($.inject(sources), relative: yes)
                     .pipe($.replace('/www/', ''))
                     .pipe($.replace('/src/index/', ''))
+                    .pipe(minifyHTML())
                     .pipe(gulp.dest('./www'))
                     .pipe($.size(showFiles: yes))
             )

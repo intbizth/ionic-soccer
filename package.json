@@ -29,6 +29,7 @@
     "gulp-load-plugins": "~0.4.0",
     "gulp-ng-classify": "~4.0.0",
     "gulp-notify": "1.2.5",
+    "gulp-minify-html": "1.0.4",
     "gulp-plumber": "0.6.1",
     "gulp-postcss": "^6.0.0",
     "gulp-replace": "^0.5.4",
