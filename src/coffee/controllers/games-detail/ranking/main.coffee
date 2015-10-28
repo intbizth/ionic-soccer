@@ -1,5 +1,5 @@
 class GamesDetailRanking extends Controller then constructor: (
-    $scope, $timeout, Und, Chance, GoogleAnalytics
+    $scope, $timeout, Und, Chance
 ) ->
     $scope.data =
         next: no
@@ -43,7 +43,7 @@ class GamesDetailRanking extends Controller then constructor: (
                 console.log('matchLabel:loadMore', $this.sections.length, JSON.stringify($this.sections), $this.next)
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
                 return
-            , 2000)
+            , 1000)
             return
         fakeSection: (datetime)->
             section =
@@ -138,3 +138,15 @@ class GamesDetailRanking extends Controller then constructor: (
             return items
 
     $scope.matchLabel.loadData()
+
+    $scope.name1 =
+        homeTeam: chance.first()
+        awayTeam: chance.last()
+        homeScore: Und.random(0, 10)
+        awayScore: Und.random(0, 10)
+
+    $scope.name2 =
+        homeTeam: chance.first()
+        awayTeam: chance.last()
+        homeScore: Und.random(0, 10)
+        awayScore: Und.random(0, 10)
