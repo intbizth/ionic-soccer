@@ -65,9 +65,10 @@ div.games-prediction
         div(ng-repeat="item in section.items")
             div(ng-if="item.handicap != null")
                 div.handicap-bar Handicap
-                    span.title {{item.handicap}}
+                    span.value {{item.handicap}}
 
-    div.match-events(ng-if="matchEvents.activities.length > 0", id="match-events")
+    // MATCH-EVENT FOR CONNECT API
+    //div.match-events(ng-if="matchEvents.activities.length > 0", id="match-events")
         div.line(id="match-events-line")
 
         div(ng-repeat="item in matchEvents.activities")
@@ -100,5 +101,63 @@ div.games-prediction
                         )
                         span.name(ng-if="item.actor") {{item.actor}}
 
+    // MATCH-EVENT FOR FAKE
+    match-events(items="matchEvents.items")
+
+    div(ng-repeat="item in matchEvents.items")
+        div(ng-if="item.endmatch == true")
+            div.end-match สิ้นสุดการแข่งขัน
+                span.value 1-1
+                span.subject ทายผลการแข่งขัน
+                span.value 0
+                span.subject คะแนน
+                span.subject / ทายผลสกอร์
+                span.value 0
+                span.subject คะแนน
+
+    .expand-collapse.game-collapse
+        .container
+            .row.row-center
+                .col.col.section
+                    .select(
+                    ng-click!="active = !active",
+                    ng-class!="{'collapsed': active, 'expanded': !active}"
+                    )
+                        | Select
+                .col.col.section
+                    .select(
+                    ng-click!="active = !active",
+                    ng-class!="{'collapsed': active, 'expanded': !active}"
+                    )
+                        | Select
+                .col.col.section
+                    .select(
+                    ng-click!="active = !active",
+                    ng-class!="{'collapsed': active, 'expanded': !active}"
+                    )
+                        | Select
+            .row.desc
+                .col.col.text-center Chonburi FC
+                .col.col.text-center Draw
+                .col.col.text-center Chonburi FC
+
+        //.slides.prediction-content(ng-hide="active")
+            .content
+                .header(layout="row")
+                    .arrow
+                    .text ทายผลสกอร์
+            .prediction-form(layout="row")
+                .shadow
+
+                md-input-container.home(flex)
+                    input.point(type="number", aria-label="home")
+
+                .score(flex="20") Score
+
+                md-input-container.away(flex)
+                    input.point(type="number", aria-label="away")
+
+            button.prediction-submit(type="submit" ng-click="")
+                .text ส่งเกมทายผลและทายสกอร์
 
 //ion-infinite-scroll(ng-if="prediction.next" on-infinite="prediction.loadMore()", distance="5%")
