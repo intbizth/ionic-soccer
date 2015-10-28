@@ -6,8 +6,10 @@ html
         meta(name='format-detection', content='telephone=no')
         meta(http-equiv='Content-Security-Policy', content="default-src *; style-src 'self' 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'")
         title
-        style(replace="file")
-        script(replace="file")
+        <!-- inject:css -->
+        <!-- endinject -->
+        <!-- inject:js -->
+        <!-- endinject -->
     body(ng-app='soccer')
         ion-nav-bar.bar-positive
         ion-nav-view
