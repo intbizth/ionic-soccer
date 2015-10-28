@@ -1,8 +1,8 @@
 class FanzoneProducts extends Controller then constructor: (
-   $cordovaGoogleAnalytics, $ionicLoading, $ionicPlatform, $rootScope, $scope, Products, Und
+   $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Products, Und
 ) ->
     $ionicPlatform.ready ->
-        $cordovaGoogleAnalytics.trackView 'products'
+        GoogleAnalytics.trackView 'products'
 
     productStore = new Products null,
         url: Products::url + 'club/' + $rootScope.clubId

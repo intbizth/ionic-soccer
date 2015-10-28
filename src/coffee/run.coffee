@@ -1,5 +1,5 @@
 class Run extends Run then constructor: (
-    $rootScope, $ionicPlatform, $cordovaGoogleAnalytics, $cordovaKeyboard, Authen, CFG
+    $rootScope, $ionicPlatform, $cordovaKeyboard, Authen, CFG, GoogleAnalytics
 ) ->
     $rootScope.isAndroid = ionic.Platform.isAndroid()
     $rootScope.isIOS = ionic.Platform.isIOS()
@@ -10,7 +10,7 @@ class Run extends Run then constructor: (
         userInfoPath: CFG.API.getUserInfo()
 
     $ionicPlatform.ready ->
-        $cordovaGoogleAnalytics.startTrackerWithId $rootScope.googleAnalyticsId
+        GoogleAnalytics.startTrackerWithId $rootScope.googleAnalyticsId
 
         if window.cordova and window.cordova.plugins and window.cordova.plugins.Keyboard
             $cordovaKeyboard.hideAccessoryBar yes

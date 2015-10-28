@@ -1,8 +1,8 @@
 class Ticket extends Controller then constructor: (
-    $cordovaGoogleAnalytics, $ionicHistory, $ionicPlatform, $scope, $timeout, Chance, Und
+    $ionicHistory, $ionicPlatform, $scope, $timeout, Chance, GoogleAnalytics, Und
 ) ->
     $ionicPlatform.ready ->
-        $cordovaGoogleAnalytics.trackView 'ticket'
+        GoogleAnalytics.trackView 'ticket'
 
     $scope.share = ->
         return
