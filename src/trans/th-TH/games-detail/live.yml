@@ -1,3 +1,7 @@
 ui.t:
     live:
         title: ดูสด
+        name: ชลบุรี เอฟซี
+        stadium: สนามชลบุรี
+        timeremain: เวลาที่เหลือ
+        minute: นาที
