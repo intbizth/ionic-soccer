@@ -4,7 +4,7 @@ class Update extends Controller then constructor: (
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'update'
 
-    pageLimit = 10
+    pageLimit = 20
     papers = new Papers()
 
     $scope.papers =
