@@ -1,11 +1,11 @@
 class CompetitionTableResult extends Controller then constructor: (
-    $scope, $ionicLoading, Matches, Und
+    $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Matches, Und
 ) ->
-    clubId = 28
-    promise = null
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'results'
 
     matchStore = new Matches null,
-        url: Matches::url + 'latest/' + clubId
+        url: Matches::url + 'latest/' + $rootScope.clubId
         state: pageSize: 20
 
     options =

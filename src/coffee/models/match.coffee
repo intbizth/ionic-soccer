@@ -13,7 +13,7 @@ class Matches extends Factory then constructor: (
         alias: 'matches'
 
 class Match extends Factory then constructor: (
-    CFG, NgBackboneModel, Club, Season, Helper, Und
+    $rootScope, CFG, NgBackboneModel, Club, Season, Helper, Und
 ) ->
     return NgBackboneModel.extend
         # root url for single model.
@@ -98,6 +98,26 @@ class Match extends Factory then constructor: (
             item.type = 'label'
             item.template = 'after'
             return item
+        dataTranformToView: ->
+            item =
+                id: 'id'
+                homeClub:
+                    id: 'home_club.id'
+                    name: 'home_club.name'
+                    short_name: 'home_club.short_name'
+                    logo: 'home_club._links.logo_70x70.href'
+                    score: 'home_score'
+                awayClub:
+                    id: 'away_club.id'
+                    name: 'away_club.name'
+                    short_name: 'away_club.short_name'
+                    logo: 'away_club._links.logo_70x70.href'
+                    score: 'away_score'
+                startTime: 'start_time'
+            item = Helper.traverseProperties @, item
+            item.type = 'label'
+            item.template = 'after'
+            return item
         dataTranformToMatchEvents: ->
             item =
                 id: 'id'
@@ -107,11 +127,11 @@ class Match extends Factory then constructor: (
                 endMatch: 'end_match'
                 activities: 'activities'
             item = Helper.traverseProperties @, item
-            if item.activities.length > 0
+            if item.activities and item.activities.length > 0
                 item.activities = Und.map item.activities, (itemActivity) ->
                     activity =
                         id: 'id'
-                        actor: 'actor'
+                        actor: 'actor.fullname'
                         time: 'activity_time'
                         side: 'activity_side'
                         type: 'activity_type'
@@ -153,4 +173,26 @@ class Match extends Factory then constructor: (
                         dot: 'large'
                     )
                 item.activities.reverse()
+            return item
+        dataTranformToLineUp: ->
+            item =
+                id: 'id'
+                homeClub:
+                    id: 'home_club.id'
+                    name: 'home_club.name'
+                    logo: 'home_club._links.logo_70x70.href'
+                    formation:
+                        id: 'home_formation.id'
+                        name: 'home_formation.name'
+                        pattern: 'home_formation.pattern'
+                awayClub:
+                    id: 'away_club.id'
+                    name: 'away_club.name'
+                    logo: 'away_club._links.logo_70x70.href'
+                    formation:
+                        id: 'away_formation.id'
+                        name: 'away_formation.name'
+                        pattern: 'away_formation.pattern'
+            item = Helper.traverseProperties @, item
+            item.club = if $rootScope.clubId == item.homeClub.id then item.club = item.homeClub else item.club = item.awayClub
             return item

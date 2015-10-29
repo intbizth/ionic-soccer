@@ -1,12 +1,15 @@
 class LiveMain extends Controller then constructor: (
-    $rootScope, $scope, $ionicHistory, $ionicLoading, $timeout, Matches, Und
+    $ionicHistory, $ionicLoading, $ionicPlatform, $rootScope, $scope, $timeout, GoogleAnalytics, Matches, Und
 ) ->
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'live'
+
     $scope.back = ->
         $ionicHistory.goBack -1
         return
 
-    clubId = 28
     matchStore = new Matches()
+
     options =
         url: Matches::url + 'live/'
         scope: $scope
@@ -36,7 +39,7 @@ class LiveMain extends Controller then constructor: (
                         $ionicLoading.hide()
                 ,600)
             else
-                promise = matchStore.find clubId, options
+                promise = matchStore.find $rootScope.clubId, options
                 promise.finally ->
                     if pull
                         $scope.$broadcast 'scroll.refreshComplete'
@@ -57,6 +60,3 @@ class LiveMain extends Controller then constructor: (
     $scope.matchLabel.loadData()
 
     $ionicLoading.show()
-
-    $scope.refresh = ->
-        $scope.matchLabel.refresh()

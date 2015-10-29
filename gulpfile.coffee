@@ -22,16 +22,19 @@ replacements = [{
     replacement: environment
 }]
 
-$ = require('gulp-load-plugins')(lazy: false)
+$ = require('gulp-load-plugins')(lazy: no)
 sh = require 'shelljs'
 $run = require 'run-sequence'
 gulp = require 'gulp'
 bower = require 'bower'
+del = require 'del'
 replace = require 'gulp-replace-task'
 fixmyjs = require 'gulp-fixmyjs'
 autoprefixer = require 'gulp-autoprefixer'
 yamlFlatten = require './yaml-flatten'
-del = require 'del'
+fs = require 'fs'
+yaml = require 'js-yaml'
+minifyHTML = require 'gulp-minify-html'
 $logger = $.util.log
 
 $logger 'Environment: ' + ($.util.colors.yellow environment)
@@ -56,65 +59,128 @@ paths =
     trans: [
         './src/trans/**/*.yml'
     ]
+    index: './src/index/index.jade'
 
 gulp.task 'sass', (done) ->
-    gulp.src(paths.styles)
-        #.pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
-        .pipe($.sass(errLogToConsole: true))
-        .pipe(autoprefixer({browsers: ['last 4 versions']}))
-        .pipe($.concat('style.css'))
-        .pipe(gulp.dest('./www/css'))
-        .pipe($.minifyCss(keepSpecialComments: 0))
-        .pipe($.rename(extname: '.min.css'))
-        .pipe(gulp.dest('./www/css/'))
-        .pipe($.size(showFiles: true))
-    #.on('end', done)
+    if environment == 'dev'
+        gulp.src(paths.styles)
+            .pipe($.sass(errLogToConsole: yes))
+            .pipe(autoprefixer({browsers: ['last 4 versions']}))
+            .pipe($.concat('style.css'))
+            .pipe(gulp.dest('./www/css'))
+            .pipe($.size(showFiles: yes))
+    else
+        gulp.src(paths.styles)
+            .pipe($.sass(errLogToConsole: yes))
+            .pipe(autoprefixer({browsers: ['last 4 versions']}))
+            .pipe($.concat('style.css'))
+            .pipe($.minifyCss(keepSpecialComments: 0))
+            .pipe($.rename(suffix: '.min'))
+            .pipe(gulp.dest('./www/css/'))
+            .pipe($.size(showFiles: yes))
 
 gulp.task 'coffee', (done) ->
-    gulp.src(paths.scripts)
-        #.pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
-        .pipe($.ngClassify(appName: appName))
-        .pipe($.coffee(bare: no).on('error', $logger))
-        #.pipe($.jshint(".jshintrc"))
-        #.pipe($.jshint.reporter('jshint-stylish'))
-        .pipe($.concat('app.js'))
-        .pipe($.insert.prepend("'use strict';\n"))
-        .pipe(replace({patterns: replacements}))
-        .pipe(fixmyjs({
-            # JSHint settings here
-        }))
-        .pipe(gulp.dest('./www/js'))
-        .pipe($.size(showFiles: true))
-        # TODO: jsmin
-    #.on('end', done)
+    if environment == 'dev'
+        gulp.src(paths.scripts)
+            .pipe($.ngClassify(appName: appName))
+            .pipe($.coffee(bare: no).on('error', $logger))
+            .pipe($.jshint(".jshintrc"))
+            .pipe($.jshint.reporter('jshint-stylish'))
+            .pipe($.concat('app.js'))
+            .pipe($.insert.prepend("'use strict';\n"))
+            .pipe(replace(patterns: replacements))
+            .pipe(fixmyjs())
+            .pipe(gulp.dest('./www/js'))
+            .pipe($.size(showFiles: yes))
+    else
+        gulp.src(paths.scripts)
+            .pipe($.ngClassify(appName: appName))
+            .pipe($.coffee(bare: no).on('error', $logger))
+            .pipe($.jshint(".jshintrc"))
+            .pipe($.jshint.reporter('jshint-stylish'))
+            .pipe($.concat('app.js'))
+            .pipe($.insert.prepend("'use strict';\n"))
+            .pipe(replace(patterns: replacements))
+            .pipe(fixmyjs())
+            .pipe($.uglify())
+            .pipe($.rename(suffix: '.min'))
+            .pipe(gulp.dest('./www/js'))
+            .pipe($.size(showFiles: yes))
 
 gulp.task 'jade', (done) ->
-    gulp.src(paths.views)
-        #.pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
-        .pipe($.jade(pretty: true))
-        .pipe(gulp.dest('./www/templates')) # uncomment to show compiled html templates
-        #.pipe($.angularTemplatecache('templates', {standalone:true, root: 'templates/'} ))
-        #.pipe($.rename(extname: '.js'))
-        #.pipe(gulp.dest('./www/js'))
-        .pipe($.size(showFiles: true))
-        #.on('end', done)
+    if environment == 'dev'
+        gulp.src(paths.views)
+            .pipe($.jade(pretty: yes))
+            .pipe(gulp.dest('./www/templates'))
+            .pipe($.size(showFiles: yes))
+    else
+        gulp.src(paths.views)
+            .pipe($.jade(pretty: no))
+            .pipe(gulp.dest('./www/templates'))
+            .pipe($.size(showFiles: yes))
 
 gulp.task 'trans', (done) ->
     gulp.src(paths.trans)
         .pipe(yamlFlatten())
         .pipe($.rename(extname: '.json'))
         .pipe(gulp.dest('./www/translations'))
-        .pipe($.size(showFiles: true))
-    #.on('end', done)
+        .pipe($.size(showFiles: yes))
+
+gulp.task 'index', (done) ->
+    if environment == 'dev'
+        file = './src/index/dev.yml'
+        sources = yaml.safeLoad(fs.readFileSync(file, 'utf8'))
+        sources = sources.style.concat(sources.script)
+        sources = gulp.src(sources, read: no)
+        gulp.src(paths.index)
+            .pipe($.jade(pretty: yes))
+            .pipe(gulp.dest('./www'))
+            .pipe($.size(showFiles: yes))
+            .on('end', ->
+                gulp.src('./www/index.html')
+                    .pipe($.inject(sources), relative: yes)
+                    .pipe($.replace('/www/', ''))
+                    .pipe($.replace('/src/index/', ''))
+                    .pipe(gulp.dest('./www'))
+                    .pipe($.size(showFiles: yes))
+            )
+    else
+        file = './src/index/prod.yml'
+        sources = yaml.safeLoad(fs.readFileSync(file, 'utf8'))
+        sources = sources.style.concat(sources.script)
+        sources = gulp.src(sources, read: no)
+        gulp.src(paths.index)
+            .pipe($.jade(pretty: yes))
+            .pipe(gulp.dest('./www'))
+            .pipe($.size(showFiles: yes))
+            .on('end', ->
+                gulp.src('./www/index.html')
+                    .pipe($.inject(sources), relative: yes)
+                    .pipe($.replace('/www/', ''))
+                    .pipe($.replace('/src/index/', ''))
+                    .pipe(minifyHTML())
+                    .pipe(gulp.dest('./www'))
+                    .pipe($.size(showFiles: yes))
+            )
 
 gulp.task 'watch', ->
     gulp.watch(paths.styles, ['sass'])
     gulp.watch(paths.scripts, ['coffee'])
     gulp.watch(paths.views, ['jade'])
     gulp.watch(paths.trans, ['trans'])
+    gulp.watch(paths.index, ['index'])
 
 gulp.task 'build', (callback) ->
-    $run("sass", "coffee", "jade", "trans", callback)
+    $run('sass', 'coffee', 'jade', 'trans', 'index', callback)
+
+gulp.task 'remove', (done) ->
+    del([
+        './www/css/*'
+        './www/js/*'
+        './www/templates/*'
+        './www/translations/*'
+        './www/index.html'
+    ])
 
 gulp.task 'install', ['git-check'], ->
     bower.commands.install().on 'log', (data) ->

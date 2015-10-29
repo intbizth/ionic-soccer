@@ -1,12 +1,13 @@
 class aboutClubTeam extends Controller then constructor: (
-    $scope, $ionicLoading, Personals, Und
+    $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Personals, Und
 ) ->
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'team'
+
     $scope.headline = 'CHALARMCHON'
 
-    promise = null
-
     personalStore = new Personals null,
-        url: Personals::url + 'club/28'
+        url: Personals::url + 'club/' + $rootScope.clubId
         state: pageSize: 100
 
     options =

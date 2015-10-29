@@ -1,6 +1,9 @@
 class GamesMain extends Controller then constructor: (
-    $scope, $ionicPlatform, $ionicHistory, $sce, $timeout, Und, Chance
+    $ionicHistory, $ionicPlatform, $sce, $scope, $timeout, Chance, GoogleAnalytics, Und
 ) ->
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'games'
+
     $scope.isIOS = ionic.Platform.isIOS()
     $scope.back = ->
         $ionicHistory.goBack -1
@@ -55,6 +58,7 @@ class GamesMain extends Controller then constructor: (
                 id: Und.random(1, 9999999)
                 name: 'Thai Premier League'
                 week: Und.random(1,12)
+                logo: 'http://demo.balltoro.com/media/image/cms/medias/tpl.jpg'
                 datetime: Chance.date(datetime)
                 items: this.fakeItems(datetime)
             return section
@@ -95,7 +99,30 @@ class GamesMain extends Controller then constructor: (
                 homeClub: null
                 awayClub: null
                 datetime: Chance.date(datetime)
-                template: Chance.pick(['before', 'after'])
+                isLive: Chance.bool({
+                    likelihood: 30
+                })
+                progressData: []
+                leftValue: null
+                rightValue: null
+                template: Chance.pick(['before'])
+            if item.isLive == true
+                randomValue = Und.random(1, 100)
+                leftWon = null
+                rightWon = null
+                item.leftValue = 100 - randomValue
+                item.rightValue = randomValue
+                if item.leftValue > item.rightValue
+                    leftWon = yes
+                    rightWon = no
+                else
+                    leftWon = no
+                    rightWon = yes
+
+                item.progressData = [
+                    { value:item.leftValue , color:'#FF3B30', won:leftWon, status:'-left' }
+                    { value:item.rightValue , color:'#FAAF40', won:rightWon, status:'-right' }
+                ]
             if Chance.pick([true, false])
                 item.homeClub = clubs[0]
                 item.awayClub = clubs[1]
@@ -106,7 +133,7 @@ class GamesMain extends Controller then constructor: (
         fakeItems: (datetime) ->
             items = []
             i = 0
-            ii = Und.random(0, 5)
+            ii = Und.random(0, 3)
             while i < ii
                 item = this.fakeItem(datetime)
                 items.push item

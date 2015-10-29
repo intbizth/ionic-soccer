@@ -1,7 +1,8 @@
 class aboutClubInfo extends Controller then constructor: (
-    $rootScope, $scope, $ionicLoading, $timeout, Clubs, Und
+    $ionicLoading, $ionicPlatform, $rootScope, $scope, $timeout, Clubs, GoogleAnalytics, Und
 ) ->
-    clubId = 28
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'info'
 
     clubStore = new Clubs()
 
@@ -22,7 +23,7 @@ class aboutClubInfo extends Controller then constructor: (
                         $ionicLoading.hide()
                 ,600)
             else
-                promise = clubStore.find clubId, options
+                promise = clubStore.find $rootScope.clubId, options
                 promise.finally ->
                     if pull
                         $scope.$broadcast 'scroll.refreshComplete'

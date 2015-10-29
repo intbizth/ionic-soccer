@@ -1,0 +1,11 @@
+ui.t:
+    membership:
+        nodata: ไม่มีตั๋ว
+        yourmemberid:  หมายเลขสมาชิกของคุณ
+        no: ลำดับที่.
+        memberid: หมายเลขสมาชิก
+        positionandzone: โซนและตำแหน่ง
+        seat: ที่นั่ง
+        block: บล็อก
+        gate: ประตู
+        memberzone: โซนของสมาชิก
