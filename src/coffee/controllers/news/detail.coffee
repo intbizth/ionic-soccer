@@ -24,15 +24,17 @@ class NewsDetail extends Controller then constructor: (
         item: {}
         loadData: (args) ->
             pull = if args && args.pull then args.pull else no
-            papers.getId(paperId
+            papers.$getId(id: paperId
             , (success) ->
-                $scope.paper.item = papers.dataTranformToDetail(success)
+                console.warn 'success', success
+                $scope.paper.item = success
                 GoogleAnalytics.trackView 'news-detail ' + $scope.paper.item.headline
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
                     $ionicLoading.hide()
             , (error) ->
+                console.warn 'error', error
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else

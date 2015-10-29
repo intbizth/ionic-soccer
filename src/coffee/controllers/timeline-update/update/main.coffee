@@ -12,18 +12,19 @@ class Update extends Controller then constructor: (
         next: null
         loadData: (args) ->
             pull = if args && args.pull then args.pull else no
-            papers.getPage(
+            papers.$getPage(
                 page: 1
                 limit: pageLimit
             , (success) ->
+                console.warn 'success', success
                 $scope.papers.next = if success.next then success.next else null
-                $scope.papers.items = Und.map success.items, (item) ->
-                    return papers.dataTranformToLists(item)
+                $scope.papers.items = success.items
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
                     $ionicLoading.hide()
             , (error) ->
+                console.warn 'error', error
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
@@ -32,14 +33,12 @@ class Update extends Controller then constructor: (
         refresh: ->
             $scope.papers.loadData(pull: yes)
         loadNext: ->
-            papers.getPage(
+            papers.$getPage(
                 page: $scope.papers.next
                 limit: pageLimit
             , (success) ->
                 $scope.papers.next = if success.next then success.next else null
-                $scope.papers.items = $scope.papers.items.concat(Und.map success.items, (item) ->
-                    return papers.dataTranformToLists(item)
-                )
+                $scope.papers.items = $scope.papers.items.concat success.items
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
             , (error) ->
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
