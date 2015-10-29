@@ -262,8 +262,34 @@ $ml-progressed-left: #FF3B30;
             background-color: #162a38;
         }
 
-        .winner {
+        .ownteam {
             color: #549af7;
+        }
+
+        .manage {
+            width: 95%;
+            margin-top: -5px;
+            border-radius: 3px;
+            font-size: 12px;
+            color: #000000;
+            background-color: #ffffff;
+            .previous {
+                border-radius: 3px;
+                border-right: 1px solid #a5a6aa;
+                background-color: #ffffff;
+            }
+            .next {
+                border-radius: 3px;
+                background-color: #ffffff;
+            }
+
+            .previous:active {
+                opacity: 0.5;
+            }
+
+            .next:active {
+                opacity: 0.5;
+            }
         }
     }
 

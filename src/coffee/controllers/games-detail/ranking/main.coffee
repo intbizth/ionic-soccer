@@ -26,7 +26,7 @@ class GamesDetailRanking extends Controller then constructor: (
                 $this.loadData()
                 $scope.$broadcast 'scroll.refreshComplete'
                 return
-            , 2000)
+            , 1000)
             return
         loadMore: ->
             console.log 'matchLabel:loadMore'
@@ -43,7 +43,7 @@ class GamesDetailRanking extends Controller then constructor: (
                 console.log('matchLabel:loadMore', $this.sections.length, JSON.stringify($this.sections), $this.next)
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
                 return
-            , 1000)
+            , 2000)
             return
         fakeSection: (datetime)->
             section =
@@ -139,14 +139,159 @@ class GamesDetailRanking extends Controller then constructor: (
 
     $scope.matchLabel.loadData()
 
-    $scope.name1 =
-        homeTeam: chance.first()
-        awayTeam: chance.last()
-        homeScore: Und.random(0, 10)
-        awayScore: Und.random(0, 10)
+    $scope.winrates =
+        items: []
+        next: no
+        loadData: ->
+            @items = @fakeItems()
+            console.log('winrates:loadData', JSON.stringify(@items))
+            return
+        doRefresh: ->
+            console.log 'winrates:doRefresh'
+            $this = @
+            $timeout(->
+                console.log 'winrates:doRefresh2'
+                $this.loadData()
+                $scope.$broadcast 'scroll.refreshComplete'
+                return
+            , 1000)
+            return
+        fakeItem: ->
+            item =
+                data1: Chance.string({length: 1, pool: 'WLD'})
+                data2: Chance.string({length: 1, pool: 'WLD'})
+        fakeItems: ->
+            items = []
+            i = 0
+            ii = 5
+            while i < ii
+                items.push @fakeItem()
+                i++
+            return items
+
+    $scope.winrates.loadData()
+
+    $scope.heads =
+        items: []
+        next: no
+        loadData: ->
+            @items = @fakeItems()
+            console.log('heads:loadData', JSON.stringify(@items))
+            return
+        doRefresh: ->
+            console.log 'heads:doRefresh'
+            $this = @
+            $timeout(->
+                console.log 'heads:doRefresh2'
+                $this.loadData()
+                $scope.$broadcast 'scroll.refreshComplete'
+                return
+            , 1000)
+            return
+        fakeItem: ->
+            item =
+                home:
+                    name: Chance.first()
+                    score: Und.random(0, 9)
+                away:
+                    name: Chance.last()
+                    score: Und.random(0, 9)
+                datetime: Chance.date()
+        fakeItems: ->
+            items = []
+            i = 0
+            ii = 5
+            while i < ii
+                items.push @fakeItem()
+                i++
+            return items
+
+    $scope.heads.loadData()
+
+    $scope.homes =
+        items: []
+        next: no
+        loadData: ->
+            @items = @fakeItems()
+            console.log('homes:loadData', JSON.stringify(@items))
+            return
+        doRefresh: ->
+            console.log 'homes:doRefresh'
+            $this = @
+            $timeout(->
+                console.log 'homes:doRefresh2'
+                $this.loadData()
+                $scope.$broadcast 'scroll.refreshComplete'
+                return
+            , 1000)
+            return
+        fakeItem: ->
+            item =
+                home:
+                    name: 'Chonburi FC'
+                    score: Und.random(0, 9)
+                away:
+                    name: Chance.last()
+                    score: Und.random(0, 9)
+                datetime: Chance.date()
+        fakeItems: ->
+            items = []
+            i = 0
+            ii = 5
+            while i < ii
+                items.push @fakeItem()
+                i++
+            return items
+
+    $scope.homes.loadData()
+
+    $scope.aways =
+        items: []
+        next: no
+        loadData: ->
+            @items = @fakeItems()
+            console.log('aways:loadData', JSON.stringify(@items))
+            return
+        doRefresh: ->
+            console.log 'aways:doRefresh'
+            $this = @
+            $timeout(->
+                console.log 'aways:doRefresh2'
+                $this.loadData()
+                $scope.$broadcast 'scroll.refreshComplete'
+                return
+            , 1000)
+            return
+        fakeItem: ->
+            item =
+                home:
+                    name: 'Suphanburi FC'
+                    score: Und.random(0, 9)
+                away:
+                    name: Chance.last()
+                    score: Und.random(0, 9)
+                datetime: Chance.date()
+        fakeItems: ->
+            items = []
+            i = 0
+            ii = 5
+            while i < ii
+                items.push @fakeItem()
+                i++
+            return items
+
+    $scope.aways.loadData()
 
     $scope.name2 =
         homeTeam: chance.first()
         awayTeam: chance.last()
         homeScore: Und.random(0, 10)
         awayScore: Und.random(0, 10)
+
+    $scope.refresh =
+        doRefresh: ->
+            $scope.matchLabel.doRefresh()
+            $scope.winrates.doRefresh()
+            $scope.heads.doRefresh()
+            $scope.homes.doRefresh()
+            $scope.aways.doRefresh()
