@@ -38,7 +38,7 @@ class Update extends Controller then constructor: (
                 limit: pageLimit
             , (success) ->
                 $this.next = if success.next then success.next else null
-                $this.items = $scope.papers.items.concat success.items
+                $this.items = $this.items.concat success.items
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
             , (error) ->
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
