@@ -1,10 +1,11 @@
-class Papers extends Factory then constructor: (
+class Products extends Factory then constructor: (
     $resource, CFG, Helper, Und
 ) ->
     timeout = 20000
 
-    resource = $resource(CFG.API.getPath('news/'), {}, {
+    resource = $resource(CFG.API.getPath('product/'), {}, {
         getPage:
+            url: CFG.API.getPath('product/club/' + CFG.clubId)
             method: 'GET'
             params:
                 page: 1
@@ -24,19 +25,9 @@ class Papers extends Factory then constructor: (
                 data.items = Und.map data.items, (item) ->
                     fields =
                         id: 'id'
-                        headline: 'headline'
-                        subhead: 'subhead'
-                        description: 'description'
-                        highlight: 'highlight'
-                        content: 'content'
-                        creditUrl: 'credit_url'
-                        image: 'image'
-                        cover: 'cover'
-                        user:
-                            id: 'user.id'
-                            displayname: 'user.displayname'
-                            profilePicture: 'user.profile_picture'
-                        publishedDate: 'published_date'
+                        name: 'name'
+                        price: 'price'
+                        image: 'image.media.url'
                     return Helper.traverseProperties item, fields
                 if data.page < data.pages
                     data.next = data.page + 1
@@ -46,7 +37,7 @@ class Papers extends Factory then constructor: (
             method: 'GET'
             params:
                 id: '@id'
-            url: CFG.API.getPath('news/:id')
+            url: CFG.API.getPath('product/:id')
             transformResponse: (data, headersGetter) ->
                 try
                     data = angular.fromJson(data)
@@ -54,19 +45,12 @@ class Papers extends Factory then constructor: (
                     data = {}
                 fields =
                     id: 'id'
-                    headline: 'headline'
-                    subhead: 'subhead'
+                    name: 'name'
+                    model: 'model'
                     description: 'description'
-                    highlight: 'highlight'
-                    content: 'content'
-                    creditUrl: 'credit_url'
-                    image: 'image'
-                    cover: 'cover'
-                    user:
-                        id: 'user.id'
-                        displayname: 'user.displayname'
-                        profilePicture: 'user.profile_picture'
-                    publishedDate: 'published_date'
+                    price: 'price'
+                    moreDescription: 'more_description'
+                    image: 'image.media.url'
                 return Helper.traverseProperties data, fields
             timeout: timeout
     })

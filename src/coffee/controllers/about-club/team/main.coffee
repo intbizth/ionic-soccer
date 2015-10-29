@@ -4,20 +4,14 @@ class aboutClubTeam extends Controller then constructor: (
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'team'
 
+    pageLimit = 100
+    personals = new Personals()
+
     $scope.headline = 'CHALARMCHON'
-
-    personalStore = new Personals null,
-        url: Personals::url + 'club/' + $rootScope.clubId
-        state: pageSize: 100
-
-    options =
-        scope: $scope
-        personalStoreKey: 'personalStore'
-        collectionKey: 'personalCollection'
 
     $scope.personals =
         items: []
-        hasMorePage: no
+        next: no
         getPositionClass: (shortName)->
             switch shortName
                 when 'GK' then '-goalkeeper'
@@ -25,33 +19,39 @@ class aboutClubTeam extends Controller then constructor: (
                 when 'MF' then '-midfielder'
                 when 'FW' then '-forwarder'
                 else ''
-        loadData: ->
-            promise = personalStore.load options
-            promise.finally -> $ionicLoading.hide()
-            promise.then ->
-                $scope.personals.items = Und.map personalStore.getCollection(), (item) ->
-                    return item.dataTranformToTeam()
-                $scope.personals.hasMorePage = personalStore.hasMorePage()
+        loadData: (args) ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            personals.$getClubMe(
+                page: 1
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = success.items
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            , (error) ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            )
         refresh: ->
-            options.fetch = yes
-            # TODO getFirstPage
-            promise = personalStore.getFirstPage options
-            promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
-            promise.then ->
-                $scope.personals.items = Und.map personalStore.getCollection(), (item) ->
-                    return item.dataTranformToTeam()
-                $scope.personals.hasMorePage = personalStore.hasMorePage()
+            @loadData(pull: yes)
         loadNext: ->
-            personalStore.prepend = yes
-            promise = personalStore.getNextPage options
-            promise.finally -> $scope.$broadcast 'scroll.infiniteScrollComplete'
-            promise.then ->
-                items = personalStore.getCollection().slice 0, personalStore.state.pageSize
-                items = Und.map items, (item) ->
-                    return item.dataTranformToTeam()
-                $scope.personals.items = $scope.personals.items.concat items
-                $scope.personals.hasMorePage = personalStore.hasMorePage()
+            $this = @
+            personals.$getClubMe(
+                page: $this.next
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = $this.items.concat success.items
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            , (error) ->
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            )
 
     $scope.personals.loadData()
-
     $ionicLoading.show()

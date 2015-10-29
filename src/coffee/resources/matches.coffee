@@ -182,6 +182,38 @@ class Matches extends Factory then constructor: (
                     data.next = data.page + 1
                 return data
             timeout: timeout
+        getLineUp:
+            url: CFG.API.getPath('matches/:id')
+            method: 'GET'
+            params:
+                id: '@id'
+            transformResponse: (data, headersGetter) ->
+                try
+                    data = angular.fromJson(data)
+                catch
+                    data = {}
+                fields =
+                    id: 'id'
+                    homeClub:
+                        id: 'home_club.id'
+                        name: 'home_club.name'
+                        logo: 'home_club._links.logo_70x70.href'
+                        formation:
+                            id: 'home_formation.id'
+                            name: 'home_formation.name'
+                            pattern: 'home_formation.pattern'
+                    awayClub:
+                        id: 'away_club.id'
+                        name: 'away_club.name'
+                        logo: 'away_club._links.logo_70x70.href'
+                        formation:
+                            id: 'away_formation.id'
+                            name: 'away_formation.name'
+                            pattern: 'away_formation.pattern'
+                data = Helper.traverseProperties data, fields
+                data.me = if CFG.clubId == data.homeClub.id then 'homeClub' else 'awayClub'
+                return data
+            timeout: timeout
         getId:
             url: CFG.API.getPath('matches/:id')
             method: 'GET'

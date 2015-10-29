@@ -9,7 +9,7 @@ class CompetitionTableFixture extends Controller then constructor: (
 
     $scope.matchLabel =
         items: []
-        next: no
+        next: null
         loadData: (args) ->
             $this = @
             pull = if args && args.pull then args.pull else no
