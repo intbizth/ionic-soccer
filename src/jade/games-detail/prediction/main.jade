@@ -115,49 +115,122 @@ div.games-prediction
                 span.value 0
                 span.subject คะแนน
 
-    .expand-collapse.game-collapse
-        .container
-            .row.row-center
-                .col.col.section
-                    .select(
-                    ng-click!="active = !active",
-                    ng-class!="{'collapsed': active, 'expanded': !active}"
-                    )
-                        | Select
-                .col.col.section
-                    .select(
-                    ng-click!="active = !active",
-                    ng-class!="{'collapsed': active, 'expanded': !active}"
-                    )
-                        | Select
-                .col.col.section
-                    .select(
-                    ng-click!="active = !active",
-                    ng-class!="{'collapsed': active, 'expanded': !active}"
-                    )
-                        | Select
-            .row.desc
-                .col.col.text-center Chonburi FC
-                .col.col.text-center Draw
-                .col.col.text-center Chonburi FC
+    div.expand-collapse.game-collapse
+        div.container
+            div(ng-switch="selectButton.select")
+                div(ng-switch-when="null")
+                    div.row.row-center
+                        div.col.col.section
+                            div.select(
+                            ng-click!="selectButton.setSelect('1')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
+                        div.col.col.section
+                            div.select(
+                            ng-click="selectButton.setSelect('2')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
+                        div.col.col.section
+                            div.select(
+                            ng-click="selectButton.setSelect('3')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
 
-        //.slides.prediction-content(ng-hide="active")
-            .content
-                .header(layout="row")
-                    .arrow
-                    .text ทายผลสกอร์
-            .prediction-form(layout="row")
-                .shadow
+                div(ng-switch-when="1")
+                    div.row.row-center
+                        div.col.col.section
+                            div.focus(
+                            ng-show="selectButton.select == 1",
+                            ng-click!="selectButton.setSelect('1');",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
+                        div.col.col.section
+                            div.select(
+                            ng-click="selectButton.setSelect('2')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
+                        div.col.col.section
+                            div.select(
+                            ng-click="selectButton.setSelect('3')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
 
-                md-input-container.home(flex)
-                    input.point(type="number", aria-label="home")
+                div(ng-switch-when="2")
+                    div.row.row-center
+                        div.col.col.section
+                            div.select(
+                            ng-click="selectButton.setSelect('1')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
+                        div.col.col.section
+                            div.focus(
+                            ng-show="selectButton.select == 2",
+                            ng-click="selectButton.setSelect('2')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
+                        div.col.col.section
+                            div.select(
+                            ng-click="selectButton.setSelect('3')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
 
-                .score(flex="20") Score
+                div(ng-switch-when="3")
+                    div.row.row-center
+                        div.col.col.section
+                            div.select(
+                            ng-click="selectButton.setSelect('1')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
+                        div.col.col.section
+                            div.select(
+                            ng-click="selectButton.setSelect('2')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
+                        div.col.col.section
+                            div.focus(
+                            ng-show="selectButton.select == 3",
+                            ng-click="selectButton.setSelect('3')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
 
-                md-input-container.away(flex)
-                    input.point(type="number", aria-label="away")
+            div(ng-repeat="section in matchLabel.sections")
+                div(ng-repeat="item in section.items")
+                    div.row.desc
+                        div.col.col.text-center
+                            | {{item.homeClub.name}}
+                        div.col.col.text-center Draw
+                        div.col.col.text-center
+                            | {{item.awayClub.name}}
 
-            button.prediction-submit(type="submit" ng-click="")
-                .text ส่งเกมทายผลและทายสกอร์
+    .slides.prediction-content(ng-hide="selectButton.select == null")
+        .content
+            .row.row-center.header
+                .col.col-center.arrow
+                //.col.col-center.text ทายผลสกอร์
+        //.prediction-form(layout="row")
+            .shadow
+
+            md-input-container.home(flex)
+                input.point(type="number", aria-label="home")
+
+            .score(flex="20") Score
+
+            md-input-container.away(flex)
+                input.point(type="number", aria-label="away")
+
+        //button.prediction-submit(type="submit" ng-click="")
+            .text ส่งเกมทายผลและทายสกอร์
 
 //ion-infinite-scroll(ng-if="prediction.next" on-infinite="prediction.loadMore()", distance="5%")

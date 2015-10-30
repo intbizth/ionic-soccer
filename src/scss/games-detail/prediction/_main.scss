@@ -241,6 +241,18 @@ $ml-progressed-left: #FF3B30;
                         color: $game-collapse-btn-focus-text;
                     }
                 }
+                .focus {
+                    display: inline-block;
+                    border: 3px $game-collapse-btn-border solid;
+                    border-radius: 50%;
+                    height: 90px;
+                    width: 90px;
+                    padding-top: 32px;
+                    font-size: 20px;
+                    font-weight: bold;
+                    background: $game-collapse-btn-focus-bg;
+                    color: $game-collapse-btn-focus-text;
+                }
             }
         }
         .desc {
@@ -249,17 +261,21 @@ $ml-progressed-left: #FF3B30;
     }
 
     .prediction-content {
-        background: $prediction-content-bg;
+        background: #0088CF;
+        //background: $prediction-content-bg;
+        //padding-top: 43px;
         .header {
-            height: 40px;
-            background: $prediction-content-header;
-            position: relative;
+            height: 45px;
+            //background: $prediction-content-header;
+            //position: relative;
+
             .arrow {
                 width: 0;
                 height: 0;
                 border-left: 15px solid transparent;
                 border-right: 15px solid transparent;
-                border-top: 15px solid $prediction-content-arrow;
+                border-top: 15px solid #094e99;
+                //border-top: 15px solid $prediction-content-arrow;
                 position: absolute;
                 left: 47%;
             }
@@ -267,8 +283,8 @@ $ml-progressed-left: #FF3B30;
                 color: #fff;
                 font-size: 16px;
                 position: absolute;
-                left: 42%;
                 top: 15px;
+                left: 140px;
             }
         }
 

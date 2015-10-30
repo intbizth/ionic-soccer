@@ -227,3 +227,18 @@ class GamesDetailPrediction extends Controller then constructor: (
             return items
 
     $scope.matchEvents.loadData()
+
+    $scope.selectButton =
+        select : null
+        setSelect : (elEvent) ->
+            if this.select == elEvent
+                return this.select = null
+            else
+                switch elEvent
+                    when '1'
+                        $scope.matchLabel.doRefresh()
+                        return this.select = elEvent
+                    when '2'
+                        return this.select = elEvent
+                    when '3'
+                        return this.select = elEvent
