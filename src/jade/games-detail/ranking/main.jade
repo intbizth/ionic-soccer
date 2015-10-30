@@ -1,4 +1,4 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="matchLabel.doRefresh()")
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="refresh.doRefresh()")
 
 div.games-ranking
     div.match-label
@@ -62,35 +62,26 @@ div.games-ranking
 
         div.row.rate
             div.col.boxleft
-                div.box.win.text-center
-                    | W
-                div.box.win.text-center
-                    | W
-                div.box.draw.text-center
-                    | D
-                div.box.lose.text-center
-                    | L
-                div.box.lose.text-center
-                    | L
+                div(ng-repeat="winrate in winrates.items")
+                    div.box.text-center(ng-class="winrate.data1 == 'W' ? 'win' : (winrate.data1 == 'D' ? 'draw' : 'lose')")
+                        | {{winrate.data1}}
             div.col-offset-20
             div.col.boxright
-                div.box.draw.text-center
-                    | D
-                div.box.draw.text-center
-                    | D
-                div.box.lose.text-center
-                    | L
-                div.box.win.text-center
-                    | W
-                div.box.win.text-center
-                    | W
+                div(ng-repeat="winrate in winrates.items")
+                    div.box.text-center(ng-class="winrate.data2 == 'W' ? 'win' : (winrate.data2 == 'D' ? 'draw' : 'lose')")
+                        | {{winrate.data2}}
 
     div.label
         div.head2head
             div.row.topic
-                div.col.col-67
+                div.col.col-center
                     | Head to Head สถิติการพบกัน 5 นัดล่าสุด
-                div.col
+                div.col.col-33
+                    div.row.killpadding.manage.text-right
+                        div.col.col-67.col-center.text-center.previous
+                            | Previous
+                        div.col.col-33.col-center.text-center.next
+                            | Next
             div.row.head
                 div.col.col-10.text-center
                     | Pos
@@ -99,30 +90,27 @@ div.games-ranking
                 div.col
                 div.col.col-10.text-center
                     | FT
-            div.row.odd
-                div.col.col-10.text-center
-                    | TPL
-                div.col.col-20
-                    | 15/15/15
-                div.col
-                    | {{name1.homeTeam}} - {{name1.awayTeam}}
-                div.col.col-10.text-center
-                    | {{name1.homeScore}}-{{name1.awayScore}}
-            div.row.even
-                div.col.col-10.text-center
-                    | TPL
-                div.col.col-20
-                    | 15/15/15
-                div.col
-                    | {{name2.homeTeam}} - {{name2.awayTeam}}
-                div.col.col-10.text-center
-                    | {{name2.homeScore}}-{{name2.awayScore}}
+            div(ng-repeat="head in heads.items")
+                div.row(ng-class="{'odd' : $index % 2 == 0, 'even' : $index % 2 != 0}")
+                    div.col.col-10.text-center
+                        | TPL
+                    div.col.col-20
+                        | {{head.datetime | date : "dd/mm/yy"}}
+                    div.col
+                        | {{head.home.name}} - {{head.away.name}}
+                    div.col.col-10.text-center
+                        | {{head.home.score}}-{{head.away.score}}
 
         div.hometeam
             div.row.topic
                 div.col.col-67
                     | Chonburi FC
                 div.col
+                    div.row.killpadding.manage.text-right
+                        div.col.col-67.col-center.text-center.previous
+                            | Previous
+                        div.col.col-33.col-center.text-center.next
+                            | Next
             div.row.head
                 div.col.col-10.text-center
                     | Pos
@@ -131,30 +119,30 @@ div.games-ranking
                 div.col
                 div.col.col-10.text-center
                     | FT
-            div.row.odd
-                div.col.col-10.text-center
-                    | TPL
-                div.col.col-20
-                    | 15/15/15
-                div.col
-                    | {{name1.homeTeam}} - {{name1.awayTeam}}
-                div.col.col-10.text-center
-                    | {{name1.homeScore}}-{{name1.awayScore}}
-            div.row.even
-                div.col.col-10.text-center
-                    | TPL
-                div.col.col-20
-                    | 15/15/15
-                div.col
-                    | {{name2.homeTeam}} - {{name2.awayTeam}}
-                div.col.col-10.text-center
-                    | {{name2.homeScore}}-{{name2.awayScore}}
+            div(ng-repeat="home in homes.items")
+                div.row(ng-class="{'odd' : $index % 2 == 0, 'even' : $index % 2 != 0}")
+                    div.col.col-10.text-center
+                        | TPL
+                    div.col.col-20
+                        | {{home.datetime | date : "dd/mm/yy"}}
+                    div.col
+                        span(ng-class="{'ownteam' : home.home.name == 'Chonburi FC'}") {{home.home.name}}&nbsp
+                        span -
+                        span(ng-class="{'ownteam' : home.away.name == 'Chonburi FC'}") &nbsp{{ home.away.name}}
+                    div.col.col-10.text-center
+                        | {{home.home.score}}-{{home.away.score}}
+
 
         div.awayteam
             div.row.topic
                 div.col.col-67
                     | Suphanburi FC
                 div.col
+                    div.row.killpadding.manage.text-right
+                        div.col.col-67.col-center.text-center.previous
+                            | Previous
+                        div.col.col-33.col-center.text-center.next
+                            | Next
             div.row.head
                 div.col.col-10.text-center
                     | Pos
@@ -163,24 +151,19 @@ div.games-ranking
                 div.col
                 div.col.col-10.text-center
                     | FT
-            div.row.odd
-                div.col.col-10.text-center
-                    | TPL
-                div.col.col-20
-                    | 15/15/15
-                div.col
-                    | {{name1.homeTeam}} - {{name1.awayTeam}}
-                div.col.col-10.text-center
-                    | {{name1.homeScore}}-{{name1.awayScore}}
-            div.row.even
-                div.col.col-10.text-center
-                    | TPL
-                div.col.col-20
-                    | 15/15/15
-                div.col
-                    | {{name2.homeTeam}} - {{name2.awayTeam}}
-                div.col.col-10.text-center
-                    | {{name2.homeScore}}-{{name2.awayScore}}
+            div(ng-repeat="away in aways.items")
+                div.row(ng-class="{'odd' : $index % 2 == 0, 'even' : $index % 2 != 0}")
+                    div.col.col-10.text-center
+                        | TPL
+                    div.col.col-20
+                        | {{away.datetime | date : "dd/mm/yy"}}
+                    div.col
+                        span(ng-class="{'ownteam' : away.home.name == 'Suphanburi FC'}") {{away.home.name}}&nbsp
+                        span  -
+                        span(ng-class="{'ownteam' : away.away.name == 'Suphanburi FC'}") &nbsp{{away.away.name}}
+                    div.col.col-10.text-center
+                        | {{away.home.score}}-{{away.away.score}}
+
 
         div.table
             div.row.topic
@@ -210,7 +193,10 @@ div.games-ranking
                 div.col.col-10.text-center
                     | 25
                 div.col.col-10.text-center
-                    img.image(src="./img/games-ranking/up.png")
+                    img.image(
+                        src="./img/games-ranking/up.png",
+                        srcset="./img/games-ranking/up@2x.png 2x"
+                    )
             div.row.tableeven
                 div.col.col-10.text-center
                     | 5
@@ -223,4 +209,7 @@ div.games-ranking
                 div.col.col-10.text-center
                     | 25
                 div.col.col-10.text-center
-                    img.image(src="./img/games-ranking/down.png")
+                    img.image(
+                        src="./img/games-ranking/down.png"
+                        srcset="./img/games-ranking/down@2x.png 2x"
+                    )
