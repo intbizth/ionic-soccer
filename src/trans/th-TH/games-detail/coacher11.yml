@@ -1,3 +1,10 @@
 ui.t:
     coacher11:
         title: เกมทายผล 11 ตัวจริง
+        name: ชลบุรี เอฟซี
+        stadium: สนามชลบุรี
+        timeremain: เวลาที่เหลือ
+        minute: นาที
+        teamplayer: นักเตะทีมชลบุรี
+        chooseplayer11: รายชื่อ 11 ตัวจริงที่เลือก
+        submit: ส่งการทายผล 11 ตัวจริง

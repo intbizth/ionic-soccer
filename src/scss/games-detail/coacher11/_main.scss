@@ -1,4 +1,66 @@
 @charset "UTF-8";
 
-.coacher11 {
+.games-coacher11 {
+    .killpadding {
+        padding: 0px;
+    }
+
+    .match-label {
+        height: 50px;
+        background-color: #ffffff;
+        .logo {
+            .image {
+                width: 30px;
+                margin-right: 10%;
+                margin-left: 10%;
+            }
+        }
+
+        .name {
+            font-size: 14px;
+            color: #000000;
+        }
+
+        .vs {
+            padding-top: 14px;
+            height: 50px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #0056a2;
+        }
+    }
+
+    .headline {
+        color: #ffffff;
+        background-color: #162a38;
+        .time {
+            margin-right: 5px;
+            .yellow {
+                color: #faaf40;
+            }
+        }
+        .image {
+            width: 50px;
+            margin-left: 7px;
+        }
+    }
+
+    .end {
+        background: -webkit-linear-gradient(#1D354C, #0C5A99, #0156A2);
+        background: -o-linear-gradient(#1D354C, #0C5A99, #0156A2);
+        background: -moz-linear-gradient(#1D354C, #0C5A99, #0156A2);
+        background: linear-gradient(#1D354C, #0C5A99, #0156A2);
+        .submit {
+            width: 80%;
+            color: #ffffff;
+            padding: 10px 50px;
+            border: solid silver 1px;
+            font-size: 14px;
+            margin: 5px auto;
+        }
+    }
+
+    .submit:active {
+        opacity: 0.5;
+    }
 }
