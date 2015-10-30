@@ -45,22 +45,44 @@
         }
     }
 
+    .teamplayer {
+        color: #231f20;
+        background-color: #f1f2f2;
+        .image {
+            width: 100px;
+            height: 20px;
+        }
+    }
+
+    .choose {
+        color: #ffffff;
+        .header {
+            padding-left: 10px;
+            background-color: #162a38;
+        }
+
+        .name {
+            text-align: center;
+            background-color: #0056a2;
+        }
+    }
+
     .end {
-        background: -webkit-linear-gradient(#1D354C, #0C5A99, #0156A2);
-        background: -o-linear-gradient(#1D354C, #0C5A99, #0156A2);
-        background: -moz-linear-gradient(#1D354C, #0C5A99, #0156A2);
-        background: linear-gradient(#1D354C, #0C5A99, #0156A2);
+        background: -webkit-linear-gradient(#1d354c, #0c5a99, #0156a2);
+        background: -o-linear-gradient(#1d354c, #0c5a99, #0156a2);
+        background: -moz-linear-gradient(#1d354c, #0c5a99, #0156a2);
+        background: linear-gradient(#1d354c, #0c5a99, #0156a2);
         .submit {
-            width: 80%;
+            width: 85%;
             color: #ffffff;
             padding: 10px 50px;
             border: solid silver 1px;
             font-size: 14px;
             margin: 5px auto;
         }
-    }
 
-    .submit:active {
-        opacity: 0.5;
+        .submit:active {
+            opacity: 0.5;
+        }
     }
 }
