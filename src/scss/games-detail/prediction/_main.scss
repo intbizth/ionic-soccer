@@ -260,74 +260,182 @@ $ml-progressed-left: #FF3B30;
         }
     }
 
-    .prediction-content {
-        background: #0088CF;
-        //background: $prediction-content-bg;
-        //padding-top: 43px;
+    .games-score {
+        background: lightgray;
+
         .header {
+            background: #0088CF;
             height: 45px;
-            //background: $prediction-content-header;
-            //position: relative;
+            padding: 0;
 
             .arrow {
-                width: 0;
-                height: 0;
-                border-left: 15px solid transparent;
-                border-right: 15px solid transparent;
-                border-top: 15px solid #094e99;
-                //border-top: 15px solid $prediction-content-arrow;
-                position: absolute;
-                left: 47%;
+                position: relative;
+                top: -14px;
+                font-size: 40px;
+                font-weight: bold;
+                color: #094e99;
             }
+
             .text {
-                color: #fff;
+                position: relative;
+                top: -25px;
                 font-size: 16px;
-                position: absolute;
-                top: 15px;
-                left: 140px;
+                color: #fff;
             }
         }
 
         .prediction-form {
-            padding: 0 15px;
-            margin: 0;
-            overflow: hidden;
-            box-shadow: inset 10px 10px 100px 10px $game-collapse-box-shadow;
-            .home, .away {
-                padding: 0 !important;
-            }
-            input[type=number] {
-                box-shadow: inset 0 10px 80px -10px $game-collapse-box-shadow,
-                inset 0 -10px 80px -10px $game-collapse-box-shadow;
-                font-size: 100px;
-                height: 150px;
-                width: 85%;
-                margin: 0 auto;
-                background: $game-collapse-input-bg;
-                color: $game-collapse-input-text;
-                text-align: center;
-            }
-            .score {
-                color: darkred;
-                font-size: 20px;
-                padding-top: 70px;
+            padding: 0;
+            //height: 150px;
+            background-color: #121f2a;
+            box-shadow: inset 10px 10px 100px 10px;
+
+            .spinner-number {
+                padding: 0;
+
+                .spinner {
+                    height: 120px;
+                    background-color: #0e73c4;
+                    box-shadow: inset 0px 10px 80px -10px;
+
+                    .number {
+                        padding-top: 45px;
+                        font-size: 70px;
+                        color: #fff;
+                    }
+                }
+
+                .text {
+                    font-size: 16px;
+                    color: #fc2125;
+                }
             }
         }
-        .result {
-            padding: 35px;
-            text-align: center;
-            overflow: hidden;
-            .score {
-                font-size: 72px;
-                color: $prediction-result-score;
+
+        .prediction-result {
+            padding: 0;
+            height: 135px;
+            background-color: #121f2a;
+            box-shadow: inset 10px 10px 100px 10px;
+
+            .result {
+                padding-top: 48px;
+                font-size: 70px;
+                color: #fff;
+                text-align: center;
             }
-            .text {
-                font-size: 20px;
-                color: darkred;
-                margin-top: 40px;
+
+            .vs {
+                padding-top: 25px;
+                font-size: 16px;
+                color: #fc2125;
+                text-align: center;
             }
         }
     }
+
+    .rate {
+        font-weight: bold;
+        background-color: #094e99;
+        .boxleft {
+            .box {
+                width: 20px;
+                height: 20px;
+                margin-left: 3px;
+                float: right;
+            }
+        }
+
+        .boxright {
+            .box {
+                width: 20px;
+                height: 20px;
+                margin-right: 3px;
+                float: left;
+            }
+        }
+
+        .win {
+            background-color: #39b44a;
+        }
+
+        .draw {
+            background-color: #F5D621;
+        }
+
+        .lose {
+            background-color: #fe3b2f;
+        }
+    }
+
+    //.prediction-content {
+    //    background: #0088CF;
+    //    //background: $prediction-content-bg;
+    //    //padding-top: 43px;
+    //    .header {
+    //        height: 45px;
+    //        //background: $prediction-content-header;
+    //        //position: relative;
+    //
+    //        .arrow {
+    //            width: 0;
+    //            height: 0;
+    //            border-left: 15px solid transparent;
+    //            border-right: 15px solid transparent;
+    //            border-top: 15px solid #094e99;
+    //            //border-top: 15px solid $prediction-content-arrow;
+    //            position: absolute;
+    //            left: 47%;
+    //        }
+    //        .text {
+    //            color: #fff;
+    //            font-size: 16px;
+    //            position: absolute;
+    //            top: 15px;
+    //            left: 140px;
+    //        }
+    //    }
+    //
+    //    .prediction-form {
+    //        padding: 0 15px;
+    //        margin: 0;
+    //        overflow: hidden;
+    //        box-shadow: inset 10px 10px 100px 10px $game-collapse-box-shadow;
+    //        .home, .away {
+    //            padding: 0 !important;
+    //        }
+    //        input[type=number] {
+    //            box-shadow: inset 0 10px 80px -10px $game-collapse-box-shadow,
+    //            inset 0 -10px 80px -10px $game-collapse-box-shadow;
+    //            font-size: 100px;
+    //            height: 150px;
+    //            width: 85%;
+    //            margin: 0 auto;
+    //            background: $game-collapse-input-bg;
+    //            color: $game-collapse-input-text;
+    //            text-align: center;
+    //        }
+    //        .score {
+    //            color: darkred;
+    //            font-size: 20px;
+    //            padding-top: 70px;
+    //        }
+    //    }
+    //    .result {
+    //        padding: 35px;
+    //        text-align: center;
+    //        overflow: hidden;
+    //        .score {
+    //            font-size: 72px;
+    //            color: $prediction-result-score;
+    //        }
+    //        .text {
+    //            font-size: 20px;
+    //            color: darkred;
+    //            margin-top: 40px;
+    //        }
+    //    }
+    //}
 
     .prediction-submit {
         background: transparent;

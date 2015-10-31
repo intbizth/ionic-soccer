@@ -229,16 +229,58 @@ class GamesDetailPrediction extends Controller then constructor: (
     $scope.matchEvents.loadData()
 
     $scope.selectButton =
-        select : null
-        setSelect : (elEvent) ->
+        select: null
+        setSelect: (elEvent) ->
             if this.select == elEvent
                 return this.select = null
             else
                 switch elEvent
                     when '1'
-                        $scope.matchLabel.doRefresh()
+                        $scope.prediction.loadData()
                         return this.select = elEvent
                     when '2'
+                        $scope.prediction.loadData()
                         return this.select = elEvent
                     when '3'
+                        $scope.prediction.loadData()
                         return this.select = elEvent
+
+    $scope.prediction =
+        play: false
+        loadData: ->
+            this.play = Chance.bool({
+                likelihood: 30
+            })
+            return
+
+    $scope.winrates =
+        items: []
+        next: no
+        loadData: ->
+            @items = @fakeItems()
+            console.log('winrates:loadData', JSON.stringify(@items))
+            return
+        doRefresh: ->
+            console.log 'winrates:doRefresh'
+            $this = @
+            $timeout(->
+                console.log 'winrates:doRefresh2'
+                $this.loadData()
+                $scope.$broadcast 'scroll.refreshComplete'
+                return
+            , 1000)
+            return
+        fakeItem: ->
+            item =
+                data1: Chance.string({length: 1, pool: 'WLD'})
+                data2: Chance.string({length: 1, pool: 'WLD'})
+        fakeItems: ->
+            items = []
+            i = 0
+            ii = 5
+            while i < ii
+                items.push @fakeItem()
+                i++
+            return items
+
+    $scope.winrates.loadData()
