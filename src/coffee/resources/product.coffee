@@ -34,10 +34,10 @@ class Products extends Factory then constructor: (
                 return data
             timeout: timeout
         getId:
+            url: CFG.API.getPath('product/:id')
             method: 'GET'
             params:
                 id: '@id'
-            url: CFG.API.getPath('product/:id')
             transformResponse: (data, headersGetter) ->
                 try
                     data = angular.fromJson(data)
