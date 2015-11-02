@@ -27,7 +27,7 @@ ion-view.feature-main
         div.menus
             div.row.row-center
                 div.col.col-center.grid(ui-sref="live")
-                    div.square.square-active
+                    div.square
                         div.live
                             img.icon(
                             src="./img/feature/menu/live.png"
@@ -74,14 +74,14 @@ ion-view.feature-main
                         )
                         span.text People Ranking
             div.row.row-center
-                div.col.col-center.grid(ui-sref="man-of-the-match")
+                div.col.col-center.grid(ui-sref="#")
                     div.disable
                         img.icon(
                         src="./img/feature/menu/man_of_the_match.png"
                         srcset="./img/feature/menu/man_of_the_match@2x.png 2x"
                         )
                         span.text Man of the Match
-                div.col.col-center.grid(ui-sref="reward")
+                div.col.col-center.grid(ui-sref="#")
                     div.disable
                         img.icon(
                         src="./img/feature/menu/reward.png"
@@ -98,12 +98,12 @@ ion-view.feature-main
 
             div.row.row-center
                 div.col.col-center.grid(ui-sref="about-club.main")
-                    div.square
-                        img.icon( 
+                    div.about
+                        img.icon(
                         src="./img/feature/menu/about_club.png"
                         srcset="./img/feature/menu/about_club@2x.png 2x"
                         )
-                        span.text About club
+                        div.text About club
 
         div.row.version
             div.col.text-right

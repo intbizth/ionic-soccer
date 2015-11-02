@@ -1,0 +1,6 @@
+ui.t:
+    timeline-and-update:
+        title: ไทม์ลายและข่าวสาร
+        tab:
+            timeline: ไทม์ลาย
+            update: อัพเดท

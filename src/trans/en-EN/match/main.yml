@@ -1,0 +1,7 @@
+ui.e:
+    match:
+        title: Match
+        tab:
+            view: View
+            highlight: Highlight
+            lineups: Lineups

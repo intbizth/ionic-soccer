@@ -1,15 +1,14 @@
 class LiveMain extends Controller then constructor: (
-    $rootScope, $scope, $ionicHistory, $ionicLoading, $timeout, Matches, Und
+    $ionicHistory, $ionicLoading, $ionicPlatform, $rootScope, $scope, $timeout, GoogleAnalytics, Matches, Und
 ) ->
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'live'
+
     $scope.back = ->
         $ionicHistory.goBack -1
         return
 
-    matchStore = new Matches()
-    options =
-        url: Matches::url + 'live/'
-        scope: $scope
-        key: 'r'
+    matches = new Matches()
 
     $scope.streaming =
         item: url: null
@@ -19,43 +18,25 @@ class LiveMain extends Controller then constructor: (
     $scope.matchLabel =
         items: []
         loadData: (args) ->
-            pull = if !Und.isUndefined(args) and !Und.isUndefined(args.pull) and Und.isBoolean(args.pull) then args.pull else no
-            if Und.isObject($rootScope.live) and Und.size($rootScope.live) > 0
-                $scope.streaming.item.url = $rootScope.live.streaming
-                Und.extend $scope.matchEvents, $rootScope.live.dataTranformToMatchEvents()
-                label = $rootScope.live.dataTranformToLive()
-                section =
-                    type: 'section'
-                    startTime: label.startTime
-                $scope.matchLabel.items = [section, label]
-                $timeout(->
-                    if pull
-                        $scope.$broadcast 'scroll.refreshComplete'
-                    else
-                        $ionicLoading.hide()
-                ,600)
-            else
-                promise = matchStore.find $rootScope.clubId, options
-                promise.finally ->
-                    if pull
-                        $scope.$broadcast 'scroll.refreshComplete'
-                    else
-                        $ionicLoading.hide()
-                promise.then (model) ->
-                    $rootScope.live = model
-                    $scope.streaming.item.url = model.streaming
-                    Und.extend $scope.matchEvents, model.dataTranformToMatchEvents()
-                    label = model.dataTranformToLive()
-                    section =
-                        type: 'section'
-                        startTime: label.startTime
-                    $scope.matchLabel.items = [section, label]
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            matches.$getLive({}
+            , (success) ->
+                $scope.streaming.item.url = success.streaming
+                $this.items = success.matchLabel
+                $scope.matchEvents = success.matchEvents
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            , (error) ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            )
         refresh: ->
-            $scope.matchLabel.loadData(pull: yes)
+            @loadData(pull: yes)
 
     $scope.matchLabel.loadData()
-
     $ionicLoading.show()
-
-    $scope.refresh = ->
-        $scope.matchLabel.refresh()
