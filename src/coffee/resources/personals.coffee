@@ -34,10 +34,10 @@ class Personals extends Factory then constructor: (
                 return data
             timeout: timeout
         getId:
+            url: CFG.API.getPath('personals/:id')
             method: 'GET'
             params:
                 id: '@id'
-            url: CFG.API.getPath('personals/:id')
             transformResponse: (data, headersGetter) ->
                 try
                     data = angular.fromJson(data)
