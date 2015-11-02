@@ -1,47 +1,48 @@
 class CompetitionTableResult extends Controller then constructor: (
-    $scope, $ionicLoading, Matches, Und
+    $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Matches, Und
 ) ->
-    promise = null
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'results'
 
-    matchStore = new Matches null,
-        url: Matches::url + 'nexts/28'
-        state: pageSize: 20
-
-    options =
-        scope: $scope
-        matchStoreKey: 'matchStore'
-        collectionKey: 'matchCollection'
+    pageLimit = 20
+    matches = new Matches()
 
     $scope.matchLabel =
         items: []
-        hasMorePage: no
-        loadData: ->
-            promise = matchStore.load options
-            promise.finally -> $ionicLoading.hide()
-            promise.then ->
-                $scope.matchLabel.items = Und.map matchStore.getCollection(), (item) ->
-                    return item.dataTranformToResults()
-                $scope.matchLabel.hasMorePage = matchStore.hasMorePage()
+        next: null
+        loadData: (args) ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            matches.$getResults(
+                page: 1
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = success.items
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            , (error) ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            )
         refresh: ->
-            options.fetch = yes
-            # TODO getFirstPage
-            promise = matchStore.getFirstPage options
-            promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
-            promise.then ->
-                $scope.matchLabel.items = Und.map matchStore.getCollection(), (item) ->
-                    return item.dataTranformToResults()
-                $scope.matchLabel.hasMorePage = matchStore.hasMorePage()
+            @loadData(pull: yes)
         loadNext: ->
-            matchStore.prepend = yes
-            promise = matchStore.getNextPage options
-            promise.finally -> $scope.$broadcast 'scroll.infiniteScrollComplete'
-            promise.then ->
-                items = matchStore.getCollection().slice 0, matchStore.state.pageSize
-                items = Und.map items, (item) ->
-                    return item.dataTranformToResults()
-                $scope.matchLabel.items = $scope.matchLabel.items.concat items
-                $scope.matchLabel.hasMorePage = matchStore.hasMorePage()
+            $this = @
+            matches.$getResults(
+                page: $this.next
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = $this.items.concat success.items
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            , (error) ->
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            )
 
     $scope.matchLabel.loadData()
-
     $ionicLoading.show()

@@ -74,33 +74,110 @@
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
+            text-align: center;
 
             .icon {
+                margin-right: 16%;
+                margin-left: 16%;
                 width: 50px;
                 height: 46px;
             }
 
             .text {
                 width: 90%;
+                height: auto;
+                margin-bottom: 0px;
                 font-size: 12px;
                 font-weight: bold;
                 line-height: 1.2;
+                text-align: center;
                 color: #ffffff;
             }
 
-            .-live-icon {
-                margin-top: 18px;
+            .live {
                 width: 75px;
                 height: 51px;
+                text-align: center;
+
+                .icon {
+                    margin: 0;
+                    width: 75px;
+                    height: 51px;
+                }
+
+                .text {
+                    margin-top: -24px;
+                }
+            }
+        }
+
+        .about {
+            margin-top: -64px;
+            width: 100%;
+            height: 72px;
+            background-color: #0088cf;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+            .icon {
+                width: 100%;
             }
 
-            .-live-text {
-                margin-top: -52px;
-                margin-left: -8px;
+            .text {
                 width: 90%;
+                height: auto;
+                margin-top: -35px;
+                //margin-right: -70px;
+                font-size: 14px;
+                font-weight: bold;
+                text-align: center;
+                color: #ffffff;
+            }
+        }
+
+        // TODO not work on android
+        .square:active {
+            opacity: 0.5;
+            background-color: #005481;
+        }
+
+        .about:active {
+            opacity: 0.5;
+            background-color: #005481;
+        }
+
+        .disable {
+            opacity: 0.5;
+            margin-top: -64px;
+            width: 100%;
+            height: 98px;
+            background-color: #0088cf;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+            .icon {
+                margin-right: 16%;
+                margin-left: 16%;
+                width: 50px;
+                height: 46px;
+            }
+
+            .text {
+                width: 90%;
+                height: auto;
+                margin-bottom: 0px;
                 font-size: 12px;
                 font-weight: bold;
                 line-height: 1.2;
+                text-align: center;
                 color: #ffffff;
             }
         }

@@ -1,0 +1,11 @@
+ui.e:
+    membership:
+        nodata: Has no ticket.
+        yourmemberid:  Your Member ID
+        no: No.
+        memberid: Member ID
+        positionandzone: Position & Zone
+        seat: Seat
+        block: Block
+        gate: Gate
+        memberzone: Member Zone

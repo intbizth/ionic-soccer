@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+//$game-detail-bg: #1f304c;
+//$game-detail-text: #ffffff;
+//$ml-section-bg: #e0e1e2;
+//$ml-section-gameweek-text: #f7a032;
+//$ml-section-footer: #094e99;
+//$ml-label-club-name: #000000;
+//$ml-label-vs-bg: $ml-section-footer;
+//$ml-label-vs-textup: #ffffff;
+//$ml-label-vs-textdown: #ffffff;
+//$ml-label-footer: $ml-label-vs-bg;
+//$ml-progress-bars: #094e99;
+//$ml-progressed-right: #FAAF40;
+//$ml-progressed-left: #FF3B30;
+
+.games-live {
+    width: 100%;
+    height: auto;
+    .inrow {
+        padding: 0px;
+    }
+    .match-label {
+        height: 50px;
+        background-color: #ffffff;
+        .logo {
+            .image {
+                width: 30px;
+                margin-right: 10%;
+                margin-left: 10%;
+            }
+        }
+
+        .name {
+            font-size: 14px;
+            color: #000000;
+        }
+
+        .vs {
+            padding-top: 14px;
+            height: 50px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #0056a2;
+        }
+    }
+
+    .headline {
+        color: #ffffff;
+        background-color: #162a38;
+        .time {
+            margin-right: 5px;
+            .yellow {
+                color: #faaf40;
+            }
+        }
+        .image {
+            width: 50px;
+            margin-left: 7px;
+        }
+    }
+
+    .steaming {
+        width: 100%;
+        height: 230px;
+        //background-color: #000000;
+    }
+}

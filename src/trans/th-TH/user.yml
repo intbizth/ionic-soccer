@@ -1,0 +1,6 @@
+ui.t:
+    user:
+        title: ล็อกอิน
+        username: ชื่อผู้ใช้
+        password: รหัสผ่าน
+        login: ล็อกอิน

@@ -1,0 +1,8 @@
+ui.t:
+    personal:
+        title: รายละอเอียดผู้เล่น
+        born: เกิด
+        position: ตำแหน่ง
+        previous-club: สโมสรเดิม
+        signed: เริ่มเตะ
+        bio: ข้อมูลนักเตะ

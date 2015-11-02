@@ -1,8 +1,5 @@
 ion-refresher(pulling-text="Pull to refresh...", on-refresh="papers.refresh()")
 
-div.about(ui-sref="about-club.main")
-    div.text.text-center About ฉลามชล
-
 //div.ticket
 //    div.row.section
 //        div.col
@@ -43,4 +40,4 @@ div.news
                             span.name {{item.user.displayname}}
         div.shadow
 
-ion-infinite-scroll(ng-if="papers.hasMorePage" on-infinite="papers.loadNext()", distance="1%")
+ion-infinite-scroll(ng-if="papers.next" on-infinite="papers.loadNext()", distance="1%")

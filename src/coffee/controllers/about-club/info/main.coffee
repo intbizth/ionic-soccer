@@ -1,37 +1,31 @@
 class aboutClubInfo extends Controller then constructor: (
-    $rootScope, $scope, $ionicLoading, $timeout, Clubs, Und
+    $ionicLoading, $ionicPlatform, $rootScope, $scope, $timeout, Clubs, GoogleAnalytics, Und
 ) ->
-    clubId = 28
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'info'
 
-    clubStore = new Clubs()
-
-    options =
-        scope: $scope
-        key: 'r'
+    clubs = new Clubs()
 
     $scope.club =
         item: {}
         loadData: (args)->
-            pull = if !Und.isUndefined(args) and !Und.isUndefined(args.pull) and Und.isBoolean(args.pull) then args.pull else no
-            if Und.isObject($rootScope.club) and Und.size($rootScope.club) > 0
-                $scope.club.item = $rootScope.club
-                $timeout(->
-                    if pull
-                        $scope.$broadcast 'scroll.refreshComplete'
-                    else
-                        $ionicLoading.hide()
-                ,600)
-            else
-                promise = clubStore.find clubId, options
-                promise.finally ->
-                    if pull
-                        $scope.$broadcast 'scroll.refreshComplete'
-                    else
-                        $ionicLoading.hide()
-                promise.then (model) -> $rootScope.club = $scope.club.item = model.dataTranformToInfo()
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            clubs.$getMe({}
+            , (success) ->
+                $this.item = success
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            , (error) ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            )
         refresh: ->
-            $scope.club.loadData(pull: yes)
+            @loadData(pull: yes)
 
     $scope.club.loadData()
-
     $ionicLoading.show()
