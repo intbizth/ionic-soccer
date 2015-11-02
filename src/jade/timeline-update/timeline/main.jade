@@ -35,4 +35,4 @@ div.timeline
                         div.col.col-10.col-center(style="margin-left: -4px;")
                             //a.button.button-icon.icon.ion-android-share-alt.share(ng-click="share(item.message, '', '', '')")
 
-ion-infinite-scroll(ng-if="microChats.hasMorePage" on-infinite="microChats.loadNext()", distance="1%")
+ion-infinite-scroll(ng-if="microChats.next" on-infinite="microChats.loadNext()", distance="1%")

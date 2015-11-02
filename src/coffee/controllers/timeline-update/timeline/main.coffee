@@ -1,6 +1,9 @@
 class Timeline extends Controller then constructor: (
-    $rootScope, $scope, $ionicLoading, $cordovaSocialSharing, MicroChats, Und
+    $cordovaSocialSharing, $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, MicroChats, Und
 ) ->
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'timeline'
+
     $scope.share = (message, subject, file, link) ->
         message = message || ''
         subject = subject || ''
@@ -11,44 +14,45 @@ class Timeline extends Controller then constructor: (
         , (error) ->
             return
 
-    microChatsStore = new MicroChats null,
-        url: MicroChats::url + 'latest/' + $rootScope.clubId
-        state: pageSize: 20
-
-    options =
-        scope: $scope
-        storeKey: 'microChatsStore'
-        collectionKey: 'microChatsCollection'
+    pageLimit = 20
+    microChats = new MicroChats()
 
     $scope.microChats =
         items: []
-        hasMorePage: no
-        loadData: ->
-            promise = microChatsStore.load options
-            promise.finally -> $ionicLoading.hide()
-            promise.then ->
-                $scope.microChats.items = Und.map microChatsStore.getCollection(), (item) ->
-                    return item.dataTranformToTimeline()
-                $scope.microChats.hasMorePage = microChatsStore.hasMorePage()
+        next: null
+        loadData: (args) ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            microChats.$getPage(
+                page: 1
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = success.items
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            , (error) ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            )
         refresh: ->
-            options.fetch = yes
-            promise = microChatsStore.getFirstPage options
-            promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
-            promise.then ->
-                $scope.microChats.items = Und.map microChatsStore.getCollection(), (item) ->
-                    return item.dataTranformToTimeline()
-                $scope.microChats.hasMorePage = microChatsStore.hasMorePage()
+            @loadData(pull: yes)
         loadNext: ->
-            microChatsStore.prepend = yes
-            promise = microChatsStore.getNextPage options
-            promise.finally -> $scope.$broadcast 'scroll.infiniteScrollComplete'
-            promise.then ->
-                items = microChatsStore.getCollection().slice 0, microChatsStore.state.pageSize
-                items = Und.map items, (item) ->
-                    return item.dataTranformToTimeline()
-                $scope.microChats.items = $scope.microChats.items.concat items
-                $scope.microChats.hasMorePage = microChatsStore.hasMorePage()
+            $this = @
+            microChats.$getPage(
+                page: $this.next
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = $this.items.concat success.items
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            , (error) ->
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            )
 
     $scope.microChats.loadData()
-
     $ionicLoading.show()

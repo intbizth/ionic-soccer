@@ -1,6 +1,9 @@
 class FeatureMain extends Controller then constructor: (
-    $scope, $ionicModal, $cordovaAppVersion, $timeout, Und, Chance
+    $cordovaAppVersion, $ionicModal, $ionicPlatform, $scope, $timeout, Chance, GoogleAnalytics, Und
 ) ->
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'feature'
+
     $scope.ads =
         item: './img/ads/banners/1@2x.png'
 
@@ -16,9 +19,11 @@ class FeatureMain extends Controller then constructor: (
         )
         return
     $scope.openAds = ->
+        GoogleAnalytics.trackEvent 'ads', 'show'
         $scope.modal.show()
         return
     $scope.closeAds = ->
+        GoogleAnalytics.trackEvent 'ads', 'hide'
         $scope.modal.hide()
         return
     $scope.version = '0.0.0'
@@ -49,10 +54,10 @@ class FeatureMain extends Controller then constructor: (
             profile = Chance.profile()
             item =
                 id: Und.random(1, 9999999)
-                photo: profile.image.src
-                name: profile.name
-                point1: Und.random(1, 9999999999)
-                point2: Und.random(1, 9999999999)
+                photo: './img/feature/profile@2x.png'
+                name: 'Firstname Lastname'
+                point1: 0
+                point2: 0
             return item
 
     $scope.profile.loadData()
