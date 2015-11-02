@@ -4,45 +4,45 @@ class FanzoneProducts extends Controller then constructor: (
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'products'
 
-    productStore = new Products null,
-        url: Products::url + 'club/' + $rootScope.clubId
-        state: pageSize: 20
-
-    options =
-        scope: $scope
-        productStoreKey: 'productStore'
-        collectionKey: 'productCollection'
+    pageLimit = 20
+    products = new Products()
 
     $scope.products =
         items: []
-        hasMorePage: no
-        loadData: ->
-            promise = productStore.load options
-            promise.finally -> $ionicLoading.hide()
-            promise.then ->
-                $scope.products.items = Und.map productStore.getCollection(), (item) ->
-                    return item.dataTranformToFanzone()
-                $scope.products.hasMorePage = productStore.hasMorePage()
+        next: null
+        loadData: (args) ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            products.$getPage(
+                page: 1
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = success.items
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            , (error) ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            )
         refresh: ->
-            options.fetch = yes
-            # TODO getFirstPage
-            promise = productStore.getFirstPage options
-            promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
-            promise.then ->
-                $scope.products.items = Und.map productStore.getCollection(), (item) ->
-                    return item.dataTranformToFanzone()
-                $scope.products.hasMorePage = productStore.hasMorePage()
+            @loadData(pull: yes)
         loadNext: ->
-            productStore.prepend = yes
-            promise = productStore.getNextPage options
-            promise.finally -> $scope.$broadcast 'scroll.infiniteScrollComplete'
-            promise.then ->
-                items = productStore.getCollection().slice 0, productStore.state.pageSize
-                items = Und.map items, (item) ->
-                    return item.dataTranformToFanzone()
-                $scope.products.items = $scope.products.items.concat items
-                $scope.products.hasMorePage = productStore.hasMorePage()
+            $this = @
+            products.$getPage(
+                page: $this.next
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = $this.items.concat success.items
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            , (error) ->
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            )
 
     $scope.products.loadData()
-
     $ionicLoading.show()

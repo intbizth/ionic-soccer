@@ -5,4 +5,4 @@ div.items
         div.space
         div.detail(ng-style="{'background-image' : 'url({{item.image}})'}", ng-click="downloadFile('{{item.image}}')")
 
-ion-infinite-scroll(ng-if="Wallpapers.hasMorePage" on-infinite="Wallpapers.loadNext()", distance="1%")
+ion-infinite-scroll(ng-if="Wallpapers.next" on-infinite="Wallpapers.loadNext()", distance="1%")
