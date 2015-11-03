@@ -1,6 +1,299 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="prediction.doRefresh()")
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="matchLabel.doRefresh()")
 
 div.games-prediction
-    | GAMES_PREDICTION
+    div.match-label
+        div.nodata(ng-if="matchLabel.sections.length == 0")
+            div.space
+            div.row
+                div.col.col-center.text-center
+                    div.text "ไม่มีข้อมูล"
+        div(ng-repeat="section in matchLabel.sections")
+            div.row.row-center.section
+                div.logo
+                    img.image(src="{{section.logo}}")
+                div.league
+                    | {{section.name}} {{section.datetime|date : 'yyyy'}}
+            div.nodata(ng-if="section.items.length == 0")
+                div.row
+                    div.col.col-center.text-center
+                        div.text
+                            | {{ 'ui.t.games.nomatch'|trans }}
+            div(ng-repeat="item in section.items")
+                div.row.label
+                    div.col-40.col-center.club
+                        div.row
+                            div.col.col-75.col-center.text-center
+                                span.name.text-center {{item.homeClub.name}}
+                            div.col.col-25.col-center
+                                img.logo.-right(ng-src="{{item.homeClub.logo}}")
+
+                    div.col-20.col-center.vs.-live(ng-if="item.isLive").detail.text-center
+                        div.live
+                            | {{ 'ui.t.games.live'|trans }}
+                        div.time
+                            | {{item.datetime | date:'HH:MM'}}
+
+                    div.col-20.col-center.vs.-nextmatch(ng-if="!item.isLive").detail.text-center
+                        div.time
+                            | {{item.datetime | date:'HH:mm'}}
+                        div.date
+                            | {{item.datetime | date:'dd MMM yyyy'}}
+
+                    div.col-40.col-center.club
+                        div.row
+                            div.col.col-25.col-center
+                                img.logo(ng-src="{{item.awayClub.logo}}")
+                            div.col.col-75.col-center.-left.text-center
+                                div.name.text-center {{item.awayClub.name}}
+
+                div.progress-bars
+                    .row.row-center
+                        .col-20.text-right.text
+                            | {{item.leftValue}}%
+                        .col.bars
+                            .progressed(
+                            ng-repeat="progress in item.progressData",
+                            style="width:{{progress.value}}%;background-color:{{progress.color}}",
+                            )
+                                div(ng-if="progress.won")
+                                    div(class="{{progress.status}}")
+                        .col-20.text
+                            | {{item.rightValue}}%
+
+
+    div(ng-repeat="section in matchLabel.sections")
+        div(ng-repeat="item in section.items")
+            div(ng-if="item.handicap != null")
+                div.handicap-bar Handicap
+                    span.value {{item.handicap}}
+
+    // MATCH-EVENT FOR CONNECT API
+    //div.match-events(ng-if="matchEvents.activities.length > 0", id="match-events")
+        div.line(id="match-events-line")
+
+        div(ng-repeat="item in matchEvents.activities")
+            div.row.row-center.killpadding
+                div.col.col-center
+                    div.text-right(ng-if="item.side == 'home'")
+                        span.name(ng-if="item.actor") {{item.actor}}
+                        img.image(
+                        ng-if="item.icon"
+                        ng-src="./img/icon/{{item.icon}}.png"
+                        srcset="./img/icon/{{item.icon}}@2x.png 2x"
+                        )
+                        span.description(ng-if="item.description") {{item.description}}
+                        span.time(ng-if="item.time") {{item.time}}
+                div.col.col-10.col-center.text-center
+                    div.dot.-normal(ng-if="item.dot == 'normal'")
+                        i.icon.ion-record
+                    div.dot.-halftime(ng-if="item.dot == 'halftime'")
+                        i.icon.ion-record
+                    div.dot.-large(ng-if="item.dot == 'large'")
+                        i.icon.ion-ios-circle-filled
+                div.col.col-center
+                    div.text-left(ng-if="item.side == 'away'")
+                        span.time(ng-if="item.time") {{item.time}}
+                        span.description(ng-if="item.description") {{item.description}}
+                        img.image(
+                        ng-if="item.icon"
+                        ng-src="./img/icon/{{item.icon}}.png"
+                        srcset="./img/icon/{{item.icon}}@2x.png 2x"
+                        )
+                        span.name(ng-if="item.actor") {{item.actor}}
+
+    // MATCH-EVENT FOR FAKE
+    match-events(items="matchEvents.items")
+
+    div(ng-repeat="item in matchEvents.items")
+        div(ng-if="item.endmatch == true")
+            div.end-match สิ้นสุดการแข่งขัน
+                span.value 1-1
+                span.subject ทายผลการแข่งขัน
+                span.value 0
+                span.subject คะแนน
+                span.subject / ทายผลสกอร์
+                span.value 0
+                span.subject คะแนน
+
+    div.expand-collapse.game-collapse
+        div.container
+            div(ng-switch="selectButton.select")
+                div(ng-switch-when="null")
+                    div.row.row-center
+                        div.col.col.section
+                            div.select(
+                            ng-click!="selectButton.setSelect('1')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
+                        div.col.col.section
+                            div.select(
+                            ng-click="selectButton.setSelect('2')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
+                        div.col.col.section
+                            div.select(
+                            ng-click="selectButton.setSelect('3')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
+
+                div(ng-switch-when="1")
+                    div.row.row-center
+                        div.col.col.section
+                            div.focus(
+                            ng-show="selectButton.select == 1",
+                            ng-click!="selectButton.setSelect('1');",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
+                        div.col.col.section
+                            div.select(
+                            ng-click="selectButton.setSelect('2')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
+                        div.col.col.section
+                            div.select(
+                            ng-click="selectButton.setSelect('3')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
+
+                div(ng-switch-when="2")
+                    div.row.row-center
+                        div.col.col.section
+                            div.select(
+                            ng-click="selectButton.setSelect('1')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
+                        div.col.col.section
+                            div.focus(
+                            ng-show="selectButton.select == 2",
+                            ng-click="selectButton.setSelect('2')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
+                        div.col.col.section
+                            div.select(
+                            ng-click="selectButton.setSelect('3')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
+
+                div(ng-switch-when="3")
+                    div.row.row-center
+                        div.col.col.section
+                            div.select(
+                            ng-click="selectButton.setSelect('1')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
+                        div.col.col.section
+                            div.select(
+                            ng-click="selectButton.setSelect('2')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
+                        div.col.col.section
+                            div.focus(
+                            ng-show="selectButton.select == 3",
+                            ng-click="selectButton.setSelect('3')",
+                            ng-class!="{'collapsed': active, 'expanded': !active}"
+                            )
+                                | Select
+
+            div(ng-repeat="section in matchLabel.sections")
+                div(ng-repeat="item in section.items")
+                    div.row.desc
+                        div.col.col.text-center
+                            | {{item.homeClub.name}}
+                        div.col.col.text-center Draw
+                        div.col.col.text-center
+                            | {{item.awayClub.name}}
+
+    //div.games-score(ng-hide="selectButton.select == null")
+    div.games-score(ng-hide="selectButton.select == null")
+        div.header
+            div.arrow.text-center.ion-arrow-down-b
+            div.text.text-center ทายผลสกอร์
+        div.prediction-form(ng-hide="prediction.play == false")
+            div.row.row-center.spinner-number
+                div.col.col
+                div.col.col-25.spinner
+                    div.number.text-center 0
+                div.col.col.text.text-center Score
+                div.col.col-25.spinner
+                    div.number.text-center 0
+                div.col.col
+        div.prediction-result(ng-hide="prediction.play == true")
+            div.result 2 - 0
+            div.vs Score
+
+    div.row.rate
+        div.col.boxleft
+            div(ng-repeat="winrate in winrates.items")
+                div.box.text-center(ng-class="winrate.data1 == 'W' ? 'win' : (winrate.data1 == 'D' ? 'draw' : 'lose')")
+                    | {{winrate.data1}}
+        div.col-offset-20
+        div.col.boxright
+            div(ng-repeat="winrate in winrates.items")
+                div.box.text-center(ng-class="winrate.data2 == 'W' ? 'win' : (winrate.data2 == 'D' ? 'draw' : 'lose')")
+                    | {{winrate.data2}}
+
+    div.row.prediction-submit(ng-hide="prediction.play == false" type="submit" ng-click="")
+        div.submit.text-center ส่งเกมทายผลและทายสกอร์
+
+    div.league-ranking
+        div.row.row.header
+            div.text League Table
+        div.row.row.title
+            div.col.col-10
+                .text.text-center Pos
+            div.col.col-50
+                .text Team
+            div.col.col
+                .text P
+            div.col.col
+                .text GD
+            div.col.col
+                .text Pts
+            div.col.col
+        div(ng-repeat="item in leagueRanking.items")
+            div.label
+                div.row.row-center.odd(ng-if="$even")
+                    div.col.col-10
+                        div.text.text-center {{item.position}}
+                    div.col.col-50
+                        div.text {{item.team.name}}
+                    div.col.col
+                        div.text {{item.play}}
+                    div.col.col
+                        div.text {{item.goalDifference}}
+                    div.col.col
+                        div.text {{item.points}}
+                    div.col.col-center.symbol
+                        div(ng-if="item.movement == 'up'")
+                            div.up.ion-arrow-up-b
+                        div(ng-if="item.movement == 'down'")
+                            div.down.ion-arrow-down-b
+                div.row.row.label.event(ng-if="$odd")
+                    div.col.col-10
+                        div.text.text-center {{item.position}}
+                    div.col.col-50
+                        div.text {{item.team.name}}
+                    div.col.col
+                        div.text {{item.play}}
+                    div.col.col
+                        div.text {{item.goalDifference}}
+                    div.col.col
+                        div.text {{item.points}}
+                    div.col.col-center.symbol
+                        div(ng-if="item.movement == 'up'")
+                            div.up.ion-arrow-up-b
+                        div(ng-if="item.movement == 'down'")
+                            div.down.ion-arrow-down-b
 
 //ion-infinite-scroll(ng-if="prediction.next" on-infinite="prediction.loadMore()", distance="5%")

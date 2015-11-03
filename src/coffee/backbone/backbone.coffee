@@ -27,7 +27,7 @@ class NgBackbone extends Factory then constructor: (
         if httpMethod == 'GET' and Und.isDefined options.data
             params.params = options.data
 
-#        console.log('NgBackbone:options', JSON.stringify(options))
+        console.log('NgBackbone:options', JSON.stringify(options))
 
         xhr = http Und.extend(params, options)
         xhr.then (data, status, headers, config) ->
@@ -37,10 +37,10 @@ class NgBackbone extends Factory then constructor: (
                 headers: headers
                 config: config
 
-#            console.log('NgBackbone:headers', JSON.stringify(headers))
-#            console.log('NgBackbone:status', JSON.stringify(status))
-#            console.log('NgBackbone:data', JSON.stringify(data))
-#            console.log('NgBackbone:config', JSON.stringify(config))
+            console.log('NgBackbone:headers', JSON.stringify(headers))
+            console.log('NgBackbone:status', JSON.stringify(status))
+            console.log('NgBackbone:data', JSON.stringify(data))
+            console.log('NgBackbone:config', JSON.stringify(config))
 
             if Und.isDefined(options.success) and Und.isFunction(options.success)
                 options.success data
@@ -52,10 +52,10 @@ class NgBackbone extends Factory then constructor: (
                 headers: headers
                 config: config
 
-#            console.error('NgBackbone:headers', JSON.stringify(headers))
-#            console.error('NgBackbone:status', JSON.stringify(status))
-#            console.error('NgBackbone:data', JSON.stringify(data))
-#            console.error('NgBackbone:config', JSON.stringify(config))
+            console.error('NgBackbone:headers', JSON.stringify(headers))
+            console.error('NgBackbone:status', JSON.stringify(status))
+            console.error('NgBackbone:data', JSON.stringify(data))
+            console.error('NgBackbone:config', JSON.stringify(config))
 
             if Und.isDefined(options.error) and Und.isFunction(options.error)
                 options.error data

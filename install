@@ -1,4 +1,5 @@
 #!/bin/bash
+
 sudo rm -rf node_modules
 echo "removed node_modules"
 sudo rm -rf platforms
@@ -18,5 +19,8 @@ ionic plugin add cordova-plugin-whitelist
 ionic plugin add https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git
 ionic plugin add cordova-plugin-file-transfer
 ionic plugin add https://github.com/danwilson/google-analytics-plugin.git
+ionic plugin add https://github.com/devgeeks/Canvas2ImagePlugin.git
+ionic plugin add https://github.com/VersoSolutions/CordovaClipboard.git
 ionic platform add ios && ionic platform add android
 ionic browser add crosswalk
+gulp remove && gulp build

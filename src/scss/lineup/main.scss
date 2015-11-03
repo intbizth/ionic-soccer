@@ -1,0 +1,117 @@
+$player-width: 70px;
+$player-height: 70px;
+
+.lineup {
+    .format {
+        height: 50px;
+        padding: 6px 0;
+        background-color: #1e2b44;
+        color: #ffffff;
+        font-size: 26px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .football-field {
+        width: 100%;
+        height: 434px;
+        background-image: url("../img/lineup/football_field.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: #213547;
+    }
+
+    .personal {
+        position: absolute;
+        width: $player-width;
+        height: $player-height;
+        -webkit-animation: fadein 5s;
+        -moz-animation: fadein 5s;
+        -ms-animation: fadein 5s;
+        -o-animation: fadein 5s;
+        animation: fadein 5s;
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            margin: auto;
+            border: 2px solid #ffffff;
+            border-radius: 25px;
+
+            .circle {
+                padding: 2px;
+
+                .subcircle {
+                    width: 42px;
+                    height: 42px;
+                    background-color: #f0f0f0;
+                    border-radius: 21px;
+                }
+
+                .photo {
+                    width: 42px;
+                    height: 42px;
+                    border-radius: 21px;
+                }
+            }
+        }
+
+        .fullname {
+            height: 20px;
+            font-size: 12px;
+            color: #ffffff;
+            line-height: 14px;
+            text-align: center;
+        }
+
+        &.-testDrag {
+            border: 1px solid #3073f3;
+        }
+
+        &.-testLock {
+            border: 1px solid #ed3e33;
+        }
+
+        .testCenterPoint {
+            position: absolute;
+            bottom: -18px;
+            right: 0;
+            font-size: 10px;
+            color: yellow;
+        }
+    }
+}
+
+@media screen and (-webkit-device-pixel-ratio: 2) {
+    .lineup {
+        .football-field {
+            background-image: url("../img/lineup/football_field@2x.png");
+        }
+    }
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
