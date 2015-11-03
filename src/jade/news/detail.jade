@@ -10,7 +10,7 @@ ion-view.news-detail
     ion-content.content
         ion-refresher(pulling-text="Pull to refresh...", on-refresh="paper.refresh()")
 
-        div.image(ng-if="paper.item.image", style="background-image : url({{paper.item.image}})")
+        div.image(ng-if="paper.item.cover", style="background-image : url({{paper.item.cover}})")
 
         div.row(ng-if="paper.item.user.displayname")
             div.col
@@ -36,3 +36,7 @@ ion-view.news-detail
         div.row.description(ng-if="paper.item.description")
             div.col
                 span {{paper.item.description}}
+
+        div.row
+            div.col
+                div.image(ng-if="paper.item.image", style="background-image : url({{paper.item.image}})")
