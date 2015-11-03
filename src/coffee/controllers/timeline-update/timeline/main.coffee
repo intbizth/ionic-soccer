@@ -14,7 +14,7 @@ class Timeline extends Controller then constructor: (
         , (error) ->
             return
 
-    pageLimit = 10
+    pageLimit = 20
     microChats = new MicroChats()
 
     $scope.microChats =
