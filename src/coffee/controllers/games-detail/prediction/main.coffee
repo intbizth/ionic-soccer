@@ -255,7 +255,7 @@ class GamesDetailPrediction extends Controller then constructor: (
 
     $scope.winrates =
         items: []
-        next: no
+        next: false
         loadData: ->
             @items = @fakeItems()
             console.log('winrates:loadData', JSON.stringify(@items))
@@ -284,3 +284,43 @@ class GamesDetailPrediction extends Controller then constructor: (
             return items
 
     $scope.winrates.loadData()
+
+    $scope.leagueRanking =
+        items: []
+        next: false
+        loadData: ->
+            items = this.fakeItems()
+            this.items =  items
+            console.log('leagueRanking:loadData', this.items.length, JSON.stringify(this.items))
+            return
+        doRefresh: ->
+            console.log 'leagueRanking:doRefresh'
+            $this = @
+            $timeout(->
+                console.log 'leagueRanking:doRefresh2'
+                $this.loadData()
+                $scope.$broadcast 'scroll.refreshComplete'
+                return
+            , 1000)
+            return
+        fakeItems: ->
+            items = []
+            i = 0
+            ii = Und.random(1, 15)
+            while i < ii
+                item = this.fakeItem()
+                items.push item
+                i++
+            items = Und.sortBy(items, 'position')
+            return items
+        fakeItem: ->
+            item =
+                position: Und.random(1, 100)
+                team: Chance.club()
+                play: Und.random(1, 100)
+                goalDifference: Und.random(1, 50)
+                points: Und.random(1, 50)
+                movement: Chance.pick(['up', 'bullet', 'down'])
+            return item
+
+    $scope.leagueRanking.loadData()
