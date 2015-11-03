@@ -214,23 +214,23 @@ div.games-prediction
                         div.col.col.text-center
                             | {{item.awayClub.name}}
 
-    //.games-score(ng-hide="selectButton.select == null")
-    .games-score(ng-hide="selectButton.select == null")
-        .header
-            .arrow.text-center.ion-arrow-down-b
-            .text.text-center ทายผลสกอร์
-        .prediction-form(ng-hide="prediction.play == false")
-            .row.row-center.spinner-number
-                .col.col
-                .col.col-25.spinner
-                    .number.text-center 0
-                .col.col.text.text-center Score
-                .col.col-25.spinner
-                    .number.text-center 0
-                .col.col
-        .prediction-result(ng-hide="prediction.play == true")
-            .result 2 - 0
-            .vs Score
+    //div.games-score(ng-hide="selectButton.select == null")
+    div.games-score(ng-hide="selectButton.select == null")
+        div.header
+            div.arrow.text-center.ion-arrow-down-b
+            div.text.text-center ทายผลสกอร์
+        div.prediction-form(ng-hide="prediction.play == false")
+            div.row.row-center.spinner-number
+                div.col.col
+                div.col.col-25.spinner
+                    div.number.text-center 0
+                div.col.col.text.text-center Score
+                div.col.col-25.spinner
+                    div.number.text-center 0
+                div.col.col
+        div.prediction-result(ng-hide="prediction.play == true")
+            div.result 2 - 0
+            div.vs Score
 
     div.row.rate
         div.col.boxleft
@@ -243,26 +243,57 @@ div.games-prediction
                 div.box.text-center(ng-class="winrate.data2 == 'W' ? 'win' : (winrate.data2 == 'D' ? 'draw' : 'lose')")
                     | {{winrate.data2}}
 
+    div.row.prediction-submit(ng-hide="prediction.play == false" type="submit" ng-click="")
+        div.submit.text-center ส่งเกมทายผลและทายสกอร์
 
-
-
-    //.slides.prediction-content(ng-hide="selectButton.select == null")
-        //.content
-            .row.row-center.header
-                .col.col-center.arrow
-                //.col.col-center.text ทายผลสกอร์
-        //.prediction-form(layout="row")
-            .shadow
-
-            md-input-container.home(flex)
-                input.point(type="number", aria-label="home")
-
-            .score(flex="20") Score
-
-            md-input-container.away(flex)
-                input.point(type="number", aria-label="away")
-
-        //button.prediction-submit(type="submit" ng-click="")
-            .text ส่งเกมทายผลและทายสกอร์
+    div.league-ranking
+        div.row.row.header
+            div.text League Table
+        div.row.row.title
+            div.col.col-10
+                .text.text-center Pos
+            div.col.col-50
+                .text Team
+            div.col.col
+                .text P
+            div.col.col
+                .text GD
+            div.col.col
+                .text Pts
+            div.col.col
+        div(ng-repeat="item in leagueRanking.items")
+            div.label
+                div.row.row-center.odd(ng-if="$even")
+                    div.col.col-10
+                        div.text.text-center {{item.position}}
+                    div.col.col-50
+                        div.text {{item.team.name}}
+                    div.col.col
+                        div.text {{item.play}}
+                    div.col.col
+                        div.text {{item.goalDifference}}
+                    div.col.col
+                        div.text {{item.points}}
+                    div.col.col-center.symbol
+                        div(ng-if="item.movement == 'up'")
+                            div.up.ion-arrow-up-b
+                        div(ng-if="item.movement == 'down'")
+                            div.down.ion-arrow-down-b
+                div.row.row.label.event(ng-if="$odd")
+                    div.col.col-10
+                        div.text.text-center {{item.position}}
+                    div.col.col-50
+                        div.text {{item.team.name}}
+                    div.col.col
+                        div.text {{item.play}}
+                    div.col.col
+                        div.text {{item.goalDifference}}
+                    div.col.col
+                        div.text {{item.points}}
+                    div.col.col-center.symbol
+                        div(ng-if="item.movement == 'up'")
+                            div.up.ion-arrow-up-b
+                        div(ng-if="item.movement == 'down'")
+                            div.down.ion-arrow-down-b
 
 //ion-infinite-scroll(ng-if="prediction.next" on-infinite="prediction.loadMore()", distance="5%")
