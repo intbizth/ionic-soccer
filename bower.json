@@ -19,7 +19,6 @@
     "moment": "~2.10.6",
     "angular-http-auth": "~1.2.2",
     "angular-oauth2": "git@github.com:liverbool/angular-oauth2.git#~3.1.2",
-    "angular-md5" : "~0.1.8",
     "jquery-ui" : "~1.11.4",
     "jqueryui-touch-punch" : "master",
     "angular-resource" : "1.5.0-build.4334+sha.ffb6b2f"

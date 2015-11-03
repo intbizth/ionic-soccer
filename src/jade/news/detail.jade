@@ -10,29 +10,29 @@ ion-view.news-detail
     ion-content.content
         ion-refresher(pulling-text="Pull to refresh...", on-refresh="paper.refresh()")
 
-        img.image(ng-src="{{paper.item.image}}")
+        div.image(ng-if="paper.item.image", style="background-image : url({{paper.item.image}})")
 
-        div.row
+        div.row(ng-if="paper.item.user.displayname")
             div.col
                 div.userbox
                     img.photo(ng-src="{{paper.item.user.profilePicture}}")
                     span.name {{paper.item.user.displayname}}
 
-        div.row.datetime
+        div.row.datetime(ng-if="paper.item.publishedDate")
             div.col.col-33
                 div.line
                     span.text {{paper.item.publishedDate | date: 'dd MMM yyyy'}}
 
-        div.row.url(ng-click="openURL(paper.item.creditUrl)")
+        div.row.url(ng-if="paper.item.creditUrl", ng-click="openURL(paper.item.creditUrl)")
             div.col
                 span {{paper.item.creditUrl}}
 
-        div.row
+        div.row(ng-if="paper.item.headline")
             div.col
                 div.headline
                     div.subheadline
                         span {{paper.item.headline}}
 
-        div.row.description
+        div.row.description(ng-if="paper.item.description")
             div.col
                 span {{paper.item.description}}
