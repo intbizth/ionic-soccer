@@ -1,4 +1,299 @@
 @charset "UTF-8";
 
-.ranking {
+$game-detail-bg: #1f304c;
+$game-detail-text: #ffffff;
+$ml-section-bg: #e0e1e2;
+$ml-section-gameweek-text: #f7a032;
+$ml-section-footer: #0056a2;
+$ml-label-club-name: #000000;
+$ml-label-vs-bg: $ml-section-footer;
+$ml-label-vs-textup: #ffffff;
+$ml-label-vs-textdown: #ffffff;
+$ml-label-footer: $ml-label-vs-bg;
+$ml-progress-bars: #094e99;
+$ml-progressed-right: #FAAF40;
+$ml-progressed-left: #FF3B30;
+
+.games-ranking {
+    .match-label {
+        .section {
+            background-color: $ml-section-bg;
+
+            .logo {
+                .image {
+                    padding-top: 4px;
+                    width: 25px;
+                    height: 25px;
+                }
+            }
+
+            .league {
+                padding-left: 6px;
+            }
+
+            .gameweek {
+                color: $ml-section-gameweek-text;
+            }
+
+            .detail {
+            }
+        }
+
+        .label {
+            overflow: hidden;
+            border-width: 0;
+            padding: 0 5px;
+            height: 65px;
+
+            .club {
+                width: 40%;
+                float: left;
+
+                .logo {
+                    width: 30px;
+                    //margin-top: 3px;
+                    //margin-left: 5px;
+                }
+
+                .name {
+                    margin-left: 1px;
+                    font-size: 13px;
+                    color: $ml-label-club-name;
+                }
+
+                .-left {
+                    margin-right: 5px;
+                }
+
+                .-right {
+                    float: right !important;
+                    margin-right: 5px;
+                }
+            }
+
+            .vs {
+                width: 20%;
+                text-align: center;
+                float: left;
+                margin: 0 auto;
+                height: 100%;
+
+                &.-live {
+                    padding-top: 14px;
+
+                    .live {
+                        font-size: 34px;
+                        font-weight: bold;
+                        color: $ml-label-vs-textup;
+                    }
+
+                    .time {
+                        padding-top: 5px;
+                        color: $ml-label-vs-textdown;
+                    }
+                }
+
+                &.-nextmatch {
+                    padding-top: 13px;
+
+                    .time {
+                        color: $ml-label-vs-textup;
+                    }
+
+                    .date {
+                        color: $ml-label-vs-textdown;
+                    }
+                }
+            }
+        }
+
+        .space {
+            background-color: $ml-label-footer;
+            height: 2px;
+            width: 100%;
+        }
+
+        .progress-bars {
+            height: 30px;
+            overflow: hidden;
+            background-color: #0156a2;
+            padding-top: 0px;
+
+            .bars {
+                margin: 0 auto;
+                width: 50%;
+
+                .progressed {
+                    height: 6px;
+                    float: left;
+                    position: relative;
+
+                    .-right {
+                        z-index: 1;
+                        position: absolute;
+                        width: 0;
+                        height: 0;
+                        left: -6px;
+                        border-top: 6px solid $ml-progressed-right;
+                        border-left: 6px solid transparent;
+                    }
+
+                    .-left {
+                        z-index: 1;
+                        position: absolute;
+                        width: 0;
+                        height: 0;
+                        right: -6px;
+                        border-top: 6px solid $ml-progressed-left;
+                        border-right: 6px solid transparent;
+                    }
+                }
+            }
+
+            .text {
+                color: #ffffff;
+            }
+        }
+
+        .rate {
+            font-weight: bold;
+            background-color: $ml-section-footer;
+            .boxleft {
+                .box {
+                    width: 20px;
+                    height: 20px;
+                    margin-left: 3px;
+                    float: right;
+                }
+            }
+
+            .boxright {
+                .box {
+                    width: 20px;
+                    height: 20px;
+                    margin-right: 3px;
+                    float: left;
+                }
+            }
+
+            .win {
+                background-color: #39b44a;
+            }
+
+            .draw {
+                background-color: #F5D621;
+            }
+
+            .lose {
+                background-color: #fe3b2f;
+            }
+        }
+    }
+
+    .label {
+        .head2head {
+            .topic {
+                width: 100%;
+                height: auto;
+                font-size: 13px;
+                color: #ffffff;
+                background-color: #fe3b2f;
+            }
+        }
+
+        .hometeam {
+            .topic {
+                width: 100%;
+                height: auto;
+                font-size: 13px;
+                color: #ffffff;
+                background-color: #0188cf
+            }
+        }
+
+        .awayteam {
+            .topic {
+                width: 100%;
+                height: auto;
+                font-size: 13px;
+                color: #ffffff;
+                background-color: #0188cf
+            }
+        }
+
+        .table {
+            .topic {
+                width: 100%;
+                height: auto;
+                font-size: 13px;
+                color: #ffffff;
+                background-color: #0188cf
+            }
+
+            .tableodd {
+                color: #ffffff;
+                background-color: #0056a2;
+            }
+
+            .tableeven {
+                color: #ffffff;
+                background-color: #162a38;
+            }
+
+            .image {
+                height: 10px;
+            }
+        }
+
+        .head {
+            width: 100%;
+            height: auto;
+            background-color: #383a3b;
+            color: #ffffff;
+        }
+
+        .odd {
+            color: #ffffff;
+            background-color: #213647;
+        }
+
+        .even {
+            color: #ffffff;
+            background-color: #162a38;
+        }
+
+        .ownteam {
+            color: #549af7;
+        }
+
+        .manage {
+            width: 95%;
+            margin-top: -5px;
+            border-radius: 3px;
+            font-size: 12px;
+            color: #000000;
+            background-color: #ffffff;
+            .previous {
+                border-radius: 3px;
+                border-right: 1px solid #a5a6aa;
+                background-color: #ffffff;
+            }
+            .next {
+                border-radius: 3px;
+                background-color: #ffffff;
+            }
+
+            .previous:active {
+                opacity: 0.5;
+            }
+
+            .next:active {
+                opacity: 0.5;
+            }
+        }
+    }
+
+    .killpadding {
+        padding: 0px;
+    }
 }

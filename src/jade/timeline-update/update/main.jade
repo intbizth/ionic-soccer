@@ -40,4 +40,4 @@ div.news
                             span.name {{item.user.displayname}}
         div.shadow
 
-ion-infinite-scroll(ng-if="papers.hasMorePage" on-infinite="papers.loadNext()", distance="1%")
+ion-infinite-scroll(ng-if="papers.next" on-infinite="papers.loadNext()", distance="1%")

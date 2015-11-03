@@ -29,4 +29,4 @@ div.items
                         | ราคา ฿ {{item.price | number}}
         div.shadow
 
-ion-infinite-scroll(ng-if="products.hasMorePage" on-infinite="products.loadNext()", distance="1%")
+ion-infinite-scroll(ng-if="products.next" on-infinite="products.loadNext()", distance="1%")

@@ -1,97 +1,80 @@
 class FanzoneWallpapers extends Controller then constructor: (
-    $cordovaGoogleAnalytics, $cordovaFileTransfer, $ionicLoading, $ionicPlatform, $ionicPopup, $rootScope, $scope, $timeout, md5, Und, Wallpapers
+    $cordovaFile, $cordovaFileTransfer, $ionicLoading, $ionicPlatform, $ionicPopup, $rootScope, $scope, $timeout, GoogleAnalytics, Images, Und, Wallpapers
 ) ->
     $ionicPlatform.ready ->
-        $cordovaGoogleAnalytics.trackView 'wallpapers'
+        GoogleAnalytics.trackView 'wallpapers'
 
     $scope.downloadFile = (url) ->
         confirmPopup = $ionicPopup.confirm(
-            title: 'Confirm',
+            title: 'Download',
             template: 'Are you sure you want to download this wallpaper?'
             cancelText: 'Cancel'
             okText: 'Save'
         )
 
         confirmPopup.then (res) ->
-            console.log res
             if res
-                name = md5.createHash(url) + '.png'
-                url = url || ''
-                targetPath = ''
-                if $rootScope.isIOS
-                    targetPath = cordova.file.dataDirectory
-                else if $rootScope.isAndroid
-                    targetPath = cordova.file.externalApplicationStorageDirectory
-                targetPath += name
-                options = {}
-                trustHosts = yes
-
-                console.warn 'name', name, JSON.stringify name
-                console.warn 'targetPath', targetPath
-
                 $ionicLoading.show()
-
-                $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then (result) ->
-                    console.warn 'result', result, JSON.stringify result
+                Images.saveToLibrary(url
+                , ->
+                    message = ''
+                    if $rootScope.isIOS
+                        message = 'Saved to camera roll.'
+                    else if $rootScope.isAndroid
+                        message = 'Saved'
                     $ionicPopup.alert(
-                        title: 'Saved.'
+                        title: message
                         okText: 'Ok'
                     )
                     $ionicLoading.hide()
                 , (error) ->
-                    console.warn 'error', error, JSON.stringify error
                     $ionicPopup.alert(
-                        title: 'Can\'t save.'
+                        title: error
                         okText: 'Ok'
                     )
                     $ionicLoading.hide()
-                , (progress) ->
-                    $timeout(->
-                        $scope.downloadProgress = (progress.loaded / progress.total) * 100;
-                        console.warn 'downloadProgress', $scope.downloadProgress
-                    )
+                )
             return
 
-    wallpaperStore = new Wallpapers null,
-        url: Wallpapers::url + 'club/' + $rootScope.clubId
-        state: pageSize: 20
-
-    options =
-        scope: $scope
-        wallpaperStoreKey: 'wallpaperStore'
-        collectionKey: 'wallpaperCollection'
+    pageLimit = 20
+    wallpapers = new Wallpapers()
 
     $scope.wallpapers =
         items: []
-        hasMorePage: no
-        loadData: ->
-            promise = wallpaperStore.load options
-            promise.finally -> $ionicLoading.hide()
-            promise.then ->
-                $scope.wallpapers.items = Und.map wallpaperStore.getCollection(), (item) ->
-                    return item.dataTranformToFanzone()
-                $scope.wallpapers.hasMorePage = wallpaperStore.hasMorePage()
+        next: null
+        loadData: (args) ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            wallpapers.$getPage(
+                page: 1
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = success.items
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            , (error) ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            )
         refresh: ->
-            options.fetch = yes
-            # TODO getFirstPage
-            promise = wallpaperStore.getFirstPage options
-            promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
-            promise.then ->
-                $scope.wallpapers.items = Und.map wallpaperStore.getCollection(), (item) ->
-                    return item.dataTranformToFanzone()
-                $scope.wallpapers.hasMorePage = wallpaperStore.hasMorePage()
+            @loadData(pull: yes)
         loadNext: ->
-            wallpaperStore.prepend = yes
-            promise = wallpaperStore.getNextPage options
-            promise.finally -> $scope.$broadcast 'scroll.infiniteScrollComplete'
-            promise.then ->
-                items = wallpaperStore.getCollection().slice 0, wallpaperStore.state.pageSize
-                items = Und.map items, (item) ->
-                    return item.dataTranformToFanzone()
-                $scope.wallpapers.items = $scope.wallpapers.items.concat items
-                $scope.wallpapers.hasMorePage = wallpaperStore.hasMorePage()
+            $this = @
+            wallpapers.$getPage(
+                page: $this.next
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = $this.items.concat success.items
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            , (error) ->
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            )
 
     $scope.wallpapers.loadData()
-
     $ionicLoading.show()
-    
