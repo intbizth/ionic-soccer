@@ -28,16 +28,16 @@ div.news
                 div.text Has no news.
     div(ng-repeat="item in papers.items")
         div.space
-        div.detail(ng-style="{'background-image' : 'url({{item.image}})'}" ui-sref="news-detail({id : item.id})")
+        div.detail(style="background-image : url({{item.cover}})", ui-sref="news-detail({id : item.id})")
             div.subdetail
                 div.row.headline
                     div.col
                         span {{item.headline}}
-                div.row.footer
-                    div.col.col-center
-                        div.userbox
-                            img.photo(ng-src="{{item.user.profilePicture}}")
-                            span.name {{item.user.displayname}}
+                //div.row.footer
+                //    div.col.col-center
+                //        div.userbox
+                //            img.photo(ng-src="{{item.user.profilePicture}}")
+                //            span.name {{item.user.displayname}}
         div.shadow
 
-ion-infinite-scroll(ng-if="papers.hasMorePage" on-infinite="papers.loadNext()", distance="1%")
+ion-infinite-scroll(ng-if="papers.next" on-infinite="papers.loadNext()", distance="1%")

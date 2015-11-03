@@ -12,12 +12,12 @@ div.detail
             div.row.text-left.top
                 div.col.col-33
                     | ชื่อสโมสร
-                div.col.col-67
+                div.col.col-67(on-hold="clipboard(club.item.name)")
                     | {{club.item.name}}
             div.row.text-left.top
                 div.col.col-33
                     | ชื่อย่อ
-                div.col.col-67
+                div.col.col-67(on-hold="clipboard(club.item.shortName)")
                     | {{club.item.shortName}}
             //div.row.text-left.top
             //    div.col.col-33
@@ -42,12 +42,12 @@ div.detail
             div.row.text-left.top
                 div.col.col-33
                     | ฉายา
-                div.col.col-67
+                div.col.col-67(on-hold="clipboard(club.item.signatureName)")
                     | {{club.item.signatureName}}
             div.row.text-left.top
                 div.col.col-33
                     | ลึก
-                div.col.col-67
+                div.col.col-67(on-hold="clipboard(club.item.clubClass.name)")
                     | {{club.item.clubClass.name}}
 
     div.row
@@ -59,12 +59,12 @@ div.detail
             div.row.text-left.middle
                 div.col.col-33
                     | Website
-                div.col.col-67
+                div.col.col-67(on-hold="clipboard(club.item.website)")
                     | {{club.item.website}}
             div.row.text-left.middle
                 div.col.col-33
                     | Email
-                div.col.col-67
+                div.col.col-67(on-hold="clipboard(club.item.email)")
                     | {{club.item.email}}
 
     div.row
@@ -72,17 +72,17 @@ div.detail
             div.row.text-left.bottom
                 div.col.col-33
                     | สนาม
-                div.col.col-67
+                div.col.col-67(on-hold="clipboard(club.item.stadiumName)")
                     | {{club.item.stadiumName}}
             div.row.text-left.bottom
                 div.col.col-33
                     | ความจุ (คน)
-                div.col.col-67
+                div.col.col-67(on-hold="clipboard(club.item.stadiumCapacity)")
                     | {{club.item.stadiumCapacity | number}}
             div.row.text-left.bottom
                 div.col.col-33
                     | ที่ตั้ง
-                div.col.col-67
+                div.col.col-67(on-hold="clipboard(club.item.location)")
                     | {{club.item.location}}
 
 div.footer
