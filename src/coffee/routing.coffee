@@ -179,5 +179,10 @@ class Routing extends Config then constructor: ($stateProvider, $urlRouterProvid
                 controller: 'updateController'
                 templateUrl: 'templates/timeline-update/update/main.html'
 
+    state 'lineup',
+        url: '/lineup/main'
+        controller: 'lineupMainController'
+        templateUrl: 'templates/lineup/main.html'
+
     $urlRouterProvider.otherwise '/feature/main'
     return

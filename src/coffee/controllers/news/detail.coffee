@@ -1,7 +1,6 @@
 class NewsDetail extends Controller then constructor: (
     $cordovaInAppBrowser, $ionicHistory, $ionicLoading, $scope, $stateParams, GoogleAnalytics, Papers, Und
 ) ->
-
     $scope.back = ->
         $ionicHistory.goBack -1
         return
@@ -19,28 +18,29 @@ class NewsDetail extends Controller then constructor: (
             return
 
     paperId = $stateParams.id || ''
-    paperStore = new Papers()
-    options =
-        scope: $scope
-        key: 'r'
+    papers = new Papers()
 
     $scope.paper =
         item: {}
         loadData: (args) ->
-            pull = if !Und.isUndefined(args) and !Und.isUndefined(args.pull) and Und.isBoolean(args.pull) then args.pull else no
-            promise = paperStore.find paperId, options
-            promise.finally ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            papers.$getId(id: paperId
+            , (success) ->
+                $this.item = success
+                GoogleAnalytics.trackView 'news-detail ' + $this.item.headline
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
                     $ionicLoading.hide()
-            promise.then (model) ->
-                $scope.paper.item = model.dataTranformToUpdate()
-                GoogleAnalytics.trackView 'news-detail ' + $scope.paper.item.headline
-
+            , (error) ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            )
         refresh: ->
-            $scope.paper.loadData(pull: true)
+            @loadData(pull: yes)
 
     $scope.paper.loadData()
-
     $ionicLoading.show()

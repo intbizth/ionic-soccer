@@ -6,7 +6,8 @@
     "coffee",
     "jade",
     "trans",
-    "watch"
+    "watch",
+    "index"
   ],
   "watchPatterns": [
     "www/**/*",

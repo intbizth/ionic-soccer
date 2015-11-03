@@ -4,45 +4,45 @@ class rankingScore extends Controller then constructor: (
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'score'
 
-    gamesScoreStore = new GamesScores null,
-        url: GamesScores::url + 'result/' + $rootScope.clubId
-        state: pageSize: 20
-
-    options =
-        scope: $scope
-        gamesScoreStoreKey: 'gamesScoreStore'
-        collectionKey: 'gamesScoreCollection'
+    pageLimit = 20
+    gamesScores = new GamesScores()
 
     $scope.score =
         items: []
-        hasMorePage: no
-        loadData: ->
-            promise = gamesScoreStore.load options
-            promise.finally -> $ionicLoading.hide()
-            promise.then ->
-                $scope.score.items = Und.map gamesScoreStore.getCollection(), (item) ->
-                    return item.dataTranformToGamesScore()
-                $scope.score.hasMorePage = gamesScoreStore.hasMorePage()
+        next: null
+        loadData: (args) ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            gamesScores.$getPage(
+                page: 1
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = success.items
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            , (error) ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            )
         refresh: ->
-            options.fetch = yes
-            # TODO getFirstPage
-            promise = gamesScoreStore.getFirstPage options
-            promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
-            promise.then ->
-                $scope.score.items = Und.map gamesScoreStore.getCollection(), (item) ->
-                    return item.dataTranformToGamesScore()
-                $scope.score.hasMorePage = gamesScoreStore.hasMorePage()
+            @loadData(pull: yes)
         loadNext: ->
-            gamesScoreStore.prepend = yes
-            promise = gamesScoreStore.getNextPage options
-            promise.finally -> $scope.$broadcast 'scroll.infiniteScrollComplete'
-            promise.then ->
-                items = gamesScoreStore.getCollection().slice 0, gamesScoreStore.state.pageSize
-                items = Und.map items, (item) ->
-                    return item.dataTranformToGamesScore()
-                $scope.score.items = $scope.score.items.concat items
-                $scope.score.hasMorePage = gamesScoreStore.hasMorePage()
+            $this = @
+            papers.$getPage(
+                page: $this.next
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = $this.items.concat success.items
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            , (error) ->
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            )
 
     $scope.score.loadData()
-
     $ionicLoading.show()
