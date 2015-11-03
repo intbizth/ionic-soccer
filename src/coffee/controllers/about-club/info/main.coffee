@@ -15,13 +15,12 @@ class aboutClubInfo extends Controller then constructor: (
     )
 
     $scope.clipboard = (text) ->
-        console.warn typeof text, text
-        $cordovaClipboard.copy(text).then(->
+        $cordovaClipboard.copy(text).then((success) ->
             $scope.modal.show()
             $timeout(->
                 $scope.modal.hide()
             , 1400)
-        , ->
+        , (error) ->
 
         )
 
