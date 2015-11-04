@@ -25,8 +25,22 @@ ionic build ios --release && ionic build android --release
 
 key="src/key/${appname}.keystore"
 if [ -f "${key}" ]; then
-    jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore "${key}" "platforms/android/build/outputs/apk/android-armv7-release-unsigned.apk" ${appname}
-    jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore "${key}" "platforms/android/build/outputs/apk/android-x86-release-unsigned.apk" ${appname}
-    zipalign -v 4 "platforms/android/build/outputs/apk/android-armv7-release-unsigned.apk" "platforms/android/build/outputs/apk/${appname}-armv7.apk"
-    zipalign -v 4 "platforms/android/build/outputs/apk/android-x86-release-unsigned.apk" "platforms/android/build/outputs/apk/${appname}-x86.apk"
+    armv7_apk="platforms/android/build/outputs/apk/android-armv7-release-unsigned.apk"
+    x86_apk="platforms/android/build/outputs/apk/android-x86-release-unsigned.apk"
+    armv7_output_apk="platforms/android/build/outputs/apk/${appname}-armv7.apk"
+    x86_output_apk="platforms/android/build/outputs/apk/${appname}-x86.apk"
+
+    jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore "${key}" "${armv7_apk}" Soccer
+    jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore "${key}" "${x86_apk}" Soccer
+
+    if [ -f "${armv7_output_apk}" ]; then
+        rm "${armv7_output_apk}"
+    fi
+
+    if [ -f "${x86_output_apk}" ]; then
+        rm "${x86_output_apk}"
+    fi
+
+    zipalign -v 4 "${armv7_apk}" "${armv7_output_apk}"
+    zipalign -v 4 "${x86_apk}" "${x86_output_apk}"
 fi
