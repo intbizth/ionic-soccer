@@ -3,8 +3,7 @@ class Run extends Run then constructor: (
 ) ->
     $rootScope.isAndroid = ionic.Platform.isAndroid()
     $rootScope.isIOS = ionic.Platform.isIOS()
-    $rootScope.clubId = CFG.clubId
-
+    
     Authen.init
         userInfoPath: CFG.API.getUserInfo()
 

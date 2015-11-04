@@ -9,7 +9,6 @@ script:
     - ./www/lib/angular-oauth2/dist/angular-oauth2.min.js
     - ./www/lib/angular-translate/angular-translate.min.js
     - ./www/lib/angular-translate-loader-partial/angular-translate-loader-partial.min.js
-    - ./www/lib/angular-md5/angular-md5.min.js
     - ./www/lib/angular-resource/angular-resource.min.js
     - ./www/lib/chance/dist/chance.min.js
     - ./www/lib/moment/min/moment-with-locales.min.js

@@ -13,7 +13,8 @@ class Update extends Controller then constructor: (
         loadData: (args) ->
             $this = @
             pull = if args && args.pull then args.pull else no
-            papers.$getPage(
+            flush = if args && args.flush then args.flush else no
+            papers[if flush then '$getPageFlush' else '$getPage'](
                 page: 1
                 limit: pageLimit
             , (success) ->
@@ -30,7 +31,7 @@ class Update extends Controller then constructor: (
                     $ionicLoading.hide()
             )
         refresh: ->
-            @loadData(pull: yes)
+            @loadData(flush: yes, pull: yes)
         loadNext: ->
             $this = @
             papers.$getPage(

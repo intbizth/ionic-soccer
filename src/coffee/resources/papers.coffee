@@ -1,15 +1,23 @@
 class Papers extends Factory then constructor: (
-    $resource, CFG, Helper, Und
+    $cacheFactory, $resource, CFG, Helper, Und
 ) ->
     timeout = 20000
+    cache = $cacheFactory 'resourcePapersCache'
+    interceptor =
+        response: (response) ->
+            cache.remove response.config.url
+            return response.data || {}
 
-    resource = $resource(CFG.API.getPath('news/:id'), {}, {
+    url = CFG.API.getPath('news/:id')
+    paramDefaults = {}
+    actions =
         getPage:
             method: 'GET'
             params:
                 page: 1
                 limit: 20
             responseType: 'json'
+            cache: cache
             transformResponse: (data, headersGetter) ->
                 fields =
                     limit: 'limit'
@@ -44,6 +52,7 @@ class Papers extends Factory then constructor: (
             params:
                 id: '@id'
             responseType: 'json'
+            cache: cache
             transformResponse: (data, headersGetter) ->
                 fields =
                     id: 'id'
@@ -62,6 +71,16 @@ class Papers extends Factory then constructor: (
                     publishedDate: 'published_date'
                 return Helper.traverseProperties data, fields
             timeout: timeout
-    })
+    options = {}
 
-    return resource
+    actionsClone = angular.copy actions
+
+    for key, value of actionsClone
+        actionsClone[key + 'Flush'] = value
+        actionsClone[key + 'Flush'].interceptor = interceptor
+        delete actionsClone[key + 'Flush'].cache
+        delete actionsClone[key]
+
+    actions = angular.extend actions, actionsClone
+
+    return $resource url, paramDefaults, actions, options
