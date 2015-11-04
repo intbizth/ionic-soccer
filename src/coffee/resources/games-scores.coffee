@@ -10,11 +10,8 @@ class GamesScores extends Factory then constructor: (
             params:
                 page: 1
                 limit: 20
+            responseType: 'json'
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
                 fields =
                     limit: 'limit'
                     page: 'page'

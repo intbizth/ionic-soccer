@@ -5,16 +5,13 @@ class Wallpapers extends Factory then constructor: (
 
     resource = $resource(CFG.API.getPath('wallpaper/'), {}, {
         getPage:
-            url: CFG.API.getPath('wallpaper/club/' + CFG.clubId)
+            url: CFG.API.getPath('wallpaper/')
             method: 'GET'
             params:
                 page: 1
                 limit: 20
+            responseType: 'json'
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
                 fields =
                     limit: 'limit'
                     page: 'page'

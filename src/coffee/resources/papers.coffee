@@ -3,17 +3,14 @@ class Papers extends Factory then constructor: (
 ) ->
     timeout = 20000
 
-    resource = $resource(CFG.API.getPath('news/'), {}, {
+    resource = $resource(CFG.API.getPath('news/:id'), {}, {
         getPage:
             method: 'GET'
             params:
                 page: 1
                 limit: 20
+            responseType: 'json'
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
                 fields =
                     limit: 'limit'
                     page: 'page'
@@ -30,8 +27,8 @@ class Papers extends Factory then constructor: (
                         highlight: 'highlight'
                         content: 'content'
                         creditUrl: 'credit_url'
-                        image: 'image'
-                        cover: 'cover'
+                        image: '_links.image.href'
+                        cover: '_links.cover.href'
                         user:
                             id: 'user.id'
                             displayname: 'user.displayname'
@@ -43,15 +40,11 @@ class Papers extends Factory then constructor: (
                 return data
             timeout: timeout
         getId:
-            url: CFG.API.getPath('news/:id')
             method: 'GET'
             params:
                 id: '@id'
+            responseType: 'json'
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
                 fields =
                     id: 'id'
                     headline: 'headline'
@@ -60,8 +53,8 @@ class Papers extends Factory then constructor: (
                     highlight: 'highlight'
                     content: 'content'
                     creditUrl: 'credit_url'
-                    image: 'image'
-                    cover: 'cover'
+                    image: '_links.image.href'
+                    cover: '_links.cover.href'
                     user:
                         id: 'user.id'
                         displayname: 'user.displayname'

@@ -7,11 +7,8 @@ class clubs extends Factory then constructor: (
         getMe:
             url: CFG.API.getPath('clubs/' + CFG.clubId)
             method: 'GET'
+            responseType: 'json'
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
                 fields =
                     id: 'id'
                     name: 'name'

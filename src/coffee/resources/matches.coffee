@@ -64,11 +64,8 @@ class Matches extends Factory then constructor: (
         getLive:
             url: CFG.API.getPath('matches/live/' + CFG.clubId)
             method: 'GET'
+            responseType: 'json'
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
                 fields =
                     id: 'id'
                     streaming: 'streaming'
@@ -101,11 +98,8 @@ class Matches extends Factory then constructor: (
         getFixture:
             url: CFG.API.getPath('matches/nexts/' + CFG.clubId)
             method: 'GET'
+            responseType: 'json'
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
                 fields =
                     limit: 'limit'
                     page: 'page'
@@ -143,11 +137,8 @@ class Matches extends Factory then constructor: (
         getResults:
             url: CFG.API.getPath('matches/latest/' + CFG.clubId)
             method: 'GET'
+            responseType: 'json'
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
                 fields =
                     limit: 'limit'
                     page: 'page'
@@ -187,11 +178,8 @@ class Matches extends Factory then constructor: (
             method: 'GET'
             params:
                 id: '@id'
+            responseType: 'json'
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
                 fields =
                     id: 'id'
                     homeClub:
@@ -219,11 +207,8 @@ class Matches extends Factory then constructor: (
             method: 'GET'
             params:
                 id: '@id'
+            responseType: 'json'
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
                 fields =
                     id: 'id'
                     homeClub:
