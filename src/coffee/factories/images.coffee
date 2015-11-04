@@ -4,8 +4,6 @@ class Images extends Factory then constructor: (
     return {
         saveToLibrary: (url, success, error) ->
             try
-                console.warn 'saveToLibrary:url', url
-
                 img = new Image()
                 img.crossOrigin = ''
                 img.src = url

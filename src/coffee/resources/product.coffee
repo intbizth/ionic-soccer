@@ -3,18 +3,14 @@ class Products extends Factory then constructor: (
 ) ->
     timeout = 20000
 
-    resource = $resource(CFG.API.getPath('product/'), {}, {
+    resource = $resource(CFG.API.getPath('product/:id'), {}, {
         getPage:
-            url: CFG.API.getPath('product/club/' + CFG.clubId)
             method: 'GET'
             params:
                 page: 1
                 limit: 20
+            responseType: 'json'
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
                 fields =
                     limit: 'limit'
                     page: 'page'
@@ -34,15 +30,11 @@ class Products extends Factory then constructor: (
                 return data
             timeout: timeout
         getId:
-            url: CFG.API.getPath('product/:id')
             method: 'GET'
             params:
                 id: '@id'
+            responseType: 'json'
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
                 fields =
                     id: 'id'
                     name: 'name'

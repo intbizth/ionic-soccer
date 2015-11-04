@@ -14,9 +14,6 @@ script:
     - ./www/lib/chance/chance.js
     - ./www/lib/moment/moment.js
     - ./www/lib/underscore/underscore.js
-    - ./www/lib/backbone/backbone.js
-    - ./www/lib/backbone.paginator/lib/backbone.paginator.js
-    - ./www/lib/backbone-relational/backbone-relational.js
     - ./www/lib/jquery/dist/jquery.js
     - ./www/lib/jquery-ui/jquery-ui.js
     - ./www/lib/jqueryui-touch-punch/jquery.ui.touch-punch.js

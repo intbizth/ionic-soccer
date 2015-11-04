@@ -7,11 +7,8 @@ class Personals extends Factory then constructor: (
         getClubMe:
             url: CFG.API.getPath('personals/club/' + CFG.clubId)
             method: 'GET'
+            responseType: 'json'
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
                 fields =
                     limit: 'limit'
                     page: 'page'
@@ -38,11 +35,8 @@ class Personals extends Factory then constructor: (
             method: 'GET'
             params:
                 id: '@id'
+            responseType: 'json'
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
                 fields =
                     id: 'id'
                     no: 'no'
