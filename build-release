@@ -1,0 +1,32 @@
+#!/bin/bash
+
+if [ ! -d "$ANDROID_HOME" ]; then
+    echo "the path \$ANDROID_HOME not found"
+    exit
+fi
+
+if ! which jarsigner >/dev/null; then
+    echo "jarsigner not installed."
+    exit
+fi
+
+if ! which zipalign >/dev/null; then
+    echo "zipalign not installed."
+    exit
+fi
+
+appname=`sed -n 's:.*<name>\(.*\)</name>.*:\1:p' config.xml`
+
+rm -rf www/lib/*
+bower install
+ionic plugin remove cordova-plugin-console
+gulp remove && gulp build --env=prod
+ionic build ios --release && ionic build android --release
+
+key="src/key/${appname}.keystore"
+if [ -f "${key}" ]; then
+    jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore "${key}" "platforms/android/build/outputs/apk/android-armv7-release-unsigned.apk" ${appname}
+    jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore "${key}" "platforms/android/build/outputs/apk/android-x86-release-unsigned.apk" ${appname}
+    zipalign -v 4 "platforms/android/build/outputs/apk/android-armv7-release-unsigned.apk" "platforms/android/build/outputs/apk/${appname}-armv7.apk"
+    zipalign -v 4 "platforms/android/build/outputs/apk/android-x86-release-unsigned.apk" "platforms/android/build/outputs/apk/${appname}-x86.apk"
+fi
