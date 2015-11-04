@@ -21,6 +21,13 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+ion-nav-buttons {
+    .logo {
+        height: 15px;
+        margin-top: 10px;
+    }
+}
+
 .loading-container {
     .loading {
         background: none;

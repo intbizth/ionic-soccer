@@ -1,13 +1,13 @@
 class App extends App then constructor: ->
     return [
+        'angular-oauth2'
+        'http-auth-interceptor'
         'ionic'
-        'pascalprecht.translate'
         'ngCordova'
         'ngCordovaOauth'
         'ngIOS9UIWebViewPatch'
-        'angular-oauth2'
-        'http-auth-interceptor'
-        'angular-md5'
+        'ngResource'
+        'pascalprecht.translate'
     ]
 
 # TODO:

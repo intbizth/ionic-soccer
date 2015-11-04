@@ -1,44 +1,48 @@
 class Update extends Controller then constructor: (
-    $rootScope, $scope, $ionicLoading, Papers, Und
+    $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Papers, Und
 ) ->
-    papersStore = new Papers null,
-        url: Papers::url
-        state: pageSize: 10
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'update'
 
-    options =
-        scope: $scope
-        storeKey: 'papersStore'
-        collectionKey: 'papersCollection'
+    pageLimit = 20
+    papers = new Papers()
 
     $scope.papers =
         items: []
-        hasMorePage: no
-        loadData: ->
-            promise = papersStore.load options
-            promise.finally -> $ionicLoading.hide()
-            promise.then ->
-                $scope.papers.items = Und.map papersStore.getCollection(), (item) ->
-                    return item.dataTranformToUpdate()
-                $scope.papers.hasMorePage = papersStore.hasMorePage()
+        next: null
+        loadData: (args) ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            papers.$getPage(
+                page: 1
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = success.items
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            , (error) ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            )
         refresh: ->
-            options.fetch = yes
-            promise = papersStore.getFirstPage options
-            promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
-            promise.then ->
-                $scope.papers.items = Und.map papersStore.getCollection(), (item) ->
-                    return item.dataTranformToUpdate()
-                $scope.papers.hasMorePage = papersStore.hasMorePage()
+            @loadData(pull: yes)
         loadNext: ->
-            papersStore.prepend = yes
-            promise = papersStore.getNextPage options
-            promise.finally -> $scope.$broadcast 'scroll.infiniteScrollComplete'
-            promise.then ->
-                items = papersStore.getCollection().slice 0, papersStore.state.pageSize
-                items = Und.map items, (item) ->
-                    return item.dataTranformToUpdate()
-                $scope.papers.items = $scope.papers.items.concat items
-                $scope.papers.hasMorePage = papersStore.hasMorePage()
+            $this = @
+            papers.$getPage(
+                page: $this.next
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = $this.items.concat success.items
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            , (error) ->
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            )
 
     $scope.papers.loadData()
-
     $ionicLoading.show()
