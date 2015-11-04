@@ -1,18 +1,20 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="matchLabel.refresh()")
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="data.doRefresh()")
 
 div.games-coacher11
     div.match-label
-        div.row.killpadding(ng-repeat="item in matchLabel.items")
-            div.col.col-center.text-right.logo
-                img.image(ng-src="{{item.homeClub.logo}}")
-            div.col.col-33.col-center.text-center.name
-                | {{item.homeClub.name}}
-            div.col.col-10.col-center.text-center.vs
-                | vs
-            div.col.col-33.col-center.text-center.name
-                | {{item.awayClub.name}}
-            div.col.col-center.text-left.logo
-                img.image(ng-src="{{item.awayClub.logo}}")
+        div(ng-repeat="section in matchLabel.sections")
+            div(ng-repeat="item in section.items")
+                div.row.killpadding
+                    div.col.col-center.text-right.logo
+                        img.image(ng-src="{{item.homeClub.logo}}")
+                    div.col.col-33.col-center.text-center.name
+                        | {{item.homeClub.name}}
+                    div.col.col-10.col-center.text-center.vs
+                        | vs
+                    div.col.col-33.col-center.text-center.name
+                        | {{item.awayClub.name}}
+                    div.col.col-center.text-left.logo
+                        img.image(ng-src="{{item.awayClub.logo}}")
 
     div.headline
         div.row.killpadding
