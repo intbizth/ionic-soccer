@@ -33,11 +33,11 @@ div.news
                 div.row.headline
                     div.col
                         span {{item.headline}}
-                div.row.footer
-                    div.col.col-center
-                        div.userbox
-                            img.photo(ng-src="{{item.user.profilePicture}}")
-                            span.name {{item.user.displayname}}
+                //div.row.footer
+                //    div.col.col-center
+                //        div.userbox
+                //            img.photo(ng-src="{{item.user.profilePicture}}")
+                //            span.name {{item.user.displayname}}
         div.shadow
 
 ion-infinite-scroll(ng-if="papers.next" on-infinite="papers.loadNext()", distance="1%")

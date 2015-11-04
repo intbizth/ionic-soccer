@@ -8,8 +8,6 @@
     "Ionicons": "ionicons#~2.0.1",
     "angular-translate": "~2.7.2",
     "angular-translate-loader-partial": "~2.7.2",
-    "backbone-relational": "~0.10.0",
-    "backbone.paginator": "~2.0.2",
     "ngCordova": "~0.1.20-alpha",
     "pluralize": "~1.1.4",
     "validate": "~0.8.0",
@@ -21,6 +19,7 @@
     "angular-oauth2": "git@github.com:liverbool/angular-oauth2.git#~3.1.2",
     "jquery-ui" : "~1.11.4",
     "jqueryui-touch-punch" : "master",
-    "angular-resource" : "1.5.0-build.4334+sha.ffb6b2f"
+    "angular-resource" : "1.5.0-build.4334+sha.ffb6b2f",
+    "underscore" : "1.8.3"
   }
 }
