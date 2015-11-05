@@ -38,6 +38,22 @@ div.games-coacher11
                     srcset="./img/games-coacher11/field@2x.png 2x"
                 )
 
+    div.personal
+        div(ng-repeat="item in personals.items | orderBy:'item.position.short_name'")
+            div.detail
+                div.row(ui-sref="personal-detail({id : item.id})")
+                    div.col.col-center.text-center
+                        div.position(ng-class="personals.getPositionClass(item.position.shortName)")
+                            span.job {{item.position.shortName}}
+                    div.col.col-center
+                        div.circle
+                            div.subcircle
+                                img.image(ng-src="{{item.image}}")
+                    div.col.col-67.col-center.text-left
+                        span.fullname {{item.fullname}}
+                    div.col.col-center.text-center
+                        span.no \#{{item.no}}
+
     div.choose
         div.row.header
             div.col.col-center
@@ -46,25 +62,28 @@ div.games-coacher11
             div.col
                 | NamE
                 br
-                | Name namE
+                | NamE
                 br
                 | Name name namE
                 br
-                | Name name name namE
-                br
-                | Name name name name namE
-                br
-                | Name name name name name namE
-                br
-                | Name name name name namE
-                br
-                | Name name name namE
-                br
                 | Name name namE
                 br
-                | Name namE
+                | NamE
+                br
+                | NamE
+                br
+                | NamE
+                br
+                | NamE
+                br
+                | NamE
+                br
+                | NamE
                 br
                 | NamE
 
+
     div.row.end
         div.submit.text-center {{'ui.t.coacher11.submit'|trans}}
+
+    div.footer

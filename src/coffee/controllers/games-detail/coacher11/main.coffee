@@ -1,5 +1,5 @@
 class GamesDetailCoacher11 extends Controller then constructor: (
-    $scope, $timeout, Und, Chance
+    $ionicLoading, $scope, $timeout, Personals, Und, Chance
 ) ->
     $scope.timeRemain = Und.random(0, 90)
 
@@ -141,4 +141,53 @@ class GamesDetailCoacher11 extends Controller then constructor: (
 
     $scope.matchLabel.loadData()
 
-#    $ionicLoading.show()
+    pageLimit = 100
+    personals = new Personals()
+
+    $scope.personals =
+        getPositionClass: (shortName)->
+            switch shortName
+                when 'GK' then '-goalkeeper'
+                when 'DF' then '-defender'
+                when 'MF' then '-midfielder'
+                when 'FW' then '-forwarder'
+                else ''
+        items: []
+        next: null
+        loadData: (args) ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            personals.$getClubMe(
+                page: 1
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = success.items
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            , (error) ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            )
+        refresh: ->
+            @loadData(pull: yes)
+        loadNext: ->
+            $this = @
+            papers.$getPage(
+                page: $this.next
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = $this.items.concat success.items
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            , (error) ->
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            )
+
+    $scope.personals.loadData()
+
+    $ionicLoading.show()
