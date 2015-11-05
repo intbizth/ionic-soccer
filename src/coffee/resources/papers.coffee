@@ -43,7 +43,6 @@ class Papers extends Factory then constructor: (
                     data.next = data.page + 1
                 return data
             then: (resolve) ->
-                console.warn 'then', @
                 if !angular.isUndefined @params and !angular.isUndefined @params.flush
                     if @params.flush
                         cache.removeAll()
@@ -75,7 +74,6 @@ class Papers extends Factory then constructor: (
                     publishedDate: 'published_date'
                 return Helper.traverseProperties data, fields
             then: (resolve) ->
-                console.warn 'then', @
                 if !angular.isUndefined @params and !angular.isUndefined @params.flush
                     if @params.flush
                         cache.remove @url

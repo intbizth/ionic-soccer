@@ -30,7 +30,6 @@ class NewsDetail extends Controller then constructor: (
                 id: paperId
                 flush: flush
             , (success) ->
-                console.warn success
                 $this.item = success
                 GoogleAnalytics.trackView 'news-detail ' + $this.item.headline
                 if pull
@@ -38,7 +37,6 @@ class NewsDetail extends Controller then constructor: (
                 else
                     $ionicLoading.hide()
             , (error) ->
-                 console.warn error
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
