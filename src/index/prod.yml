@@ -10,6 +10,11 @@ script:
     - ./www/lib/angular-translate/angular-translate.min.js
     - ./www/lib/angular-translate-loader-partial/angular-translate-loader-partial.min.js
     - ./www/lib/angular-resource/angular-resource.min.js
+    - ./www/lib/angular-md5/angular-md5.min.js
+    - ./www/lib/imgcache.js/js/imgcache.js
+    - ./www/lib/angular-imgcache.js/angular-imgcache.js
+    - ./www/lib/angular-svg-round-progressbar/build/roundProgress.min.js
+    - ./www/lib/ionic-cache-src/ionic-cache-src.js
     - ./www/lib/chance/dist/chance.min.js
     - ./www/lib/moment/min/moment-with-locales.min.js
     - ./www/lib/underscore/underscore-min.js

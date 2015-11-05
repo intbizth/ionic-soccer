@@ -19,6 +19,7 @@ ionic plugin add com.ionic.keyboard
 ionic plugin add cordova-plugin-app-version
 ionic plugin add cordova-plugin-whitelist
 ionic plugin add https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git
+ionic plugin add cordova-plugin-file
 ionic plugin add cordova-plugin-file-transfer
 ionic plugin add https://github.com/danwilson/google-analytics-plugin.git
 ionic plugin add https://github.com/devgeeks/Canvas2ImagePlugin.git
