@@ -1,12 +1,8 @@
 class Papers extends Factory then constructor: (
-    $cacheFactory, $resource, CFG, Helper, Und
+    $cacheFactory, $resource, CFG, Helper
 ) ->
     timeout = 20000
     cache = $cacheFactory 'resourcePapersCache'
-    interceptor =
-        response: (response) ->
-            cache.remove response.config.url
-            return response.data || {}
 
     url = CFG.API.getPath('news/:id')
     paramDefaults = {}
@@ -26,7 +22,7 @@ class Papers extends Factory then constructor: (
                     total: 'total'
                     items: '_embedded.items'
                 data = Helper.traverseProperties data, fields
-                data.items = Und.map data.items, (item) ->
+                angular.forEach data.items, (value, key) ->
                     fields =
                         id: 'id'
                         headline: 'headline'
@@ -42,10 +38,18 @@ class Papers extends Factory then constructor: (
                             displayname: 'user.displayname'
                             profilePicture: 'user.profile_picture'
                         publishedDate: 'published_date'
-                    return Helper.traverseProperties item, fields
+                    data.items[key] = Helper.traverseProperties value, fields
                 if data.page < data.pages
                     data.next = data.page + 1
                 return data
+            then: (resolve) ->
+                console.warn 'then', @
+                if !angular.isUndefined @params and !angular.isUndefined @params.flush
+                    if @params.flush
+                        cache.removeAll()
+                    delete @params.flush
+                @then = null
+                resolve @
             timeout: timeout
         getId:
             method: 'GET'
@@ -70,17 +74,15 @@ class Papers extends Factory then constructor: (
                         profilePicture: 'user.profile_picture'
                     publishedDate: 'published_date'
                 return Helper.traverseProperties data, fields
+            then: (resolve) ->
+                console.warn 'then', @
+                if !angular.isUndefined @params and !angular.isUndefined @params.flush
+                    if @params.flush
+                        cache.remove @url
+                    delete @params.flush
+                @then = null
+                resolve @
             timeout: timeout
     options = {}
-
-    actionsClone = angular.copy actions
-
-    for key, value of actionsClone
-        actionsClone[key + 'Flush'] = value
-        actionsClone[key + 'Flush'].interceptor = interceptor
-        delete actionsClone[key + 'Flush'].cache
-        delete actionsClone[key]
-
-    actions = angular.extend actions, actionsClone
 
     return $resource url, paramDefaults, actions, options
