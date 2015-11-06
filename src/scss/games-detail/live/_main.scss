@@ -7,7 +7,7 @@
         padding: 0px;
     }
     .match-label {
-        height: 50px;
+        height: auto;
         background-color: #ffffff;
         .logo {
             .image {
@@ -23,8 +23,8 @@
         }
 
         .vs {
-            padding-top: 14px;
-            height: 50px;
+            padding-top: 22px;
+            height: 70px;
             font-size: 16px;
             color: #ffffff;
             background-color: #0056a2;

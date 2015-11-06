@@ -190,4 +190,15 @@ class GamesDetailCoacher11 extends Controller then constructor: (
 
     $scope.personals.loadData()
 
+    $scope.selectButton =
+        select: 0
+        setSelect: (elEvent) ->
+            if this.select == elEvent
+                return this.select = 0
+            else
+                switch elEvent
+                    when '1'
+                        $scope.personals.loadData()
+                        return this.select = elEvent
+
     $ionicLoading.show()

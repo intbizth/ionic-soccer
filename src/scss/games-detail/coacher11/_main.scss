@@ -6,7 +6,7 @@
     }
 
     .match-label {
-        height: 50px;
+        height: 100%;
         background-color: #ffffff;
         .logo {
             .image {
@@ -22,8 +22,8 @@
         }
 
         .vs {
-            padding-top: 14px;
-            height: 50px;
+            padding-top: 22px;
+            height: 70px;
             font-size: 16px;
             color: #ffffff;
             background-color: #0056a2;
@@ -44,6 +44,12 @@
             margin-left: 7px;
         }
     }
+
+    .image {
+        width: 100%;
+        height: auto;
+    }
+
 
     .teamplayer {
         color: #231f20;
@@ -90,20 +96,26 @@
             background-color: #213647;
         }
 
-        .row:active {
+        .focus {
+            padding: 0px;
             background-color: #0088cf;
         }
 
+        //.row:active {
+        //    opacity: 0.5;
+            //background-color: #0088cf;
+        //}
+
         .circle {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             border: solid #ffffff 1px;
             border-radius: 20px;
 
             .subcircle {
                 margin: 1px 0 0 1px;
-                width: 36px;
-                height: 36px;
+                width: 34px;
+                height: 34px;
                 background-color: #f0f0f0;
                 border-radius: 18px;
             }
@@ -124,6 +136,20 @@
         .no {
             font-size: 14px;
             color: #ffffff;
+        }
+
+        .score {
+            font-size: 14px;
+            color: #ffffff;
+        }
+        
+        .icon {
+            color: #ffffff;
+            font-size: 18px;
+        }
+
+        .icon:active {
+            color: #0188cf;
         }
     }
 
