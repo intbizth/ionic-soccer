@@ -21,9 +21,9 @@ div.timeline
                     | {{item.publishedDate | date :'dd/MM/yyyy | HH:mm'}}
             div.cover(ng-if="item.image")
                 div.images
-                    img(ng-src="{{item.image}}", width="100%", height="100%")
+                    img(ng-src="{{item.image}}", width="100%", height="auto")
             div.detail(ng-class="item.template == 'hightlight' ? '-hightlight' : ''")
-                div.subdetail
+                div.col.subdetail
                     div.row.message
                         div.col
                             span {{item.message}}
