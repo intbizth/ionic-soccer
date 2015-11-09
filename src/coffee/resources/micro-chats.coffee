@@ -23,7 +23,7 @@ class MicroChats extends Factory then constructor: (
                     fields =
                         id: 'id'
                         message: 'message'
-                        image: 'image'
+                        image: '_links.image.href'
                         user:
                             id: 'user.id'
                             displayname: 'user.displayname'

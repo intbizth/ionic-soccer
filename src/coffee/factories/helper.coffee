@@ -1,10 +1,9 @@
 class Helper extends Factory then constructor: (
-    Und
 ) ->
     return {
         traverseProperties: (object, items) ->
             for key of items
-                if Und.isObject(items[key])
+                if angular.isObject(items[key])
                     @traverseProperties(object, items[key])
                 else
                     items[key] = @getProperty(object, items[key])
