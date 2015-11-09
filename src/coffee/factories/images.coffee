@@ -1,5 +1,5 @@
 class Images extends Factory then constructor: (
-    $ionicPlatform
+
 ) ->
     return {
         saveToLibrary: (url, success, error) ->

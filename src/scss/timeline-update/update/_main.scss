@@ -58,13 +58,6 @@
         background-color: #1e2b44;
     }
 
-    .headline {
-        font-size: 18px;
-        font-weight: bold;
-        line-height: 22px;
-        color: #ffffff;
-    }
-
     .detail {
         position: relative;
         width: 100%;
@@ -81,11 +74,24 @@
         bottom: 0px;
         left: 0px;
         z-index: 1001;
+
+        .headline {
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 22px;
+            color: #ffffff;
+        }
+
+        .date {
+            font-size: 12px;
+            color: #ffffff;
+            line-height: 0;
+        }
     }
 
     .shadow {
         position: relative;
-        box-shadow: 0px 0px 35px 70px rgba(0, 0, 0, 0.8);
+        box-shadow: 0px 0px 35px 80px rgba(0, 0, 0, 0.8);
     }
 
     .userbox {
