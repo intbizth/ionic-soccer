@@ -50,16 +50,17 @@
     }
 
     .headline {
-        border-color: #ffffff #ffffff #ffffff #1388cd;
-        border-style: none none solid solid;
-        border-width: 1px 1px 1px 4px;
-        font-size: 18px;
+        border-color: transparent transparent transparent #1388cd;
+        border-style: none none none solid;
+        border-width: 0 0 0 4px;
 
         .subheadline {
             height: 100%;
-            margin-left: 4px;
-            padding-left: 8px;
+            margin: 0 0 0 4px;
+            padding: 0 0 0 8px;
             background-color: #ffffff;
+            font-size: 18px;
+            line-height: 24px;
         }
     }
 
