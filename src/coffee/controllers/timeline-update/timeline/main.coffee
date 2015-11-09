@@ -1,5 +1,5 @@
 class Timeline extends Controller then constructor: (
-    $cordovaSocialSharing, $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, MicroChats, Und
+    $cordovaSocialSharing, $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, MicroChats
 ) ->
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'timeline'
@@ -23,9 +23,11 @@ class Timeline extends Controller then constructor: (
         loadData: (args) ->
             $this = @
             pull = if args && args.pull then args.pull else no
+            flush = if args && args.flush then args.flush else no
             microChats.$getPage(
                 page: 1
                 limit: pageLimit
+                flush: flush
             , (success) ->
                 $this.next = if success.next then success.next else null
                 $this.items = success.items
@@ -40,7 +42,7 @@ class Timeline extends Controller then constructor: (
                     $ionicLoading.hide()
             )
         refresh: ->
-            @loadData(pull: yes)
+            @loadData(flush: yes, pull: yes)
         loadNext: ->
             $this = @
             microChats.$getPage(
