@@ -1,13 +1,11 @@
 class ImageCache extends Factory then constructor: (
     $cordovaFile, $cordovaFileTransfer, $localStorage, md5
 ) ->
-    config =
+    func =
         path: ''
         includePath: 'images/'
         prefixStore: 'image-'
         expire: 60 * 60 * 24
-
-    dir =
         init: (callbackSuccess, callbackError) ->
             $this = @
 
@@ -21,10 +19,10 @@ class ImageCache extends Factory then constructor: (
             replace = no
 
             $cordovaFile.createDir(path, directory, replace).then((success) ->
-                $this.removeAllStore()
+                $this.removeStore('all')
                 callbackSuccess success
             , (error) ->
-                $this.removeExpire()
+                $this.remove('all')
                 callbackError error
             )
             return
@@ -62,8 +60,6 @@ class ImageCache extends Factory then constructor: (
                 callbackError error
             )
             return
-
-    file =
         existFile: (url, callbackSuccess, callbackError) ->
             $this = @
             path = $this.getDir()
@@ -130,21 +126,6 @@ class ImageCache extends Factory then constructor: (
                 callbackError error
             )
             return
-        removeExpire: ->
-            $this = @
-            for key, value of $this.getExpireStore()
-                params =
-                    url: value.url
-                    key: key
-                $this.removeFile(params, (success) ->
-                    $this.removeStore success.params.key
-                    return
-                , (error) ->
-                    $this.removeStore error.params.key
-                    return
-                )
-
-    store =
         addPrefix: (key) ->
             $this = @
             return $this.prefixStore + key
@@ -165,30 +146,33 @@ class ImageCache extends Factory then constructor: (
             return
         removeStore: (key) ->
             $this = @
-            if $localStorage[key]
-                delete $localStorage[key]
+            if key == 'all'
+                for key, value of $localStorage
+                    if $localStorage[key] and $this.checkRegexpStore key
+                        delete $localStorage[key]
+            else
+                if $localStorage[key]
+                    delete $localStorage[key]
             return
-        getExpireStore: ->
+        getExpireStore: (key) ->
             $this = @
             items = {}
-            for key, value of $localStorage
-                if $this.checkRegexpStore(key) and value.expire < $this.getNow()
-                    items[key] = value
+            if key == 'all'
+                for key, value of $localStorage
+                    if $this.checkRegexpStore(key) and value.expire < $this.getNow()
+                        items[key] = value
+            else
+                if $localStorage[key] and $this.checkRegexpStore(key) and $localStorage[key].expire < $this.getNow()
+                    items[key] = $localStorage[key]
             return items
         getNow: ->
             return Math.round((new Date()).getTime() / 1000)
-        removeAllStore: ->
-            $this = @
-            for key, value of $localStorage
-                if $this.checkRegexpStore key
-                    delete $localStorage[key]
-            return
-
-    output =
         get: (params, callbackSuccess, callbackError) ->
             $this = @
 
-            fnSuccess = (success) ->
+            $this.remove $this.addPrefix $this.hashFile params.url
+            $this.saveFile(params, (success) ->
+                success = angular.extend params: params, success
                 if '@@environment' == 'dev'
                     $this.readFile(
                         url: success.params.url
@@ -206,21 +190,28 @@ class ImageCache extends Factory then constructor: (
                     switch success.params.element[0].tagName
                         when 'DIV' then success.params.element.css('background-image':'url(' + success.nativeURL + ')')
                         when 'IMG' then success.params.element.attr 'src', success.nativeURL
-
-            fnError = (error) ->
-                switch error.params.element[0].tagName
-                    when 'DIV' then error.params.element.css('background-image':'url(' + error.params.url + ')')
-                    when 'IMG' then error.params.element.attr 'src', error.params.url
-
-            $this.saveFile(params, (success) ->
-                success = angular.extend params: params, success
-                fnSuccess success
                 callbackSuccess success
             , (error) ->
                 error = angular.extend params: params, error
-                fnError error
+                switch error.params.element[0].tagName
+                    when 'DIV' then error.params.element.css('background-image':'url(' + error.params.url + ')')
+                    when 'IMG' then error.params.element.attr 'src', error.params.url
                 callbackError error
             )
             return
+        remove: (key) ->
+            $this = @
+            for key, value of $this.getExpireStore(key)
+                console.warn key, value
+                params =
+                    url: value.url
+                    key: key
+                $this.removeFile(params, (success) ->
+                    $this.removeStore success.params.key
+                    return
+                , (error) ->
+                    $this.removeStore error.params.key
+                    return
+                )
 
-    return angular.extend {}, config, dir, file, store, output
+    return angular.extend {}, func
