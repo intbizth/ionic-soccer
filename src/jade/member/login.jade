@@ -1,21 +1,21 @@
 ion-view.member-login
     ion-nav-title Login
     ion-nav-buttons(side="left")
-        a.button.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
+        a.button.button-nav.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
             img.logo(
             src="./img/logo/navbar.png"
             srcset="./img/logo/navbar@2x.png 2x"
             )
     ion-content.content(scroll="false")
-        div.form
-            div.row
-                div.col.text-center
-                    input(type="text", placeholder="Email & Username", maxlength="255")
-            div.row
-                div.col.text-center
-                    input(type="password", placeholder="Password", maxlength="255")
-
-        div.submit
-            div.row
-                div.col.text-center
-                    button.button.button-positive Next
+        div.member-form
+            div.form
+                div.row
+                    div.col.text-center
+                        input(type="text", placeholder="Email & Username", maxlength="255")
+                div.row
+                    div.col.text-center
+                        input(type="password", placeholder="Password", maxlength="255")
+            div.submit
+                div.row
+                    div.col.text-center
+                        button.button.button-positive Next

@@ -1,10 +1,13 @@
 ion-view.member-main(hide-nav-bar="true")
     ion-content.content(scroll="false")
-        div.header
-            div.subheader
-                img.logo(src="./img/member/logo.png", srcset="./img/member/logo@2x.png 2x")
-                img.sublogo(src="./img/member/sublogo.png", srcset="./img/member/sublogo@2x.png 2x")
-        div.footer
+        div.subcontent
+            div.row
+                div.col.text-center
+                    img.logo(src="./img/member/logo.png", srcset="./img/member/logo@2x.png 2x")
+            div.row
+                div.col.text-center
+                    img.sublogo(src="./img/member/sublogo.png", srcset="./img/member/sublogo@2x.png 2x")
+            div.space
             div.row
                 div.col.text-center
                     button.button.button-outline.button-light(ui-sref="login")
