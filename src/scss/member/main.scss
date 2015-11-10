@@ -87,6 +87,29 @@
         ::-webkit-input-placeholder {
             color: #ffffff;
         }
+
+        .photo {
+            width: 100%;
+            height: auto;
+            text-align: center;
+
+            .blank, .user {
+                width: 100px;
+                height: 100px;
+                background-color: #0658a2;
+            }
+        }
+
+        .control {
+            .button {
+                width: 70% !important;
+                height: 40px;
+            }
+
+            .button.icon:before {
+                font-size: 42px;
+            }
+        }
     }
 
     .submit {

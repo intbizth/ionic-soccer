@@ -14,11 +14,21 @@ class MemberLoginMain extends Controller then constructor: (
         return
 
     $scope.data =
+        isPass: no
         username: ''
         password: ''
         fake: ->
             username = Chance.pick([Chance.first()  + '.' + Chance.last(), Chance.email()])
             @username = username.toLowerCase()
             @password = Chance.string()
+            @valid()
         reset: ->
             @username = @password = ''
+            @valid()
+        valid: ->
+            pass = yes
+            if not @username?.length or not @password?.length
+                pass = no
+            @isPass = pass
+
+    $scope.data.valid()

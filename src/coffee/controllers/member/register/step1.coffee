@@ -1,4 +1,4 @@
-class MemberRegisterMain extends Controller then constructor: (
+class memberRegisterStep1 extends Controller then constructor: (
     $scope, $ionicHistory, $ionicPlatform, $timeout, Chance
 ) ->
     $ionicPlatform.onHardwareBackButton(->
@@ -14,6 +14,7 @@ class MemberRegisterMain extends Controller then constructor: (
         return
 
     $scope.data =
+        isPass: no
         username: ''
         email: ''
         password: ''
@@ -22,5 +23,14 @@ class MemberRegisterMain extends Controller then constructor: (
             @username = Chance.first()  + '.' + Chance.last().toLowerCase()
             @email = Chance.email()
             @password = @confirmPassword = Chance.string()
+            @valid()
         reset: ->
             @username = @email = @password = @confirmPassword = ''
+            @valid()
+        valid: ->
+            pass = yes
+            if not @username?.length or not @email?.length or not @password?.length or not @confirmPassword?.length
+                pass = no
+            @isPass = pass
+
+    $scope.data.valid()

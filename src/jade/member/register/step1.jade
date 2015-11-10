@@ -1,5 +1,5 @@
-ion-view.member-login
-    ion-nav-title Login
+ion-view.member-register
+    ion-nav-title Register
     ion-nav-buttons(side="left")
         a.button.button-nav.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
             img.logo(
@@ -17,7 +17,18 @@ ion-view.member-login
                         ng-change="data.valid()",
                         type="text",
                         name="username",
-                        placeholder="Email & Username",
+                        placeholder="Username",
+                        maxlength="255"
+                        )
+                div.row
+                    div.col.text-center
+                        input(
+                        ng-model="data.email",
+                        ng-model-options="{ getterSetter: true }",
+                        ng-change="data.valid()",
+                        type="text",
+                        name="email",
+                        placeholder="Email",
                         maxlength="255"
                         )
                 div.row
@@ -31,7 +42,18 @@ ion-view.member-login
                         placeholder="Password",
                         maxlength="255"
                         )
+                div.row
+                    div.col.text-center
+                        input(
+                        ng-model="data.confirmPassword",
+                        ng-model-options="{ getterSetter: true }",
+                        ng-change="data.valid()",
+                        type="password",
+                        name="confirmPassword",
+                        placeholder="Confirm password",
+                        maxlength="255"
+                        )
             div.submit
                 div.row
                     div.col.text-center
-                        button.button.button-positive(ng-disabled="!data.isPass") Next
+                        button.button.button-positive(ng-disabled="!data.isPass", ui-sref="member-register-step2") Next
