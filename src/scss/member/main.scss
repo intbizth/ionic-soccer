@@ -76,6 +76,12 @@
             border: solid 1px #ffffff;
             border-radius: 0;
             text-align: center;
+            transition: 0.5s linear all;
+        }
+
+        input.ng-invalid {
+            border: solid 1px #fc2125;
+            color: #fc2125;
         }
 
         ::-webkit-input-placeholder {
