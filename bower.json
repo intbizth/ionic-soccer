@@ -21,8 +21,6 @@
     "jqueryui-touch-punch" : "master",
     "angular-resource" : "1.5.0-build.4334+sha.ffb6b2f",
     "underscore" : "1.8.3",
-    "angular-imgcache.js" : "0.1.0",
-    "ionic-cache-src" : "0.6.0",
     "angular-md5" : "0.1.8"
   }
 }
