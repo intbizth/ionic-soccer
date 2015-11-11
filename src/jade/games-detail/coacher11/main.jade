@@ -44,8 +44,7 @@ div.games-coacher11
         div(ng-switch="", on="personals[$index]", ng-repeat="item in personals.items | orderBy:'position.shortName'")
             div(ng-switch-default)
                 div.detail
-                    div.row
-                        //(ui-sref="personal-detail({id : item.id})")
+                    div.row(ui-sref="personal-detail({id : item.id})")
                         div.col.col-center.text-center
                             div.position(ng-class="personals.getPositionClass(item.position.shortName)")
                                 span.job {{item.position.shortName}}
@@ -69,8 +68,7 @@ div.games-coacher11
 
             div(ng-switch-when="true")
                 div.detail
-                    div.row.focus
-                        //(ui-sref="personal-detail({id : item.id})")
+                    div.row.focus(ui-sref="personal-detail({id : item.id})")
                         div.col.col-center.text-center
                             div.position(ng-class="personals.getPositionClass(item.position.shortName)")
                                 span.job {{item.position.shortName}}
