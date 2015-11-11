@@ -41,51 +41,49 @@ div.games-coacher11
                 )
 
     div.personal
-        div(ng-repeat="item in personals.items | orderBy:'position.shortName'")
-            div(ng-switch="selectButton")
-                div(ng-switch-default)
-                    div.detail
-                        div.row
-                            //(ui-sref="personal-detail({id : item.id})")
-                            div.col.col-center.text-center
-                                div.position(ng-class="personals.getPositionClass(item.position.shortName)")
-                                    span.job {{item.position.shortName}}
-                            div.col.col-center
-                                div.circle
-                                    div.subcircle
-                                        img.image(ng-src="{{item.image}}")
-                            div.col.col-25.col-center.text-left
-                                span.fullname {{item.firstname}}
-                            div.col.col-center.text-right.yellow.score
-                                img(src="./img/icon/yellow_card.png", srcset="./img/icon/yellow_card@2x.png 2x")
-                                | 99
-                            div.col.col-center.text-center.red.score
-                                img(src="./img/icon/red_card.png", srcset="./img/icon/red_card@2x.png 2x")
-                                | 99
-                            div.col.col-center.text-left.goal.score
-                                img(src="./img/icon/goal.png", srcset="./img/icon/goal@2x.png 2x")
-                                |  99
-                            div.col.col-center.text-center
-                                div.icon.ion-eye(ng-click="selectButton.setSelect('1')")
+        div(ng-switch="", on="personals[$index]", ng-repeat="item in personals.items | orderBy:'position.shortName'")
+            div(ng-switch-default)
+                div.detail
+                    div.row
+                        //(ui-sref="personal-detail({id : item.id})")
+                        div.col.col-center.text-center
+                            div.position(ng-class="personals.getPositionClass(item.position.shortName)")
+                                span.job {{item.position.shortName}}
+                        div.col.col-center
+                            div.circle
+                                div.subcircle
+                                    img.image(ng-src="{{item.image}}")
+                        div.col.col-25.col-center.text-left
+                            span.fullname {{ans}} {{item.firstname}}
+                        div.col.col-center.text-right.yellow.score
+                            img(src="./img/icon/yellow_card.png", srcset="./img/icon/yellow_card@2x.png 2x")
+                            | 99
+                        div.col.col-center.text-center.red.score
+                            img(src="./img/icon/red_card.png", srcset="./img/icon/red_card@2x.png 2x")
+                            | 99
+                        div.col.col-center.text-left.goal.score
+                            img(src="./img/icon/goal.png", srcset="./img/icon/goal@2x.png 2x")
+                            |  99
+                        div.col.col-center.text-center
+                            div.icon.ion-eye(ng-click="switch($index)")
 
-                div(ng-switch-when="1")
-                    div(ng-show="selectButton.select == 1")
-                        div.detail
-                            div.row.focus
-                                //(ui-sref="personal-detail({id : item.id})")
-                                div.col.col-center.text-center
-                                    div.position(ng-class="personals.getPositionClass(item.position.shortName)")
-                                        span.job {{item.position.shortName}}
-                                div.col.col-center
-                                    div.circle
-                                        div.subcircle
-                                            img.image(ng-src="{{item.image}}")
-                                div.col.col-50.col-center.text-left
-                                    span.fullname {{item.fullname}}
-                                div.col.col-center.text-center
-                                    span.no \#{{item.no}}
-                                div.col.col-center.text-center
-                                    div.icon.ion-eye
+            div(ng-switch-when="true")
+                div.detail
+                    div.row.focus
+                        //(ui-sref="personal-detail({id : item.id})")
+                        div.col.col-center.text-center
+                            div.position(ng-class="personals.getPositionClass(item.position.shortName)")
+                                span.job {{item.position.shortName}}
+                        div.col.col-center
+                            div.circle
+                                div.subcircle
+                                    img.image(ng-src="{{item.image}}")
+                        div.col.col-50.col-center.text-left
+                            span.fullname {{item.fullname}}
+                        div.col.col-center.text-right
+                            span.no \#{{item.no}}
+                        div.col.col-center.text-center
+                            div.icon.ion-eye(ng-click="switch($index)")
 
     div.choose
         div.row.header
