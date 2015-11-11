@@ -6,18 +6,24 @@ ion-view.member-register
             src="./img/logo/navbar.png"
             srcset="./img/logo/navbar@2x.png 2x"
             )
-    ion-content.content(scroll="false", on-double-tap="data.fake()", on-hold="data.reset()")
+    ion-content.content(on-double-tap="data.fake()", on-hold="data.reset()")
         div.member-form
             div.form
                 div.row.photo
                     div.col.text-center
-                        img.blank(ng-show="!photo.isPhoto", src="./img/member/profile.png", srcset="./img/member/profile@2x.png 2x")
-                        img.user(ng-show="photo.isPhoto", id="photo-user", src="https://v.cdn.vine.co/v/avatars/D424297E-9E91-4B64-A95C-CEC25BCB1A5F-5943-000006F0E1F5204B.jpg?versionId=06Ft1N9hxhK_nH6RL_EXR3Y3yHokjZ0R")
-                div.row.control
-                    div.col.text-right
-                        button.button.button-outline.button-light.icon.ion-ios-plus-empty
-                    div.col.text-left
+                        img.user(id="photo-user", src="./img/member/profile.png", srcset="./img/member/profile@2x.png 2x")
+                div.row.control-add(ng-if="!photo.isPhoto")
+                    div.col.text-center
+                        button.button.button-outline.button-light.icon.ion-ios-plus-empty(ng-click="photo.openGallery()")
+                    div.col.text-center
                         button.button.button-outline.button-light.icon.ion-ios-camera-outline(ng-click="photo.openCamera()")
+                div.row.control-remove(ng-if="photo.isPhoto")
+                    div.col.text-center
+                        button.button.button-outline.button-light.icon.ion-ios-plus-empty(ng-click="photo.openGallery()")
+                    div.col.text-center
+                        button.button.button-outline.button-light.icon.ion-ios-camera-outline(ng-click="photo.openCamera()")
+                    div.col.text-center
+                        button.button.button-outline.button-light.icon.ion-ios-minus-empty(ng-click="photo.remove()")
                 div.row
                     div.col.text-center
                         input(
@@ -40,6 +46,18 @@ ion-view.member-register
                         placeholder="Lastname",
                         maxlength="255"
                         )
+                div.row.birthday
+                    div.col.text-center
+                        label Date of birth
+                        br
+                        div(date-picker)
+                            input(
+                            ng-model="data.birthday",
+                            ng-model-options="{ getterSetter: true }",
+                            ng-change="data.valid()",
+                            type="text",
+                            name="birthday"
+                            )
             div.submit
                 div.row
                     div.col.text-center

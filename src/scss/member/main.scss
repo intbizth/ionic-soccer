@@ -93,21 +93,33 @@
             height: auto;
             text-align: center;
 
-            .blank, .user {
+            .user {
                 width: 100px;
                 height: 100px;
                 background-color: #0658a2;
             }
         }
 
-        .control {
-            .button {
-                width: 70% !important;
-                height: 40px;
-            }
+        .row.control-add, .row.control-remove {
+            padding: 4px 30px;
+        }
 
-            .button.icon:before {
-                font-size: 42px;
+        .control-add .button, .control-remove .button {
+            width: 100% !important;
+            height: 40px;
+        }
+
+        .control-add .button.icon:before, .control-remove .button.icon:before {
+            font-size: 42px;
+        }
+
+        .birthday {
+            width: 100%;
+            padding: 0;
+
+            label {
+                font-size: 12px;
+                color: #ffffff;
             }
         }
     }

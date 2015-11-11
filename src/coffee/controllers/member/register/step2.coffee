@@ -1,5 +1,5 @@
 class memberRegisterStep2 extends Controller then constructor: (
-    $cordovaCamera, $document, $scope, $ionicHistory, $ionicPlatform, $timeout, Chance
+    $cordovaCamera, $scope, $ionicHistory, $ionicPlatform, $timeout, Chance
 ) ->
     $ionicPlatform.onHardwareBackButton(->
         $scope.back()
@@ -12,21 +12,19 @@ class memberRegisterStep2 extends Controller then constructor: (
             $scope.data.reset()
         , 200)
         return
-    element = angular.element(document.querySelector('#photo-user'))
-#    element = element.find('photo')
-
-    console.warn 'element', element, $document.find('#photo-user')
 
     $scope.photo =
         isPhoto: no
         fileUri: null
-        openCamera: ->
+        base64: null
+        element: angular.element(document.querySelector('#photo-user'))
+        getPicture: (args) ->
             $this = @
-            console.warn 'openCamera'
+            camera = if args && args.camera then args.camera else no
             options =
                 quality: 100,
                 destinationType: Camera.DestinationType.FILE_URI,
-                sourceType: Camera.PictureSourceType.CAMERA,
+                sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
                 allowEdit: yes,
                 encodingType: Camera.EncodingType.JPEG,
                 targetWidth: 200,
@@ -35,34 +33,54 @@ class memberRegisterStep2 extends Controller then constructor: (
                 saveToPhotoAlbum: no,
                 correctOrientation: yes
 
-            $cordovaCamera.getPicture(options).then((fileUri) ->
+            if '@@environment' == 'dev'
+                options.destinationType = Camera.DestinationType.DATA_URL
+
+            if camera
+                options.sourceType = Camera.DestinationType.CAMERA
+
+            $cordovaCamera.getPicture(options).then((imageData) ->
                 $this.isPhoto = yes
-                $this.fileUri = fileUri
-
-                console.warn 'openCamera', fileUri
-
-                image = document.getElementById('myImage')
-#                if '@@environment' == 'dev'
-#
-#                else
-
+                if '@@environment' == 'dev'
+                    $this.base64 = imageData
+                    $this.element.attr 'src', 'data:image/jpeg;base64,' + $this.base64
+                    $this.element.removeAttr 'srcset'
+                else
+                    $this.fileUri = imageData
+                    $this.element.attr 'src', $this.fileUri
+                    $this.element.removeAttr 'srcset'
                 return
             , (error) ->
                 return
             )
 
-    $scope.photo.isPhoto = Chance.bool()
+            $cordovaCamera.cleanup().then(->
+                return
+            )
+        openGallery: ->
+            @getPicture()
+        openCamera: ->
+            @getPicture(camera: true)
+        remove: ->
+            @isPhoto = no
+            @fileUri = null
+            @base64 = null
+            @element.attr 'src', './img/member/profile.png'
+            @element.attr 'srcset', './img/member/profile@2x.png 2x'
+            return
 
     $scope.data =
         isPass: no
         firstname: ''
         lastname: ''
+        birthday: ''
         fake: ->
             @firstname = Chance.first()
             @lastname = Chance.last()
+            @birthday = Chance.birthday().toISOString().slice(0, 10)
             @valid()
         reset: ->
-            @firstname = @firstname = ''
+            @firstname = @lastname = @birthday = ''
             @valid()
         valid: ->
             pass = yes
