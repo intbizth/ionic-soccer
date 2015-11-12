@@ -10,12 +10,12 @@ ion-view.news-detail
     ion-content.content
         ion-refresher(pulling-text="Pull to refresh...", on-refresh="paper.refresh()")
 
-        div.image(ng-if="paper.item.cover", style="background-image : url({{paper.item.cover}})")
+        div.image(ng-if="paper.item.cover", image-cache="{{paper.item.cover}}")
 
         div.row(ng-if="paper.item.user.displayname")
             div.col
                 div.userbox
-                    img.photo(ng-src="{{paper.item.user.profilePicture}}")
+                    img.photo(image-cache="{{paper.item.user.profilePicture}}")
                     span.name {{paper.item.user.displayname}}
 
         div.row.datetime(ng-if="paper.item.publishedDate")
@@ -39,4 +39,6 @@ ion-view.news-detail
 
         div.row
             div.col
-                div.image(ng-if="paper.item.image", style="background-image : url({{paper.item.image}})")
+                div.image(ng-if="paper.item.image", image-cache="{{paper.item.image}}")
+
+        div.footer

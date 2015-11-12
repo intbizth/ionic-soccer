@@ -9,8 +9,12 @@ script:
     - ./www/lib/angular-oauth2/dist/angular-oauth2.js
     - ./www/lib/angular-translate/angular-translate.js
     - ./www/lib/angular-translate-loader-partial/angular-translate-loader-partial.js
-    - ./www/lib/angular-md5/angular-md5.js
     - ./www/lib/angular-resource/angular-resource.js
+    - ./www/lib/angular-md5/angular-md5.js
+    - ./www/lib/imgcache.js/js/imgcache.js
+    - ./www/lib/angular-imgcache.js/angular-imgcache.js
+    - ./www/lib/angular-svg-round-progressbar/build/roundProgress.js
+    - ./www/lib/ionic-cache-src/ionic-cache-src.js
     - ./www/lib/chance/chance.js
     - ./www/lib/moment/moment.js
     - ./www/lib/underscore/underscore.js
