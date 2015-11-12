@@ -1,6 +1,9 @@
 class GamesDetailCoacher11 extends Controller then constructor: (
-    $rootScope, $scope, $ionicLoading, $timeout, Matches, Und, Chance
+    $rootScope, $scope, $ionicLoading, $timeout, GoogleAnalytics, Matches, Und, Chance
 ) ->
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'coacher11'
+
     $scope.timeRemain = Und.random(0, 90)
 
     matchStore = new Matches()
