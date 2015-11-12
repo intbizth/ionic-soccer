@@ -1,5 +1,5 @@
 class memberRegisterStep2 extends Controller then constructor: (
-    $cordovaCamera, $document, $scope, $ionicHistory, $ionicPlatform, $timeout, Chance, Moment
+    $cordovaCamera, $document, $scope, $ionicHistory, $ionicPlatform, $timeout, Chance, Moment, Users
 ) ->
     $ionicPlatform.onHardwareBackButton(->
         $scope.back()
@@ -90,7 +90,12 @@ class memberRegisterStep2 extends Controller then constructor: (
             @valid()
         valid: ->
             pass = yes
-            if not @firstname?.length or not @lastname?.length or not @birthday?.length
+            regExpDate = new RegExp('^\\d{4}-\\d{2}-\\d{2}$')
+            if not @firstname?.length
+                pass = no
+            if not @lastname?.length
+                pass = no
+            if not @birthday?.length or not regExpDate.test(@birthday)
                 pass = no
             @isPass = pass
         submit: ->
@@ -100,6 +105,16 @@ class memberRegisterStep2 extends Controller then constructor: (
                 birthday: @birthday
 
             console.warn 'step2:submit', data
+
+            users = new Users()
+
+            users.$register(
+                id: 1
+            , (success) ->
+                console.warn '$register:success', success
+            , (error) ->
+                console.warn '$register:error', error
+            )
             return data
 
     $scope.data.valid()

@@ -27,7 +27,9 @@ class MemberLoginMain extends Controller then constructor: (
             @valid()
         valid: ->
             pass = yes
-            if not @username?.length or not @password?.length
+            if not @username?.length
+                pass = no
+            if not @password?.length
                 pass = no
             @isPass = pass
 

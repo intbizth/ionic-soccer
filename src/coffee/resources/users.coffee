@@ -5,8 +5,9 @@ class Users extends Factory then constructor: (
 
     resource = $resource(CFG.API.getPath('users'), {}, {
         register:
-            url: CFG.API.getPath('users/register')
-            method: 'GET'
+#            url: CFG.API.getPath('users/register')
+            url: 'http://192.168.10.96:8000/api/users/register'
+            method: 'POST'
             responseType: 'json'
             transformResponse: (data, headersGetter) ->
                 console.warn 'transformResponse', data
