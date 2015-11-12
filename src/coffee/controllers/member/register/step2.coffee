@@ -1,5 +1,5 @@
 class memberRegisterStep2 extends Controller then constructor: (
-    $cordovaCamera, $scope, $ionicHistory, $ionicPlatform, $timeout, Chance
+    $cordovaCamera, $document, $scope, $ionicHistory, $ionicPlatform, $timeout, Chance, Moment
 ) ->
     $ionicPlatform.onHardwareBackButton(->
         $scope.back()
@@ -17,7 +17,7 @@ class memberRegisterStep2 extends Controller then constructor: (
         isPhoto: no
         fileUri: null
         base64: null
-        element: angular.element(document.querySelector('#photo-user'))
+        element: angular.element $document[0].querySelector '.photo img.user'
         getPicture: (args) ->
             $this = @
             camera = if args && args.camera then args.camera else no
@@ -71,21 +71,35 @@ class memberRegisterStep2 extends Controller then constructor: (
 
     $scope.data =
         isPass: no
+        date:
+            min: Moment().add(-160, 'years').startOf('year').format('YYYY-MM-DD')
+            max: Moment().format('YYYY-MM-DD')
         firstname: ''
         lastname: ''
         birthday: ''
         fake: ->
             @firstname = Chance.first()
             @lastname = Chance.last()
-            @birthday = Chance.birthday().toISOString().slice(0, 10)
+            min = Moment(@date.min).unix()
+            max = Moment(@date.max).unix()
+            rand = Chance.integer(min: min, max: max) * 1000
+            @birthday = Moment(rand).format('YYYY-MM-DD')
             @valid()
         reset: ->
             @firstname = @lastname = @birthday = ''
             @valid()
         valid: ->
             pass = yes
-            if not @firstname?.length or not @lastname?.length
+            if not @firstname?.length or not @lastname?.length or not @birthday?.length
                 pass = no
             @isPass = pass
+        submit: ->
+            data =
+                firstname: @firstname
+                lastname: @lastname
+                birthday: @birthday
+
+            console.warn 'step2:submit', data
+            return data
 
     $scope.data.valid()

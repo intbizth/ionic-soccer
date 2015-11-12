@@ -32,5 +32,15 @@ class memberRegisterStep1 extends Controller then constructor: (
             if not @username?.length or not @email?.length or not @password?.length or not @confirmPassword?.length
                 pass = no
             @isPass = pass
+        submit: ->
+            data =
+                username: @username
+                email: @email
+                password: @password
+                confirmPassword: @confirmPassword
+
+            console.warn 'step1:submit', data
+            return data
 
     $scope.data.valid()
+

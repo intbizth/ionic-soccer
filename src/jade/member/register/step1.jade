@@ -56,4 +56,8 @@ ion-view.member-register
             div.submit
                 div.row
                     div.col.text-center
-                        button.button.button-positive(ng-disabled="!data.isPass", ui-sref="member-register-step2") Next
+                        button.button.button-positive(
+                        ng-disabled="!data.isPass",
+                        ng-click="data.submit()",
+                        ui-sref="member-register-step2"
+                        ) Next

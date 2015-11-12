@@ -11,7 +11,7 @@ ion-view.member-register
             div.form
                 div.row.photo
                     div.col.text-center
-                        img.user(id="photo-user", src="./img/member/profile.png", srcset="./img/member/profile@2x.png 2x")
+                        img.user(src="./img/member/profile.png", srcset="./img/member/profile@2x.png 2x")
                 div.row.control-add(ng-if="!photo.isPhoto")
                     div.col.text-center
                         button.button.button-outline.button-light.icon.ion-ios-plus-empty(ng-click="photo.openGallery()")
@@ -50,15 +50,21 @@ ion-view.member-register
                     div.col.text-center
                         label Date of birth
                         br
-                        div(date-picker)
-                            input(
-                            ng-model="data.birthday",
-                            ng-model-options="{ getterSetter: true }",
-                            ng-change="data.valid()",
-                            type="text",
-                            name="birthday"
-                            )
+                        //div(date-picker)
+                        input(
+                        date-picker,
+                        ng-model="data.birthday",
+                        ng-model-options="{ getterSetter: true }",
+                        ng-change="data.valid()",
+                        type="text",
+                        name="birthday"
+                        min="{{data.date.min}}"
+                        max="{{data.date.max}}"
+                        )
             div.submit
                 div.row
                     div.col.text-center
-                        button.button.button-positive(ng-disabled="!data.isPass") Done
+                        button.button.button-positive(
+                        ng-disabled="!data.isPass",
+                        ng-click="data.submit()"
+                        ) Done
