@@ -90,12 +90,12 @@ class memberRegisterStep2 extends Controller then constructor: (
             @valid()
         valid: ->
             pass = yes
-            regExpDate = new RegExp('^\\d{4}-\\d{2}-\\d{2}$')
+            regExpDate = new RegExp('^(0000-\\d{2}-\\d{2}|\\d{4}-00-\\d{2}|\\d{4}-\\d{2}-00)$')
             if not @firstname?.length
                 pass = no
             if not @lastname?.length
                 pass = no
-            if not @birthday?.length or not regExpDate.test(@birthday)
+            if not @birthday?.length or regExpDate.test(@birthday)
                 pass = no
             @isPass = pass
         submit: ->
@@ -108,8 +108,7 @@ class memberRegisterStep2 extends Controller then constructor: (
 
             users = new Users()
 
-            users.$register(
-                id: 1
+            users.$register({}
             , (success) ->
                 console.warn '$register:success', success
             , (error) ->

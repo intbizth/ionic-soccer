@@ -40,21 +40,35 @@ class DatePicker extends Directive then constructor: (
                 createDays()
 
             tranformData = (value) ->
-                date = Moment(value)
-                scope.day = parseInt date.format 'D'
-                scope.month = parseInt date.format 'M'
-                scope.year = parseInt date.format 'YYYY'
+                regExpDate = new RegExp('^\\d{4}-\\d{2}-\\d{2}$')
+                if !regExpDate.test(value)
+                    value = '0000-00-00'
 
-                if isNaN scope.day then scope.day = 0
-                if isNaN scope.month then scope.month = 0
-                if isNaN scope.year then scope.year = 0
+                value = value.split('-')
+                scope.day = value[2]
+                scope.month = value[1]
+                scope.year = value[0]
                 return
 
             bindData = ->
-                date = ''
-                if scope.year > 0 and scope.month > 0 and scope.day > 0
-                    date = Moment([scope.year, scope.month - 1, scope.day]).format('YYYY-MM-DD')
-                controller.$setViewValue date
+                year = '0000'
+                month = '00'
+                day = '00'
+
+                if scope.year > 0
+                    year = scope.year
+
+                if scope.month > 0
+                    month = parseInt scope.month
+                    if month < 10
+                        month = '0' + month
+
+                if scope.day > 0
+                    day = parseInt scope.day
+                    if day < 10
+                        day = '0' + day
+
+                controller.$setViewValue year + '-' + month + '-' + day
                 return
 
             createDays = ->
@@ -116,6 +130,7 @@ class DatePicker extends Directive then constructor: (
                 return scope.day
             , (value) ->
                 bindData()
+                return
             )
 
             scope.$watch(->
@@ -123,6 +138,7 @@ class DatePicker extends Directive then constructor: (
             , (value) ->
                 createDays()
                 bindData()
+                return
             )
 
             scope.$watch(->
@@ -130,6 +146,7 @@ class DatePicker extends Directive then constructor: (
             , (value) ->
                 createDays()
                 bindData()
+                return
             )
 
             scope.$on 'modal.hidden', ->
