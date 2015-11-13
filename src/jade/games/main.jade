@@ -16,7 +16,9 @@ ion-view.games
     ion-content.content
         ion-refresher(pulling-text="Pull to refresh...", on-refresh="data.doRefresh()")
 
-        div.banner
+        div.cover(ng-if="cover.image")
+            div.images
+                img(image-cache="{{cover.image}}", width="100%", height="auto")
 
         div.games-detail
             div.row
