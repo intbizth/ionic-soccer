@@ -2,7 +2,7 @@ class GamesDetailPrediction extends Controller then constructor: (
     $scope, $timeout, GoogleAnalytics, Und, Chance
 ) ->
     $ionicPlatform.ready ->
-        GoogleAnalytics.trackView 'prediction'
+        GoogleAnalytics.trackView 'games_prediction'
 
     $scope.data =
         next: no

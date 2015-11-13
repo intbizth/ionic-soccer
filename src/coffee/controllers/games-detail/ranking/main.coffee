@@ -2,7 +2,7 @@ class GamesDetailRanking extends Controller then constructor: (
     $scope, $timeout, GoogleAnalytics, Und, Chance
 ) ->
     $ionicPlatform.ready ->
-        GoogleAnalytics.trackView 'ranking'
+        GoogleAnalytics.trackView 'games_ranking'
 
     $scope.data =
         next: no

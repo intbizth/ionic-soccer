@@ -2,7 +2,7 @@ class GamesDetailLive extends Controller then constructor: (
     $rootScope, $scope, $ionicHistory, $ionicLoading, $timeout, GoogleAnalytics, Matches, Und, Chance
 ) ->
     $ionicPlatform.ready ->
-        GoogleAnalytics.trackView 'live'
+        GoogleAnalytics.trackView 'games_live'
 
     $scope.timeRemain = Und.random(0, 90)
 
