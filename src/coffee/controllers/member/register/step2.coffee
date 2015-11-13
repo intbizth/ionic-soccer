@@ -106,6 +106,11 @@ class memberRegisterStep2 extends Controller then constructor: (
 
             console.warn 'step2:submit', data
 
+#            data:
+#                firstname: @firstname
+#                lastname: @lastname
+#                email: 'email'
+
             users = new Users()
 
             users.$register({}
