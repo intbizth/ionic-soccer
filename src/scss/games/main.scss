@@ -88,7 +88,14 @@ $ml-progressed-left: #FF3B30;
                 //margin-left: 5px;
             }
 
-            .name {
+            .name-left {
+                margin-left: 1px;
+                padding-right: 5px;
+                font-size: 13px;
+                color: $ml-label-club-name;
+            }
+
+            .name-right {
                 margin-left: 1px;
                 font-size: 13px;
                 color: $ml-label-club-name;
