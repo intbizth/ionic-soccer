@@ -1,30 +1,34 @@
 class ProductDetail extends Controller then constructor: (
-    $scope, $stateParams, $ionicHistory, $ionicLoading, Products, Und
+    $ionicHistory, $ionicLoading, $scope, $stateParams, GoogleAnalytics, Products, Und
 ) ->
     $scope.back = ->
         $ionicHistory.goBack -1
         return
 
     productId = $stateParams.id || ''
-    productStore = new Products()
-    options =
-        scope: $scope
-        key: 'r'
+    products = new Products()
 
     $scope.product =
         item: {}
         loadData: (args) ->
-            pull = if !Und.isUndefined(args) and !Und.isUndefined(args.pull) and Und.isBoolean(args.pull) then args.pull else no
-            promise = productStore.find productId, options
-            promise.finally ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            products.$getId(id: productId
+            , (success) ->
+                $this.item = success
+                GoogleAnalytics.trackView 'product-detail ' + $this.item.name
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
                     $ionicLoading.hide()
-            promise.then (model) -> $scope.product.item = model.dataTranformToDetail()
+            , (error) ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            )
         refresh: ->
-            $scope.product.loadData(pull: yes)
+            @loadData(pull: yes)
 
     $scope.product.loadData()
-
     $ionicLoading.show()
