@@ -8,13 +8,9 @@ class Users extends Factory then constructor: (
 #            url: CFG.API.getPath('users/register')
             url: 'http://192.168.10.250:8000/api/users/register'
             method: 'POST'
-#            params:
-#                firstname: 'firstname'
-#                lastname: 'lastname'
-#                email: 'email'
-#            responseType: 'json'
-            transformResponse: (data, headersGetter) ->
-                console.warn 'transformResponse', data
+            responseType: 'json'
+            transformRequest: (data, headersGetter) ->
+                return Helper.buildFormData data
             timeout: timeout
     })
 

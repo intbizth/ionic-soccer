@@ -123,6 +123,8 @@ class Routing extends Config then constructor: ($stateProvider, $urlRouterProvid
 
     state 'member-register-step2',
         url: '/member/register/step2'
+        params:
+            data: null
         controller: 'memberRegisterStep2Controller'
         templateUrl: 'templates/member/register/step2.html'
 

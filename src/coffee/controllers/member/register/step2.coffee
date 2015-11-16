@@ -1,5 +1,5 @@
 class memberRegisterStep2 extends Controller then constructor: (
-    $cordovaCamera, $document, $scope, $ionicHistory, $ionicPlatform, $timeout, Chance, Moment, Users
+    $cordovaCamera, $document, $scope, $state, $stateParams, $ionicHistory, $ionicLoading, $ionicPlatform, $timeout, Chance, Moment, Users
 ) ->
     $ionicPlatform.onHardwareBackButton(->
         $scope.back()
@@ -104,21 +104,19 @@ class memberRegisterStep2 extends Controller then constructor: (
                 lastname: @lastname
                 birthday: @birthday
 
-            console.warn 'step2:submit', data
+            data = angular.extend data, $stateParams.data
 
-#            data:
-#                firstname: @firstname
-#                lastname: @lastname
-#                email: 'email'
+            $ionicLoading.show()
 
-            users = new Users()
-
+            users = new Users(data)
             users.$register({}
             , (success) ->
                 console.warn '$register:success', success
+                $state.go 'feature'
+                $ionicLoading.hide()
             , (error) ->
                 console.warn '$register:error', error
+                $ionicLoading.hide()
             )
-            return data
 
     $scope.data.valid()

@@ -1,5 +1,5 @@
 class memberRegisterStep1 extends Controller then constructor: (
-    $scope, $ionicHistory, $ionicPlatform, $timeout, Chance
+    $scope, $state, $ionicHistory, $ionicPlatform, $timeout, Chance
 ) ->
     $ionicPlatform.onHardwareBackButton(->
         $scope.back()
@@ -42,13 +42,15 @@ class memberRegisterStep1 extends Controller then constructor: (
             @isPass = pass
         submit: ->
             data =
-                username: @username
-                email: @email
-                password: @password
-                confirmPassword: @confirmPassword
+                data:
+                    email: @email
+                    user:
+                        username: @username
+                        plainPassword:
+                            first: @password
+                            second: @confirmPassword
 
-            console.warn 'step1:submit', data
-            return data
+            $state.go 'member-register-step2', data
 
     $scope.data.valid()
 
