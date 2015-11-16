@@ -1,0 +1,37 @@
+ion-view.member-login
+    ion-nav-title Login
+    ion-nav-buttons(side="left")
+        a.button.button-nav.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
+            img.logo(
+            src="./img/logo/navbar.png"
+            srcset="./img/logo/navbar@2x.png 2x"
+            )
+    ion-content.content(scroll="false", on-double-tap="data.fake()", on-hold="data.reset()")
+        div.member-form
+            div.form
+                div.row
+                    div.col.text-center
+                        input(
+                        ng-model="data.username",
+                        ng-model-options="{ getterSetter: true }",
+                        ng-change="data.valid()",
+                        type="text",
+                        name="username",
+                        placeholder="Email & Username",
+                        maxlength="128"
+                        )
+                div.row
+                    div.col.text-center
+                        input(
+                        ng-model="data.password",
+                        ng-model-options="{ getterSetter: true }",
+                        ng-change="data.valid()",
+                        type="password",
+                        name="password",
+                        placeholder="Password",
+                        maxlength="128"
+                        )
+            div.submit
+                div.row
+                    div.col.text-center
+                        button.button.button-positive(ng-disabled="!data.isPass") Next

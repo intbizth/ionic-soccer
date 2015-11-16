@@ -1,19 +1,19 @@
 .platform-android {
-    .feature-ads {
-        .ads {
+    .ads-main {
+        .banner {
             height: 100%;
         }
     }
 }
 
-.feature-ads {
+.ads-main {
     background-color: transparent;
 
-    .ads {
+    .banner {
         padding: 8px;
         height: 100vh;
 
-        .subads {
+        .subbanner {
             height: 100%;
             min-height: 100%;
             max-height: 100%;
@@ -59,7 +59,7 @@
 }
 
 @media screen and (-webkit-device-pixel-ratio: 2) {
-    .feature-ads {
+    .ads-main {
         .close {
             .bg {
                 background-image: url("../img/ads/close/bg@2x.png");
