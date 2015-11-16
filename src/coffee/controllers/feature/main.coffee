@@ -3,9 +3,10 @@ class FeatureMain extends Controller then constructor: (
 ) ->
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'feature'
-        $timeout(->
-            $scope.version = $rootScope.version
-        )
+
+    $scope.version = $rootScope.version
+    $rootScope.$on 'version', (event, data) ->
+        $scope.version = data
 
     Ads.$on 'ready', ->
         Ads.openModal()

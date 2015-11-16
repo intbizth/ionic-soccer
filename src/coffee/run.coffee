@@ -14,6 +14,7 @@ class Run extends Run then constructor: (
 
         $cordovaAppVersion.getVersionNumber().then((version) ->
             $rootScope.version = version
+            $rootScope.$broadcast 'version', $rootScope.version
         )
 
         GoogleAnalytics.startTrackerWithId CFG.GOOGLE.analytics.id
