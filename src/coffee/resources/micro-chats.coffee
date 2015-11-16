@@ -32,7 +32,7 @@ class MicroChats extends Factory then constructor: (
                         user:
                             id: 'user.id'
                             displayname: 'user.displayname'
-                            profilePicture: 'user.profile_picture'
+                            profilePicture: 'user._links.profile_picture.href'
                         publishedDate: 'published_date'
                     newData.items[key] = Helper.traverseProperties value, fields
                 if newData.page < newData.pages
