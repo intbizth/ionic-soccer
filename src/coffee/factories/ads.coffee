@@ -9,7 +9,6 @@ class Ads extends Factory then constructor: (
          scope: scope
     ).then (modal) ->
         scope.modal = modal
-
         scope.openModal = ->
             GoogleAnalytics.trackEvent 'ads', 'show'
             scope.modal.show()
@@ -18,6 +17,7 @@ class Ads extends Factory then constructor: (
             GoogleAnalytics.trackEvent 'ads', 'hide'
             scope.modal.hide()
             return
+        scope.$emit 'ready'
         return
 
     return scope

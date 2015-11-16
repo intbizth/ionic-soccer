@@ -1,12 +1,17 @@
 class FeatureMain extends Controller then constructor: (
-    $ionicPlatform, $rootScope, $scope, $timeout, Ads, Chance, GoogleAnalytics
+    $ionicHistory, $ionicPlatform, $rootScope, $scope, $timeout, $window, Ads, Chance, GoogleAnalytics
 ) ->
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'feature'
-        Ads.openModal()
         $timeout(->
             $scope.version = $rootScope.version
         )
+
+    Ads.$on 'ready', ->
+        Ads.openModal()
+
+    $ionicHistory.clearHistory()
+    $ionicHistory.clearCache()
 
     $scope.profile =
         item: {},
