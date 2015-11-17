@@ -206,5 +206,5 @@ class Routing extends Config then constructor: ($stateProvider, $urlRouterProvid
         controller: 'lineupMainController'
         templateUrl: 'templates/lineup/main.html'
 
-    $urlRouterProvider.otherwise '/member/main'
+    $urlRouterProvider.otherwise '/feature/main'
     return
