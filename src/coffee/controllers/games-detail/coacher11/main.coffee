@@ -1,5 +1,5 @@
 class GamesDetailCoacher11 extends Controller then constructor: (
-    $rootScope, $scope, $ionicLoading, $timeout, GoogleAnalytics, Matches, Und, Chance
+    $rootScope, $scope, $ionicLoading, $timeout, GoogleAnalytics, Matches, Und, Chance, $ionicPlatform, Personals
 ) ->
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'games_coacher11'

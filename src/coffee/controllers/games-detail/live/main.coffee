@@ -1,5 +1,5 @@
 class GamesDetailLive extends Controller then constructor: (
-    $rootScope, $scope, $ionicHistory, $ionicLoading, $timeout, GoogleAnalytics, Matches, Und, Chance
+    $rootScope, $scope, $ionicHistory, $ionicLoading, $timeout, GoogleAnalytics, Matches, Und, Chance, $ionicPlatform
 ) ->
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'games_live'
