@@ -47,5 +47,8 @@ class MicroChats extends Factory then constructor: (
                 resolve @
             timeout: timeout
     options = {}
+    extend = {}
 
-    return $resource url, paramDefaults, actions, options
+    resource = $resource url, paramDefaults, actions, options
+    resource.prototype = angular.extend extend, resource.prototype
+    return resource

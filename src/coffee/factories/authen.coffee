@@ -1,50 +1,64 @@
 class Authen extends Factory then constructor: (
-    $injector, $rootScope, $ionicModal, $state, $http, $sessionStorage, OAuth, OAuthToken, authService
+    $ionicModal, $q, $rootScope, $sessionStorage, $state, authService, OAuth, OAuthToken, Users
 ) ->
     _modal = null
     _stateTo = null
     _stateFrom = null
     _dialogTemplate = null
-    _userInfoPath = null
 
     _reset = ->
         delete $sessionStorage.user
         OAuthToken.removeToken()
         $rootScope.authen.busy = no
 
-    _getUserInfo = (resp) ->
-        $http.get(_userInfoPath).then (resp)->
-            $sessionStorage.user = resp.data
-
-            authService.loginConfirmed resp.data, (config) ->
+    _getUserInfo = (args) ->
+        flush = if args && args.flush then args.flush else no
+        users = new Users()
+        users.$info(
+            flush: flush
+        , (success) ->
+            console.warn '$info:success', success
+            $sessionStorage.user = success
+            authService.loginConfirmed $sessionStorage.user, (config) ->
                 return config
+        , (error) ->
+            console.warn '$info:error', error
+            _somethingWrong error
+        )
 
-        , (err) ->
-            _reset()
-            $rootScope.authen.error = "Can't access to user info."
-
-    _somethingWrong = (err) ->
-        if err.status is 500
-            _reset()
-            $rootScope.authen.error = err.statusText
+    _somethingWrong = (error) ->
+        _reset()
+        if error.status is 400
+            $rootScope.authen.error = error.error_description
+        else if error.status is 500
+            $rootScope.authen.error = error.statusText
 
     @init = (params) ->
         _dialogTemplate = params.dialogTemplate || 'templates/user/login.html'
-        _userInfoPath = params.userInfoPath
 
     @login = (username, password) ->
         $rootScope.authen.busy = yes
-        OAuth.getAccessToken({
-            username: username
-            password: password
-        }).then _getUserInfo , _somethingWrong
+        return $q((resolve, reject)->
+            OAuth.getAccessToken({
+                username: username
+                password: password
+            }).then((success) ->
+                console.warn 'OAuth.getAccessToken:success', success
+                _getUserInfo(flush: yes)
+                resolve()
+            , (error) ->
+                console.error 'OAuth.getAccessToken:error', error
+                _somethingWrong error
+                reject()
+            )
+        )
 
     @logout = (rejection) ->
         _reset()
         $rootScope.$broadcast('event:auth-logout', rejection)
         return
 
-    @getUser = -> $sessionStorage.user
+    @getUser = (args) -> _getUserInfo args
 
     @ui =
         show: ->

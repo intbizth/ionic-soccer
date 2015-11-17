@@ -1,5 +1,5 @@
 class memberRegisterStep2 extends Controller then constructor: (
-    $cordovaCamera, $document, $scope, $state, $stateParams, $ionicHistory, $ionicLoading, $ionicPlatform, $timeout, Chance, Moment, Users
+    $cordovaCamera, $document, $ionicHistory, $ionicLoading, $ionicPlatform, $scope, $state, $stateParams, $timeout, Authen, Chance, Moment, Users
 ) ->
     $ionicPlatform.onHardwareBackButton(->
         $scope.back()
@@ -112,8 +112,15 @@ class memberRegisterStep2 extends Controller then constructor: (
             users.$register({}
             , (success) ->
                 console.warn '$register:success', success
-                $state.go 'feature'
-                $ionicLoading.hide()
+                promise = Authen.login data.user.username, data.user.plainPassword.first
+                promise.then(->
+                    console.warn 'Authen.login:success'
+                    $state.go 'feature'
+                    $ionicLoading.hide()
+                , ->
+                    console.error 'Authen.login:error'
+                    $ionicLoading.hide()
+                )
             , (error) ->
                 console.warn '$register:error', error
                 $ionicLoading.hide()
