@@ -1,5 +1,5 @@
 class Update extends Controller then constructor: (
-    $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Papers, Und
+    $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Papers
 ) ->
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'update'
@@ -13,9 +13,11 @@ class Update extends Controller then constructor: (
         loadData: (args) ->
             $this = @
             pull = if args && args.pull then args.pull else no
+            flush = if args && args.flush then args.flush else no
             papers.$getPage(
                 page: 1
                 limit: pageLimit
+                flush: flush
             , (success) ->
                 $this.next = if success.next then success.next else null
                 $this.items = success.items
@@ -30,7 +32,7 @@ class Update extends Controller then constructor: (
                     $ionicLoading.hide()
             )
         refresh: ->
-            @loadData(pull: yes)
+            @loadData(flush: yes, pull: yes)
         loadNext: ->
             $this = @
             papers.$getPage(
