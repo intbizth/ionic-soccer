@@ -17,6 +17,16 @@ class GamesMain extends Controller then constructor: (
         loadMore: ->
             return
 
+    $scope.cover =
+        image: null
+        loadData: ->
+            img = './img/games/games-banner.png'
+            this.image = img
+            console.log('cover:loadData', this.image.length, JSON.stringify(this.image), this.next)
+            return
+
+    $scope.cover.loadData()
+
     $scope.matchLabel =
         sections: [],
         next: false
