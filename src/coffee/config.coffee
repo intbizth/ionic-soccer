@@ -6,37 +6,35 @@ class CFG extends Constant then constructor: ->
             '403': 'Forbidden'
             '404': 'Not Found'
             '500': 'Internal Service Error'
-
         ENVIRONMENT:
             dev:
                 api:
-                    baseUrl: 'http://127.0.0.1:8000/api/'
+                    baseUrl: 'http://192.168.10.250:8000/api/'
                 oauth:
-                    baseUrl: 'http://127.0.0.1:8000'
+                    baseUrl: 'http://192.168.10.250:8000'
                     grantPath: '/oauth/v2/token'
                     clientId: '37qroinr7u804og8gs8ss448kkg0cocwkc4g8kgc8gog8w0gk0'
-                    # TODO: store on proxy server
                     clientSecret: 'mp02ptgi09w40c0wswksgwws888sgocgg84ckgkcso0o4owc4'
-
             prod:
                 api:
-                    baseUrl: 'http://api.balltoro.com/api/'
+                    baseUrl: 'http://chonburifc.balltoro.com/api/'
                 oauth:
-                    baseUrl: 'http://127.0.0.1:8000'
+                    baseUrl: 'http://chonburifc.balltoro.com'
                     grantPath: '/oauth/v2/token'
                     clientId: '37qroinr7u804og8gs8ss448kkg0cocwkc4g8kgc8gog8w0gk0'
-                    # TODO: store on proxy server
                     clientSecret: 'mp02ptgi09w40c0wswksgwws888sgocgg84ckgkcso0o4owc4'
-
             sim:
                 api:
-                    baseUrl: 'http://127.0.0.1:8000/api/'
+                    baseUrl: 'http://192.168.10.250:8000/api/'
                 oauth:
-                    baseUrl: 'http://127.0.0.1:8000'
+                    baseUrl: 'http://192.168.10.250:8000'
                     grantPath: '/oauth/v2/token'
                     clientId: '37qroinr7u804og8gs8ss448kkg0cocwkc4g8kgc8gog8w0gk0'
-                    # TODO: store on proxy server
                     clientSecret: 'mp02ptgi09w40c0wswksgwws888sgocgg84ckgkcso0o4owc4'
+        GOOGLE:
+            analytics:
+                id: 'UA-69117679-1'
+        clubId: 28
 
     ApiConfig = Config.ENVIRONMENT['@@environment'].api
     OAuthConfig = Config.ENVIRONMENT['@@environment'].oauth
@@ -46,7 +44,5 @@ class CFG extends Constant then constructor: ->
             getPath: (path) -> ApiConfig.baseUrl + path
             getProxy: -> ApiConfig.proxy
             getBaseUrl: -> ApiConfig.baseUrl
-            getUserInfo: -> ApiConfig.baseUrl + 'me'
-
         OAuth:
             getConfig: -> OAuthConfig

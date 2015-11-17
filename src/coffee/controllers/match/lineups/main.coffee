@@ -1,39 +1,37 @@
 class MatchLineups extends Controller then constructor: (
-    $rootScope, $scope, $stateParams, $ionicLoading, $timeout, Matches, Personals, Und
+    $ionicLoading, $ionicPlatform, $rootScope, $scope, $stateParams, $timeout, GoogleAnalytics, Matches, Personals, Und
 ) ->
-    matchId = $stateParams.id || ''
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'lineups'
 
-    matchStore = new Matches()
+    matchId = $stateParams.id || ''
+    matches = new Matches()
 
     $scope.lineUp =
         item: {}
-        options:
-            scope: $scope
-            key: 'r'
         loadData: (args) ->
-            pull = if !Und.isUndefined(args) and !Und.isUndefined(args.pull) and Und.isBoolean(args.pull) then args.pull else no
-            promise = matchStore.find matchId, $scope.lineUp.options
-            promise.finally ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            matches.$getLineUp(id: matchId
+            , (success) ->
+                $this.item = success
+                $this.item.club = $this.item[$this.item.me]
+                $scope.personals.loadData(pull: pull)
+            , (error) ->
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $scope.personals.loadData()
-            promise.then (model) ->
-                $scope.lineUp.item = model.dataTranformToLineUp()
+                    $ionicLoading.hide()
+            )
         refresh: ->
-            $scope.lineUp.loadData(pull: yes)
+            @loadData(pull: yes)
 
-    personalStore = new Personals null,
-        url: Personals::url + 'club/' + $rootScope.clubId
-        state: pageSize: 100
+    pageLimit = 100
+    personals = new Personals()
 
     $scope.personals =
         items: []
-        hasMorePage: no
-        options:
-            scope: $scope
-            personalStoreKey: 'personalStore'
-            collectionKey: 'personalCollection'
+        next: no
         getPositionClass: (shortName)->
             switch shortName
                 when 'GK' then '-goalkeeper'
@@ -41,34 +39,39 @@ class MatchLineups extends Controller then constructor: (
                 when 'MF' then '-midfielder'
                 when 'FW' then '-forwarder'
                 else ''
-        loadData: ->
-            promise = personalStore.load $scope.personals.options
-            promise.finally -> $ionicLoading.hide()
-            promise.then ->
-                $scope.personals.items = Und.map personalStore.getCollection(), (item) ->
-                    return item.dataTranformToTeam()
-                $scope.personals.hasMorePage = personalStore.hasMorePage()
+        loadData: (args) ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            personals.$getClubMe(
+                page: 1
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = success.items
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            , (error) ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            )
         refresh: ->
-            options.fetch = yes
-            # TODO getFirstPage
-            promise = personalStore.getFirstPage $scope.personals.options
-            promise.finally ->
-                $scope.$broadcast 'scroll.refreshComplete'
-            promise.then ->
-                $scope.personals.items = Und.map personalStore.getCollection(), (item) ->
-                    return item.dataTranformToTeam()
-                $scope.personals.hasMorePage = personalStore.hasMorePage()
+            @loadData(pull: yes)
         loadNext: ->
-            personalStore.prepend = yes
-            promise = personalStore.getNextPage $scope.personals.options
-            promise.finally -> $scope.$broadcast 'scroll.infiniteScrollComplete'
-            promise.then ->
-                items = personalStore.getCollection().slice 0, personalStore.state.pageSize
-                items = Und.map items, (item) ->
-                    return item.dataTranformToTeam()
-                $scope.personals.items = $scope.personals.items.concat items
-                $scope.personals.hasMorePage = personalStore.hasMorePage()
+            $this = @
+            personals.$getClubMe(
+                page: $this.next
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = $this.items.concat success.items
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            , (error) ->
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            )
 
     $scope.lineUp.loadData()
-
     $ionicLoading.show()

@@ -1,34 +1,19 @@
 class FeatureMain extends Controller then constructor: (
-    $scope, $ionicModal, $cordovaAppVersion, $timeout, Und, Chance
+    $ionicHistory, $ionicPlatform, $rootScope, $scope, $timeout, $window, Ads, Chance, GoogleAnalytics
 ) ->
-    $scope.ads =
-        item: './img/ads/banners/1@2x.png'
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'feature'
 
-    $ionicModal.fromTemplateUrl(
-        'templates/feature/ads.html',
-         scope: $scope
-    ).then (modal) ->
-        $scope.modal = modal
+    $scope.version = $rootScope.version
+    $rootScope.$on 'version', (event, data) ->
+        $scope.version = data
 
-        $timeout (->
-            $scope.openAds()
-            return
-        )
-        return
-    $scope.openAds = ->
-        $scope.modal.show()
-        return
-    $scope.closeAds = ->
-        $scope.modal.hide()
-        return
-    $scope.version = '0.0.0'
-    document.addEventListener('deviceready', ->
-        $cordovaAppVersion.getVersionNumber().then ((version) ->
-            $scope.version = version
-            return
-        )
-        return
-    , false)
+    Ads.$on 'ready', ->
+        Ads.openModal()
+
+    $ionicHistory.clearHistory()
+    $ionicHistory.clearCache()
+
     $scope.profile =
         item: {},
         loadData: ->
@@ -48,15 +33,14 @@ class FeatureMain extends Controller then constructor: (
         fakeItem: ->
             profile = Chance.profile()
             item =
-                id: Und.random(1, 9999999)
-                photo: './img/feature/profile@2x.png'
+                id: Chance.integer(min: 1, max: 9999999)
+                photo: './img/member/profile@2x.png'
                 name: 'Firstname Lastname'
                 point1: 0
                 point2: 0
             return item
 
     $scope.profile.loadData()
-
     $scope.refresh = ->
         $scope.profile.refresh()
         return

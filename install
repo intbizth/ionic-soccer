@@ -1,12 +1,16 @@
 #!/bin/bash
-sudo rm -rf node_modules
+
+sudo rm -rf node_modules/*
 echo "removed node_modules"
-sudo rm -rf platforms
+sudo rm -rf platforms/*
 echo "removed platforms"
-sudo rm -rf plugins
+sudo rm -rf plugins/*
 echo "removed plugins"
+sudo rm -rf www/lib/*
+echo "removed lib"
 sudo npm install
 bower install
+ionic platform add ios && ionic platform add android
 ionic plugin add cordova-plugin-device
 ionic plugin add cordova-plugin-console
 ionic plugin add cordova-plugin-splashscreen
@@ -16,6 +20,11 @@ ionic plugin add com.ionic.keyboard
 ionic plugin add cordova-plugin-app-version
 ionic plugin add cordova-plugin-whitelist
 ionic plugin add https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git
+ionic plugin add cordova-plugin-file
 ionic plugin add cordova-plugin-file-transfer
-ionic platform add ios && ionic platform add android
+ionic plugin add https://github.com/danwilson/google-analytics-plugin.git
+ionic plugin add https://github.com/devgeeks/Canvas2ImagePlugin.git
+ionic plugin add https://github.com/VersoSolutions/CordovaClipboard.git
+ionic plugin add cordova-plugin-camera
 ionic browser add crosswalk
+gulp remove && gulp build

@@ -6,10 +6,18 @@
     "coffee",
     "jade",
     "trans",
-    "watch"
+    "watch",
+    "index"
   ],
   "watchPatterns": [
     "www/**/*",
     "!www/lib/**/*"
+  ],
+  "browsers": [
+    {
+      "platform": "android",
+      "browser": "crosswalk",
+      "version": "12.41.296.5"
+    }
   ]
 }

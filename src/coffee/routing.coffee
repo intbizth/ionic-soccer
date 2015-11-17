@@ -1,6 +1,4 @@
-class Routing extends Config then constructor: (
-    $stateProvider, $urlRouterProvider
-) ->
+class Routing extends Config then constructor: ($stateProvider, $urlRouterProvider) ->
     state = $stateProvider.state
 
     state 'about-club',
@@ -64,6 +62,27 @@ class Routing extends Config then constructor: (
         controller: 'gamesMainController'
         templateUrl: 'templates/games/main.html'
 
+    state 'games-detail',
+        url: '/games-detail'
+        controller: 'gamesDetailMainController'
+        templateUrl: 'templates/games-detail/main.html'
+
+    state 'games-detail.main',
+        url: '/main'
+        views:
+            prediction:
+                controller: 'gamesDetailPredictionController'
+                templateUrl: 'templates/games-detail/prediction/main.html'
+            coacher11:
+                controller: 'gamesDetailCoacher11Controller'
+                templateUrl: 'templates/games-detail/coacher11/main.html'
+            ranking:
+                controller: 'gamesDetailRankingController'
+                templateUrl: 'templates/games-detail/ranking/main.html'
+            live:
+                controller: 'gamesDetailLiveController'
+                templateUrl: 'templates/games-detail/live/main.html'
+
     state 'live',
         url: '/live/main'
         controller: 'liveMainController'
@@ -86,6 +105,28 @@ class Routing extends Config then constructor: (
             lineups:
                 controller: 'matchLineupsController'
                 templateUrl: 'templates/match/lineups/main.html'
+
+    state 'member',
+        url: '/member/main'
+        controller: 'memberMainController'
+        templateUrl: 'templates/member/main.html'
+
+    state 'member-login',
+        url: '/member/login'
+        controller: 'memberLoginMainController'
+        templateUrl: 'templates/member/login.html'
+
+    state 'member-register-step1',
+        url: '/member/register/step1'
+        controller: 'memberRegisterStep1Controller'
+        templateUrl: 'templates/member/register/step1.html'
+
+    state 'member-register-step2',
+        url: '/member/register/step2'
+        params:
+            data: null
+        controller: 'memberRegisterStep2Controller'
+        templateUrl: 'templates/member/register/step2.html'
 
     state 'news-detail',
         url: '/news/detail/:id'
@@ -159,6 +200,11 @@ class Routing extends Config then constructor: (
             update:
                 controller: 'updateController'
                 templateUrl: 'templates/timeline-update/update/main.html'
+
+    state 'lineup',
+        url: '/lineup/main'
+        controller: 'lineupMainController'
+        templateUrl: 'templates/lineup/main.html'
 
     $urlRouterProvider.otherwise '/feature/main'
     return

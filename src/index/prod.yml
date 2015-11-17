@@ -1,0 +1,27 @@
+style:
+    - ./www/css/style.min.css
+script:
+    - ./www/lib/ionic/js/ionic.bundle.min.js
+    - ./www/lib/validate/validate.min.js
+    - ./www/lib/pluralize/pluralize.js
+    - ./www/lib/ngstorage/ngStorage.min.js
+    - ./www/lib/angular-http-auth/src/http-auth-interceptor.js
+    - ./www/lib/angular-oauth2/dist/angular-oauth2.min.js
+    - ./www/lib/angular-translate/angular-translate.min.js
+    - ./www/lib/angular-translate-loader-partial/angular-translate-loader-partial.min.js
+    - ./www/lib/angular-resource/angular-resource.min.js
+    - ./www/lib/angular-md5/angular-md5.min.js
+    - ./www/lib/imgcache.js/js/imgcache.js
+    - ./www/lib/angular-imgcache.js/angular-imgcache.js
+    - ./www/lib/angular-svg-round-progressbar/build/roundProgress.min.js
+    - ./www/lib/ionic-cache-src/ionic-cache-src.js
+    - ./www/lib/chance/dist/chance.min.js
+    - ./www/lib/moment/min/moment-with-locales.min.js
+    - ./www/lib/underscore/underscore-min.js
+    - ./www/lib/jquery/dist/jquery.min.js
+    - ./www/lib/jquery-ui/jquery-ui.min.js
+    - ./www/lib/jqueryui-touch-punch/jquery.ui.touch-punch.min.js
+    - ./www/lib/ngCordova/dist/ng-cordova.min.js
+    - ./www/lib/ng-cordova-oauth/dist/ng-cordova-oauth.min.js
+    - ./src/index/cordova.js
+    - ./www/js/app.min.js

@@ -1,0 +1,75 @@
+- var environment = '@@environment'
+- var on = { doubletap: null, hold: null }
+if environment == "dev"
+    - on.doubletap = "data.fake()"
+    - on.hold = "data.reset()"
+
+ion-view.member-register
+    ion-nav-title Register
+    ion-nav-buttons(side="left")
+        a.button.button-nav.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
+            img.logo(
+            src="./img/logo/navbar.png"
+            srcset="./img/logo/navbar@2x.png 2x"
+            )
+    ion-content.content(on-double-tap=on.doubletap, on-hold=on.hold)
+        div.member-form
+            div.form
+                div.row.photo
+                    div.col.text-center
+                        img.user(src="./img/member/profile.png", srcset="./img/member/profile@2x.png 2x")
+                div.row.control-add(ng-if="!photo.isPhoto")
+                    div.col.text-center
+                        button.button.button-outline.button-light.icon.ion-ios-plus-empty(ng-click="photo.openGallery()")
+                    div.col.text-center
+                        button.button.button-outline.button-light.icon.ion-ios-camera-outline(ng-click="photo.openCamera()")
+                div.row.control-remove(ng-if="photo.isPhoto")
+                    div.col.text-center
+                        button.button.button-outline.button-light.icon.ion-ios-plus-empty(ng-click="photo.openGallery()")
+                    div.col.text-center
+                        button.button.button-outline.button-light.icon.ion-ios-camera-outline(ng-click="photo.openCamera()")
+                    div.col.text-center
+                        button.button.button-outline.button-light.icon.ion-ios-minus-empty(ng-click="photo.remove()")
+                div.row
+                    div.col.text-center
+                        input(
+                        ng-model="data.firstname",
+                        ng-model-options="{ getterSetter: true }",
+                        ng-change="data.valid()",
+                        type="text",
+                        name="firstname",
+                        placeholder="Firstname",
+                        maxlength="128"
+                        )
+                div.row
+                    div.col.text-center
+                        input(
+                        ng-model="data.lastname",
+                        ng-model-options="{ getterSetter: true }",
+                        ng-change="data.valid()",
+                        type="text",
+                        name="lastname",
+                        placeholder="Lastname",
+                        maxlength="128"
+                        )
+                div.row.birthday
+                    div.col.text-center
+                        label Date of birth
+                        br
+                        input(
+                        date-picker,
+                        ng-model="data.birthday",
+                        ng-model-options="{ getterSetter: true }",
+                        ng-change="data.valid()",
+                        type="text",
+                        name="birthday"
+                        min="{{data.date.min}}"
+                        max="{{data.date.max}}"
+                        )
+            div.submit
+                div.row
+                    div.col.text-center
+                        button.button.button-positive(
+                        ng-disabled="!data.isPass",
+                        ng-click="data.submit()"
+                        ) Done

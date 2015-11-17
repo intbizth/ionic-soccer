@@ -1,0 +1,26 @@
+ion-modal-view.date-picker
+    ion-header-bar.bar-positive(align-title="center")
+        div.buttons
+            a.button.button-nav.button-icon.ion-ios-close-empty(ng-if="$root.isIOS", ng-click="modal.hide()")
+        h1.title {{titles[select]}}
+        div.buttons
+            a.button.button-nav.button-icon.ion-ios-close-empty(ng-if="$root.isAndroid", ng-click="modal.hide()")
+    ion-content.content(ng-click="modal.hide()")
+        ion-list(ng-if="select == 'day'")
+            ion-item(
+            ng-repeat="value in days",
+            ng-click="selectData(select, value)",
+            ng-class="{selected : (value == day)}"
+            ) {{value}}
+        ion-list(ng-if="select == 'month'")
+            ion-item(
+            ng-repeat="value in months",
+            ng-click="selectData(select, value)",
+            ng-class="{selected : (value == month)}"
+            ) {{getMonthFullName(value)}}
+        ion-list(ng-if="select == 'year'")
+            ion-item(
+            ng-repeat="value in years",
+            ng-click="selectData(select, value)",
+            ng-class="{selected : (value == year)}"
+            ) {{value}}
