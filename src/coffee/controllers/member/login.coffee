@@ -1,5 +1,5 @@
 class MemberLoginMain extends Controller then constructor: (
-    $scope, $ionicHistory, $ionicPlatform, $timeout, Chance
+    $ionicHistory, $ionicLoading, $ionicPlatform, $scope, $state, $timeout, Authen, Chance, Users
 ) ->
     $ionicPlatform.onHardwareBackButton(->
         $scope.back()
@@ -18,10 +18,17 @@ class MemberLoginMain extends Controller then constructor: (
         username: ''
         password: ''
         fake: ->
-            username = Chance.pick([Chance.first()  + '.' + Chance.last(), Chance.email()])
-            @username = username.toLowerCase()
-            @password = Chance.string()
-            @valid()
+            $this = @
+            users = new Users()
+            users.$testgetlogin({}
+            , (success) ->
+                console.warn '$testlogin:success', success
+                $this.username = success.username
+                $this.password = success.password
+                $this.valid()
+            , (error) ->
+                console.error '$testlogin:error', error
+            )
         reset: ->
             @username = @password = ''
             @valid()
@@ -32,5 +39,24 @@ class MemberLoginMain extends Controller then constructor: (
             if not @password?.length
                 pass = no
             @isPass = pass
+        submit: ->
+            data =
+                username: @username
+                password: @password
+
+            $ionicLoading.show()
+
+            promise = Authen.login data.username, data.password
+            promise.then(->
+                console.warn 'Authen.login:success'
+                $state.go 'feature'
+                $ionicLoading.hide()
+            , ->
+                console.error 'Authen.login:error'
+                $ionicLoading.hide()
+            )
+        logout: ->
+            @reset()
+            Authen.logout()
 
     $scope.data.valid()

@@ -1,5 +1,5 @@
 class memberRegisterStep1 extends Controller then constructor: (
-    $scope, $state, $ionicHistory, $ionicPlatform, $timeout, Chance
+    $scope, $state, $ionicHistory, $ionicPlatform, $timeout, Chance, md5
 ) ->
     $ionicPlatform.onHardwareBackButton(->
         $scope.back()
@@ -22,7 +22,7 @@ class memberRegisterStep1 extends Controller then constructor: (
         fake: ->
             @username = Chance.first()  + '.' + Chance.last().toLowerCase()
             @email = Chance.email()
-            @password = @confirmPassword = Chance.string()
+            @password = @confirmPassword = md5.createHash(@email).slice 0, 13
             @valid()
         reset: ->
             @username = @email = @password = @confirmPassword = ''

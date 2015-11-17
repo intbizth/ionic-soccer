@@ -5,9 +5,6 @@ class Run extends Run then constructor: (
     $rootScope.isIOS = no
     $rootScope.version = '0.0.0'
 
-    Authen.init
-        userInfoPath: CFG.API.getUserInfo()
-
     $ionicPlatform.ready ->
         $rootScope.isAndroid = ionic.Platform.isAndroid()
         $rootScope.isIOS = ionic.Platform.isIOS()
