@@ -1,19 +1,5 @@
 @charset "UTF-8";
 
-//$game-detail-bg: #1f304c;
-//$game-detail-text: #ffffff;
-//$ml-section-bg: #e0e1e2;
-//$ml-section-gameweek-text: #f7a032;
-//$ml-section-footer: #094e99;
-//$ml-label-club-name: #000000;
-//$ml-label-vs-bg: $ml-section-footer;
-//$ml-label-vs-textup: #ffffff;
-//$ml-label-vs-textdown: #ffffff;
-//$ml-label-footer: $ml-label-vs-bg;
-//$ml-progress-bars: #094e99;
-//$ml-progressed-right: #FAAF40;
-//$ml-progressed-left: #FF3B30;
-
 .games-live {
     width: 100%;
     height: auto;
@@ -21,7 +7,7 @@
         padding: 0px;
     }
     .match-label {
-        height: 50px;
+        height: auto;
         background-color: #ffffff;
         .logo {
             .image {
@@ -37,8 +23,8 @@
         }
 
         .vs {
-            padding-top: 14px;
-            height: 50px;
+            padding-top: 22px;
+            height: 70px;
             font-size: 16px;
             color: #ffffff;
             background-color: #0056a2;
@@ -64,5 +50,11 @@
         width: 100%;
         height: 230px;
         //background-color: #000000;
+    }
+
+    .footer {
+        width: 100%;
+        height: 10px;
+        background-color: #0188cf;
     }
 }
