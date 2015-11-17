@@ -1,8 +1,10 @@
 ion-view.feature-main
     ion-nav-title Feature
-    //ion-nav-buttons(side="right")
-    //    a.button.button-clear(ng-click="")
-    //        i.icon.ion-android-more-vertical
+    ion-nav-buttons(side="right")
+        a.button.button-nav.button-icon.icon-right.ion-log-in(ng-click="login()")
+            | Login
+        //a.button.button-nav.button-icon.icon-right.ion-log-out(ng-click="logout()")
+        //    | Logout
 
     ion-content.content
         ion-refresher(pulling-text="Pull to refresh...", on-refresh="refresh()")

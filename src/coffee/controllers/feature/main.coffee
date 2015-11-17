@@ -1,5 +1,5 @@
 class FeatureMain extends Controller then constructor: (
-    $ionicHistory, $ionicPlatform, $rootScope, $scope, $timeout, $window, Ads, Chance, GoogleAnalytics
+    $ionicHistory, $ionicPlatform, $rootScope, $scope, $timeout, Ads, Authen, Chance, GoogleAnalytics
 ) ->
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'feature'
@@ -44,3 +44,9 @@ class FeatureMain extends Controller then constructor: (
     $scope.refresh = ->
         $scope.profile.refresh()
         return
+
+    $scope.login = ->
+        Authen.ui.login()
+
+    $scope.logout = ->
+        Authen.ui.logout()

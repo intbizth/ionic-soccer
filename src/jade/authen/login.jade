@@ -1,0 +1,46 @@
+- var environment = '@@environment'
+- var on = { doubletap: null, hold: null }
+if environment == "dev"
+    - on.doubletap = "data.fake()"
+    - on.hold = "data.reset()"
+
+ion-modal-view.member-login
+    ion-header-bar.bar-positive(align-title="center")
+        div.buttons
+            a.button.button-nav.button-icon.ion-ios-close-empty(ng-if="$root.isIOS", ng-click="modal.hide()")
+        h1.title Login
+        div.buttons
+            a.button.button-nav.button-icon.ion-ios-close-empty(ng-if="$root.isAndroid", ng-click="modal.hide()")
+
+    ion-content.content(scroll="false", on-double-tap=on.doubletap, on-hold=on.hold)
+        div.member-form
+            div.form
+                div.row
+                    div.col.text-center
+                        input(
+                        ng-model="data.username",
+                        ng-model-options="{ getterSetter: true }",
+                        ng-change="data.valid()",
+                        type="text",
+                        name="username",
+                        placeholder="Email & Username",
+                        maxlength="128"
+                        )
+                div.row
+                    div.col.text-center
+                        input(
+                        ng-model="data.password",
+                        ng-model-options="{ getterSetter: true }",
+                        ng-change="data.valid()",
+                        type="password",
+                        name="password",
+                        placeholder="Password",
+                        maxlength="128"
+                        )
+            div.submit
+                div.row
+                    div.col.text-center
+                        button.button.button-positive(
+                        ng-disabled="!data.isPass"
+                        ng-click="data.submit()"
+                        ) Login
