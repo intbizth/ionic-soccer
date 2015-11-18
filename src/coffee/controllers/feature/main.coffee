@@ -1,5 +1,5 @@
 class FeatureMain extends Controller then constructor: (
-    $ionicHistory, $ionicPlatform, $rootScope, $scope, $timeout, Ads, Authen, Chance, GoogleAnalytics
+    $document, $ionicHistory, $ionicPlatform, $rootScope, $scope, $timeout, Ads, Authen, GoogleAnalytics
 ) ->
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'feature'
@@ -14,39 +14,58 @@ class FeatureMain extends Controller then constructor: (
     $ionicHistory.clearHistory()
     $ionicHistory.clearCache()
 
+    $scope.isLoggedin = $rootScope.isLoggedin
+
     $scope.profile =
-        item: {},
-        loadData: ->
-            @item = @fakeItem()
-            console.log('profile:loadData', JSON.stringify(@item))
-            return
-        refresh: ->
-            console.log 'profile:doRefresh'
-            $this = @
-            $timeout(->
-                console.log 'profile:doRefresh2'
-                $this.loadData()
-                $scope.$broadcast 'scroll.refreshComplete'
-                return
-            , 2000)
-            return
-        fakeItem: ->
-            profile = Chance.profile()
-            item =
-                id: Chance.integer(min: 1, max: 9999999)
-                photo: './img/member/profile@2x.png'
-                name: 'Firstname Lastname'
+        item: {}
+        photo:
+            element: angular.element $document[0].querySelector '.profile img.photo'
+            setDefault: ->
+                @element.attr 'src', './img/member/photo.png'
+                @element.attr 'srcset', './img/member/photo@2x.png 2x'
+            setData: (data) ->
+                @element.attr 'src', data
+                @element.removeAttr 'srcset'
+        setDefault: ->
+            @item =
+                id: 0
+                name: 'Guest'
                 point1: 0
                 point2: 0
-            return item
+            @photo.setDefault()
+        loadData: (args) ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            flush = if args && args.flush then args.flush else no
+            promise = Authen.getUser(flush: flush)
+            promise.then((success) ->
+                $this.item =
+                    id: success.id
+                    name: success.firstname + ' ' + success.lastname
+                    point1: 0
+                    point2: 0
+                if success.profilePicture
+                    $this.photo.setData success.profilePicture
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+            , (error) ->
+                $this.setDefault()
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+            )
+        refresh: ->
+            @loadData(flush: yes, pull: yes)
 
+    $scope.profile.setDefault()
     $scope.profile.loadData()
-    $scope.refresh = ->
-        $scope.profile.refresh()
-        return
 
     $scope.login = ->
-        Authen.ui.login()
+        $rootScope.$emit 'event:auth-loginRequired'
 
     $scope.logout = ->
-        Authen.ui.logout()
+        $rootScope.$emit 'event:auth-logout'
+
+    $rootScope.$on 'event:auth-stateChange', (event, data) ->
+        $scope.isLoggedin = data
+        $scope.profile.loadData()
+        return

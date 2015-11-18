@@ -62,6 +62,8 @@
 }
 
 .member-form {
+    background-color: #0088cf;
+
     .form {
         widht: 100%;
         padding: 0 20px;
@@ -143,5 +145,10 @@
         .button-positive.active, .button-positive.activated {
             background: linear-gradient(to bottom, #1b2432 0%, #1b3361 40%, #1b3361 60%, #1b3361 60%, #1b2432 100%);
         }
+    }
+    
+    .register {
+        color: #ffffff;
+        text-decoration: underline;
     }
 }
