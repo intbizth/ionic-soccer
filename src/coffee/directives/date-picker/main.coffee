@@ -45,9 +45,9 @@ class DatePicker extends Directive then constructor: (
                     value = '0000-00-00'
 
                 value = value.split('-')
-                scope.day = value[2]
-                scope.month = value[1]
-                scope.year = value[0]
+                scope.day = parseInt value[2]
+                scope.month = parseInt value[1]
+                scope.year = parseInt value[0]
                 return
 
             bindData = ->
