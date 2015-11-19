@@ -1,0 +1,278 @@
+class AuthenUI extends Factory then constructor: (
+    $cordovaCamera, $cordovaKeyboard, $document, $ionicLoading, $ionicModal, $ionicPlatform, $ionicPopup, $ionicSlideBoxDelegate, $rootScope, $timeout, Authen, Chance, md5, Moment, Users
+) ->
+    scope = $rootScope.$new()
+
+    login = ->
+        $ionicModal.fromTemplateUrl(
+            'templates/member/modal.html',
+            scope: scope
+            focusFirstInput: no
+            hardwareBackButtonClose: no
+        ).then (modal) ->
+            scope.modal = modal
+            scope.modal.title = 'Login'
+            scope.modal.leftButton = 'close'
+            scope.slider = $ionicSlideBoxDelegate.$getByHandle 'slider'
+            scope.slider.enableSlide no
+
+            states = [
+                    name: 'goToLogin'
+                    title: 'Login'
+                    leftButton: 'close'
+                    func: ->
+                        $timeout(->
+                            scope.step1.reset()
+                        , 500)
+                ,
+                    name: 'goToRegisterStep1'
+                    title: 'Register step1'
+                    leftButton: 'back'
+                    func: ->
+                        $timeout(->
+                            scope.step2.reset()
+                        , 500)
+                ,
+                    name: 'goToRegisterStep2'
+                    title: 'Register step2'
+                    leftButton: 'back'
+            ]
+
+            angular.forEach states, (value, key) ->
+                scope[value.name] = ->
+                    scope.slider.slide key
+                    scope.modal.title = value.title
+                    scope.modal.leftButton = value.leftButton
+                    if angular.isFunction value.func then value.func()
+
+            scope.back = ->
+                index = scope.slider.currentIndex() - 1
+                if index == -1
+                    scope.modal.hide()
+                else
+                    scope[states[index].name]()
+
+            scope.modal.show()
+
+        scope.login =
+            isPass: no
+            username: ''
+            password: ''
+            fake: ->
+                $this = @
+                users = new Users()
+                users.$testgetlogin({}
+                , (success) ->
+                    console.warn '$testlogin:success', success
+                    $this.username = success.username
+                    $this.password = success.password
+                    $this.valid()
+                , (error) ->
+                    console.error '$testlogin:error', error
+                )
+            reset: ->
+                @username = @password = ''
+                @valid()
+            valid: ->
+                pass = yes
+                if not @username?.length
+                    pass = no
+                if not @password?.length
+                    pass = no
+                @isPass = pass
+            submit: ->
+                data =
+                    username: @username
+                    password: @password
+
+                $ionicLoading.show()
+
+                promise = Authen.login data.username, data.password
+                promise.then(->
+                    console.warn 'Authen.login:success'
+                    $ionicLoading.hide()
+                , ->
+                    console.error 'Authen.login:error'
+                    $ionicLoading.hide()
+                )
+
+        scope.step1 =
+            isPass: no
+            username: ''
+            email: ''
+            password: ''
+            confirmPassword: ''
+            fake: ->
+                @username = Chance.first()  + '.' + Chance.last().toLowerCase()
+                @email = Chance.email()
+                @password = @confirmPassword = md5.createHash(@email).slice 0, 13
+                @valid()
+            reset: ->
+                @username = @email = @password = @confirmPassword = ''
+                @valid()
+            valid: ->
+                pass = yes
+                # RFC 5322 http://emailregex.com/
+                regExpEmail = new RegExp('^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$', 'i')
+                if not @username?.length
+                    pass = no
+                if not @email?.length or not regExpEmail.test(@email)
+                    pass = no
+                if not @password?.length or @password != @confirmPassword
+                    pass = no
+                if not @confirmPassword?.length or @password != @confirmPassword
+                    pass = no
+                @isPass = pass
+            submit: ->
+                scope.goToRegisterStep2()
+
+        scope.step2 =
+            isPass: no
+            date:
+                min: Moment().add(-160, 'years').startOf('year').format('YYYY-MM-DD')
+                max: Moment().format('YYYY-MM-DD')
+            firstname: ''
+            lastname: ''
+            birthday: ''
+            fake: ->
+                @firstname = Chance.first()
+                @lastname = Chance.last()
+                min = Moment(@date.min).unix()
+                max = Moment(@date.max).unix()
+                rand = Chance.integer(min: min, max: max) * 1000
+                @birthday = Moment(rand).format('YYYY-MM-DD')
+                @valid()
+            reset: ->
+                @firstname = @lastname = @birthday = ''
+                scope.photo.remove()
+                @valid()
+            valid: ->
+                pass = yes
+                regExpDate = new RegExp('^(0000-\\d{2}-\\d{2}|\\d{4}-00-\\d{2}|\\d{4}-\\d{2}-00)$')
+                if not @firstname?.length
+                    pass = no
+                if not @lastname?.length
+                    pass = no
+                if not @birthday?.length or regExpDate.test(@birthday)
+                    pass = no
+                @isPass = pass
+            submit: ->
+                data =
+                    email: scope.step1.email
+                    user:
+                        username: scope.step1.username
+                        plainPassword:
+                            first: scope.step1.password
+                            second: scope.step1.confirmPassword
+                    firstname: @firstname
+                    lastname: @lastname
+                    birthday: @birthday
+
+                console.warn 'data', data
+
+                $ionicLoading.show()
+
+                users = new Users(data)
+                users.$register({}
+                , (success) ->
+                    console.warn '$register:success', success
+                    promise = Authen.login data.user.username, data.user.plainPassword.first
+                    promise.then(->
+                        console.warn 'Authen.login:success'
+                        $ionicLoading.hide()
+                    , ->
+                        console.error 'Authen.login:error'
+                        $ionicLoading.hide()
+                    )
+                , (error) ->
+                    console.warn '$register:error', error
+                    $ionicLoading.hide()
+                )
+
+        scope.photo =
+            isPhoto: no
+            fileUri: null
+            base64: null
+            element: null
+            getPicture: (args) ->
+                $this = @
+                $this.element = angular.element $document[0].querySelector '.member-login .member-form .form .photo img.user'
+                camera = if args && args.camera then args.camera else no
+                options =
+                    quality: 100,
+                    destinationType: Camera.DestinationType.FILE_URI,
+                    sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                    allowEdit: yes,
+                    encodingType: Camera.EncodingType.JPEG,
+                    targetWidth: 200,
+                    targetHeight: 200,
+                    popoverOptions: CameraPopoverOptions,
+                    saveToPhotoAlbum: no,
+                    correctOrientation: yes
+
+                if '@@environment' == 'dev'
+                    options.destinationType = Camera.DestinationType.DATA_URL
+
+                if camera
+                    options.sourceType = Camera.DestinationType.CAMERA
+
+                $cordovaCamera.getPicture(options).then((imageData) ->
+                    $this.isPhoto = yes
+                    if '@@environment' == 'dev'
+                        $this.base64 = imageData
+                        $this.element.attr 'src', 'data:image/jpeg;base64,' + $this.base64
+                        $this.element.removeAttr 'srcset'
+                    else
+                        $this.fileUri = imageData
+                        $this.element.attr 'src', $this.fileUri
+                        $this.element.removeAttr 'srcset'
+                    return
+                , (error) ->
+                    return
+                )
+
+                $cordovaCamera.cleanup().then(->
+                    return
+                )
+            openGallery: ->
+                @getPicture()
+            openCamera: ->
+                @getPicture(camera: true)
+            remove: ->
+                @isPhoto = no
+                @fileUri = null
+                @base64 = null
+                if @element
+                    @element.attr 'src', './img/member/photo.png'
+                    @element.attr 'srcset', './img/member/photo@2x.png 2x'
+                return
+    logout = ->
+        confirmPopup = $ionicPopup.confirm
+            title: 'Logout',
+            template: 'Are you sure you want to logout?'
+        confirmPopup.then((res) ->
+            if res then Authen.logout()
+        )
+
+    angular.extend @, {
+        login: login
+        logout: logout
+    }
+
+    $ionicPlatform.onHardwareBackButton(->
+        scope.back()
+    )
+
+    $rootScope.$on 'event:auth-loginRequired', (event, data) ->
+        console.warn event, data
+        if !Authen.isLoggedin() then login()
+
+    $rootScope.$on 'event:auth-logout', (event, data) ->
+        console.warn event, data
+        logout()
+
+    $rootScope.$on 'event:auth-loginConfirmed', (event, data) ->
+        console.warn event, data
+        scope.modal.hide()
+
+    return @
