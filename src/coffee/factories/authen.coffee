@@ -1,8 +1,6 @@
 class Authen extends Factory then constructor: (
-    $cordovaCamera, $cordovaKeyboard, $cordovaSQLite, $document, $ionicLoading, $ionicModal, $ionicPlatform, $ionicPopup, $ionicSlideBoxDelegate, $q, $rootScope, $sessionStorage, $timeout, authService, Chance, md5, Moment, OAuth, OAuthToken, Users, $window
+    $cordovaCamera, $cordovaKeyboard, $cordovaSQLite, $document, $ionicLoading, $ionicModal, $ionicPlatform, $ionicPopup, $ionicSlideBoxDelegate, $q, $rootScope, $sessionStorage, $timeout, authService, Chance, md5, Moment, OAuth, OAuthToken, Users
 ) ->
-    console.warn $window
-
     scope = $rootScope.$new()
 
     reset = ->
@@ -23,9 +21,9 @@ class Authen extends Factory then constructor: (
                 somethingWrong error
             )
         else
-            $q((resolve, reject) ->
-                reject()
-            )
+            deferred = $q.defer()
+            deferred.reject()
+            return deferred.promise
 
     somethingWrong = (error) ->
         reset()
@@ -34,30 +32,32 @@ class Authen extends Factory then constructor: (
         else message = ''
 
     login = (username, password) ->
-        return $q((resolve, reject) ->
-            OAuth.getAccessToken({
-                username: username
-                password: password
-            }).then((success) ->
-                console.warn 'OAuth.getAccessToken:success', success
-                promise = getUser(flush: yes)
-                promise.then((success) ->
-                    authService.loginConfirmed success, (config) ->
-                        return config
-                    $rootScope.$emit 'event:auth-stateChange', isLoggedin()
-                    resolve success
-                , (error) ->
-                    authService.loginCancelled error, (config) ->
-                        return config
-                    reject error
-                )
+        deferred = $q.defer()
+
+        OAuth.getAccessToken({
+            username: username
+            password: password
+        }).then((success) ->
+            console.warn 'OAuth.getAccessToken:success', success
+            promise = getUser(flush: yes)
+            promise.then((success) ->
+                authService.loginConfirmed success, (config) ->
+                    return config
+                $rootScope.$emit 'event:auth-stateChange', isLoggedin()
+                deferred.resolve success
             , (error) ->
-                console.error 'OAuth.getAccessToken:error', error
                 authService.loginCancelled error, (config) ->
                     return config
-                reject somethingWrong error
+                deferred.reject error
             )
+        , (error) ->
+            console.error 'OAuth.getAccessToken:error', error
+            authService.loginCancelled error, (config) ->
+                return config
+            deferred.reject somethingWrong error
         )
+
+        return deferred.promise
 
     logout = ->
         reset()
@@ -319,46 +319,55 @@ class Authen extends Factory then constructor: (
                 if res then logout()
             )
 
-    console.warn '$cordovaSQLite', $cordovaSQLite, $cordovaSQLite.openDB(name: 'database.db', bgType: 1)
-
     tokenStore =
-#        db: $cordovaSQLite.openDB(name: 'database.db', location: 2)
-        init: ->
-#            @db.transaction((tx) ->
-#                tx.executeSql('DROP TABLE IF EXISTS `token`')
-#                tx.executeSql('CREATE TABLE IF NOT EXISTS `token` (`data`)')
-#                tx.executeSql('INSERT INTO `token` (`data`) VALUE (?)', null)
-#                tokenStore.db.close()
-#            , (error) ->
-#                console.error 'init:error', error
-#                tokenStore.db.close()
-#            )
-#        get: ->
-#            @db.transaction((tx) ->
-#                tx.executeSql('SELECT `data` FROM `token`', [], (res) ->
-#                    console.warn 'get:res', res
-#                )
-#                tokenStore.db.close()
-#            , (error) ->
-#                console.error 'get:error', error
-#                tokenStore.db.close()
-#            )
-#        set: (data) ->
-#            @db.transaction((tx) ->
-#                tx.executeSql('UDAPTE `token` SET `data` = ?', [data])
-#                tokenStore.db.close()
-#            , (error) ->
-#                console.error 'set:error', error
-#                tokenStore.db.close()
-#            )
-#        remove: ->
-#            @db.transaction((tx) ->
-#                tx.executeSql('UDAPTE `token` SET `data` = ?', [null])
-#                tokenStore.db.close()
-#            , (error) ->
-#                console.error 'remove:error', error
-#                tokenStore.db.close()
-#            )
+        db: null
+        init: (db) ->
+            @db = db
+            deferred = $q.defer()
+            @db.transaction((tx) ->
+                tx.executeSql 'CREATE TABLE IF NOT EXISTS `token` (`data`)'
+            , (error) ->
+                deferred.reject error
+            , ->
+                deferred.resolve()
+            )
+            return deferred.promise
+        get: ->
+            deferred = $q.defer()
+            @db.transaction((tx) ->
+                tx.executeSql 'SELECT `data` FROM `token`', [], (tx, res) ->
+                    data = null
+                    if res.rows.length > 0
+                        data = res.rows.item(0).data
+                        if data != null
+                            data = angular.fromJson decodeURIComponent data
+                    deferred.resolve data
+            , (error) ->
+                deferred.reject error
+            )
+            return deferred.promise
+        set: (data) ->
+            if data != null
+                data = encodeURIComponent angular.toJson data
+            deferred = $q.defer()
+            @db.transaction((tx) ->
+                tx.executeSql 'INSERT INTO `token` (`data`) VALUES (?)', [data]
+            , (error) ->
+                deferred.reject error
+            , ->
+                deferred.resolve data
+            )
+            return deferred.promise
+        remove: ->
+            deferred = $q.defer()
+            @db.transaction((tx) ->
+                tx.executeSql 'DELETE FROM `token`'
+            , (error) ->
+                deferred.reject error
+            , ->
+                deferred.resolve data
+            )
+            return deferred.promise
 
     angular.extend @, {
         login: login
@@ -368,7 +377,28 @@ class Authen extends Factory then constructor: (
         ui: ui
     }
 
-    tokenStore.init()
+    $ionicPlatform.ready ->
+        tokenStore.init $cordovaSQLite.openDB name: 'database.db', location: 2
+
+        promise = tokenStore.get()
+        promise.then((success) ->
+            if success != null
+                $sessionStorage.token = success
+        )
+
+        scope.$watch(->
+            return $sessionStorage.token
+        , (newValue, oldValue) ->
+            if newValue != oldValue
+                if angular.isUndefined newValue
+                    tokenStore.remove()
+                else
+                    $sessionStorage.token = newValue
+                    tokenStore.set newValue
+
+            $rootScope.$emit 'event:auth-stateChange', isLoggedin()
+            tokenStore.get()
+        )
 
     $ionicPlatform.onHardwareBackButton(->
         scope.back()
@@ -394,11 +424,5 @@ class Authen extends Factory then constructor: (
 
     $rootScope.$on 'event:auth-stateChange', (event, data) ->
         $rootScope.isLoggedin = data
-
-    scope.$watch(->
-        return $sessionStorage.token
-    , (newValue, oldValue) ->
-        console.warn '$sessionStorage.token', newValue, oldValue
-    )
 
     return @
