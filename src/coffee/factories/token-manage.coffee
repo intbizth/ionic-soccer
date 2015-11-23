@@ -4,12 +4,16 @@ class TokenManage extends Factory then constructor: (
     db = null
     timer = null
     refreshing = no
+    beforeTime = 60
 
     init = ->
         deferred = $q.defer()
 
         db.transaction((tx) ->
-            tx.executeSql 'CREATE TABLE IF NOT EXISTS `token` (`data` TEXT NULL, `expires_at` INTEGER NULL)'
+            tx.executeSql 'CREATE TABLE IF NOT EXISTS `token` (`data` TEXT NULL)'
+            tx.executeSql 'SELECT `data` FROM `token`', [], (tx, res) ->
+                if res.rows.length == 0
+                    tx.executeSql 'INSERT INTO `token` (`data`) VALUES (?)', [null]
         , (error) ->
             deferred.reject error
         , ->
@@ -31,17 +35,13 @@ class TokenManage extends Factory then constructor: (
         deferred = $q.defer()
 
         db.transaction((tx) ->
-            tx.executeSql 'SELECT `data`, `expires_at` FROM `token`', [], (tx, res) ->
-                item = null
+            tx.executeSql 'SELECT `data` FROM `token`', [], (tx, res) ->
+                data = null
                 if res.rows.length > 0
-                    item = {}
                     data = res.rows.item(0).data
                     if data != null
                         data = decode data
-                    item.data = data
-                    item.expiresAt = res.rows.item(0).expires_at
-                deferred.resolve item
-                console.warn 'getToken', item
+                deferred.resolve data
         , (error) ->
             deferred.reject error
         )
@@ -49,17 +49,13 @@ class TokenManage extends Factory then constructor: (
         return deferred.promise
 
     setToken = (data) ->
-        console.warn 'setToken1', data
-        expiresAt = null
         if data != null
-#            expiresAt = now() + data.expires_in
-            expiresAt = now() + 30
+            if angular.isUndefined data.expires_at
+                data.expires_at = now() + (data.expires_in - beforeTime)
             data = encode data
-
         deferred = $q.defer()
-        console.warn 'setToken2', data, expiresAt
         db.transaction((tx) ->
-            tx.executeSql 'INSERT INTO `token` (`data`, `expires_at`) VALUES (?, ?)', [data, expiresAt]
+            tx.executeSql 'UPDATE `token` SET `data` = ?', [data]
         , (error) ->
             deferred.reject error
         , ->
@@ -69,31 +65,19 @@ class TokenManage extends Factory then constructor: (
         return deferred.promise
 
     removeToken = ->
-        deferred = $q.defer()
-
-        db.transaction((tx) ->
-            tx.executeSql 'DELETE FROM `token`'
-        , (error) ->
-            deferred.reject error
-        , ->
-            deferred.resolve()
-        )
-
-        return deferred.promise
+        setToken(null)
 
     startRefreshToken = ->
         stopRefreshToken()
         promise = getToken()
         promise.then((success) ->
-            console.warn 'startRefreshToken.getToken', success
             if success != null
                 timer = $interval(->
-                    console.warn now(), success.expiresAt, (success.expiresAt) - now()
-                    if (success.expiresAt) - now() <= 0 and !refreshing
+                    if (success.expires_at) - now() <= 0 and !refreshing
                         refreshToken()
                 , 1000)
         , (error) ->
-            console.error 'startRefreshToken.getToken', error
+            return
         )
 
     stopRefreshToken = ->
@@ -103,11 +87,9 @@ class TokenManage extends Factory then constructor: (
     refreshToken = ->
         refreshing = yes
         OAuth.getRefreshToken().then((success) ->
-            console.warn 'OAuth.getRefreshToken:ok', success
             $sessionStorage.token = success.data
             refreshing = no
         , (error) ->
-            console.warn 'OAuth.getRefreshToken:error', error
             refreshing = no
         )
 

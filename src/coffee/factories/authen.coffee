@@ -8,22 +8,14 @@ class Authen extends Factory then constructor: (
             users.$info(
                 flush: flush
             , (success) ->
-                console.warn '$info:success', success
                 $sessionStorage.user = success
             , (error) ->
-                console.warn '$info:error', error
-                somethingWrong error
+                return
             )
         else
             deferred = $q.defer()
             deferred.reject()
             return deferred.promise
-
-    somethingWrong = (error) ->
-        forceLogout()
-        if error.status == 400 then message = error.error_description
-        else if error.status == 500 then message = error.statusText
-        else message = ''
 
     login = (username, password) ->
         deferred = $q.defer()
@@ -32,7 +24,6 @@ class Authen extends Factory then constructor: (
             username: username
             password: password
         }).then((success) ->
-            console.warn 'OAuth.getAccessToken:success', success
             promise = getUser(flush: yes)
             promise.then((success2) ->
                 authService.loginConfirmed success, (config) ->
@@ -44,10 +35,12 @@ class Authen extends Factory then constructor: (
                 deferred.reject error
             )
         , (error) ->
-            console.error 'OAuth.getAccessToken:error', error
+            message = ''
             authService.loginCancelled error, (config) ->
                 return config
-            deferred.reject somethingWrong error
+            if error.status == 400 then message = error.data.error_description
+            else if error.status == 500 then message = error.statusText
+            deferred.reject message
         )
 
         return deferred.promise
@@ -86,7 +79,6 @@ class Authen extends Factory then constructor: (
         $rootScope.$watch(->
             return $sessionStorage.token
         , (newValue, oldValue) ->
-            console.warn '$watch', newValue, oldValue, newValue != oldValue
             if newValue != oldValue
                 if angular.isUndefined newValue
                     forceLogout()
@@ -98,15 +90,13 @@ class Authen extends Factory then constructor: (
     $rootScope.isLoggedin = isLoggedin()
 
     $rootScope.$on 'event:auth-forceLogin', (event, data) ->
-        console.warn event, data
         forceLogin data
 
     $rootScope.$on 'event:auth-forceLogout', (event, data) ->
-        console.warn event, data
         forceLogout()
 
-#    $rootScope.$on 'event:auth-forbidden', (event, data) ->
-#        console.warn event, data
+    $rootScope.$on 'event:auth-forbidden', (event, data) ->
+        TokenManage.refreshToken()
 
     $rootScope.$on 'event:auth-stateChange', (event, data) ->
         $rootScope.isLoggedin = data

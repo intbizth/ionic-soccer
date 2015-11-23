@@ -58,22 +58,23 @@ class AuthenUI extends Factory then constructor: (
             isPass: no
             username: ''
             password: ''
+            errorMessage: ''
             fake: ->
                 $this = @
                 users = new Users()
                 users.$testgetlogin({}
                 , (success) ->
-                    console.warn '$testlogin:success', success
                     $this.username = success.username
                     $this.password = success.password
                     $this.valid()
                 , (error) ->
-                    console.error '$testlogin:error', error
+                    return
                 )
             reset: ->
                 @username = @password = ''
                 @valid()
             valid: ->
+                @errorMessage = ''
                 pass = yes
                 if not @username?.length
                     pass = no
@@ -81,18 +82,19 @@ class AuthenUI extends Factory then constructor: (
                     pass = no
                 @isPass = pass
             submit: ->
+                $this = @
+                $this.errorMessage = ''
                 data =
-                    username: @username
-                    password: @password
+                    username: $this.username
+                    password: $this.password
 
                 $ionicLoading.show()
 
                 promise = Authen.login data.username, data.password
                 promise.then(->
-                    console.warn 'Authen.login:success'
                     $ionicLoading.hide()
-                , ->
-                    console.error 'Authen.login:error'
+                , (error) ->
+                    $this.errorMessage = error;
                     $ionicLoading.hide()
                 )
 
@@ -102,6 +104,7 @@ class AuthenUI extends Factory then constructor: (
             email: ''
             password: ''
             confirmPassword: ''
+            errorMessage: ''
             fake: ->
                 @username = Chance.first()  + '.' + Chance.last().toLowerCase()
                 @email = Chance.email()
@@ -134,6 +137,7 @@ class AuthenUI extends Factory then constructor: (
             firstname: ''
             lastname: ''
             birthday: ''
+            errorMessage: ''
             fake: ->
                 @firstname = Chance.first()
                 @lastname = Chance.last()
@@ -147,6 +151,7 @@ class AuthenUI extends Factory then constructor: (
                 scope.photo.remove()
                 @valid()
             valid: ->
+                @errorMessage = ''
                 pass = yes
                 regExpDate = new RegExp('^(0000-\\d{2}-\\d{2}|\\d{4}-00-\\d{2}|\\d{4}-\\d{2}-00)$')
                 if not @firstname?.length
@@ -157,6 +162,9 @@ class AuthenUI extends Factory then constructor: (
                     pass = no
                 @isPass = pass
             submit: ->
+                $this = @
+                $this.errorMessage = ''
+
                 data =
                     email: scope.step1.email
                     user:
@@ -164,28 +172,25 @@ class AuthenUI extends Factory then constructor: (
                         plainPassword:
                             first: scope.step1.password
                             second: scope.step1.confirmPassword
-                    firstname: @firstname
-                    lastname: @lastname
-                    birthday: @birthday
-
-                console.warn 'data', data
+                    firstname: $this.firstname
+                    lastname: $this.lastname
+                    birthday: $this.birthday
 
                 $ionicLoading.show()
 
                 users = new Users(data)
                 users.$register({}
                 , (success) ->
-                    console.warn '$register:success', success
                     promise = Authen.login data.user.username, data.user.plainPassword.first
                     promise.then(->
-                        console.warn 'Authen.login:success'
                         $ionicLoading.hide()
                     , ->
-                        console.error 'Authen.login:error'
+                        $this.errorMessage = error;
                         $ionicLoading.hide()
                     )
                 , (error) ->
-                    console.warn '$register:error', error
+                    if error.status == 400 then $this.errorMessage = error.data.message
+                    else if error.status == 500 then $this.errorMessage = error.statusText
                     $ionicLoading.hide()
                 )
 
@@ -260,19 +265,17 @@ class AuthenUI extends Factory then constructor: (
     }
 
     $ionicPlatform.onHardwareBackButton(->
-        scope.back()
+        if angular.isFunction scope.back
+            scope.back()
     )
 
     $rootScope.$on 'event:auth-loginRequired', (event, data) ->
-        console.warn event, data
         if !Authen.isLoggedin() then login()
 
     $rootScope.$on 'event:auth-logout', (event, data) ->
-        console.warn event, data
         logout()
 
     $rootScope.$on 'event:auth-loginConfirmed', (event, data) ->
-        console.warn event, data
         scope.modal.hide()
 
     return @

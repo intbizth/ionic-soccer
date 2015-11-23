@@ -24,6 +24,11 @@ ion-modal-view.member-login
     ion-content.member-form
         ion-slide-box(delegate-handle="slider", show-pager="false")
             ion-slide(on-double-tap=login.doubletap, on-hold=login.hold)
+                div.errorMessage(ng-if="login.errorMessage")
+                    div.row
+                        div.col.text-center
+                            | {{login.errorMessage}}
+
                 div.form
                     div.row
                         div.col.text-center
@@ -115,21 +120,25 @@ ion-modal-view.member-login
 
             ion-slide(on-double-tap=step2.doubletap, on-hold=step2.hold)
                 div.form
-                    div.row.photo
-                        div.col.text-center
-                            img.user(src="./img/member/photo.png", srcset="./img/member/photo@2x.png 2x")
-                    div.row.control-add(ng-if="!photo.isPhoto")
-                        div.col.text-center
-                            button.button.button-outline.button-light.icon.ion-ios-plus-empty(ng-click="photo.openGallery()")
-                        div.col.text-center
-                            button.button.button-outline.button-light.icon.ion-ios-camera-outline(ng-click="photo.openCamera()")
-                    div.row.control-remove(ng-if="photo.isPhoto")
-                        div.col.text-center
-                            button.button.button-outline.button-light.icon.ion-ios-plus-empty(ng-click="photo.openGallery()")
-                        div.col.text-center
-                            button.button.button-outline.button-light.icon.ion-ios-camera-outline(ng-click="photo.openCamera()")
-                        div.col.text-center
-                            button.button.button-outline.button-light.icon.ion-ios-minus-empty(ng-click="photo.remove()")
+                    div.errorMessage(ng-if="step2.errorMessage")
+                        div.row
+                            div.col.text-center
+                                | {{step2.errorMessage}}
+                    //div.row.photo
+                    //    div.col.text-center
+                    //        img.user(src="./img/member/photo.png", srcset="./img/member/photo@2x.png 2x")
+                    //div.row.control-add(ng-if="!photo.isPhoto")
+                    //    div.col.text-center
+                    //        button.button.button-outline.button-light.icon.ion-ios-plus-empty(ng-click="photo.openGallery()")
+                    //    div.col.text-center
+                    //        button.button.button-outline.button-light.icon.ion-ios-camera-outline(ng-click="photo.openCamera()")
+                    //div.row.control-remove(ng-if="photo.isPhoto")
+                    //    div.col.text-center
+                    //        button.button.button-outline.button-light.icon.ion-ios-plus-empty(ng-click="photo.openGallery()")
+                    //    div.col.text-center
+                    //        button.button.button-outline.button-light.icon.ion-ios-camera-outline(ng-click="photo.openCamera()")
+                    //    div.col.text-center
+                    //        button.button.button-outline.button-light.icon.ion-ios-minus-empty(ng-click="photo.remove()")
                     div.row
                         div.col.text-center
                             input(

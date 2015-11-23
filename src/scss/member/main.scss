@@ -64,6 +64,10 @@
 .member-form {
     background-color: #0088cf;
 
+    .errorMessage {
+        color: #fc2125;
+    }
+
     .form {
         widht: 100%;
         padding: 0 20px;
@@ -79,11 +83,6 @@
             border-radius: 0;
             text-align: center;
             transition: 0.5s linear all;
-        }
-
-        input.ng-invalid {
-            border: solid 1px #fc2125;
-            color: #fc2125;
         }
 
         ::-webkit-input-placeholder {
