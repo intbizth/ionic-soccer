@@ -9,7 +9,7 @@ class DatePicker extends Directive then constructor: (
         scope:
             min: '@'
             max: '@'
-        templateUrl: 'templates/common/date-picker/main.html'
+        templateUrl: 'templates/directives/date-picker/main.html'
         link: (scope, element, attrs, controller) ->
             scope.day = 0
             scope.month = 0
@@ -28,7 +28,7 @@ class DatePicker extends Directive then constructor: (
                 year: 'Select year'
 
             $ionicModal.fromTemplateUrl(
-                'templates/common/date-picker/overlay.html',
+                'templates/directives/date-picker/overlay.html',
                  scope: scope
             ).then (modal) ->
                 scope.modal = modal
@@ -45,9 +45,9 @@ class DatePicker extends Directive then constructor: (
                     value = '0000-00-00'
 
                 value = value.split('-')
-                scope.day = value[2]
-                scope.month = value[1]
-                scope.year = value[0]
+                scope.day = parseInt value[2]
+                scope.month = parseInt value[1]
+                scope.year = parseInt value[0]
                 return
 
             bindData = ->

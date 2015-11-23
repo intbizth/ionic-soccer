@@ -62,6 +62,12 @@
 }
 
 .member-form {
+    background-color: #0088cf;
+
+    .errorMessage {
+        color: #fc2125;
+    }
+
     .form {
         widht: 100%;
         padding: 0 20px;
@@ -77,11 +83,6 @@
             border-radius: 0;
             text-align: center;
             transition: 0.5s linear all;
-        }
-
-        input.ng-invalid {
-            border: solid 1px #fc2125;
-            color: #fc2125;
         }
 
         ::-webkit-input-placeholder {
@@ -134,14 +135,10 @@
         .button {
             width: 100%;
         }
-
-        .button-positive {
-            border: none;
-            background: linear-gradient(to bottom, #182a3e 0%, #0a4393 100%);
-        }
-
-        .button-positive.active, .button-positive.activated {
-            background: linear-gradient(to bottom, #1b2432 0%, #1b3361 40%, #1b3361 60%, #1b3361 60%, #1b2432 100%);
-        }
+    }
+    
+    .register {
+        color: #ffffff;
+        text-decoration: underline;
     }
 }
