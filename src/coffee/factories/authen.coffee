@@ -1,122 +1,104 @@
 class Authen extends Factory then constructor: (
-    $ionicModal, $q, $rootScope, $sessionStorage, $state, authService, OAuth, OAuthToken, Users
+    $ionicPlatform, $q, $rootScope, $sessionStorage, authService, TokenManage, OAuth, OAuthToken, Users
 ) ->
-    _modal = null
-    _stateTo = null
-    _stateFrom = null
-    _dialogTemplate = null
+    getUser = (args) ->
+        flush = if args && args.flush then args.flush else no
+        if isLoggedin()
+            users = new Users()
+            users.$info(
+                flush: flush
+            , (success) ->
+                $sessionStorage.user = success
+            , (error) ->
+                return
+            )
+        else
+            deferred = $q.defer()
+            deferred.reject()
+            return deferred.promise
 
-    _reset = ->
+    login = (username, password) ->
+        deferred = $q.defer()
+
+        OAuth.getAccessToken({
+            username: username
+            password: password
+        }).then((success) ->
+            promise = getUser(flush: yes)
+            promise.then((success2) ->
+                authService.loginConfirmed success, (config) ->
+                    return config
+                deferred.resolve success2
+            , (error) ->
+                authService.loginCancelled error, (config) ->
+                    return config
+                deferred.reject error
+            )
+        , (error) ->
+            message = ''
+            authService.loginCancelled error, (config) ->
+                return config
+            if error.status == 400 then message = error.data.error_description
+            else if error.status == 500 then message = error.statusText
+            deferred.reject message
+        )
+
+        return deferred.promise
+
+    logout = ->
+        forceLogout()
+        return
+
+    isLoggedin = ->
+        OAuth.isAuthenticated()
+
+    forceLogin = () ->
+        TokenManage.setToken $sessionStorage.token
+        TokenManage.startRefreshToken()
+
+    forceLogout = ->
         delete $sessionStorage.user
         OAuthToken.removeToken()
-        $rootScope.authen.busy = no
+        TokenManage.removeToken()
+        TokenManage.stopRefreshToken()
 
-    _getUserInfo = (args) ->
-        flush = if args && args.flush then args.flush else no
-        users = new Users()
-        users.$info(
-            flush: flush
-        , (success) ->
-            console.warn '$info:success', success
-            $sessionStorage.user = success
-            authService.loginConfirmed $sessionStorage.user, (config) ->
-                return config
-        , (error) ->
-            console.warn '$info:error', error
-            _somethingWrong error
+    angular.extend @, {
+        login: login
+        logout: logout
+        isLoggedin: isLoggedin
+        getUser: getUser
+    }
+
+    $ionicPlatform.ready ->
+        promise = TokenManage.getToken()
+        promise.then((success) ->
+            if success != null
+                $sessionStorage.token = success
         )
 
-    _somethingWrong = (error) ->
-        _reset()
-        if error.status is 400
-            $rootScope.authen.error = error.error_description
-        else if error.status is 500
-            $rootScope.authen.error = error.statusText
-
-    @init = (params) ->
-        _dialogTemplate = params.dialogTemplate || 'templates/user/login.html'
-
-    @login = (username, password) ->
-        $rootScope.authen.busy = yes
-        return $q((resolve, reject)->
-            OAuth.getAccessToken({
-                username: username
-                password: password
-            }).then((success) ->
-                console.warn 'OAuth.getAccessToken:success', success
-                _getUserInfo(flush: yes)
-                resolve()
-            , (error) ->
-                console.error 'OAuth.getAccessToken:error', error
-                _somethingWrong error
-                reject()
-            )
+        $rootScope.$watch(->
+            return $sessionStorage.token
+        , (newValue, oldValue) ->
+            if newValue != oldValue
+                if angular.isUndefined newValue
+                    forceLogout()
+                else
+                    forceLogin()
+                $rootScope.$emit 'event:auth-stateChange', isLoggedin()
         )
 
-    @logout = (rejection) ->
-        _reset()
-        $rootScope.$broadcast('event:auth-logout', rejection)
-        return
+    $rootScope.isLoggedin = isLoggedin()
 
-    @getUser = (args) -> _getUserInfo args
+    $rootScope.$on 'event:auth-forceLogin', (event, data) ->
+        forceLogin data
 
-    @ui =
-        show: ->
-            $ionicModal.fromTemplateUrl(
-                _dialogTemplate, scope: $rootScope
-            ).then (modal) ->
-                _modal = modal
-                _modal.show()
-            return
+    $rootScope.$on 'event:auth-forceLogout', (event, data) ->
+        forceLogout()
 
-        hide: ->
-            _modal.hide() if _modal
-            $state.go _stateFrom.name if _stateFrom and _stateFrom.name
-            return
+    $rootScope.$on 'event:auth-forbidden', (event, data) ->
+        TokenManage.refreshToken()
 
-        submit: =>
-            data = $rootScope.authen
-
-            if !data.username or !data.password
-                $rootScope.authen.error = 'Empty username or password.'
-                throw new Error('Please implement form validation on your controller.')
-
-            @login data.username, data.password
-            return
-
-    # init authen util
-    $rootScope.authen =
-        username: null
-        password: null
-        error: null
-        busy: no
-        ui: @ui
-        isLoggedin: -> OAuth.isAuthenticated()
-
-    # route change exceptor
-    $rootScope.$on '$stateChangeStart', (event, to, from) ->
-        return if !to.secure or OAuth.isAuthenticated()
-        _stateTo = to
-        _stateFrom = from
-
-        # puse event
-        event.preventDefault()
-
-        # show login dialog
-        $rootScope.authen.ui.show()
-        return
-
-    $rootScope.$on 'event:auth-loginRequired', ->
-        $rootScope.authen.ui.show()
-        return
-
-    $rootScope.$on 'event:auth-forbidden', ->
-        OAuth.getRefreshToken().then _getUserInfo , _somethingWrong
-        return
-
-    $rootScope.$on 'event:auth-loginConfirmed', ->
-        _modal.hide()
-        $state.go _stateTo.name if _stateTo and _stateTo.name
-        return
+    $rootScope.$on 'event:auth-stateChange', (event, data) ->
+        $rootScope.isLoggedin = data
 
     return @

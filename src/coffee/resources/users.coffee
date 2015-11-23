@@ -22,15 +22,23 @@ class Users extends Factory then constructor: (
             transformResponse: (data, headersGetter) ->
                 newData = angular.copy data
                 clubs = new Clubs()
-                console.warn 'transformRequest', data
                 fields =
                     id: 'id'
+                    birthday: 'profile.birthday'
                     country: 'country'
                     club: 'club'
                     displayname: 'displayname'
                     favoriteClubs: 'favorite_clubs'
+                    gender: 'profile.gender'
                     enabled: 'enabled'
+                    mobile: 'profile.mobile'
                     profilePicture: '_links.profile_picture.href'
+                    username: 'username'
+                    usernameCanonical: 'username_canonical'
+                    firstname: 'profile.first_name'
+                    lastname: 'profile.last_name'
+                    email: 'profile.email'
+                    emailCanonical: 'profile.email_canonical'
                 newData = Helper.traverseProperties newData, fields
                 newData.club = clubs.transformItemData(newData.club)
                 angular.forEach newData.favoriteClubs, (value, key) ->
@@ -39,7 +47,7 @@ class Users extends Factory then constructor: (
             then: (resolve) ->
                 if !angular.isUndefined @params and !angular.isUndefined @params.flush
                     if @params.flush
-                        cache.remove @url
+                        cache.removeAll()
                     delete @params.flush
                 @then = null
                 resolve @

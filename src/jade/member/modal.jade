@@ -1,0 +1,184 @@
+- var environment = '@@environment'
+- var login = { doubletap: null, hold: null }
+- var step1 = { doubletap: null, hold: null }
+- var step2 = { doubletap: null, hold: null }
+if environment == "dev"
+    - login.doubletap = "login.fake()"
+    - login.hold = "login.reset()"
+    - step1.doubletap = "step1.fake()"
+    - step1.hold = "step1.reset()"
+    - step2.doubletap = "step2.fake()"
+    - step2.hold = "step2.reset()"
+
+ion-modal-view.member-login
+    ion-header-bar.bar-positive(align-title="center")
+        div.buttons(ng-if="$root.isIOS")
+            a.button.button-clear.icon-left(
+            ng-class="{'ion-ios-arrow-left' : modal.leftButton == 'back', 'ion-ios-close-empty' : modal.leftButton == 'close'}",
+            ng-click="back()"
+            ) {{modal.leftButton == 'back' ? 'Back' : ''}}
+        h1.title {{modal.title}}
+        div.buttons
+            a.button.button-nav.button-icon.ion-ios-close-empty(ng-if="$root.isAndroid", ng-click="modal.hide()")
+
+    ion-content.member-form
+        ion-slide-box(delegate-handle="slider", show-pager="false")
+            ion-slide(on-double-tap=login.doubletap, on-hold=login.hold)
+                div.errorMessage(ng-if="login.errorMessage")
+                    div.row
+                        div.col.text-center
+                            | {{login.errorMessage}}
+
+                div.form
+                    div.row
+                        div.col.text-center
+                            input(
+                            ng-model="login.username",
+                            ng-model-options="{ getterSetter: true }",
+                            ng-change="login.valid()",
+                            type="text",
+                            name="username",
+                            placeholder="Email & Username",
+                            maxlength="128"
+                            )
+                    div.row
+                        div.col.text-center
+                            input(
+                            ng-model="login.password",
+                            ng-model-options="{ getterSetter: true }",
+                            ng-change="login.valid()",
+                            type="password",
+                            name="password",
+                            placeholder="Password",
+                            maxlength="128"
+                            )
+                div.submit
+                    div.row
+                        div.col.text-center
+                            button.button.button-positive(
+                            ng-disabled="!login.isPass"
+                            ng-click="login.submit()"
+                            ) Login
+                div.register(ng-click="goToRegisterStep1()")
+                    div.row
+                        div.col.text-center
+                            | Register
+
+            ion-slide(on-double-tap=step1.doubletap, on-hold=step1.hold)
+                div.form
+                    div.row
+                        div.col.text-center
+                            input(
+                            ng-model="step1.username",
+                            ng-model-options="{ getterSetter: true }",
+                            ng-change="step1.valid()",
+                            type="text",
+                            name="username",
+                            placeholder="Username",
+                            maxlength="128"
+                            )
+                    div.row
+                        div.col.text-center
+                            input(
+                            ng-model="step1.email",
+                            ng-model-options="{ getterSetter: true }",
+                            ng-change="step1.valid()",
+                            type="text",
+                            name="email",
+                            placeholder="Email",
+                            maxlength="128"
+                            )
+                    div.row
+                        div.col.text-center
+                            input(
+                            ng-model="step1.password",
+                            ng-model-options="{ getterSetter: true }",
+                            ng-change="step1.valid()",
+                            type="password",
+                            name="password",
+                            placeholder="Password",
+                            maxlength="128"
+                            )
+                    div.row
+                        div.col.text-center
+                            input(
+                            ng-model="step1.confirmPassword",
+                            ng-model-options="{ getterSetter: true }",
+                            ng-change="step1.valid()",
+                            type="password",
+                            name="confirmPassword",
+                            placeholder="Confirm password",
+                            maxlength="128"
+                            )
+                div.submit
+                    div.row
+                        div.col.text-center
+                            button.button.button-positive(
+                            ng-disabled="!step1.isPass",
+                            ng-click="step1.submit()"
+                            ) Next
+
+            ion-slide(on-double-tap=step2.doubletap, on-hold=step2.hold)
+                div.form
+                    div.errorMessage(ng-if="step2.errorMessage")
+                        div.row
+                            div.col.text-center
+                                | {{step2.errorMessage}}
+                    //div.row.photo
+                    //    div.col.text-center
+                    //        img.user(src="./img/member/photo.png", srcset="./img/member/photo@2x.png 2x")
+                    //div.row.control-add(ng-if="!photo.isPhoto")
+                    //    div.col.text-center
+                    //        button.button.button-outline.button-light.icon.ion-ios-plus-empty(ng-click="photo.openGallery()")
+                    //    div.col.text-center
+                    //        button.button.button-outline.button-light.icon.ion-ios-camera-outline(ng-click="photo.openCamera()")
+                    //div.row.control-remove(ng-if="photo.isPhoto")
+                    //    div.col.text-center
+                    //        button.button.button-outline.button-light.icon.ion-ios-plus-empty(ng-click="photo.openGallery()")
+                    //    div.col.text-center
+                    //        button.button.button-outline.button-light.icon.ion-ios-camera-outline(ng-click="photo.openCamera()")
+                    //    div.col.text-center
+                    //        button.button.button-outline.button-light.icon.ion-ios-minus-empty(ng-click="photo.remove()")
+                    div.row
+                        div.col.text-center
+                            input(
+                            ng-model="step2.firstname",
+                            ng-model-options="{ getterSetter: true }",
+                            ng-change="step2.valid()",
+                            type="text",
+                            name="firstname",
+                            placeholder="Firstname",
+                            maxlength="128"
+                            )
+                    div.row
+                        div.col.text-center
+                            input(
+                            ng-model="step2.lastname",
+                            ng-model-options="{ getterSetter: true }",
+                            ng-change="step2.valid()",
+                            type="text",
+                            name="lastname",
+                            placeholder="Lastname",
+                            maxlength="128"
+                            )
+                    div.row.birthday
+                        div.col.text-center
+                            label Date of birth
+                            br
+                            input(
+                            date-picker,
+                            ng-model="step2.birthday",
+                            ng-model-options="{ getterSetter: true }",
+                            ng-change="step2.valid()",
+                            type="text",
+                            name="birthday"
+                            min="{{step2.date.min}}"
+                            max="{{step2.date.max}}"
+                            )
+                div.submit
+                    div.row
+                        div.col.text-center
+                            button.button.button-positive(
+                            ng-disabled="!step2.isPass",
+                            ng-click="step2.submit()"
+                            ) Done
