@@ -1,14 +1,19 @@
 class clubs extends Factory then constructor: (
-    $resource, CFG, Helper, Und
+    $cacheFactory, $resource, CFG, Helper
 ) ->
     timeout = 20000
+    cache = $cacheFactory 'resourceClubsCache'
 
-    resource = $resource(CFG.API.getPath('clubs'), {}, {
+    url = CFG.API.getPath('clubs/')
+    paramDefaults = {}
+    actions =
         getMe:
             url: CFG.API.getPath('clubs/' + CFG.clubId)
             method: 'GET'
             responseType: 'json'
+            cache: cache
             transformResponse: (data, headersGetter) ->
+                newData = angular.copy data
                 fields =
                     id: 'id'
                     name: 'name'
@@ -17,7 +22,7 @@ class clubs extends Factory then constructor: (
                     estYear: 'est_year'
                     logo: 'logo.media.url'
                     stadiumCapacity: 'stadium_capacity'
-                    stadiumImage: 'stadium_image.media.url'
+                    stadiumImage: '_links.stadium_image.href'
                     website: 'website'
                     email: 'email'
                     location: 'location'
@@ -27,8 +32,20 @@ class clubs extends Factory then constructor: (
                     clubClass:
                         id: 'club_class.id'
                         name: 'club_class.name'
-                return Helper.traverseProperties data, fields
+                return Helper.traverseProperties newData, fields
+            then: (resolve) ->
+                if !angular.isUndefined @params and !angular.isUndefined @params.flush
+                    if @params.flush
+                        cache.remove @url
+                    delete @params.flush
+                @then = null
+                resolve @
             timeout: timeout
-    })
+    options = {}
+    extend =
+        transformItemData: (data) ->
+            actions.getMe.transformResponse data
 
+    resource = $resource url, paramDefaults, actions, options
+    resource.prototype = angular.extend extend, resource.prototype
     return resource

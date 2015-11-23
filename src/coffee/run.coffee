@@ -1,12 +1,18 @@
 class Run extends Run then constructor: (
-    $rootScope, $ionicPlatform, $cordovaKeyboard, Authen, CFG, GoogleAnalytics, ImageCache
+    $cordovaAppVersion, $cordovaKeyboard, $ionicPlatform, $rootScope, Authen, CFG, GoogleAnalytics, ImageCache
 ) ->
-    Authen.init
-        userInfoPath: CFG.API.getUserInfo()
+    $rootScope.isAndroid = no
+    $rootScope.isIOS = no
+    $rootScope.version = '0.0.0'
 
     $ionicPlatform.ready ->
         $rootScope.isAndroid = ionic.Platform.isAndroid()
         $rootScope.isIOS = ionic.Platform.isIOS()
+
+        $cordovaAppVersion.getVersionNumber().then((version) ->
+            $rootScope.version = version
+            $rootScope.$broadcast 'version', $rootScope.version
+        )
 
         GoogleAnalytics.startTrackerWithId CFG.GOOGLE.analytics.id
         ImageCache.init((success) ->

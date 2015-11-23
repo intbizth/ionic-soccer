@@ -3,4 +3,4 @@ class Setting extends Config then constructor: (
 ) ->
     $resourceProvider.defaults.stripTrailingSlashes = no
     OAuthProvider.configure CFG.OAuth.getConfig()
-
+    $httpProvider.defaults.headers.post = {}
