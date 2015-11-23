@@ -10,6 +10,16 @@
     align-items: center;
 }
 
+.form {
+    background-color: chartreuse;
+
+    .photo {
+        width: 40px;
+        height: 40px;
+        background-color: #f0f0f0;
+    }
+}
+
 .space {
     height: 6px;
     background-color: #d1d3d4;

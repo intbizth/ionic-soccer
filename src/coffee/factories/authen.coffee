@@ -8,7 +8,7 @@ class Authen extends Factory then constructor: (
             users.$info(
                 flush: flush
             , (success) ->
-                $sessionStorage.user = success
+                $rootScope.user = success
             , (error) ->
                 return
             )
@@ -57,7 +57,7 @@ class Authen extends Factory then constructor: (
         TokenManage.startRefreshToken()
 
     forceLogout = ->
-        delete $sessionStorage.user
+        delete $rootScope.user
         OAuthToken.removeToken()
         TokenManage.removeToken()
         TokenManage.stopRefreshToken()

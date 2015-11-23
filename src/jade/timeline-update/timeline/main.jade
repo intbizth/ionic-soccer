@@ -1,3 +1,9 @@
+- var environment = '@@environment'
+- var microChats = { doubletap: null, hold: null }
+if environment == "dev"
+    - microChats.doubletap = "microChats.fake()"
+    - microChats.hold = "microChats.reset()"
+
 ion-refresher(pulling-text="Pull to refresh...", on-refresh="microChats.refresh()")
 
 //div.live(ng-show="timeline.isLive")
@@ -8,11 +14,32 @@ ion-refresher(pulling-text="Pull to refresh...", on-refresh="microChats.refresh(
 //    match-label(sections="matchLabel.sections")
 
 div.timeline
+    div.form(ng-if="isLoggedin", on-double-tap=microChats.doubletap, on-hold=microChats.hold)
+        div.row
+            div.col.col-20.col-center.text-center
+                img.photo
+            div.col.col-center.text-center
+                input(
+                ng-model="microChats.message",
+                ng-model-options="{ getterSetter: true }",
+                ng-change="microChats.valid()",
+                type="text",
+                name="message",
+                placeholder="Message",
+                maxlength="128"
+                )
+            div.col.col-20.col-center.text-center
+                button.button.button-small.button-positive(
+                ng-disabled="!microChats.isPass"
+                ng-click="microChats.submit()"
+                ) Send
+
     div.nodata(ng-if="microChats.items.length == 0")
         div.space
         div.row
             div.col.col-center.text-center
                 div.text Has no timeline.
+
     div(ng-repeat="item in microChats.items")
         div(ng-class="item.template == 'hightlight' ? '-hightlight' : ''")
             div.space

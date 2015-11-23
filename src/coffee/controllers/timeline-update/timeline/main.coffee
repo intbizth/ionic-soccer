@@ -1,8 +1,7 @@
 class Timeline extends Controller then constructor: (
-    $cordovaSocialSharing, $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, MicroChats
+    $cordovaSocialSharing, $ionicLoading, $ionicPlatform, $rootScope, $scope, Chance, GoogleAnalytics, MicroChats
 ) ->
-    $ionicPlatform.ready ->
-        GoogleAnalytics.trackView 'timeline'
+    $scope.isLoggedin = $rootScope.isLoggedin
 
     $scope.share = (message, subject, file, link) ->
         message = message || ''
@@ -55,6 +54,34 @@ class Timeline extends Controller then constructor: (
             , (error) ->
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
             )
+        isPass: no
+        message: ''
+        errorMessage: ''
+        fake: ->
+            @message = Chance.paragraph()
+            @valid()
+        reset: ->
+            @message = ''
+            @valid()
+        valid: ->
+            @errorMessage = ''
+            pass = yes
+            if not @message?.length
+                pass = no
+            @isPass = pass
+        submit: ->
+            $this = @
+            $this.errorMessage = ''
+            data = {}
+
+            $ionicLoading.show()
+            $ionicLoading.hide()
 
     $scope.microChats.loadData()
     $ionicLoading.show()
+
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'timeline'
+
+    $rootScope.$on 'event:auth-stateChange', (event, data) ->
+        $scope.isLoggedin = data
