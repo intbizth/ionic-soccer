@@ -51,7 +51,7 @@ class TokenManage extends Factory then constructor: (
     setToken = (data) ->
         if data != null
             if angular.isUndefined data.expires_at
-                data.expires_at = now() + (data.expires_in - beforeTime)
+                data.expires_at = now() + data.expires_in
             data = encode data
         deferred = $q.defer()
         db.transaction((tx) ->
@@ -73,7 +73,7 @@ class TokenManage extends Factory then constructor: (
         promise.then((success) ->
             if success != null
                 timer = $interval(->
-                    if (success.expires_at) - now() <= 0 and !refreshing
+                    if (success.expires_at) - (now() - beforeTime) <= 0 and !refreshing
                         refreshToken()
                 , 1000)
         , (error) ->
