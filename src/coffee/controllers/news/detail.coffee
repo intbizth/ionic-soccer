@@ -5,6 +5,8 @@ class NewsDetail extends Controller then constructor: (
         $ionicHistory.goBack -1
         return
 
+    $scope.title = ''
+
     $scope.openURL = (url) ->
         $cordovaInAppBrowser.open(url, '_blank',
             location: 'yes'
@@ -22,15 +24,19 @@ class NewsDetail extends Controller then constructor: (
 
     $scope.paper =
         item: {}
+        loaded: no
         loadData: (args) ->
             $this = @
+            $this.loaded = no
             pull = if args && args.pull then args.pull else no
             flush = if args && args.flush then args.flush else no
             papers.$getId(
                 id: paperId
                 flush: flush
             , (success) ->
+                $this.loaded = yes
                 $this.item = success
+                $scope.title = $this.item.headline
                 GoogleAnalytics.trackView 'news-detail ' + $this.item.headline
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
