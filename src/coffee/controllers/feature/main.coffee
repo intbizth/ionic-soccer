@@ -29,7 +29,7 @@ class FeatureMain extends Controller then constructor: (
         setDefault: ->
             @item =
                 id: 0
-                name: 'Guest'
+                name: if $scope.isLoggedin then 'Unknown' else 'Guest'
                 point1: 0
                 point2: 0
             @photo.setDefault()
@@ -41,7 +41,7 @@ class FeatureMain extends Controller then constructor: (
             promise.then((success) ->
                 $this.item =
                     id: success.id
-                    name: success.firstname + ' ' + success.lastname
+                    name: success.firstName + ' ' + success.lastName
                     point1: 0
                     point2: 0
                 if success.profilePicture
