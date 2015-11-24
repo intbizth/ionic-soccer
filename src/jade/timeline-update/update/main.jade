@@ -22,16 +22,19 @@ div.news
         div.col
             i.icon.ion-ios-paper
             span.text News
-    div.nodata(ng-if="papers.items.length == 0")
-        div.row
-            div.col.col-center.text-center
-                div.text Has no news.
-    div(ng-repeat="item in papers.items")
-        div.space
-        div.detail(image-cache="{{item.cover}}", ui-sref="news-detail({id : item.id})")
-            div.subdetail
-                div.headline.padding {{item.headline}}
-                time.date.padding {{item.publishedDate | timeago}}
-        div.shadow
+
+    div.subnews(ng-if="papers.loaded")
+        div.nodata(ng-if="papers.items.length == 0")
+            div.row
+                div.col.col-center.text-center
+                    div.text Has no news.
+
+        div(ng-repeat="item in papers.items")
+            div.space
+            div.detail(image-cache="{{item.cover}}", ui-sref="news-detail({id : item.id})")
+                div.subdetail
+                    div.headline.padding {{item.headline}}
+                    time.date.padding {{item.publishedDate | timeago}}
+            div.shadow
 
 ion-infinite-scroll(ng-if="papers.next" on-infinite="papers.loadNext()", distance="1%")
