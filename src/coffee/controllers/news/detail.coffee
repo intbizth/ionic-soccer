@@ -27,9 +27,10 @@ class NewsDetail extends Controller then constructor: (
         loaded: no
         loadData: (args) ->
             $this = @
-            $this.loaded = no
             pull = if args && args.pull then args.pull else no
             flush = if args && args.flush then args.flush else no
+            if !pull
+                $this.loaded = no
             papers.$getId(
                 id: paperId
                 flush: flush

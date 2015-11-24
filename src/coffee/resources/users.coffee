@@ -43,7 +43,6 @@ class Users extends Factory then constructor: (
                 newData.club = clubs.transformItemData(newData.club)
                 angular.forEach newData.favoriteClubs, (value, key) ->
                     newData.favoriteClubs[key] = clubs.transformItemData(newData.favoriteClubs[key])
-                console.warn 'newData', newData
                 return newData
             then: (resolve) ->
                 if !angular.isUndefined @params and !angular.isUndefined @params.flush

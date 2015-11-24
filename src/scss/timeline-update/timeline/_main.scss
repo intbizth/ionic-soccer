@@ -10,13 +10,18 @@
     align-items: center;
 }
 
-.form {
-    background-color: chartreuse;
-
-    .photo {
-        width: 40px;
+.list {
+    input {
         height: 40px;
-        background-color: #f0f0f0;
+        width: 100%;
+    }
+
+    .button {
+        height: 36px;
+    }
+
+    .errorMessage {
+
     }
 }
 

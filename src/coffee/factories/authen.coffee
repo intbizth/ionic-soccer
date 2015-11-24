@@ -35,26 +35,24 @@ class Authen extends Factory then constructor: (
                 deferred.resolve success2
             , (error) ->
                 message = ''
-                if error.status == 500
-                    message = error.statusText
+                if error.data and error.data.message
+                    message = error.data.message
+                else if error.data and error.data.error_description
+                    message = error.data.error_description
                 else
-                    if error.data and error.data.message
-                        message = error.data.message
-                    if error.data and error.data.error_description
-                        message = error.data.error_description
+                    message = error.statusText
                 deferred.notify message
             )
         , (error) ->
             authService.loginCancelled error, (config) ->
                 return config
             message = ''
-            if error.status == 500
-                message = error.statusText
+            if error.data and error.data.message
+                message = error.data.message
+            else if error.data and error.data.error_description
+                message = error.data.error_description
             else
-                if error.data and error.data.message
-                    message = error.data.message
-                if error.data and error.data.error_description
-                    message = error.data.error_description
+                 message = error.statusText
             deferred.reject message
         )
 

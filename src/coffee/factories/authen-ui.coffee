@@ -195,13 +195,13 @@ class AuthenUI extends Factory then constructor: (
                         $ionicLoading.hide()
                     )
                 , (error) ->
-                    if error.status == 500
-                        $this.errorMessage = error.statusText
+                    if error.data and error.data.message
+                        $this.errorMessage = error.data.message
+                    else if error.data and error.data.error_description
+                        $this.errorMessage = error.data.error_description
                     else
-                        if error.data and error.data.message
-                            $this.errorMessage = error.data.message
-                        if error.data and error.data.error_description
-                            $this.errorMessage = error.data.error_description
+                        $this.errorMessage = error.statusText
+
                     $ionicLoading.hide()
                 )
 

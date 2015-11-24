@@ -13,12 +13,15 @@ ion-refresher(pulling-text="Pull to refresh...", on-refresh="microChats.refresh(
 //
 //    match-label(sections="matchLabel.sections")
 
-div.timeline
-    div.form(ng-if="isLoggedin", on-double-tap=microChats.doubletap, on-hold=microChats.hold)
-        div.row
-            div.col.col-20.col-center.text-center
-                img.photo
-            div.col.col-center.text-center
+div.microchats
+    div.list(ng-if="isLoggedin", on-double-tap=microChats.doubletap, on-hold=microChats.hold)
+        div.errorMessage(ng-if="microChats.errorMessage")
+            div.row
+                div.col.text-center
+                    span {{microChats.errorMessage}}
+
+        div.item.item-input-inset
+            label.item-input-wrapper
                 input(
                 ng-model="microChats.message",
                 ng-model-options="{ getterSetter: true }",
@@ -26,40 +29,39 @@ div.timeline
                 type="text",
                 name="message",
                 placeholder="Message",
-                maxlength="128"
+                maxlength="1024"
                 )
-            div.col.col-20.col-center.text-center
-                button.button.button-small.button-positive(
-                ng-disabled="!microChats.isPass"
-                ng-click="microChats.submit()"
-                ) Send
+            button.button.button-small.button-positive(
+            ng-disabled="!microChats.isPass"
+            ng-click="microChats.submit()"
+            ) Send
 
-    div.nodata(ng-if="microChats.items.length == 0")
-        div.space
-        div.row
-            div.col.col-center.text-center
-                div.text Has no timeline.
+    div.submicrochats(ng-if="microChats.loaded")
+        div.nodata(ng-if="microChats.items.length == 0")
+            div.row
+                div.col.col-center.text-center
+                    span Has no timeline.
 
-    div(ng-repeat="item in microChats.items")
-        div(ng-class="item.template == 'hightlight' ? '-hightlight' : ''")
-            div.space
-            div.row.datetime
-                div.col
-                    | {{item.publishedDate | date :'dd/MM/yyyy | HH:mm'}}
-            div.cover(ng-if="item.image")
-                div.images
-                    img(image-cache="{{item.image}}", width="100%", height="auto")
-            div.detail(ng-class="item.template == 'hightlight' ? '-hightlight' : ''")
-                div.col.subdetail
-                    div.row.message
-                        div.col
-                            span {{item.message}}
-                    div.row.footer
-                        div.col.col-90.col-center
-                            div.userbox
-                                img.photo(image-cache="{{item.user.profilePicture}}")
-                                span.name {{item.user.displayname}}
-                        div.col.col-10.col-center(style="margin-left: -4px;")
-                            //a.button.button-icon.icon.ion-android-share-alt.share(ng-click="share(item.message, '', '', '')")
+        div(ng-repeat="item in microChats.items")
+            div(ng-class="item.template == 'hightlight' ? '-hightlight' : ''")
+                div.space
+                div.row.datetime
+                    div.col
+                        | {{item.publishedDate | date :'dd/MM/yyyy | HH:mm'}}
+                div.cover(ng-if="item.image")
+                    div.images
+                        img(image-cache="{{item.image}}", width="100%", height="auto")
+                div.detail(ng-class="item.template == 'hightlight' ? '-hightlight' : ''")
+                    div.col.subdetail
+                        div.row.message
+                            div.col
+                                span {{item.message}}
+                        div.row.footer
+                            div.col.col-90.col-center
+                                div.userbox
+                                    img.photo(image-cache="{{item.user.profilePicture}}")
+                                    span.name {{item.user.displayname}}
+                            div.col.col-10.col-center(style="margin-left: -4px;")
+                                //a.button.button-icon.icon.ion-android-share-alt.share(ng-click="share(item.message, '', '', '')")
 
 ion-infinite-scroll(ng-if="microChats.next" on-infinite="microChats.loadNext()", distance="1%")
