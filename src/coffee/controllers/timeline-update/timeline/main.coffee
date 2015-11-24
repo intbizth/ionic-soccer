@@ -22,7 +22,6 @@ class Timeline extends Controller then constructor: (
         loaded: no
         loadData: (args) ->
             $this = @
-            $ionicLoading.show()
             pull = if args && args.pull then args.pull else no
             flush = if args && args.flush then args.flush else no
             if !pull
@@ -106,6 +105,7 @@ class Timeline extends Controller then constructor: (
             )
 
     $scope.microChats.loadData()
+    $ionicLoading.show()
 
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'timeline'

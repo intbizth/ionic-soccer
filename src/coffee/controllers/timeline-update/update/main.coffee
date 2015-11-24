@@ -10,7 +10,6 @@ class Update extends Controller then constructor: (
         loaded: no
         loadData: (args) ->
             $this = @
-            $ionicLoading.show()
             pull = if args && args.pull then args.pull else no
             flush = if args && args.flush then args.flush else no
             if !pull
@@ -49,6 +48,7 @@ class Update extends Controller then constructor: (
             )
 
     $scope.papers.loadData()
+    $ionicLoading.show()
 
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'update'
