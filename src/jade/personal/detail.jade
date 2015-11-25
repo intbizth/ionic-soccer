@@ -1,72 +1,70 @@
 ion-view.personal-detail
-    ion-nav-title Personal Detail
+    ion-nav-title {{title}}
     ion-nav-buttons(side="left")
         a.button.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
             img.logo(
             src="./img/logo/navbar.png"
             srcset="./img/logo/navbar@2x.png 2x"
             )
-    //ion-nav-buttons(side="right")
-    //    a.button.button-clear(ng-click="")
-    //        i.icon.ion-android-more-vertical
 
     ion-content.content
         ion-refresher(pulling-text="Pull to refresh...", on-refresh="personal.refresh()")
-        div.cover
-            img.image(ng-src="{{personal.item.image}}")
 
-        div.personal
-            div.row
-                div.col.text-left.name
-                    div.firstname {{personal.item.firstname}}
-                    div.lastname {{personal.item.lastname}}
-                div.col.text-right.no
-                    span.no {{personal.item.no}}
+        div.subpersonal(ng-if="personal.loaded")
+            div.cover(ng-if="personal.item.image")
+                img.image(image-cache="{{personal.item.image}}")
 
-        div.event
-            div.row
-                div.col.text-right.yellow
-                    img(src="./img/icon/yellow_card.png", srcset="./img/icon/yellow_card@2x.png 2x")
-                    | {{personal.item.score.yellow | number}}
-                div.col.col-20.text-center.red
-                    img(src="./img/icon/red_card.png", srcset="./img/icon/red_card@2x.png 2x")
-                    | {{personal.item.score.red | number}}
-                div.col.text-left.goal
-                    img(src="./img/icon/goal.png", srcset="./img/icon/goal@2x.png 2x")
-                    |  {{personal.item.score.goal | number}}
+            div.personal
+                div.row
+                    div.col.text-left.name
+                        div.firstname {{personal.item.firstname}}
+                        div.lastname {{personal.item.lastname}}
+                    div.col.text-right.no
+                        span.no {{personal.item.no}}
 
-        div.detail
-            div.row.born
-                div.col.topic
-                    | Born
-                div.col.about
-                    | {{personal.item.birthday | date: 'MMMM dd, yyyy'}}
-                    | (age {{personal.item.age}})
+            div.event
+                div.row
+                    div.col.text-right.yellow
+                        img(src="./img/icon/yellow_card.png", srcset="./img/icon/yellow_card@2x.png 2x")
+                        | {{personal.item.score.yellow | number}}
+                    div.col.col-20.text-center.red
+                        img(src="./img/icon/red_card.png", srcset="./img/icon/red_card@2x.png 2x")
+                        | {{personal.item.score.red | number}}
+                    div.col.text-left.goal
+                        img(src="./img/icon/goal.png", srcset="./img/icon/goal@2x.png 2x")
+                        |  {{personal.item.score.goal | number}}
 
-            div.row.position
-                div.col.topic
-                    | Position
-                div.col.about
-                    | {{personal.item.position.name}}
+            div.detail
+                div.row.born
+                    div.col.topic
+                        | Born
+                    div.col.about
+                        | {{personal.item.birthday | date: 'MMMM dd, yyyy'}}
+                        | (age {{personal.item.age}})
 
-            div.row.previous
-                div.col.topic
-                    | Previous Club
-                div.col.about
-                    | {{personal.item.previousClub.name}}
-                    | {{personal.item.previousClub.startDate | date: 'yyyy'}}
+                div.row.position
+                    div.col.topic
+                        | Position
+                    div.col.about
+                        | {{personal.item.position.name}}
 
-            div.row.signed
-                div.col.topic
-                    | Signed
-                div.col.about
-                    | {{personal.item.previousClub.signedDate | date: 'yyyy'}}
+                div.row.previous
+                    div.col.topic
+                        | Previous Club
+                    div.col.about
+                        | {{personal.item.previousClub.name}}
+                        | {{personal.item.previousClub.startDate | date: 'yyyy'}}
 
-            div.row.bio
-                div.col.topic
-                    | Bio
+                div.row.signed
+                    div.col.topic
+                        | Signed
+                    div.col.about
+                        | {{personal.item.previousClub.signedDate | date: 'yyyy'}}
 
-            div.row.history
-                div.col.about
-                    | {{personal.item.bio}}
-                    
+                div.row.bio
+                    div.col.topic
+                        | Bio
+
+                div.row.history
+                    div.col.about
+                        | {{personal.item.bio}}
