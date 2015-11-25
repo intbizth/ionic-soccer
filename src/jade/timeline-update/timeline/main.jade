@@ -14,11 +14,9 @@ ion-refresher(pulling-text="Pull to refresh...", on-refresh="microChats.refresh(
 //    match-label(sections="matchLabel.sections")
 
 div.microchats
-    div.list(ng-if="isLoggedin", on-double-tap=microChats.doubletap, on-hold=microChats.hold)
-        div.errorMessage(ng-if="microChats.errorMessage")
-            div.row
-                div.col.text-center
-                    span {{microChats.errorMessage}}
+    div.list.form(ng-if="isLoggedin", on-double-tap=microChats.doubletap, on-hold=microChats.hold)
+        div.item.item-text-wrap.errorMessage(ng-if="microChats.errorMessage")
+            | {{microChats.errorMessage}}
 
         div.item.item-input-inset
             label.item-input-wrapper
@@ -31,12 +29,12 @@ div.microchats
                 placeholder="Message",
                 maxlength="1024"
                 )
-            button.button.button-small.button-positive(
+            button.button.button-send.button-small.button-positive(
             ng-disabled="!microChats.isPass"
             ng-click="microChats.submit()"
             ) Send
 
-    div.submicrochats(ng-if="microChats.loaded")
+    div.submicrochats(ng-if="microChats.loaded", ng-class="{'fixlist' : isLoggedin}")
         div.nodata(ng-if="microChats.items.length == 0")
             div.row
                 div.col.col-center.text-center

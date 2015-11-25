@@ -10,19 +10,19 @@
     align-items: center;
 }
 
-.list {
+.form {
     input {
         height: 40px;
         width: 100%;
     }
 
-    .button {
+    .button-send {
         height: 36px;
     }
+}
 
-    .errorMessage {
-
-    }
+.fixlist {
+    margin-top: -20px;
 }
 
 .space {
