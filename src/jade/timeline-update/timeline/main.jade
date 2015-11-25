@@ -44,11 +44,16 @@ div.microchats
             div(ng-class="item.template == 'hightlight' ? '-hightlight' : ''")
                 div.space
                 div.row.datetime
-                    div.col
-                        | {{item.publishedDate | date :'dd/MM/yyyy | HH:mm'}}
+                    div.col.text-left
+                        | {{item.publishedDate | timeago}}
+                    div.col.text-right
+                        button.button.button-me.button-small.button-light(ng-if="item.user.id == $root.user.id")
+                            | Me
+
                 div.cover(ng-if="item.image")
                     div.images
                         img(image-cache="{{item.image}}", width="100%", height="auto")
+
                 div.detail(ng-class="item.template == 'hightlight' ? '-hightlight' : ''")
                     div.col.subdetail
                         div.row.message

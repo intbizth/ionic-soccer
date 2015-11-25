@@ -73,6 +73,8 @@ class Timeline extends Controller then constructor: (
             pass = yes
             if not @message?.length
                 pass = no
+            if angular.isUndefined $rootScope.user
+                pass = no
             @isPass = pass
         submit: ->
             $this = @
