@@ -44,9 +44,9 @@ div.microchats
             div(ng-class="item.template == 'hightlight' ? '-hightlight' : ''")
                 div.space
                 div.row.datetime
-                    div.col.text-left
-                        | {{item.publishedDate | timeago}}
-                    div.col.text-right
+                    div.col.col-80.text-left
+                        span(time-ago, datetime="{{item.publishedDate}}") {{item.publishedDate}}
+                    div.col.col-20.text-right
                         button.button.button-me.button-small.button-light(ng-if="item.user.id == $root.user.id")
                             | Me
 

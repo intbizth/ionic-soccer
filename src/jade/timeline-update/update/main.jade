@@ -34,7 +34,7 @@ div.news
             div.detail(image-cache="{{item.cover}}", ui-sref="news-detail({id : item.id})")
                 div.subdetail
                     div.headline.padding {{item.headline}}
-                    time.date.padding {{item.publishedDate | timeago}}
+                    span.date.padding(time-ago, datetime="{{item.publishedDate}}") {{item.publishedDate}}
             div.shadow
 
 ion-infinite-scroll(ng-if="papers.next" on-infinite="papers.loadNext()", distance="1%")
