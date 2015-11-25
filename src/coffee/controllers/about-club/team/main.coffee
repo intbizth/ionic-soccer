@@ -20,6 +20,8 @@ class aboutClubTeam extends Controller then constructor: (
         loadData: (args) ->
             $this = @
             pull = if args && args.pull then args.pull else no
+            if !pull
+                $this.loaded = no
             personals.$getClubMe(
                 page: 1
                 limit: pageLimit
