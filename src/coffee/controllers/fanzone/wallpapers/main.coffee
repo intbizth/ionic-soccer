@@ -43,6 +43,8 @@ class FanzoneWallpapers extends Controller then constructor: (
         loadData: (args) ->
             $this = @
             pull = if args && args.pull then args.pull else no
+            if !pull
+                $this.loaded = no
             wallpapers.$getPage(
                 page: 1
                 limit: pageLimit
