@@ -1,15 +1,13 @@
 class FanzoneProducts extends Controller then constructor: (
-   $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Products, Und
+   $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Products
 ) ->
-    $ionicPlatform.ready ->
-        GoogleAnalytics.trackView 'products'
-
     pageLimit = 20
     products = new Products()
 
     $scope.products =
         items: []
         next: null
+        loaded: no
         loadData: (args) ->
             $this = @
             pull = if args && args.pull then args.pull else no
@@ -17,6 +15,7 @@ class FanzoneProducts extends Controller then constructor: (
                 page: 1
                 limit: pageLimit
             , (success) ->
+                $this.loaded = yes
                 $this.next = if success.next then success.next else null
                 $this.items = success.items
                 if pull
@@ -46,3 +45,6 @@ class FanzoneProducts extends Controller then constructor: (
 
     $scope.products.loadData()
     $ionicLoading.show()
+
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'products'

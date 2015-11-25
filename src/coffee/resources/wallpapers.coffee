@@ -4,11 +4,11 @@ class Wallpapers extends Factory then constructor: (
     timeout = 20000
     cache = $cacheFactory 'resourceWallpapersCache'
 
-    url = CFG.API.getPath('wallpaper/')
+    url = CFG.API.getPath('wallpapers/')
     paramDefaults = {}
     actions =
         getPage:
-            url: CFG.API.getPath('wallpaper/')
+            url: CFG.API.getPath('wallpapers/')
             method: 'GET'
             params:
                 page: 1

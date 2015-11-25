@@ -1,9 +1,6 @@
 class FanzoneWallpapers extends Controller then constructor: (
     $cordovaFile, $cordovaFileTransfer, $ionicLoading, $ionicPlatform, $ionicPopup, $rootScope, $scope, $timeout, GoogleAnalytics, Images, Und, Wallpapers
 ) ->
-    $ionicPlatform.ready ->
-        GoogleAnalytics.trackView 'wallpapers'
-
     $scope.downloadFile = (url) ->
         confirmPopup = $ionicPopup.confirm(
             title: 'Download',
@@ -42,6 +39,7 @@ class FanzoneWallpapers extends Controller then constructor: (
     $scope.wallpapers =
         items: []
         next: null
+        loaded: no
         loadData: (args) ->
             $this = @
             pull = if args && args.pull then args.pull else no
@@ -49,6 +47,7 @@ class FanzoneWallpapers extends Controller then constructor: (
                 page: 1
                 limit: pageLimit
             , (success) ->
+                $this.loaded = yes
                 $this.next = if success.next then success.next else null
                 $this.items = success.items
                 if pull
@@ -78,3 +77,6 @@ class FanzoneWallpapers extends Controller then constructor: (
 
     $scope.wallpapers.loadData()
     $ionicLoading.show()
+
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'wallpapers'
