@@ -1,9 +1,6 @@
 class aboutClubTeam extends Controller then constructor: (
-    $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Personals, Und
+    $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Personals
 ) ->
-    $ionicPlatform.ready ->
-        GoogleAnalytics.trackView 'team'
-
     pageLimit = 100
     personals = new Personals()
 
@@ -12,6 +9,7 @@ class aboutClubTeam extends Controller then constructor: (
     $scope.personals =
         items: []
         next: no
+        loaded: no
         getPositionClass: (shortName)->
             switch shortName
                 when 'GK' then '-goalkeeper'
@@ -26,6 +24,7 @@ class aboutClubTeam extends Controller then constructor: (
                 page: 1
                 limit: pageLimit
             , (success) ->
+                $this.loaded = yes
                 $this.next = if success.next then success.next else null
                 $this.items = success.items
                 if pull
@@ -55,3 +54,6 @@ class aboutClubTeam extends Controller then constructor: (
 
     $scope.personals.loadData()
     $ionicLoading.show()
+
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'team'
