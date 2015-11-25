@@ -1,39 +1,51 @@
 class GamesScores extends Factory then constructor: (
-    $resource, CFG, Helper, Und
+    $cacheFactory, $resource, CFG, Helper
 ) ->
     timeout = 20000
+    cache = $cacheFactory 'resourceGamesScoresCache'
 
-    resource = $resource(CFG.API.getPath('games-scores/'), {}, {
+    url = CFG.API.getPath('games-scores/')
+    paramDefaults = {}
+    actions =
         getPage:
             url: CFG.API.getPath('games-scores/result/' + CFG.clubId)
             method: 'GET'
             params:
                 page: 1
                 limit: 20
+            responseType: 'json'
+            cache: cache
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
+                newData = angular.copy data
                 fields =
                     limit: 'limit'
                     page: 'page'
                     pages: 'pages'
                     total: 'total'
                     items: '_embedded.items'
-                data = Helper.traverseProperties data, fields
-                data.items = Und.map data.items, (item) ->
+                newData = Helper.traverseProperties newData, fields
+                angular.forEach newData.items, (value, key) ->
                     fields =
                         id: ''
                         profilePicture: 'user.profile_picture'
                         displayName: 'user.displayname'
                         times: 'times'
                         points: 'points'
-                    return Helper.traverseProperties item, fields
-                if data.page < data.pages
-                    data.next = data.page + 1
-                return data
+                    newData.items[key] = Helper.traverseProperties value, fields
+                if newData.page < newData.pages
+                    newData.next = newData.page + 1
+                return newData
+            then: (resolve) ->
+                if !angular.isUndefined @params and !angular.isUndefined @params.flush
+                    if @params.flush
+                        cache.removeAll()
+                    delete @params.flush
+                @then = null
+                resolve @
             timeout: timeout
-    })
+    options = {}
+    extend = {}
 
+    resource = $resource url, paramDefaults, actions, options
+    resource.prototype = angular.extend extend, resource.prototype
     return resource

@@ -2,7 +2,7 @@
 
 @mixin cover {
     width: 100%;
-    height: 320px;
+    height: auto;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -10,9 +10,30 @@
     align-items: center;
 }
 
+.form {
+    input {
+        height: 40px;
+        width: 100%;
+    }
+
+    .button-send {
+        height: 36px;
+    }
+}
+
+.fixlist {
+    margin-top: -20px;
+}
+
 .space {
     height: 6px;
     background-color: #d1d3d4;
+}
+
+.button-me {
+    margin-top: -4px;
+    min-height: 24px;
+    line-height: 0;
 }
 
 .datetime {

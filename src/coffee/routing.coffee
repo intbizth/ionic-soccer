@@ -106,6 +106,28 @@ class Routing extends Config then constructor: ($stateProvider, $urlRouterProvid
                 controller: 'matchLineupsController'
                 templateUrl: 'templates/match/lineups/main.html'
 
+    state 'member',
+        url: '/member/main'
+        controller: 'memberMainController'
+        templateUrl: 'templates/member/main.html'
+
+    state 'member-login',
+        url: '/member/login'
+        controller: 'memberLoginMainController'
+        templateUrl: 'templates/member/login.html'
+
+    state 'member-register-step1',
+        url: '/member/register/step1'
+        controller: 'memberRegisterStep1Controller'
+        templateUrl: 'templates/member/register/step1.html'
+
+    state 'member-register-step2',
+        url: '/member/register/step2'
+        params:
+            data: null
+        controller: 'memberRegisterStep2Controller'
+        templateUrl: 'templates/member/register/step2.html'
+
     state 'news-detail',
         url: '/news/detail/:id'
         controller: 'newsDetailController'

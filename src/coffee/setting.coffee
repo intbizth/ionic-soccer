@@ -1,6 +1,7 @@
 class Setting extends Config then constructor: (
-    CFG, $httpProvider, OAuthProvider, $resourceProvider
+    $httpProvider, $resourceProvider, CFG, OAuthProvider
 ) ->
-    $httpProvider.defaults.paramSerializer = '$httpParamSerializerJQLike'
-    OAuthProvider.configure CFG.OAuth.getConfig()
     $resourceProvider.defaults.stripTrailingSlashes = no
+    OAuthProvider.configure CFG.OAuth.getConfig()
+    $httpProvider.defaults.headers.post = {}
+

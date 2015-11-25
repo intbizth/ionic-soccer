@@ -3,7 +3,7 @@ ion-view.games
         | {{ 'ui.t.games.title'|trans }}
 
     ion-nav-buttons(side="left")
-        a.button.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
+        a.button.button-nav.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
             img.logo(
                 src="./img/logo/navbar.png"
                 srcset="./img/logo/navbar@2x.png 2x"
@@ -16,7 +16,9 @@ ion-view.games
     ion-content.content
         ion-refresher(pulling-text="Pull to refresh...", on-refresh="data.doRefresh()")
 
-        div.banner
+        div.cover(ng-if="cover.image")
+            div.images
+                img(image-cache="{{cover.image}}", width="100%", height="auto")
 
         div.games-detail
             div.row
@@ -49,7 +51,7 @@ ion-view.games
                         div.col-40.col-center.club
                             div.row
                                 div.col.col-75.col-center.text-center
-                                    span.name.text-center {{item.homeClub.name}}
+                                    span.name-left.text-center {{item.homeClub.name}}
                                 div.col.col-25.col-center
                                     img.logo.-right(ng-src="{{item.homeClub.logo}}")
 
@@ -70,7 +72,7 @@ ion-view.games
                                 div.col.col-25.col-center
                                     img.logo(ng-src="{{item.awayClub.logo}}")
                                 div.col.col-75.col-center.-left.text-center
-                                    div.name.text-center {{item.awayClub.name}}
+                                    div.name-right.text-center {{item.awayClub.name}}
 
                     div.space(ng-if="!item.isLive")
 

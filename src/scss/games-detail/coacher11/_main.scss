@@ -1,4 +1,193 @@
 @charset "UTF-8";
 
-.coacher11 {
+.games-coacher11 {
+    .killpadding {
+        padding: 0px;
+    }
+
+    .match-label {
+        height: 100%;
+        background-color: #ffffff;
+        .logo {
+            .image {
+                width: 30px;
+                margin-right: 10%;
+                margin-left: 10%;
+            }
+        }
+
+        .name {
+            font-size: 14px;
+            color: #000000;
+        }
+
+        .vs {
+            padding-top: 22px;
+            height: 70px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #0056a2;
+        }
+    }
+
+    .headline {
+        color: #ffffff;
+        background-color: #162a38;
+        .time {
+            margin-right: 5px;
+            .yellow {
+                color: #faaf40;
+            }
+        }
+        .image {
+            width: 50px;
+            margin-left: 7px;
+        }
+    }
+
+    .image {
+        width: 100%;
+        height: auto;
+    }
+
+
+    .teamplayer {
+        color: #231f20;
+        background-color: #f1f2f2;
+        .image {
+            width: 100px;
+            height: 20px;
+        }
+    }
+
+    .personal {
+        .position {
+            width: 28px;
+            height: 20px;
+            margin: 5px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #ffffff;
+
+            &.-goalkeeper {
+                background-color: #7e1420;
+            }
+
+            &.-defender {
+                background-color: #fbaf42;
+            }
+
+            &.-midfielder {
+                background-color: #3ab44a;
+            }
+
+            &.-forwarder {
+                background-color: #0188cf;
+            }
+        }
+
+        .detail {
+            padding-bottom: 6px;
+            background-color: #1e2b44;
+        }
+
+        .row {
+            padding: 0px;
+            background-color: #213647;
+        }
+
+        .focus {
+            padding: 0px;
+            background-color: #0088cf;
+        }
+
+        //.row:active {
+        //    opacity: 0.5;
+            //background-color: #0088cf;
+        //}
+
+        .circle {
+            width: 38px;
+            height: 38px;
+            border: solid #ffffff 1px;
+            border-radius: 20px;
+
+            .subcircle {
+                margin: 1px 0 0 1px;
+                width: 34px;
+                height: 34px;
+                background-color: #f0f0f0;
+                border-radius: 18px;
+            }
+
+            .image {
+                width: 36px;
+                height: 36px;
+                border-radius: 18px;
+            }
+        }
+
+        .fullname {
+            padding: 0 6px;
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        .no {
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        .score {
+            font-size: 14px;
+            color: #ffffff;
+        }
+        
+        .icon {
+            color: #ffffff;
+            font-size: 18px;
+        }
+
+        .icon:active {
+            color: #0188cf;
+        }
+    }
+
+    .choose {
+        color: #ffffff;
+        .header {
+            padding-left: 10px;
+            background-color: #162a38;
+        }
+
+        .name {
+            text-align: center;
+            background-color: #0056a2;
+        }
+    }
+
+    .end {
+        background: -webkit-linear-gradient(#1d354c, #0c5a99, #0156a2);
+        background: -o-linear-gradient(#1d354c, #0c5a99, #0156a2);
+        background: -moz-linear-gradient(#1d354c, #0c5a99, #0156a2);
+        background: linear-gradient(#1d354c, #0c5a99, #0156a2);
+        .submit {
+            width: 85%;
+            color: #ffffff;
+            padding: 10px 50px;
+            border: solid silver 1px;
+            font-size: 14px;
+            margin: 5px auto;
+        }
+
+        .submit:active {
+            opacity: 0.5;
+        }
+    }
+
+    .footer {
+        width: 100%;
+        height: 10px;
+        background-color: #0188cf;
+    }
 }
