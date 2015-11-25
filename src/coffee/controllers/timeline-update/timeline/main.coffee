@@ -1,5 +1,5 @@
 class Timeline extends Controller then constructor: (
-    $cordovaSocialSharing, $ionicLoading, $ionicPlatform, $rootScope, $scope, CFG, Chance, GoogleAnalytics, MicroChats, Moment
+    $cordovaSocialSharing, $interval, $ionicLoading, $ionicPlatform, $rootScope, $scope, CFG, Chance, GoogleAnalytics, MicroChats, Moment
 ) ->
     $scope.isLoggedin = $rootScope.isLoggedin
 
@@ -13,10 +13,10 @@ class Timeline extends Controller then constructor: (
         , (error) ->
             return
 
-    pageLimit = 20
+    pageLimit = 50
     microChats = new MicroChats()
 
-    $scope.microChats =
+    $scope.microChats  =
         items: []
         next: null
         loaded: no
@@ -33,11 +33,13 @@ class Timeline extends Controller then constructor: (
             , (success) ->
                 $this.loaded = yes
                 $this.next = if success.next then success.next else null
-                $this.items = success.items
+                $this.cacheData = $this.items = success.items
+                console.warn 'loadData:success', success, $this.cacheData
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
                     $ionicLoading.hide()
+                $this.autoFetchData()
             , (error) ->
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
@@ -54,11 +56,45 @@ class Timeline extends Controller then constructor: (
                 limit: pageLimit
             , (success) ->
                 $this.next = if success.next then success.next else null
-                $this.items = $this.items.concat success.items
+                $this.cacheData = $this.items = $this.items.concat success.items
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
             , (error) ->
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
             )
+        cacheData: null
+        # TODO
+        autoFetchData: ->
+            $this = @
+
+            fetch = ->
+                microChats.$getPage(
+                    page: 1
+                    limit: pageLimit
+                    flush: yes
+                , (success) ->
+                    console.warn 'fetchData:success', success.items, $this.cacheData, angular.equals(success.items, $this.cacheData), ($this.cacheData and !angular.equals success.items, $this.cacheData)
+
+                    if $this.cacheData and !angular.equals success.items, $this.cacheData
+                        items = []
+
+                        angular.forEach success.items, (value, key) ->
+                            if angular.equals $this.items[0], value
+                                return
+                            else
+                                items.push value
+
+                        $this.items.unshift items
+                        $this.cacheData = $this.items
+
+
+                        console.warn 'not equal', items
+                , (error) ->
+                    return
+                )
+
+            $interval(->
+                fetch()
+            , 10000)
         isPass: no
         message: ''
         errorMessage: ''
