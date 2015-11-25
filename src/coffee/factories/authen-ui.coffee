@@ -96,6 +96,9 @@ class AuthenUI extends Factory then constructor: (
                 , (error) ->
                     $this.errorMessage = error;
                     $ionicLoading.hide()
+                , (message) ->
+                    $this.errorMessage = message;
+                    $ionicLoading.hide()
                 )
 
         scope.step1 =
@@ -172,8 +175,8 @@ class AuthenUI extends Factory then constructor: (
                         plainPassword:
                             first: scope.step1.password
                             second: scope.step1.confirmPassword
-                    firstname: $this.firstname
-                    lastname: $this.lastname
+                    firstName: $this.firstname
+                    lastName: $this.lastname
                     birthday: $this.birthday
 
                 $ionicLoading.show()
@@ -184,13 +187,21 @@ class AuthenUI extends Factory then constructor: (
                     promise = Authen.login data.user.username, data.user.plainPassword.first
                     promise.then(->
                         $ionicLoading.hide()
-                    , ->
+                    , (error) ->
                         $this.errorMessage = error;
+                        $ionicLoading.hide()
+                    , (message) ->
+                        $this.errorMessage = message;
                         $ionicLoading.hide()
                     )
                 , (error) ->
-                    if error.status == 400 then $this.errorMessage = error.data.message
-                    else if error.status == 500 then $this.errorMessage = error.statusText
+                    if error.data and error.data.message
+                        $this.errorMessage = error.data.message
+                    else if error.data and error.data.error_description
+                        $this.errorMessage = error.data.error_description
+                    else
+                        $this.errorMessage = error.statusText
+
                     $ionicLoading.hide()
                 )
 
@@ -270,7 +281,14 @@ class AuthenUI extends Factory then constructor: (
     )
 
     $rootScope.$on 'event:auth-loginRequired', (event, data) ->
-        if !Authen.isLoggedin() then login()
+        if scope.modal
+            if !Authen.isLoggedin() and !scope.modal.isShown()
+                login()
+            else if  !Authen.isLoggedin() and scope.modal.isShown()
+                $ionicLoading.hide()
+        else
+            if !Authen.isLoggedin()
+                login()
 
     $rootScope.$on 'event:auth-logout', (event, data) ->
         logout()

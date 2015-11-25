@@ -46,6 +46,13 @@ class MicroChats extends Factory then constructor: (
                 @then = null
                 resolve @
             timeout: timeout
+        send:
+            url: CFG.API.getPath('micro-chats/')
+            method: 'POST'
+            responseType: 'json'
+            transformRequest: (data, headersGetter) ->
+                return Helper.buildFormData data
+            timeout: timeout
     options = {}
     extend = {}
 

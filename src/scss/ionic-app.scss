@@ -36,6 +36,11 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     }
 }
 
+.errorMessage {
+    background-color: #00669c;
+    color: #ffffff;
+}
+
 .button-positive {
     border: none;
     background: linear-gradient(to bottom, #182a3e 0%, #0a4393 100%);

@@ -1,5 +1,5 @@
 class Run extends Run then constructor: (
-    $cordovaAppVersion, $cordovaKeyboard, $ionicPlatform, $rootScope, Authen, CFG, GoogleAnalytics, ImageCache
+    $cordovaAppVersion, $cordovaKeyboard, $ionicPlatform, $rootScope, CFG, GoogleAnalytics, ImageCache
 ) ->
     $rootScope.isAndroid = no
     $rootScope.isIOS = no
