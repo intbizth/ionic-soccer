@@ -1,67 +1,71 @@
 class FeatureMain extends Controller then constructor: (
-    $cordovaAppVersion, $ionicModal, $ionicPlatform, $scope, $timeout, Chance, GoogleAnalytics, Und
+    $document, $ionicHistory, $ionicPlatform, $rootScope, $scope, $timeout, Ads, Authen, AuthenUI, GoogleAnalytics
 ) ->
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'feature'
 
-    $scope.ads =
-        item: './img/ads/banners/1@2x.png'
+    $scope.version = $rootScope.version
+    $rootScope.$on 'version', (event, data) ->
+        $scope.version = data
 
-    $ionicModal.fromTemplateUrl(
-        'templates/feature/ads.html',
-         scope: $scope
-    ).then (modal) ->
-        $scope.modal = modal
+    Ads.$on 'ready', ->
+        Ads.openModal()
 
-        $timeout (->
-            $scope.openAds()
-            return
-        )
-        return
-    $scope.openAds = ->
-        GoogleAnalytics.trackEvent 'ads', 'show'
-        $scope.modal.show()
-        return
-    $scope.closeAds = ->
-        GoogleAnalytics.trackEvent 'ads', 'hide'
-        $scope.modal.hide()
-        return
-    $scope.version = '0.0.0'
-    document.addEventListener('deviceready', ->
-        $cordovaAppVersion.getVersionNumber().then ((version) ->
-            $scope.version = version
-            return
-        )
-        return
-    , false)
+    $ionicHistory.clearHistory()
+    $ionicHistory.clearCache()
+
+    $scope.isLoggedin = $rootScope.isLoggedin
+
     $scope.profile =
-        item: {},
-        loadData: ->
-            @item = @fakeItem()
-            console.log('profile:loadData', JSON.stringify(@item))
-            return
-        refresh: ->
-            console.log 'profile:doRefresh'
-            $this = @
-            $timeout(->
-                console.log 'profile:doRefresh2'
-                $this.loadData()
-                $scope.$broadcast 'scroll.refreshComplete'
-                return
-            , 2000)
-            return
-        fakeItem: ->
-            profile = Chance.profile()
-            item =
-                id: Und.random(1, 9999999)
-                photo: './img/feature/profile@2x.png'
-                name: 'Firstname Lastname'
+        item: {}
+        photo:
+            element: angular.element $document[0].querySelector '.profile img.photo'
+            setDefault: ->
+                @element.attr 'src', './img/member/photo.png'
+                @element.attr 'srcset', './img/member/photo@2x.png 2x'
+            setData: (data) ->
+                @element.attr 'src', data
+                @element.removeAttr 'srcset'
+        setDefault: ->
+            @item =
+                id: 0
+                name: if $scope.isLoggedin then 'Unknown' else 'Guest'
                 point1: 0
                 point2: 0
-            return item
+            @photo.setDefault()
+        loadData: (args) ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            flush = if args && args.flush then args.flush else no
+            promise = Authen.getUser(flush: flush)
+            promise.then((success) ->
+                $this.item =
+                    id: success.id
+                    name: success.firstName + ' ' + success.lastName
+                    point1: 0
+                    point2: 0
+                if success.profilePicture
+                    $this.photo.setData success.profilePicture
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+            , (error) ->
+                $this.setDefault()
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+            )
+        refresh: ->
+            @loadData(flush: yes, pull: yes)
 
+    $scope.profile.setDefault()
     $scope.profile.loadData()
 
-    $scope.refresh = ->
-        $scope.profile.refresh()
+    $scope.login = ->
+        $rootScope.$emit 'event:auth-loginRequired'
+
+    $scope.logout = ->
+        $rootScope.$emit 'event:auth-logout'
+
+    $rootScope.$on 'event:auth-stateChange', (event, data) ->
+        $scope.isLoggedin = data
+        $scope.profile.loadData()
         return

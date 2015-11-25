@@ -1,7 +1,8 @@
 class Matches extends Factory then constructor: (
-    $resource, CFG, Helper, Und
+    $cacheFactory, $resource, CFG, Helper
 ) ->
     timeout = 20000
+    cache = $cacheFactory 'resourceMatchesCache'
 
     getMatchEvents = (data) ->
         fields =
@@ -60,15 +61,15 @@ class Matches extends Factory then constructor: (
             data.activities.reverse()
         return data
 
-    resource = $resource(CFG.API.getPath('matches/'), {}, {
+    url = CFG.API.getPath('matches/')
+    paramDefaults = {}
+    actions =
         getLive:
             url: CFG.API.getPath('matches/live/' + CFG.clubId)
             method: 'GET'
+            responseType: 'json'
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
+                newData = angular.copy data
                 fields =
                     id: 'id'
                     streaming: 'streaming'
@@ -85,35 +86,40 @@ class Matches extends Factory then constructor: (
                         logo: 'away_club._links.logo_70x70.href'
                         score: 'away_score'
                     startTime: 'start_time'
-                matchLabel = Helper.traverseProperties data, fields
+                matchLabel = Helper.traverseProperties newData, fields
                 matchLabel.type = 'label'
                 matchLabel.template = 'after'
                 section =
                     type: 'section'
                     startTime: matchLabel.startTime || null
                 matchLabel = [section ,matchLabel]
-                data =
+                newData2 =
                     streaming: matchLabel.streaming || null
                     matchLabel: matchLabel
-                    matchEvents: getMatchEvents data
-                return data
+                    matchEvents: getMatchEvents newData
+                return newData2
+            then: (resolve) ->
+                if !angular.isUndefined @params and !angular.isUndefined @params.flush
+                    if @params.flush
+                        cache.remove @url
+                    delete @params.flush
+                @then = null
+                resolve @
             timeout: timeout
         getFixture:
             url: CFG.API.getPath('matches/nexts/' + CFG.clubId)
             method: 'GET'
+            responseType: 'json'
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
+                newData = angular.copy data
                 fields =
                     limit: 'limit'
                     page: 'page'
                     pages: 'pages'
                     total: 'total'
                     items: '_embedded.items'
-                data = Helper.traverseProperties data, fields
-                data.items = Und.map data.items, (item) ->
+                newData = Helper.traverseProperties newData, fields
+                angular.forEach newData.items, (value, key) ->
                     fields =
                         id: 'id'
                         is_live: 'is_live'
@@ -132,30 +138,34 @@ class Matches extends Factory then constructor: (
                             logo: 'away_club._links.logo_70x70.href'
                             score: 'away_score'
                         startTime: 'start_time'
-                    item = Helper.traverseProperties item, fields
-                    item.type = 'label'
-                    item.template = 'before'
-                    return item
-                if data.page < data.pages
-                    data.next = data.page + 1
-                return data
+                    newData.items[key] = Helper.traverseProperties value, fields
+                    newData.items[key].type = 'label'
+                    newData.items[key].template = 'before'
+                if newData.page < newData.pages
+                    newData.next = newData.page + 1
+                return newData
+            then: (resolve) ->
+                if !angular.isUndefined @params and !angular.isUndefined @params.flush
+                    if @params.flush
+                        cache.removeAll()
+                    delete @params.flush
+                @then = null
+                resolve @
             timeout: timeout
         getResults:
             url: CFG.API.getPath('matches/latest/' + CFG.clubId)
             method: 'GET'
+            responseType: 'json'
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
+                newData = angular.copy data
                 fields =
                     limit: 'limit'
                     page: 'page'
                     pages: 'pages'
                     total: 'total'
                     items: '_embedded.items'
-                data = Helper.traverseProperties data, fields
-                data.items = Und.map data.items, (item) ->
+                newData = Helper.traverseProperties newData, fields
+                angular.forEach newData.items, (value, key) ->
                     fields =
                         id: 'id'
                         is_live: 'is_live'
@@ -174,24 +184,28 @@ class Matches extends Factory then constructor: (
                             logo: 'away_club._links.logo_70x70.href'
                             score: 'away_score'
                         startTime: 'start_time'
-                    item = Helper.traverseProperties item, fields
-                    item.type = 'label'
-                    item.template = 'before'
-                    return item
-                if data.page < data.pages
-                    data.next = data.page + 1
-                return data
+                    newData.items[key] = Helper.traverseProperties value, fields
+                    newData.items[key].type = 'label'
+                    newData.items[key].template = 'before'
+                if newData.page < newData.pages
+                    newData.next = newData.page + 1
+                return newData
+            then: (resolve) ->
+                if !angular.isUndefined @params and !angular.isUndefined @params.flush
+                    if @params.flush
+                        cache.removeAll()
+                    delete @params.flush
+                @then = null
+                resolve @
             timeout: timeout
         getLineUp:
             url: CFG.API.getPath('matches/:id')
             method: 'GET'
             params:
                 id: '@id'
+            responseType: 'json'
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
+                newData = angular.copy data
                 fields =
                     id: 'id'
                     homeClub:
@@ -210,20 +224,25 @@ class Matches extends Factory then constructor: (
                             id: 'away_formation.id'
                             name: 'away_formation.name'
                             pattern: 'away_formation.pattern'
-                data = Helper.traverseProperties data, fields
-                data.me = if CFG.clubId == data.homeClub.id then 'homeClub' else 'awayClub'
-                return data
+                newData = Helper.traverseProperties newData, fields
+                newData.me = if CFG.clubId == data.homeClub.id then 'homeClub' else 'awayClub'
+                return newData
+            then: (resolve) ->
+                if !angular.isUndefined @params and !angular.isUndefined @params.flush
+                    if @params.flush
+                        cache.remove @url
+                    delete @params.flush
+                @then = null
+                resolve @
             timeout: timeout
         getId:
             url: CFG.API.getPath('matches/:id')
             method: 'GET'
             params:
                 id: '@id'
+            responseType: 'json'
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
+                newData = angular.copy data
                 fields =
                     id: 'id'
                     homeClub:
@@ -239,18 +258,28 @@ class Matches extends Factory then constructor: (
                         logo: 'away_club._links.logo_70x70.href'
                         score: 'away_score'
                     startTime: 'start_time'
-                matchLabel = Helper.traverseProperties data, fields
+                matchLabel = Helper.traverseProperties newData, fields
                 matchLabel.type = 'label'
                 matchLabel.template = 'after'
                 section =
                     type: 'section'
                     startTime: matchLabel.startTime || null
                 matchLabel = [section ,matchLabel]
-                data =
+                newData2 =
                     matchLabel: matchLabel
-                    matchEvents: getMatchEvents data
-                return data
+                    matchEvents: getMatchEvents newData
+                return newData2
+            then: (resolve) ->
+                if !angular.isUndefined @params and !angular.isUndefined @params.flush
+                    if @params.flush
+                        cache.remove @url
+                    delete @params.flush
+                @then = null
+                resolve @
             timeout: timeout
-    })
+    options = {}
+    extend = {}
 
+    resource = $resource url, paramDefaults, actions, options
+    resource.prototype = angular.extend extend, resource.prototype
     return resource

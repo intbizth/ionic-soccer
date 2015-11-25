@@ -1,25 +1,27 @@
 class Personals extends Factory then constructor: (
-    $resource, CFG, Helper, Und
+    $cacheFactory, $resource, CFG, Helper
 ) ->
     timeout = 20000
+    cache = $cacheFactory 'resourcePersonalsCache'
 
-    resource = $resource(CFG.API.getPath('personals'), {}, {
+    url = CFG.API.getPath('personals/')
+    paramDefaults = {}
+    actions =
         getClubMe:
             url: CFG.API.getPath('personals/club/' + CFG.clubId)
             method: 'GET'
+            responseType: 'json'
+            cache: cache
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
+                newData = angular.copy data
                 fields =
                     limit: 'limit'
                     page: 'page'
                     pages: 'pages'
                     total: 'total'
                     items: '_embedded.items'
-                data = Helper.traverseProperties data, fields
-                data.items = Und.map data.items, (item) ->
+                newData = Helper.traverseProperties newData, fields
+                angular.forEach newData.items, (value, key) ->
                     fields =
                         id: 'id'
                         no: 'no'
@@ -28,21 +30,27 @@ class Personals extends Factory then constructor: (
                         position:
                             name: 'position.name'
                             shortName: 'position.short_name'
-                    return Helper.traverseProperties item, fields
-                if data.page < data.pages
-                    data.next = data.page + 1
-                return data
+                    newData.items[key] = Helper.traverseProperties value, fields
+                if newData.page < newData.pages
+                    newData.next = newData.page + 1
+                return newData
+            then: (resolve) ->
+                if !angular.isUndefined @params and !angular.isUndefined @params.flush
+                    if @params.flush
+                        cache.removeAll()
+                    delete @params.flush
+                @then = null
+                resolve @
             timeout: timeout
         getId:
             url: CFG.API.getPath('personals/:id')
             method: 'GET'
             params:
                 id: '@id'
+            responseType: 'json'
+            cache: cache
             transformResponse: (data, headersGetter) ->
-                try
-                    data = angular.fromJson(data)
-                catch
-                    data = {}
+                newData = angular.copy data
                 fields =
                     id: 'id'
                     no: 'no'
@@ -62,13 +70,23 @@ class Personals extends Factory then constructor: (
                         name: 'previous_club.name'
                         startDate: 'last_club_personal.start_date'
                         signedDate: 'last_club_personal.signed_date'
-                data = Helper.traverseProperties data, fields
-                data.score =
+                newData = Helper.traverseProperties newData, fields
+                newData.score =
                     yellow: 0
                     red: 0
                     goal: 0
-                return data
+                return newData
+            then: (resolve) ->
+                if !angular.isUndefined @params and !angular.isUndefined @params.flush
+                    if @params.flush
+                        cache.remove @url
+                    delete @params.flush
+                @then = null
+                resolve @
             timeout: timeout
-    })
+    options = {}
+    extend = {}
 
+    resource = $resource url, paramDefaults, actions, options
+    resource.prototype = angular.extend extend, resource.prototype
     return resource

@@ -1,55 +1,39 @@
 class FanzoneWallpapers extends Controller then constructor: (
-    $cordovaFileTransfer, $ionicLoading, $ionicPlatform, $ionicPopup, $rootScope, $scope, $timeout, GoogleAnalytics, md5, Und, Wallpapers
+    $cordovaFile, $cordovaFileTransfer, $ionicLoading, $ionicPlatform, $ionicPopup, $rootScope, $scope, $timeout, GoogleAnalytics, Images, Und, Wallpapers
 ) ->
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'wallpapers'
 
     $scope.downloadFile = (url) ->
         confirmPopup = $ionicPopup.confirm(
-            title: 'Confirm',
+            title: 'Download',
             template: 'Are you sure you want to download this wallpaper?'
             cancelText: 'Cancel'
             okText: 'Save'
         )
 
         confirmPopup.then (res) ->
-            console.log res
             if res
-                name = md5.createHash(url) + '.png'
-                url = url || ''
-                targetPath = ''
-                if $rootScope.isIOS
-                    targetPath = cordova.file.dataDirectory
-                else if $rootScope.isAndroid
-                    targetPath = cordova.file.externalApplicationStorageDirectory
-                targetPath += name
-                options = {}
-                trustHosts = yes
-
-                console.warn 'name', name, JSON.stringify name
-                console.warn 'targetPath', targetPath
-
                 $ionicLoading.show()
-
-                $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then (result) ->
-                    console.warn 'result', result, JSON.stringify result
+                Images.saveToLibrary(url
+                , ->
+                    message = ''
+                    if $rootScope.isIOS
+                        message = 'Saved to camera roll.'
+                    else if $rootScope.isAndroid
+                        message = 'Saved'
                     $ionicPopup.alert(
-                        title: 'Saved.'
+                        title: message
                         okText: 'Ok'
                     )
                     $ionicLoading.hide()
                 , (error) ->
-                    console.warn 'error', error, JSON.stringify error
                     $ionicPopup.alert(
-                        title: 'Can\'t save.'
+                        title: error
                         okText: 'Ok'
                     )
                     $ionicLoading.hide()
-                , (progress) ->
-                    $timeout(->
-                        $scope.downloadProgress = (progress.loaded / progress.total) * 100;
-                        console.warn 'downloadProgress', $scope.downloadProgress
-                    )
+                )
             return
 
     pageLimit = 20

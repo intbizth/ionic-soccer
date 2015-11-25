@@ -1,0 +1,27 @@
+ion-view.member-main(hide-nav-bar="true")
+    ion-content.content(scroll="false")
+        div.subcontent
+            div.row
+                div.col.text-center
+                    img.logo(src="./img/member/logo.png", srcset="./img/member/logo@2x.png 2x")
+            div.row
+                div.col.text-center
+                    img.sublogo(src="./img/member/sublogo.png", srcset="./img/member/sublogo@2x.png 2x")
+            div.space
+            div.row
+                div.col.text-center
+                    button.button.button-outline.button-light(ui-sref="member-login")
+                        span Login
+                div.col.text-center
+                    button.button.button-outline.button-light(ui-sref="member-register-step1")
+                        span Register
+            div.row
+                div.col.text-center
+                    button.button.button-outline.button-light
+                        span.bold Member ID Login
+            div.row
+                div.col.text-center
+                    button.button.button-outline.button-light
+                        span Sign in with
+                        span.bold  Facebook
+                    div.facebook
