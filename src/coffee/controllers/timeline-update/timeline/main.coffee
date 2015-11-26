@@ -1,5 +1,5 @@
 class Timeline extends Controller then constructor: (
-    $cordovaSocialSharing, $interval, $ionicLoading, $ionicPlatform, $rootScope, $scope, CFG, Chance, GoogleAnalytics, MicroChats, Moment
+    $cordovaSocialSharing, $interval, $ionicLoading, $ionicPlatform, $rootScope, $scope, CFG, Chance, GoogleAnalytics, Matches, MicroChats, Moment
 ) ->
     $scope.isLoggedin = $rootScope.isLoggedin
 
@@ -15,8 +15,31 @@ class Timeline extends Controller then constructor: (
 
     pageLimit = 50
     microChats = new MicroChats()
+    matches = new Matches()
 
-    $scope.microChats  =
+    $scope.matchLabel =
+        items: []
+        loaded: no
+        loadData: (args) ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            flush = if args && args.flush then args.flush else no
+            if !pull
+                $this.loaded = no
+            matches.$getToday(
+                page: 1
+                limit: pageLimit
+                flush: flush
+            , (success) ->
+                $this.loaded = yes
+                $this.items = success.items
+            , (error) ->
+                return
+            )
+        refresh: ->
+            @loadData(flush: yes, pull: yes)
+
+    $scope.microChats =
         items: []
         next: null
         loaded: no
@@ -35,12 +58,12 @@ class Timeline extends Controller then constructor: (
                 $this.next = if success.next then success.next else null
                 $this.items = success.items
                 $this.cacheData = angular.copy $this.items
-                console.warn 'loadData:success', success, $this.cacheData
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
                     $ionicLoading.hide()
                 $this.autoFetchData()
+                $scope.matchLabel.loadData()
             , (error) ->
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
@@ -50,6 +73,7 @@ class Timeline extends Controller then constructor: (
         refresh: ->
             @errorMessage = ''
             @loadData(flush: yes, pull: yes)
+            $scope.matchLabel.refresh()
         loadNext: ->
             $this = @
             microChats.$getPage(
@@ -73,7 +97,7 @@ class Timeline extends Controller then constructor: (
                     limit: pageLimit
                     flush: yes
                 , (success) ->
-                    if $this.cacheData and !angular.equals success.items, $this.cacheData
+                    if success.items.length > 0 and $this.cacheData.length > 0 and !angular.equals success.items, $this.cacheData
                         push = yes
                         items = []
                         angular.forEach success.items, (value, key) ->
@@ -120,8 +144,6 @@ class Timeline extends Controller then constructor: (
                     date: Moment().format('YYYY-MM-DD')
                     time: Moment().format('HH:mm')
 
-            console.warn 'data', data
-
             $ionicLoading.show()
 
             new MicroChats(data).$send({}
@@ -140,6 +162,7 @@ class Timeline extends Controller then constructor: (
             )
 
     $scope.microChats.loadData()
+
     $ionicLoading.show()
 
     $ionicPlatform.ready ->

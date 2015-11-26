@@ -64,10 +64,61 @@ class Matches extends Factory then constructor: (
     url = CFG.API.getPath('matches/')
     paramDefaults = {}
     actions =
+        getToday:
+            url: CFG.API.getPath('matches/today')
+            method: 'GET'
+            params:
+                page: 1
+                limit: 20
+            responseType: 'json'
+            cache: cache
+            transformResponse: (data, headersGetter) ->
+                newData = angular.copy data
+                fields =
+                    limit: 'limit'
+                    page: 'page'
+                    pages: 'pages'
+                    total: 'total'
+                    items: '_embedded.items'
+                newData = Helper.traverseProperties newData, fields
+                angular.forEach newData.items, (value, key) ->
+                    fields =
+                        id: 'id'
+                        is_live: 'is_live'
+                        is_half_time: 'is_half_time'
+                        is_full_time: 'is_full_time'
+                        homeClub:
+                            id: 'home_club.id'
+                            name: 'home_club.name'
+                            shortName: 'home_club.short_name'
+                            logo: 'home_club._links.logo_70x70.href'
+                            score: 'home_score'
+                        awayClub:
+                            id: 'away_club.id'
+                            name: 'away_club.name'
+                            shortName: 'away_club.short_name'
+                            logo: 'away_club._links.logo_70x70.href'
+                            score: 'away_score'
+                        startTime: 'start_time'
+                    newData.items[key] = Helper.traverseProperties value, fields
+                    newData.items[key].type = 'label'
+                    newData.items[key].template = 'before'
+                if newData.page < newData.pages
+                    newData.next = newData.page + 1
+                return newData
+            then: (resolve) ->
+                if !angular.isUndefined @params and !angular.isUndefined @params.flush
+                    if @params.flush
+                        cache.remove @url
+                    delete @params.flush
+                @then = null
+                resolve @
+            timeout: timeout
         getLive:
             url: CFG.API.getPath('matches/live/' + CFG.clubId)
             method: 'GET'
             responseType: 'json'
+            cache: cache
             transformResponse: (data, headersGetter) ->
                 newData = angular.copy data
                 fields =
@@ -109,7 +160,11 @@ class Matches extends Factory then constructor: (
         getFixture:
             url: CFG.API.getPath('matches/nexts/' + CFG.clubId)
             method: 'GET'
+            params:
+                page: 1
+                limit: 20
             responseType: 'json'
+            cache: cache
             transformResponse: (data, headersGetter) ->
                 newData = angular.copy data
                 fields =
@@ -155,7 +210,11 @@ class Matches extends Factory then constructor: (
         getResults:
             url: CFG.API.getPath('matches/latest/' + CFG.clubId)
             method: 'GET'
+            params:
+                page: 1
+                limit: 20
             responseType: 'json'
+            cache: cache
             transformResponse: (data, headersGetter) ->
                 newData = angular.copy data
                 fields =
