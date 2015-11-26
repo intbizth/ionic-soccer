@@ -1,110 +1,66 @@
 @charset "UTF-8";
 
-@mixin cover {
-    width: 100%;
-    height: 320px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
+$lists: (
+    (class:a, background-color: #00bbe0, text1: #ffffff, text2: #ffffff, balance: #caf906),
+    (class:b, background-color: #1388cd, text1: #ffffff, text2: #ffffff, balance: #caf906),
+    (class:c, background-color: #0056a5, text1: #ffffff, text2: #ffffff, balance: #caf906)
+);
 
-.match-label {
-    .nodata {
-        .text {
-            padding: 18px 0px 18px 0px;
-            font-size: 14px;
-            font-weight: bold;
-        }
+@mixin ticketzone($color) {
+    .col-left {
+        color: #ffffff;
+        background-color: $color;
     }
 
-    .label {
-        background-color: #ffffff;
-
-        .logo {
-            .image {
-                width: 40px;
-                height: 40px;
-                background-color: #f0f0f0;
-            }
-        }
-
-        .name {
-            font-size: 14px;
-        }
-
-        .detail {
-            .score {
-                font-size: 22px;
-                font-weight: bold;
-                color: #0087cf;
-            }
-
-            .time {
-                font-size: 14px;
-                font-weight: bold;
-                color: #0087cf;
-            }
-
-            .date {
-                font-size: 10px;
-                color: #848586;
-            }
-        }
-    }
-    .match-detail {
-        padding-top: 8px;
-        width: 100%;
-        height: 75px;
-        font-size: 14px;
-        background-color: #e6e7e8;
-        color: #58595b;
-    }
-}
-
-.space {
-    height: 6px;
-}
-
-.footer {
-    height: 10px;
-    .share::before {
-        color: #0056a2;
-        opacity: 0.2;
-    }
-}
-
-.detail {
-    background-color: #ffffff;
-
-    .subdetail {
-        margin-left: 4px;
+    .col-right {
+        color: $color;
         background-color: #ffffff;
     }
+
+    border-radius: 16px;
+    border: 1px solid $color;
 }
 
-.-hightlight {
-    .datetime {
-        background-color: #0056a2;
-        color: #caf906;
+@mixin ticketmatches($background-color, $text1, $text2, $balance) {
+    background-color: $background-color;
+
+    .text1 {
+        color: $text1;
     }
 
-    .cover {
-        background-color: #1388cd;
+    .text2 {
+        color: $text2;
     }
 
-    .detail {
-        background-color: #1388cd;
+    .balance {
+        color: $balance;
     }
 }
 
-.banner {
+@each $list in $lists {
+    $class: nth(nth($list, 1), 2);
+    $background-color: nth(nth($list, 2), 2);
+    $text1: nth(nth($list, 3), 2);
+    $text2: nth(nth($list, 4), 2);
+    $balance: nth(nth($list, 5), 2);
+
+    .ticketzone-#{$class} {
+        @include ticketzone($background-color);
+    }
+
+    .ticketmatches-#{$class} {
+        @include ticketmatches($background-color, $text1, $text2, $balance);
+    }
+}
+
+.cover {
     width: 100%;
-    height: 170px;
-    background-image: url("../img/ticket-membership/ticket/banner.png");
+    height: 145px;
+    min-height: 145px;
+    background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    background-image: url("../img/ticket-membership/ticket/cover.png");
 }
 
 .section {
@@ -113,198 +69,50 @@
     }
 }
 
-.match-ticket {
-    .ticket-stadium {
-        width: 100%;
-        height: 425px;
-        background-image: url("../img/ticket-membership/ticket/ticket-stadium.png");
-        background-size: cover;
-        background-repeat: no-repeat;
+.image {
+    width: 100%;
+    height: auto;
+}
+
+.ticketzone {
+    width: 80%;
+    margin: auto;
+
+    .row {
+        padding: 0;
+        margin-bottom: 4px;
+    }
+
+    .col {
+        padding: 4px 0;
+        border-radius: 16px;
     }
 }
 
-.ticket {
-    .first {
-        background-color: #00bbe0;
-    }
-
-    .second {
-        background-color: #1388cd;
-    }
-
-    .third {
-        background-color: #0056a5;
-    }
-
-    .seat1 {
+.seat {
+    .text1 {
         font-size: 18px;
         font-weight: bold;
-        color: #ffffff;
     }
 
-    .seat2 {
+    .text2 {
         font-size: 14px;
-        color: #ffffff;
     }
 
-    .count {
+    .balance {
         font-size: 36px;
         font-weight: bold;
-        color: #caf906;
     }
 }
 
-.season-ticket {
-    .class-ticket {
-        margin-top: 5px;
-        .gold {
-            background-color: #A48031;
-        }
-
-        .silver {
-            background-color: #A5A6AA;
-        }
-
-        .bronze {
-            background-color: #302724;
-        }
-
-        .english {
-            font-size: 18px;
-            font-weight: bold;
-            color: #ffffff;
-        }
-
-        .thai {
-            font-size: 10px;
-            color: #ffffff;
-        }
-
-        .price {
-            font-size: 12px;
-            color: #ffffff;
-        }
-
-        .contact {
-            margin-top: 5px;
-            font-size: 12px;
-        }
-    }
-
-    .space {
-        background-color: #ffffff;
-        width: 100%;
-        height: 10px;
-    }
+.footer {
+    height: 14px;
+    width: 100%;
+    background-color: #1388cd;
 }
 
-.member-ticket {
-    .section {
-        .name {
-            padding-left: 6px;
-        }
-
-        .no {
-            float: right;
-            padding-right: 5px;
-        }
-    }
-
-    .ticket {
-        //padding: 0;
-        margin-top: 5px;
-
-        .member {
-            .title {
-                font-size: 18px;
-                font-weight: bold;
-            }
-
-            .detail {
-                .ticket-no {
-                    padding: 0;
-                    margin-top: 5px;
-                }
-
-                .level {
-                    margin-top: 5px;
-                    width: 55%;
-                    height: 30px;
-                    //background-color: #A48031;
-
-                    .gold {
-                        width: 100%;
-                        height: 100%;
-                        background-color: #A48031;
-                        content: "Gold";
-                    }
-
-                    .silver {
-                        width: 100%;
-                        height: 100%;
-                        background-color: #A5A6AA;
-                    }
-
-                    .bronze {
-                        width: 100%;
-                        height: 100%;
-                        background-color: #302724;
-                    }
-
-                    .text {
-                        padding-top: 5px;
-                        font-size: 12px;
-                        color: #ffffff;
-                    }
-                }
-            }
-
-            .delete {
-                font-size: 40px;
-                color: #0056a5;
-                float: right;
-                padding-top: 15px;
-                padding-right: 15px;
-            }
-        }
-
-        .position-zone {
-            background-color: #e6e7e8;
-            width: 100%;
-            height: 120px;
-            padding: 0;
-            margin-top: 5px;
-
-            .title {
-                padding-top: 5px;
-                font-size: 18px;
-                font-weight: bold;
-            }
-
-            .position {
-                padding: 0;
-                margin-top: 1px;
-
-                .text {
-                    font-size: 12px;
-                }
-            }
-        }
-    }
-}
-
-.stadium-zone {
-    padding-top: 15px;
-    .title {
-        font-size: 18px;
-        font-weight: bold;
-    }
-
-    .zone {
-        width: 100%;
-        height: 285px;
-        background-image: url("../img/ticket-membership/ticket/chonburi-stadium.png");
-        background-size: cover;
-        background-repeat: no-repeat;
+@media screen and (-webkit-device-pixel-ratio: 2) {
+    .cover {
+        background-image: url("../img/ticket-membership/ticket/cover@2x.png");
     }
 }
