@@ -28,7 +28,7 @@ class Timeline extends Controller then constructor: (
                 $this.loaded = no
             matches.$getToday(
                 page: 1
-                limit: pageLimit
+                limit: 1
                 flush: flush
             , (success) ->
                 $this.loaded = yes
