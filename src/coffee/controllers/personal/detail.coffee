@@ -1,29 +1,39 @@
 class personalDetail extends Controller then constructor: (
-    $scope, $stateParams, $ionicHistory, $ionicLoading, Personals, Und
+    $ionicHistory, $ionicLoading, $scope, $stateParams, GoogleAnalytics, Personals
 ) ->
     $scope.back = ->
         $ionicHistory.goBack -1
         return
 
-    personalId = $stateParams.id ||
+    $scope.title = ''
 
-    promise = null
-
-    options =
-        scope: $scope
-        key: 'r'
+    personalId = $stateParams.id || ''
+    personals = new Personals()
 
     $scope.personal =
         item: {}
-        loadData: ->
-            promise = new Personals().find personalId, options
-            promise.finally -> $ionicLoading.hide()
-            promise.then (model) -> $scope.personal.item = model.dataTranformToDetail()
+        loaded: no
+        loadData: (args) ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            personals.$getId(id: personalId
+            , (success) ->
+                $this.loaded = yes
+                $this.item = success
+                $scope.title = $this.item.fullname
+                GoogleAnalytics.trackView 'personal-detail ' + $this.item.fullname
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            , (error) ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            )
         refresh: ->
-            promise = new Personals().find personalId, options
-            promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
-            promise.then (model) -> $scope.personal.item = model.dataTranformToDetail()
+            @loadData(pull: yes)
 
     $scope.personal.loadData()
-
     $ionicLoading.show()

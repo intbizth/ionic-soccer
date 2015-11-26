@@ -1,0 +1,217 @@
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="refresh.doRefresh()")
+
+div.games-ranking
+    div.match-label
+        div.nodata(ng-if="matchLabel.sections.length == 0")
+            div.space
+            div.row
+                div.col.col-center.text-center
+                    div.text "ไม่มีข้อมูล"
+        div(ng-repeat="section in matchLabel.sections")
+            div.row.row-center.section
+                div.logo
+                    img.image(src="{{section.logo}}")
+                div.league
+                    | {{section.name}} {{section.datetime|date : 'yyyy'}}
+            div.nodata(ng-if="section.items.length == 0")
+                div.row
+                    div.col.col-center.text-center
+                        div.text
+                            | {{ 'ui.t.games.nomatch'|trans }}
+            div(ng-repeat="item in section.items")
+                div.row.label
+                    div.col-40.col-center.club
+                        div.row
+                            div.col.col-75.col-center.text-center
+                                span.name.text-center {{item.homeClub.name}}
+                            div.col.col-25.col-center
+                                img.logo.-right(ng-src="{{item.homeClub.logo}}")
+
+                    div.col-20.col-center.vs.-live(ng-if="item.isLive").detail.text-center
+                        div.live
+                            | {{ 'ui.t.games.live'|trans }}
+                        div.time
+                            | {{item.datetime | date:'HH:MM'}}
+
+                    div.col-20.col-center.vs.-nextmatch(ng-if="!item.isLive").detail.text-center
+                        div.time
+                            | {{item.datetime | date:'HH:mm'}}
+                        div.date
+                            | {{item.datetime | date:'dd MMM yyyy'}}
+
+                    div.col-40.col-center.club
+                        div.row
+                            div.col.col-25.col-center
+                                img.logo(ng-src="{{item.awayClub.logo}}")
+                            div.col.col-75.col-center.-left.text-center
+                                div.name.text-center {{item.awayClub.name}}
+
+                div.progress-bars
+                    .row.row-center
+                        .col-20.text-right.text
+                            | {{item.leftValue}}%
+                        .col.bars
+                            .progressed(
+                            ng-repeat="progress in item.progressData",
+                            style="width:{{progress.value}}%;background-color:{{progress.color}}",
+                            )
+                                div(ng-if="progress.won")
+                                    div(class="{{progress.status}}")
+                        .col-20.text
+                            | {{item.rightValue}}%
+
+        div.row.rate
+            div.col.boxleft
+                div(ng-repeat="winrate in winrates.items")
+                    div.box.text-center(ng-class="winrate.data1 == 'W' ? 'win' : (winrate.data1 == 'D' ? 'draw' : 'lose')")
+                        | {{winrate.data1}}
+            div.col-offset-20
+            div.col.boxright
+                div(ng-repeat="winrate in winrates.items")
+                    div.box.text-center(ng-class="winrate.data2 == 'W' ? 'win' : (winrate.data2 == 'D' ? 'draw' : 'lose')")
+                        | {{winrate.data2}}
+
+    div.label
+        div.head2head
+            div.row.topic
+                div.col.col-center
+                    | Head to Head สถิติการพบกัน 5 นัดล่าสุด
+                div.col.col-33
+                    div.row.killpadding.manage.text-right
+                        div.col.col-67.col-center.text-center.previous
+                            | Previous
+                        div.col.col-33.col-center.text-center.next
+                            | Next
+            div.row.head
+                div.col.col-10.text-center
+                    | Pos
+                div.col.col-20
+                    | Date
+                div.col
+                div.col.col-10.text-center
+                    | FT
+            div(ng-repeat="head in heads.items")
+                div.row(ng-class="{'odd' : $index % 2 == 0, 'even' : $index % 2 != 0}")
+                    div.col.col-10.text-center
+                        | TPL
+                    div.col.col-20
+                        | {{head.datetime | date : "dd/mm/yy"}}
+                    div.col
+                        | {{head.home.name}} - {{head.away.name}}
+                    div.col.col-10.text-center
+                        | {{head.home.score}}-{{head.away.score}}
+
+        div.hometeam
+            div.row.topic
+                div.col.col-67
+                    | Chonburi FC
+                div.col
+                    div.row.killpadding.manage.text-right
+                        div.col.col-67.col-center.text-center.previous
+                            | Previous
+                        div.col.col-33.col-center.text-center.next
+                            | Next
+            div.row.head
+                div.col.col-10.text-center
+                    | Pos
+                div.col.col-20
+                    | Date
+                div.col
+                div.col.col-10.text-center
+                    | FT
+            div(ng-repeat="home in homes.items")
+                div.row(ng-class="{'odd' : $index % 2 == 0, 'even' : $index % 2 != 0}")
+                    div.col.col-10.text-center
+                        | TPL
+                    div.col.col-20
+                        | {{home.datetime | date : "dd/mm/yy"}}
+                    div.col
+                        span(ng-class="{'ownteam' : home.home.name == 'Chonburi FC'}") {{home.home.name}}&nbsp
+                        span -
+                        span(ng-class="{'ownteam' : home.away.name == 'Chonburi FC'}") &nbsp{{ home.away.name}}
+                    div.col.col-10.text-center
+                        | {{home.home.score}}-{{home.away.score}}
+
+
+        div.awayteam
+            div.row.topic
+                div.col.col-67
+                    | Suphanburi FC
+                div.col
+                    div.row.killpadding.manage.text-right
+                        div.col.col-67.col-center.text-center.previous
+                            | Previous
+                        div.col.col-33.col-center.text-center.next
+                            | Next
+            div.row.head
+                div.col.col-10.text-center
+                    | Pos
+                div.col.col-20
+                    | Date
+                div.col
+                div.col.col-10.text-center
+                    | FT
+            div(ng-repeat="away in aways.items")
+                div.row(ng-class="{'odd' : $index % 2 == 0, 'even' : $index % 2 != 0}")
+                    div.col.col-10.text-center
+                        | TPL
+                    div.col.col-20
+                        | {{away.datetime | date : "dd/mm/yy"}}
+                    div.col
+                        span(ng-class="{'ownteam' : away.home.name == 'Suphanburi FC'}") {{away.home.name}}&nbsp
+                        span  -
+                        span(ng-class="{'ownteam' : away.away.name == 'Suphanburi FC'}") &nbsp{{away.away.name}}
+                    div.col.col-10.text-center
+                        | {{away.home.score}}-{{away.away.score}}
+
+
+        div.table
+            div.row.topic
+                div.col.col-67
+                    | League Table
+            div.row.head
+                div.col.col-10.text-center
+                    | Pos
+                div.col
+                    | Team
+                div.col.col-10.text-center
+                    | P
+                div.col.col-10.text-center
+                    | GD
+                div.col.col-10.text-center
+                    | Pts
+                div.col.col-10
+            div.row.tableodd
+                div.col.col-10.text-center
+                    | 1
+                div.col
+                    | Chonburi FC
+                div.col.col-10.text-center
+                    | 10
+                div.col.col-10.text-center
+                    | 20
+                div.col.col-10.text-center
+                    | 25
+                div.col.col-10.text-center
+                    img.image(
+                        src="./img/games-ranking/up.png",
+                        srcset="./img/games-ranking/up@2x.png 2x"
+                    )
+            div.row.tableeven
+                div.col.col-10.text-center
+                    | 5
+                div.col
+                    | Suphanburi FC
+                div.col.col-10.text-center
+                    | 10
+                div.col.col-10.text-center
+                    | 5
+                div.col.col-10.text-center
+                    | 25
+                div.col.col-10.text-center
+                    img.image(
+                        src="./img/games-ranking/down.png"
+                        srcset="./img/games-ranking/down@2x.png 2x"
+                    )
+
+    div.footer

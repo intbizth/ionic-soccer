@@ -2,7 +2,25 @@ $game-detail-bg: #1f304c;
 $game-detail-text: #ffffff;
 $ml-section-bg: #e0e1e2;
 $ml-section-gameweek-text: #f7a032;
-$ml-label-bg: #1f304c;
+$ml-section-footer: #094e99;
+$ml-label-club-name: #000000;
+$ml-label-vs-bg: $ml-section-footer;
+$ml-label-vs-textup: #ffffff;
+$ml-label-vs-textdown: #ffffff;
+$ml-label-footer: $ml-label-vs-bg;
+$ml-progress-bars: #094e99;
+$ml-progressed-right: #FAAF40;
+$ml-progressed-left: #FF3B30;
+
+@mixin cover {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
 
 .platform-android {
     .title.title-left.header-item {
@@ -11,12 +29,13 @@ $ml-label-bg: #1f304c;
 }
 
 .games {
-    .banner {
-        width: 100%;
-        height: 170px;
-        background-image: url("../img/games/games-banner.png");
-        background-size: cover;
-        background-repeat: no-repeat;
+    .cover {
+        @include cover();
+    }
+
+    .images {
+        @include cover();
+        background-color: #f0f0f0;
     }
 
     .games-detail {
@@ -48,13 +67,140 @@ $ml-label-bg: #1f304c;
         .gameweek {
             color: $ml-section-gameweek-text;
         }
+
+        .detail {
+        }
     }
 
     .label {
-        background-color: $ml-label-bg;
+        overflow: hidden;
+        border-width: 0;
+        padding: 0 5px;
+        height: 65px;
 
-        .detail {
+        .club {
+            width: 40%;
+            float: left;
 
+            .logo {
+                width: 30px;
+                //margin-top: 3px;
+                //margin-left: 5px;
+            }
+
+            .name-left {
+                margin-left: 1px;
+                padding-right: 5px;
+                font-size: 13px;
+                color: $ml-label-club-name;
+            }
+
+            .name-right {
+                margin-left: 1px;
+                font-size: 13px;
+                color: $ml-label-club-name;
+            }
+
+            .-left {
+                margin-right: 5px;
+            }
+
+            .-right {
+                float: right !important;
+                margin-right: 5px;
+            }
         }
+
+        .vs {
+            width: 20%;
+            text-align: center;
+            float: left;
+            margin: 0 auto;
+            height: 100%;
+
+            background-color: $ml-label-vs-bg;
+
+            &.-live {
+                padding-top: 14px;
+
+                .live {
+                    font-size: 34px;
+                    font-weight: bold;
+                    color: $ml-label-vs-textup;
+                }
+
+                .time {
+                    padding-top: 5px;
+                    color: $ml-label-vs-textdown;
+                }
+            }
+
+            &.-nextmatch {
+                padding-top: 13px;
+
+                .time {
+                    color: $ml-label-vs-textup;
+                }
+
+                .date {
+                    color: $ml-label-vs-textdown;
+                }
+            }
+        }
+    }
+
+    .space {
+        background-color: $ml-label-footer;
+        height: 2px;
+        width: 100%;
+    }
+
+    .progress-bars {
+        height: 30px;
+        overflow: hidden;
+        background: $ml-progress-bars;
+        padding-top: 0px;
+
+        .bars {
+            margin: 0 auto;
+            width: 50%;
+
+            .progressed {
+                height: 6px;
+                float: left;
+                position: relative;
+
+                .-right {
+                    z-index: 1;
+                    position: absolute;
+                    width: 0;
+                    height: 0;
+                    left: -6px;
+                    border-top: 6px solid $ml-progressed-right;
+                    border-left: 6px solid transparent;
+                }
+
+                .-left {
+                    z-index: 1;
+                    position: absolute;
+                    width: 0;
+                    height: 0;
+                    right: -6px;
+                    border-top: 6px solid $ml-progressed-left;
+                    border-right: 6px solid transparent;
+                }
+            }
+        }
+
+        .text {
+            color: #ffffff;
+        }
+    }
+
+    .footer-section {
+        margin-top: -2px !important;
+        background-color: $ml-section-footer;
+        height: 8px;
+        width: 100%;
     }
 }

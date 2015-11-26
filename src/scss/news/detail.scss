@@ -7,7 +7,11 @@
 .news-detail {
     .image {
         width: 100%;
-        height: 146px;
+        height: 200px;
+        min-height: 200px;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
         background-color: #f0f0f0;
     }
 
@@ -46,20 +50,27 @@
     }
 
     .headline {
-        border-color: #ffffff #ffffff #ffffff #1388cd;
-        border-style: none none solid solid;
-        border-width: 1px 1px 1px 4px;
-        font-size: 18px;
+        border-color: transparent transparent transparent #1388cd;
+        border-style: none none none solid;
+        border-width: 0 0 0 4px;
 
         .subheadline {
             height: 100%;
-            margin-left: 4px;
-            padding-left: 8px;
+            margin: 0 0 0 4px;
+            padding: 0 0 0 8px;
             background-color: #ffffff;
+            font-size: 18px;
+            line-height: 24px;
         }
     }
 
     .description {
         font-size: 14px;
+    }
+
+    .footer {
+        height: 14px;
+        width: 100%;
+        background-color: #1388cd;
     }
 }

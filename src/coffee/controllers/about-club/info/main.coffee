@@ -1,37 +1,51 @@
 class aboutClubInfo extends Controller then constructor: (
-    $rootScope, $scope, $ionicLoading, $timeout, Clubs, Und
+    $cordovaClipboard, $ionicLoading, $ionicModal, $ionicPlatform, $rootScope, $scope, $timeout, Clubs, GoogleAnalytics
 ) ->
-    clubId = 28
+    clubs = new Clubs()
 
-    clubStore = new Clubs()
+    $scope.clipboard = (text) ->
+        $cordovaClipboard.copy(text).then((success) ->
+            $scope.modal.show()
+            $timeout(->
+                $scope.modal.hide()
+            , 1400)
+        , (error) ->
 
-    options =
-        scope: $scope
-        key: 'r'
+        )
 
     $scope.club =
         item: {}
+        loaded: no
         loadData: (args)->
-            pull = if !Und.isUndefined(args) and !Und.isUndefined(args.pull) and Und.isBoolean(args.pull) then args.pull else no
-            if Und.isObject($rootScope.club) and Und.size($rootScope.club) > 0
-                $scope.club.item = $rootScope.club
-                $timeout(->
-                    if pull
-                        $scope.$broadcast 'scroll.refreshComplete'
-                    else
-                        $ionicLoading.hide()
-                ,600)
-            else
-                promise = clubStore.find clubId, options
-                promise.finally ->
-                    if pull
-                        $scope.$broadcast 'scroll.refreshComplete'
-                    else
-                        $ionicLoading.hide()
-                promise.then (model) -> $rootScope.club = $scope.club.item = model.dataTranformToInfo()
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            clubs.$getMe({}
+            , (success) ->
+                $this.loaded = yes
+                $this.item = success
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            , (error) ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            )
         refresh: ->
-            $scope.club.loadData(pull: yes)
+            @loadData(pull: yes)
 
     $scope.club.loadData()
-
     $ionicLoading.show()
+
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'info'
+
+    $ionicModal.fromTemplateUrl('templates/common/clipboard-modal.html',
+        scope: $scope
+        animation: 'fade-in'
+    ).then((modal) ->
+        $scope.modal = modal
+        return
+    )

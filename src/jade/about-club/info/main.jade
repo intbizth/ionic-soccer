@@ -1,89 +1,90 @@
 ion-refresher(pulling-text="Pull to refresh...", on-refresh="club.refresh()")
 
-div.cover(ng-if="club.item.stadiumImage")
-    img.image(ng-src="{{club.item.stadiumImage}}")
+div.subinfo(ng-if="club.loaded")
+    div.cover(ng-if="club.item.stadiumImage")
+        img.image(image-cache="{{club.item.stadiumImage}}")
 
-div.headline
-    div.title.text-center {{club.item.signatureName}}
+    div.headline(ng-if="club.item.signatureName")
+        div.title.text-center {{club.item.signatureName}}
 
-div.detail
-    div.row
-        div.col
-            div.row.text-left.top
-                div.col.col-33
-                    | ชื่อสโมสร
-                div.col.col-67
-                    | {{club.item.name}}
-            div.row.text-left.top
-                div.col.col-33
-                    | ชื่อย่อ
-                div.col.col-67
-                    | {{club.item.shortName}}
-            //div.row.text-left.top
-            //    div.col.col-33
-            //        | ชื่อสโมสร (ไทย)
-            //    div.col.col-67
-            //        | {{club.item.name}}
-            //div.row.text-left.top
-            //    div.col.col-33
-            //        | ชื่อสโมสร (อังกฤษ)
-            //    div.col.col-67
-            //        | {{club.item.name}}
-            //div.row.text-left.top
-            //    div.col.col-33
-            //        | ชื่อย่อ (ไทย)
-            //    div.col.col-67
-            //        | {{club.item.shortName}}
-            //div.row.text-left.top
-            //    div.col.col-33
-            //        | ชื่อย่อ (อังกฤษ)
-            //    div.col.col-67
-            //        | {{club.item.shortName}}
-            div.row.text-left.top
-                div.col.col-33
-                    | ฉายา
-                div.col.col-67
-                    | {{club.item.signatureName}}
-            div.row.text-left.top
-                div.col.col-33
-                    | ลึก
-                div.col.col-67
-                    | {{club.item.clubClass.name}}
+    div.detail
+        div.row
+            div.col
+                div.row.text-left.top
+                    div.col.col-33
+                        | ชื่อสโมสร
+                    div.col.col-67(on-hold="clipboard(club.item.name)")
+                        | {{club.item.name}}
+                div.row.text-left.top
+                    div.col.col-33
+                        | ชื่อย่อ
+                    div.col.col-67(on-hold="clipboard(club.item.shortName)")
+                        | {{club.item.shortName}}
+                //div.row.text-left.top
+                //    div.col.col-33
+                //        | ชื่อสโมสร (ไทย)
+                //    div.col.col-67
+                //        | {{club.item.name}}
+                //div.row.text-left.top
+                //    div.col.col-33
+                //        | ชื่อสโมสร (อังกฤษ)
+                //    div.col.col-67
+                //        | {{club.item.name}}
+                //div.row.text-left.top
+                //    div.col.col-33
+                //        | ชื่อย่อ (ไทย)
+                //    div.col.col-67
+                //        | {{club.item.shortName}}
+                //div.row.text-left.top
+                //    div.col.col-33
+                //        | ชื่อย่อ (อังกฤษ)
+                //    div.col.col-67
+                //        | {{club.item.shortName}}
+                div.row.text-left.top
+                    div.col.col-33
+                        | ฉายา
+                    div.col.col-67(on-hold="clipboard(club.item.signatureName)")
+                        | {{club.item.signatureName}}
+                div.row.text-left.top
+                    div.col.col-33
+                        | ลึก
+                    div.col.col-67(on-hold="clipboard(club.item.clubClass.name)")
+                        | {{club.item.clubClass.name}}
 
-    div.row
-        div.col
-            div.row.text-left.middle
-                div.col.col-33
-                    | ติดต่อสโมสร
-                div.col.col-67
-            div.row.text-left.middle
-                div.col.col-33
-                    | Website
-                div.col.col-67
-                    | {{club.item.website}}
-            div.row.text-left.middle
-                div.col.col-33
-                    | Email
-                div.col.col-67
-                    | {{club.item.email}}
+        div.row
+            div.col
+                div.row.text-left.middle
+                    div.col.col-33
+                        | ติดต่อสโมสร
+                    div.col.col-67
+                div.row.text-left.middle
+                    div.col.col-33
+                        | Website
+                    div.col.col-67(on-hold="clipboard(club.item.website)")
+                        | {{club.item.website}}
+                div.row.text-left.middle
+                    div.col.col-33
+                        | Email
+                    div.col.col-67(on-hold="clipboard(club.item.email)")
+                        | {{club.item.email}}
 
-    div.row
-        div.col
-            div.row.text-left.bottom
-                div.col.col-33
-                    | สนาม
-                div.col.col-67
-                    | {{club.item.stadiumName}}
-            div.row.text-left.bottom
-                div.col.col-33
-                    | ความจุ (คน)
-                div.col.col-67
-                    | {{club.item.stadiumCapacity | number}}
-            div.row.text-left.bottom
-                div.col.col-33
-                    | ที่ตั้ง
-                div.col.col-67
-                    | {{club.item.location}}
+        div.row
+            div.col
+                div.row.text-left.bottom
+                    div.col.col-33
+                        | สนาม
+                    div.col.col-67(on-hold="clipboard(club.item.stadiumName)")
+                        | {{club.item.stadiumName}}
+                div.row.text-left.bottom
+                    div.col.col-33
+                        | ความจุ (คน)
+                    div.col.col-67(on-hold="clipboard(club.item.stadiumCapacity)")
+                        | {{club.item.stadiumCapacity | number}}
+                div.row.text-left.bottom
+                    div.col.col-33
+                        | ที่ตั้ง
+                    div.col.col-67(on-hold="clipboard(club.item.location)")
+                        | {{club.item.location}}
 
-div.footer
-    img.image(src="./img/about-club/info/map.png", srcset="./img/about-club/info/map@2x.png 2x")
+    div.footer
+        img.image(src="./img/about-club/info/map.png", srcset="./img/about-club/info/map@2x.png 2x")

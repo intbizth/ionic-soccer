@@ -1,7 +1,8 @@
 class CompetitionTablePositionTable extends Controller then constructor: (
-    $scope, $ionicLoading, Rankings, Und
+    $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Rankings, Und
 ) ->
-    promise = null
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'position-table'
 
     rankingStore = new Rankings null,
         url: Rankings::url + 'fixtures/tpl/2015-2016'

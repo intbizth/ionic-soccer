@@ -1,61 +1,48 @@
 class rankingScore extends Controller then constructor: (
-    $scope, $state, $ionicHistory, $timeout, Und, Chance
+    $ionicLoading, $ionicPlatform, $rootScope, $scope, GamesScores, GoogleAnalytics, Und
 ) ->
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'score'
+
+    pageLimit = 20
+    gamesScores = new GamesScores()
+
     $scope.score =
         items: []
-        next: false
-        loadData: ->
-            this.items = this.fakeItems()
-            if this.items.length > 0
-                this.next = Chance.pick([true, false])
-            else
-                this.next = false
-            console.log('score:loadData', this.items.length, JSON.stringify(this.items), this.next)
-            return
-        doRefresh: ->
-            console.log 'score:doRefresh'
-            $this = this
-            $timeout(->
-                console.log 'score:doRefresh2'
-                $this.loadData()
-                $scope.$broadcast 'scroll.refreshComplete'
-                return
-            , 2000)
-            return
-        loadMore: ->
-            console.log 'score:loadMore'
-            $this = this
-            $timeout(->
-                console.log 'score:loadMore2'
-                items = $this.fakeItems()
-                for item in items
-                    $this.items.push item
-                if $this.items.length > 0
-                    $this.next = Chance.pick([true, false])
+        next: null
+        loadData: (args) ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            gamesScores.$getPage(
+                page: 1
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = success.items
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $this.next = false
-                console.log('score:loadMore', $this.items.length, JSON.stringify($this.items), $this.next)
+                    $ionicLoading.hide()
+            , (error) ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            )
+        refresh: ->
+            @loadData(pull: yes)
+        loadNext: ->
+            $this = @
+            papers.$getPage(
+                page: $this.next
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = $this.items.concat success.items
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
-                return
-            , 2000)
-            return
-        fakeItem: ->
-            profile = Chance.profile()
-            item =
-                id: Und.random(1, 9999999)
-                name: profile.name
-                photo: profile.image.src
-                hit: Und.random(1, 9999999)
-                point: Und.random(1, 9999999)
-            return item
-        fakeItems: ->
-            items = []
-            i = 0
-            ii = Und.random(0, 300)
-            while i < ii
-                items.push this.fakeItem()
-                i++
-            items = Und.sortBy(items, 'point').reverse()
-            return items
+            , (error) ->
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            )
 
     $scope.score.loadData()
+    $ionicLoading.show()

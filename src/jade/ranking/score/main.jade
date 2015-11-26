@@ -1,9 +1,12 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="score.doRefresh()")
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="score.refresh()")
+
 ion-list.ranking-list
     ion-item.nodata(ng-if="score.items.length == 0")
-        div.text Has no ranking.
+        div.text
+            | {{'ui.t.ranking.nodata' | trans}}
     ion-item(ng-repeat="item in score.items")
-        div.row(ui-sref="ranking-detail({id : item.id})")
+        //div.row(ui-sref="ranking-detail({id : item.id})")
+        div.row
             div.col.col-20.col-center
                 div.avatar
                     div.circle
@@ -13,14 +16,13 @@ ion-list.ranking-list
                         div.subcircle2
                             | {{$index + 1}}
             div.col.col-40.col-center.text-left
-                div.name {{item.name}}
+                div.name {{item.displayName}}
                 div.hit
                     span เกมทาย
-                    span.-highlight {{item.hit | number}}
+                    span.-highlight {{item.times | number}}
                     span ครั้ง
             div.col.col-40.col-center.text-right.point
                 span Pts
-                span.label {{item.point | number}}
-ion-infinite-scroll(ng-if="score.next" on-infinite="scorer.loadMore()", distance="5%")
+                span.label {{item.points | number}}
 
-//ranking-list(data="score")
+ion-infinite-scroll(ng-if="score.next" on-infinite="scorer.loadNext()", distance="1%")

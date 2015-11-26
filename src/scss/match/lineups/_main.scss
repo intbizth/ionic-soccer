@@ -1,1 +1,229 @@
 @charset "UTF-8";
+
+$dot-width: 70px;
+$dot-height: 70px;
+
+@mixin aspect-ratio($width, $height) {
+    position: relative;
+    margin-top: 66px;
+    background-color: #6ba131;
+
+    &:before {
+        display: block;
+        content: "";
+        width: 100%;
+        padding-top: ($height / $width) * 100%;
+    }
+    > .content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url("../img/lineup/football_field.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}
+
+.headline {
+    background-color: #0255a2;
+
+    .row {
+        padding: 0;
+    }
+
+    .image {
+        width: 40px;
+        height: 40px;
+        background-color: #f0f0f0;
+        vertical-align: middle;
+    }
+
+    span {
+        padding-left: 6px;
+        color: #ffffff;
+    }
+}
+
+.format {
+    height: 50px;
+    padding: 6px 0;
+    background-color: #1e2b44;
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.football-field {
+    @include aspect-ratio(1000, 1352);
+
+    .dot {
+        position: absolute;
+        width: $dot-width;
+        height: $dot-height;
+        -webkit-animation: fadein 5s;
+        -moz-animation: fadein 5s;
+        -ms-animation: fadein 5s;
+        -o-animation: fadein 5s;
+        animation: fadein 5s;
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            margin: auto;
+            border: 2px solid #ffffff;
+            border-radius: 25px;
+
+            .circle {
+                padding: 2px;
+
+                .subcircle {
+                    width: 42px;
+                    height: 42px;
+                    background-color: #f0f0f0;
+                    border-radius: 21px;
+                }
+
+                .photo {
+                    width: 42px;
+                    height: 42px;
+                    border-radius: 21px;
+                }
+            }
+        }
+
+        .fullname {
+            height: 20px;
+            font-size: 12px;
+            color: #ffffff;
+            line-height: 14px;
+            text-align: center;
+        }
+
+        &.-testDrag {
+            border: 1px solid #3073f3;
+        }
+
+        &.-testLock {
+            border: 1px solid #ed3e33;
+        }
+
+        .testCenterPoint {
+            position: absolute;
+            bottom: -18px;
+            right: 0;
+            font-size: 10px;
+            color: yellow;
+        }
+    }
+
+    @keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    @-moz-keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    @-webkit-keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    @-ms-keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    @-o-keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+}
+
+.nodata {
+    .text {
+        padding: 18px 0px 18px 0px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #ffffff;
+    }
+}
+
+.personal {
+    .position {
+        width: 28px;
+        height: 20px;
+        margin: 5px;
+        border-radius: 4px;
+        font-weight: bold;
+        color: #ffffff;
+
+        &.-goalkeeper {
+            background-color: #7e1420;
+        }
+
+        &.-defender {
+            background-color: #fbaf42;
+        }
+
+        &.-midfielder {
+            background-color: #3ab44a;
+        }
+
+        &.-forwarder {
+            background-color: #0188cf;
+        }
+    }
+
+    .detail {
+        padding-bottom: 6px;
+        background-color: #1e2b44;
+    }
+
+    .row {
+        padding: 0px;
+        background-color: #213647;
+    }
+
+    .row:active {
+        background-color: #0088cf;
+    }
+
+    .circle {
+        width: 40px;
+        height: 40px;
+        border: solid #ffffff 1px;
+        border-radius: 20px;
+
+        .subcircle {
+            margin: 1px 0 0 1px;
+            width: 36px;
+            height: 36px;
+            background-color: #f0f0f0;
+            border-radius: 18px;
+        }
+
+        .image {
+            width: 36px;
+            height: 36px;
+            border-radius: 18px;
+        }
+    }
+
+    .fullname {
+        padding: 0 6px;
+        font-size: 14px;
+        color: #ffffff;
+    }
+
+    .no {
+        font-size: 14px;
+        color: #ffffff;
+    }
+}

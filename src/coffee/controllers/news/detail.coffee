@@ -1,9 +1,11 @@
 class NewsDetail extends Controller then constructor: (
-    $scope, $stateParams, $ionicHistory, $ionicLoading, $cordovaInAppBrowser, Papers, Und
+    $cordovaInAppBrowser, $ionicHistory, $ionicLoading, $scope, $stateParams, GoogleAnalytics, Papers
 ) ->
     $scope.back = ->
         $ionicHistory.goBack -1
         return
+
+    $scope.title = ''
 
     $scope.openURL = (url) ->
         $cordovaInAppBrowser.open(url, '_blank',
@@ -17,25 +19,38 @@ class NewsDetail extends Controller then constructor: (
             # error
             return
 
-    paperId = $stateParams.id ||
-
-    promise = null
-
-    options =
-        scope: $scope
-        key: 'r'
+    paperId = $stateParams.id || ''
+    papers = new Papers()
 
     $scope.paper =
         item: {}
-        loadData: ->
-            promise = new Papers().find paperId, options
-            promise.finally -> $ionicLoading.hide()
-            promise.then (model) -> $scope.paper.item = model.dataTranformToUpdate()
+        loaded: no
+        loadData: (args) ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            flush = if args && args.flush then args.flush else no
+            if !pull
+                $this.loaded = no
+            papers.$getId(
+                id: paperId
+                flush: flush
+            , (success) ->
+                $this.loaded = yes
+                $this.item = success
+                $scope.title = $this.item.headline
+                GoogleAnalytics.trackView 'news-detail ' + $this.item.headline
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            , (error) ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            )
         refresh: ->
-            promise = new Papers().find paperId, options
-            promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
-            promise.then (model) -> $scope.paper.item = model.dataTranformToUpdate()
+            @loadData(flush: yes, pull: yes)
 
     $scope.paper.loadData()
-
     $ionicLoading.show()

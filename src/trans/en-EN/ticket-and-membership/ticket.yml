@@ -1,0 +1,18 @@
+ui.e:
+    ticket:
+        nodata: Has no ticket.
+        nextmatch: Next Match
+        yourmemberid:  Your Member ID
+        no: No.
+        memberid: Member ID
+        positionandzone: Position & Zone
+        seat: Seat
+        block: Block
+        gate: Gate
+        stadiumzone: Cholburi Stadium Zone
+        ticketavailable: Available Ticket
+        seatavailable: Available Seat
+        seasonticket: Season Ticket
+        gold: Gold
+        Silver: Silver
+        bronze: Bronze

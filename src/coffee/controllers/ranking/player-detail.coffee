@@ -1,6 +1,9 @@
 class rankingPlayerDetail extends Controller then constructor: (
-    $scope, $ionicHistory, $timeout, Und, Chance
+    $scope, $ionicHistory, $ionicPlatform, $timeout, GoogleAnalytics, Und, Chance
 ) ->
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView $state.current.name
+
     $scope.back = ->
         $ionicHistory.goBack -1
         return
