@@ -33,7 +33,8 @@ class Timeline extends Controller then constructor: (
             , (success) ->
                 $this.loaded = yes
                 $this.next = if success.next then success.next else null
-                $this.cacheData = $this.items = success.items
+                $this.items = success.items
+                $this.cacheData = angular.copy $this.items
                 console.warn 'loadData:success', success, $this.cacheData
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
@@ -56,13 +57,13 @@ class Timeline extends Controller then constructor: (
                 limit: pageLimit
             , (success) ->
                 $this.next = if success.next then success.next else null
-                $this.cacheData = $this.items = $this.items.concat success.items
+                $this.items = $this.items.concat success.items
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
             , (error) ->
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
             )
+        timer: null
         cacheData: null
-        # TODO
         autoFetchData: ->
             $this = @
 
@@ -72,29 +73,28 @@ class Timeline extends Controller then constructor: (
                     limit: pageLimit
                     flush: yes
                 , (success) ->
-                    console.warn 'fetchData:success', success.items, $this.cacheData, angular.equals(success.items, $this.cacheData), ($this.cacheData and !angular.equals success.items, $this.cacheData)
-
                     if $this.cacheData and !angular.equals success.items, $this.cacheData
+                        push = yes
                         items = []
-
                         angular.forEach success.items, (value, key) ->
                             if angular.equals $this.items[0], value
-                                return
-                            else
+                                push = no
+
+                            if push
                                 items.push value
-
-                        $this.items.unshift items
-                        $this.cacheData = $this.items
-
-
-                        console.warn 'not equal', items
+                        items.reverse()
+                        angular.forEach items, (value, key) ->
+                            $this.items.unshift value
+                            $this.cacheData.unshift value
                 , (error) ->
                     return
                 )
 
-            $interval(->
+            $interval.cancel $this.timer
+            $this.timer = undefined
+            $this.timer = $interval(->
                 fetch()
-            , 10000)
+            , 15000)
         isPass: no
         message: ''
         errorMessage: ''
