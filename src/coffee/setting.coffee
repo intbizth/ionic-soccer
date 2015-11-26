@@ -1,14 +1,7 @@
-class Setting extends Config
-    ###*
-    # @param {object} $stateProvider
-    # @param {object} $urlRouterProvider
-    # @param {object} $ionicConfigProvider See http://ionicframework.com/docs/api/provider/$ionicConfigProvider/
-    ###
-    constructor: (
-        CFG, $ionicConfigProvider, $ionicLoadingConfig
-    ) ->
-        # http://ionicframework.com/docs/api/directive/ionSpinner/
-        # ripple,lines
-        $ionicLoadingConfig.template = '<ion-spinner icon="lines"></ion-spinner>'
-        # TODO:
-        # $locationProvider.html5Mode yes
+class Setting extends Config then constructor: (
+    $httpProvider, $resourceProvider, CFG, OAuthProvider
+) ->
+    $resourceProvider.defaults.stripTrailingSlashes = no
+    OAuthProvider.configure CFG.OAuth.getConfig()
+    $httpProvider.defaults.headers.post = {}
+

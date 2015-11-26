@@ -1,0 +1,47 @@
+ion-refresher(pulling-text="Pull to refresh...", on-refresh="lineUp.refresh()")
+
+div.row.headline
+    div.col.col-center
+        img.image(ng-src="{{lineUp.item.club.logo}}")
+        span {{lineUp.item.club.name}}
+
+div.row.format(ng-if="!lineUp.item.club.formation.name")
+    div.col.col-center {{lineUp.item.club.formation.name}}
+
+div.football-field(ng-if="!lineUp.item.club.formation.name")
+    div.content
+        div.dot(
+        ng-repeat="dot in dots.items"
+        id="personal-{{dot.id}}"
+        data-item-id="{{dot.id}}"
+        ng-style="{'top':dot.position.top,'left':dot.position.left}"
+        ng-click="dots.popup(dot.itemId)"
+        ng-class="{'-testDrag' : !dots.checkLock(dot.itemId), '-testLock' : dots.checkLock(dot.itemId)}"
+        )
+            div.avatar
+                div.circle
+                    div.subcircle
+                        img.photo(ng-src="{{dot.photo}}")
+            div.fullname {{dot.fullname}}
+            div.testCenterPoint {{dot.centerPoint.x}},{{dot.centerPoint.y}}
+
+div.personal
+    div.nodata(ng-if="personals.items.length == 0")
+        div.row
+            div.col.col-center.text-center
+                div.text Has no personals.
+
+    div(ng-repeat="item in personals.items")
+        div.detail
+            div.row(ui-sref="personal-detail({id : item.id})")
+                div.col.col-center.text-center
+                    div.position(ng-class="personals.getPositionClass(item.position.shortName)")
+                        span.job {{item.position.shortName}}
+                div.col.col-center
+                    div.circle
+                        div.subcircle
+                            img.image(ng-src="{{item.image}}")
+                div.col.col-67.col-center.text-left
+                    span.fullname {{item.fullname}}
+                div.col.col-center.text-center
+                    span.no \#{{item.no}}

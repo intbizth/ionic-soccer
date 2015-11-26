@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+.games-live {
+    width: 100%;
+    height: auto;
+    .inrow {
+        padding: 0px;
+    }
+    .match-label {
+        height: auto;
+        background-color: #ffffff;
+        .logo {
+            .image {
+                width: 30px;
+                margin-right: 10%;
+                margin-left: 10%;
+            }
+        }
+
+        .name {
+            font-size: 14px;
+            color: #000000;
+        }
+
+        .vs {
+            padding-top: 22px;
+            height: 70px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #0056a2;
+        }
+    }
+
+    .headline {
+        color: #ffffff;
+        background-color: #162a38;
+        .time {
+            margin-right: 5px;
+            .yellow {
+                color: #faaf40;
+            }
+        }
+        .image {
+            width: 50px;
+            margin-left: 7px;
+        }
+    }
+
+    .steaming {
+        width: 100%;
+        height: 230px;
+        //background-color: #000000;
+    }
+
+    .footer {
+        width: 100%;
+        height: 10px;
+        background-color: #0188cf;
+    }
+}

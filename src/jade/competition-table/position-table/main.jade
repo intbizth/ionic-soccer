@@ -1,11 +1,11 @@
-ion-refresher(pulling-text='Pull to refresh...', on-refresh='position.doRefresh()')
+ion-refresher(pulling-text='Pull to refresh...', on-refresh='position.refresh()')
 
 div.table
     div.nodata(ng-if="position.items.length == 0")
         div.space
         div.row
             div.col.col-center.text-center
-                div.text Has no info.
+                div.text Has no position.
     div.row.header.normal(ng-if="position.items.length > 0")
         div.col.col-10.text-center
             | Pos
@@ -14,14 +14,14 @@ div.table
         div.col.col-20.text-center
             | Play
         div.col.col-20.text-center
-            | GD
+            | -/+
         div.col.col-20.text-center
             | Points
 
     div(ng-repeat="item in position.items")
         div.row.row-center(ng-class="{normal : item.template == 'normal', highlight : item.template == 'highlight'}")
             div.col.col-10.text-center
-                | {{item.position | number}}
+                | {{$index + 1 | number}}
             div.col.col-30
                 | {{item.name}}
             div.col.col-20.text-center
@@ -31,4 +31,4 @@ div.table
             div.col.col-20.text-center
                 | {{item.points | number}}
 
-ion-infinite-scroll(ng-if="position.next" on-infinite="position.loadMore()", distance="5%")
+ion-infinite-scroll(ng-if="position.hasMorePage" on-infinite="position.loadNext()", distance="1%")

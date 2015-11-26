@@ -1,70 +1,50 @@
 class CompetitionTablePositionTable extends Controller then constructor: (
-    $scope, $ionicHistory, $timeout, Und, Chance
+    $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Rankings, Und
 ) ->
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'position-table'
+
+    rankingStore = new Rankings null,
+        url: Rankings::url + 'fixtures/tpl/2015-2016'
+        state: pageSize: 100
+
+    options =
+        scope: $scope
+        rankingStoreKey: 'rankingStore'
+        collectionKey: 'rankingCollection'
+
     $scope.position =
         items: []
-        position: 1
-        team: 'Chonburi FC'
-        hasTeam: no
-        next: no
+        hasMorePage: no
         loadData: ->
-            @position = 1
-            @hasTeam = no
-            @items = @fakeItems()
-            @next = Chance.bool()
-            console.log('position:loadData', @items.length, JSON.stringify(@items), @next)
-            return
-        doRefresh: ->
-            console.log 'position:doRefresh'
-            $this = @
-            $timeout(->
-                console.log 'position:doRefresh2'
-                $this.loadData()
-                $scope.$broadcast 'scroll.refreshComplete'
-                return
-            , 2000)
-            return
-        loadMore: ->
-            console.log 'position:loadMore'
-            $this = @
-            $timeout(->
-                console.log 'position:loadMore2'
-                items = $this.fakeItems()
-                for item in items
-                    $this.items.push item
-                $this.next = if $this.items.length > 0 then Chance.bool() else no
-                console.log('position:loadMore', $this.items.length, JSON.stringify($this.items), $this.next)
-                $scope.$broadcast 'scroll.infiniteScrollComplete'
-                return
-            , 2000)
-            return
-        fakeItem: (config) ->
-            item =
-                id: Und.random(1, 9999999)
-                template: 'normal'
-                position: @position++
-                name: Chance.name()
-                play: Und.random(1, 9999)
-                goalDifference: Und.random(1, 9999)
-                points: Und.random(1, 9999)
-            if typeof config isnt 'undefined' and config.team
-                item.name = @team
-                item.template = 'highlight'
-            return item
-        fakeItems: ->
-            checkTeam = Chance.bool()
-            items = []
-            i = 0
-            ii = Und.random(0, 30)
-            while i < ii
-                if checkTeam and !@hasTeam
-                    @hasTeam = yes
-                    item = @fakeItem(team: yes)
-                else
-                    item = @fakeItem()
-                items.push item
-                i++
-            items = Und.sortBy(items, 'position')
-            return items
+            promise = rankingStore.load options
+            promise.finally -> $ionicLoading.hide()
+            promise.then ->
+                $scope.position.items = Und.map rankingStore.getCollection(), (item) ->
+                    return item.dataTranformToPostionTable()
+                $scope.position.hasMorePage = rankingStore.hasMorePage()
+        refresh: ->
+            options.fetch = yes
+            # TODO getFirstPage
+            promise = rankingStore.getFirstPage options
+            promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
+            promise.then ->
+                # FIXBUG
+                items = rankingStore.getCollection().slice 0, $scope.position.items.length
+                $scope.position.items = Und.map items, (item) ->
+                    return item.dataTranformToPostionTable()
+                $scope.position.hasMorePage = rankingStore.hasMorePage()
+        loadNext: ->
+            rankingStore.prepend = yes
+            promise = rankingStore.getNextPage options
+            promise.finally -> $scope.$broadcast 'scroll.infiniteScrollComplete'
+            promise.then ->
+                items = rankingStore.getCollection().slice 0, rankingStore.state.pageSize
+                items = Und.map items, (item) ->
+                    return item.dataTranformToPostionTable()
+                $scope.position.items = $scope.position.items.concat items
+                $scope.position.hasMorePage = rankingStore.hasMorePage()
 
     $scope.position.loadData()
+
+    $ionicLoading.show()

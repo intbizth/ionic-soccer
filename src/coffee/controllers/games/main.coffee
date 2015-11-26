@@ -1,6 +1,9 @@
 class GamesMain extends Controller then constructor: (
-    $scope, $ionicPlatform, $ionicHistory, $sce, $timeout, Und, Chance
+    $ionicHistory, $ionicPlatform, $sce, $scope, $timeout, Chance, GoogleAnalytics, Und
 ) ->
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'games'
+
     $scope.isIOS = ionic.Platform.isIOS()
     $scope.back = ->
         $ionicHistory.goBack -1
@@ -14,20 +17,28 @@ class GamesMain extends Controller then constructor: (
         loadMore: ->
             return
 
-    $scope.matchLabel =
-        sections: []
+    $scope.cover =
+        image: null
         loadData: ->
-            sections = @fakeSections()
-            if sections.length > 0
-                sections = [sections[0]]
-                if sections[0].items.length > 0
-                    sections[0].items = [sections[0].items[0]]
-            @sections = sections
-            console.log('matchLabel:loadData', @sections.length, JSON.stringify(@sections), @next)
+            img = './img/games/games-banner.png'
+            this.image = img
+            console.log('cover:loadData', this.image.length, JSON.stringify(this.image), this.next)
+            return
+
+    $scope.cover.loadData()
+
+    $scope.matchLabel =
+        sections: [],
+        next: false
+        loadData: ->
+            sections = this.fakeSections()
+            this.sections = sections
+            this.next = Chance.pick([true, false])
+            console.log('matchLabel:loadData', this.sections.length, JSON.stringify(this.sections), this.next)
             return
         doRefresh: ->
             console.log 'matchLabel:doRefresh'
-            $this = @
+            $this = this
             $timeout(->
                 console.log 'matchLabel:doRefresh2'
                 $this.loadData()
@@ -37,12 +48,16 @@ class GamesMain extends Controller then constructor: (
             return
         loadMore: ->
             console.log 'matchLabel:loadMore'
-            $this = @
+            $this = this
             $timeout(->
                 console.log 'matchLabel:loadMore2'
                 sections = $this.fakeSections()
                 for section in sections
                     $this.sections.push section
+                if $this.sections.length > 0
+                    $this.next = Chance.pick([true, false])
+                else
+                    $this.next = false
                 console.log('matchLabel:loadMore', $this.sections.length, JSON.stringify($this.sections), $this.next)
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
                 return
@@ -51,9 +66,11 @@ class GamesMain extends Controller then constructor: (
         fakeSection: (datetime)->
             section =
                 id: Und.random(1, 9999999)
+                name: 'Thai Premier League'
+                week: Und.random(1,12)
+                logo: 'http://demo.balltoro.com/media/image/cms/medias/tpl.jpg'
                 datetime: Chance.date(datetime)
-                season: 'Thai Premier League 2015/2016'
-                items: @fakeItems(datetime)
+                items: this.fakeItems(datetime)
             return section
         fakeSections: ->
             sections = []
@@ -65,7 +82,7 @@ class GamesMain extends Controller then constructor: (
                 datetime =
                     year: year
                     month: month
-                section = @fakeSection(datetime)
+                section = this.fakeSection(datetime)
                 sections.push section
                 i++
                 month++
@@ -74,8 +91,10 @@ class GamesMain extends Controller then constructor: (
                     year++
             sections = Und.sortBy(sections, 'items.datetime')
             return sections
+            return
         fakeItem: (datetime) ->
             club = Chance.club()
+#            club = Chance.league()
             clubs = [
                 logo: './img/logo/match_label@2x.png'
                 name: 'Chonburi FC'
@@ -90,9 +109,31 @@ class GamesMain extends Controller then constructor: (
                 homeClub: null
                 awayClub: null
                 datetime: Chance.date(datetime)
-                isPlaying: yes
-                template: Chance.pick(['before', 'after'])
-            if Chance.bool()
+                isLive: Chance.bool({
+                    likelihood: 30
+                })
+                progressData: []
+                leftValue: null
+                rightValue: null
+                template: Chance.pick(['before'])
+            if item.isLive == true
+                randomValue = Und.random(1, 100)
+                leftWon = null
+                rightWon = null
+                item.leftValue = 100 - randomValue
+                item.rightValue = randomValue
+                if item.leftValue > item.rightValue
+                    leftWon = yes
+                    rightWon = no
+                else
+                    leftWon = no
+                    rightWon = yes
+
+                item.progressData = [
+                    { value:item.leftValue , color:'#FF3B30', won:leftWon, status:'-left' }
+                    { value:item.rightValue , color:'#FAAF40', won:rightWon, status:'-right' }
+                ]
+            if Chance.pick([true, false])
                 item.homeClub = clubs[0]
                 item.awayClub = clubs[1]
             else
@@ -102,9 +143,9 @@ class GamesMain extends Controller then constructor: (
         fakeItems: (datetime) ->
             items = []
             i = 0
-            ii = Und.random(0, 5)
+            ii = Und.random(0, 3)
             while i < ii
-                item = @fakeItem(datetime)
+                item = this.fakeItem(datetime)
                 items.push item
                 i++
             items = Und.sortBy(items, 'datetime')

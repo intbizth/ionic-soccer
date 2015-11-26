@@ -1,71 +1,48 @@
 class FanzoneProducts extends Controller then constructor: (
-    $scope, $timeout, Und, Chance
+   $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Products, Und
 ) ->
-    $scope.title = 'Online Simple store'
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'products'
 
-    $scope.company = 'บริษัท ชาร์ค 360 องศาสตูดิโอ จำกัด'
-    $scope.stadium = 'ชลบุรี สเตเดี้ยม'
-    $scope.address = '107/12 ม.2 ต.เสม็ด อ.เมือง จ.ชลบุรี 20000'
-    $scope.tel = '0-3846-7109'
-    $scope.email = 'chonburifc.online@gmail.com'
+    pageLimit = 20
+    products = new Products()
 
     $scope.products =
         items: []
-        next: no
-        loadData: ->
-            @items = @fakeItems()
-            $scope.next = @next = if @items.length > 0 then Chance.bool() else no
-            console.log('products:loadData', @items.length, JSON.stringify(@items), @next)
-            return
+        next: null
+        loadData: (args) ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            products.$getPage(
+                page: 1
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = success.items
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            , (error) ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            )
         refresh: ->
-            console.log 'products:refresh'
+            @loadData(pull: yes)
+        loadNext: ->
             $this = @
-            $timeout(->
-                console.log 'products:refresh2'
-                $this.loadData()
-                $scope.$broadcast 'scroll.refreshComplete'
-                return
-            , 2000)
-            return
-        loadMore: ->
-            console.log 'products:loadMore'
-            $this = @
-            $timeout(->
-                console.log 'products:loadMore2'
-                items = $this.fakeItems()
-                for item in items
-                    $this.items.push item
-                $scope.next = $this.next = if $this.items.length > 0 then Chance.bool() else no
-                console.log('products:loadMore', $this.items.length, JSON.stringify($this.items), $this.next)
+            products.$getPage(
+                page: $this.next
+                limit: pageLimit
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = $this.items.concat success.items
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
-                return
-            , 2000)
-            return
-        fakeItem: ->
-            product = Chance.product()
-            item =
-                id: Und.random(1, 9999999)
-                name: Chance.sentence()
-                price: Chance.floating(min: 0, max: 9999999, fixed: 2)
-                image: product.image.src
-                datetime: Chance.date()
-            return item
-        fakeItems: ->
-            items = []
-            i = 0
-            ii = Und.random(0, 20)
-            while i < ii
-                items.push @fakeItem()
-                i++
-            items = Und.sortBy(items, 'datetime')
-            return items
+            , (error) ->
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            )
 
     $scope.products.loadData()
-
-    $scope.next = no
-    $scope.refresh =
-        $scope.products.refresh()
-        return
-    $scope.loadMore =
-        $scope.products.loadMore()
-        return
+    $ionicLoading.show()

@@ -1,14 +1,14 @@
 ion-view.ranking-detail
-    ion-nav-title Ranking
+    ion-nav-title Detail
     ion-nav-buttons(side="left")
-        a.button.button-icon.ion-ios-arrow-left(ng-click="back()")
+        a.button.button-nav.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
             img.logo(
             src="./img/logo/navbar.png"
             srcset="./img/logo/navbar@2x.png 2x"
             )
 
     ion-content.content
-        ion-refresher(pulling-text="Pull to refresh...", on-refresh="ranking.doRefresh()")
+        ion-refresher(pulling-text="Pull to refresh...", on-refresh="data.doRefresh()")
 
         div.row
             div.col.col-33
@@ -48,3 +48,278 @@ ion-view.ranking-detail
                         | Ranking
                     div.col.col-70.text-right
                         span.number {{ranking.item.player | number}}
+
+        div.season.topic
+            div.row.headline
+                div.col.inrow
+                    div.halfcircle
+                div.col.inrow.col-90.col-center
+                    span.head Season Points
+                    span.subhead  คะแนนรวมทั้งฤดูกาล
+            div.result
+                div.row.subtopic
+                    div.col.col-center
+                        | เกมทายผล
+                div.row.grey.text-center
+                    div.col.dark-blue
+                        | เจ้าบ้าน
+                    div.col.dark-blue
+                        | เสมอ
+                    div.col.dark-blue
+                        | ทีมเยือน
+                div.row.inrow.white
+                    div.col.dark-blue.-big.text-right
+                        | {{seasons.item.result.homeScore}}
+                    div.col.dark-blue.-big
+                        | {{seasons.item.result.homeRound}}
+                    div.col.dark-blue.-big.text-right
+                        | {{seasons.item.result.withdrawScore}}
+                    div.col.dark-blue.-big
+                        | {{seasons.item.result.withdrawRound}}
+                    div.col.dark-blue.-big.text-right
+                        | {{seasons.item.result.awayScore}}
+                    div.col.dark-blue.-big
+                        | {{seasons.item.result.awayRound}}
+                div.row.inrow.white
+                    div.col.dark-blue.text-right
+                        | คะแนน
+                    div.col.dark-blue
+                        | นัด
+                    div.col.dark-blue.text-right
+                        | คะแนน
+                    div.col.dark-blue
+                        | นัด
+                    div.col.dark-blue.text-right
+                        | คะแนน
+                    div.col.dark-blue
+                        | นัด
+                div.row.text-center.grey
+                    div.col.col-25.dark-blue
+                        | จำนวน
+                    div.col.col-25.dark-blue
+                        | ถูก
+                    div.col.col-25.dark-blue
+                        | ผิด
+                    div.col.col-25.dark-blue
+                        | คะแนน
+                div.row.text-center.inrow-bot.white
+                    div.col.col-25.border.dark-blue.-big
+                        | {{seasons.item.result.volume}}
+                    div.col.col-25.border.dark-blue.-big
+                        | {{seasons.item.result.right}}
+                    div.col.col-25.border.dark-blue.-big
+                        | {{seasons.item.result.wrong}}
+                    div.col.col-25.yellow.-small
+                        | {{seasons.item.result.point}}
+                div.line
+                div.row.white
+                    div.col.col-67.dark-blue.-bigger
+                        | ความแม่นยำ
+                    div.col.col-33.blue
+                        | {{seasons.item.result.accuracy}}
+                        span.dark-blue.-bigger  %
+
+
+            div.score
+                div.row.subtopic
+                    div.col.col-center
+                        | เกมทายสกอร์
+                div.row.grey.text-center
+                    div.col.col-20.dark-blue
+                        | จำนวน
+                    div.col.col-20.dark-blue
+                        | ถูก
+                    div.col.col-20.dark-blue
+                        | เฉียด
+                    div.col.col-20.dark-blue
+                        | ผิด
+                    div.col.col-20.dark-blue
+                        | คะแนน
+                div.row.text-center.inrow-bot.white
+                    div.col.col-20.border.dark-blue.-big
+                        | {{seasons.item.score.volume}}
+                    div.col.col-20.border.dark-blue.-big
+                        | {{seasons.item.score.right}}
+                    div.col.col-20.border.dark-blue.-big
+                        | {{seasons.item.score.almost}}
+                    div.col.col-20.border.dark-blue.-big
+                        | {{seasons.item.score.wrong}}
+                    div.col.col-20.yellow.-small
+                        | {{seasons.item.score.point}}
+                div.line
+                div.row.white
+                    div.col.col-67.dark-blue.-bigger
+                        | ความแม่นยำ
+                    div.col.col-33.blue
+                        | {{seasons.item.score.accuracy}}
+                        span.dark-blue.-bigger  %
+                div.row.grey
+                    div.col.col-67.dark-blue.-bigger
+                        | คะแนนรวม
+                    div.col.col-33.yellow.-bigger
+                        | {{seasons.item.score.total}}
+                        span.dark-blue.-bigger  คะแนน
+
+        div.month.topic
+            div.row.headline
+                div.col.inrow
+                    div.halfcircle
+                div.col.inrow.col-90.col-center
+                    span.head Month Points
+                    span.subhead  คะแนนรวมประจำเดือน {{month}}
+            div.result
+                div.row.subtopic
+                    div.col.col-center
+                        | เกมทายผล
+                div.row.grey.text-center
+                    div.col.dark-blue
+                        | เจ้าบ้าน
+                    div.col.dark-blue
+                        | เสมอ
+                    div.col.dark-blue
+                        | ทีมเยือน
+                div.row.inrow.white
+                    div.col.dark-blue.-big.text-right
+                        | {{months.item.result.homeScore}}
+                    div.col.dark-blue.-big
+                        | {{months.item.result.homeRound}}
+                    div.col.dark-blue.-big.text-right
+                        | {{months.item.result.withdrawScore}}
+                    div.col.dark-blue.-big
+                        | {{months.item.result.withdrawRound}}
+                    div.col.dark-blue.-big.text-right
+                        | {{months.item.result.awayScore}}
+                    div.col.dark-blue.-big
+                        | {{months.item.result.awayRound}}
+                div.row.inrow.white
+                    div.col.dark-blue.text-right
+                        | คะแนน
+                    div.col.dark-blue
+                        | นัด
+                    div.col.dark-blue.text-right
+                        | คะแนน
+                    div.col.dark-blue
+                        | นัด
+                    div.col.dark-blue.text-right
+                        | คะแนน
+                    div.col.dark-blue
+                        | นัด
+                div.row.text-center.grey
+                    div.col.col-25.dark-blue
+                        | จำนวน
+                    div.col.col-25.dark-blue
+                        | ถูก
+                    div.col.col-25.dark-blue
+                        | ผิด
+                    div.col.col-25.dark-blue
+                        | คะแนน
+                div.row.text-center.inrow-bot.white
+                    div.col.col-25.border.dark-blue.-big
+                        | {{months.item.result.volume}}
+                    div.col.col-25.border.dark-blue.-big
+                        | {{months.item.result.right}}
+                    div.col.col-25.border.dark-blue.-big
+                        | {{months.item.result.wrong}}
+                    div.col.col-25.yellow.-small
+                        | {{months.item.result.point}}
+                div.line
+
+            div.score
+                div.row.subtopic
+                    div.col.col-center
+                        | เกมทายสกอร์
+                div.row.grey.text-center
+                    div.col.col-20.dark-blue
+                        | จำนวน
+                    div.col.col-20.dark-blue
+                        | ถูก
+                    div.col.col-20.dark-blue
+                        | เฉียด
+                    div.col.col-20.dark-blue
+                        | ผิด
+                    div.col.col-20.dark-blue
+                        | คะแนน
+                div.row.text-center.inrow-bot.white
+                    div.col.col-20.border.dark-blue.-big
+                        | {{months.item.score.volume}}
+                    div.col.col-20.border.dark-blue.-big
+                        | {{months.item.score.right}}
+                    div.col.col-20.border.dark-blue.-big
+                        | {{months.item.score.almost}}
+                    div.col.col-20.border.dark-blue.-big
+                        | {{months.item.score.wrong}}
+                    div.col.col-20.yellow.-small
+                        | {{months.item.score.point}}
+                div.line
+                div.row.grey
+                    div.col.col-67.dark-blue.-bigger
+                        | คะแนนรวม
+                    div.col.col-33.yellow.-bigger
+                        | {{months.item.score.total}}
+                        span.dark-blue.-bigger  คะแนน
+
+        div.last.topic
+            div.row.headline
+                div.col.inrow
+                    div.halfcircle
+                div.col.inrow.col-90.col-center
+                    span.head Lasted Match
+                    span.subhead  คะแนน 5 นัดล่าสุด
+            div.result
+                div.row.subtopic
+                    div.col.col-center
+                        | เกมทายผล
+                div.predict(ng-repeat="last in lasts.items")
+                    div.row.grey
+                        div.col
+                            | {{last.result.datetime}}
+                    div.row.white
+                        div.col.col-33.text-right
+                            span(ng-class="{'cover' : last.teamHome.score > last.teamAway.score }")
+                                | {{last.teamHome.name}} {{ last.teamHome.score}}
+                        div.col.text-center.blue.-normal
+                            | - 1.50
+                        div.col.col-33
+                            span(ng-class="{'cover' : last.teamHome.score < last.teamAway.score }")
+                                | {{last.teamAway.name}} {{ last.teamAway.score}}
+                        div.col.col-20.yellow.-smaller
+                            | {{last.result.point}} คะแนน
+                div.line
+                div.row.grey
+                    div.col.col-67.dark-blue.-bigger
+                        | คะแนนรวม
+                    div.col.col-33.yellow.-bigger
+                        | {{last.result.total}}
+                        span.dark-blue.-bigger  คะแนน
+                div.big-line
+                div.real(ng-repeat="last in lasts.items")
+                    div.row.grey
+                        div.col
+                            | {{last.result.datetime}}
+                    div.row.white
+                        div.col.col-33.text-right
+                            span(ng-class="{'cover' : last.teamHome.score > last.teamAway.score }")
+                                | {{last.teamHome.name}} {{ last.teamHome.score}}
+                        div.col.text-center.blue.-normal
+                            | - 1.50
+                        div.col.col-33
+                            span(ng-class="{'cover' : last.teamHome.score < last.teamAway.score }")
+                                | {{last.teamAway.name}} {{ last.teamAway.score}}
+                        div.col.col-20.yellow.-smaller
+                            | {{last.result.point}} คะแนน
+                    div.row.white
+                        div.col.col-33.text-right
+                            | สกอร์จริง
+                        div.col
+                            | {{ last.teamHome.score}} - {{ last.teamAway.score}}
+                div.line
+                div.row.grey
+                    div.col.col-67.dark-blue.-bigger
+                        | คะแนนรวม
+                    div.col.col-33.yellow.-bigger
+                        | {{last.real.total}}
+                        span.dark-blue.-bigger  คะแนน
+                div.line
+                div.row.end
+                    div.history History ประวัติการทายผลทั้งหมด
+                div.line

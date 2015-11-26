@@ -1,59 +1,71 @@
 class FeatureMain extends Controller then constructor: (
-    $scope, $ionicHistory, $ionicModal, $cordovaAppVersion, $timeout, Und, Chance
+    $document, $ionicHistory, $ionicPlatform, $rootScope, $scope, $timeout, Ads, Authen, AuthenUI, GoogleAnalytics
 ) ->
-    $ionicModal.fromTemplateUrl(
-        'templates/feature/ads.html',
-         scope: $scope
-         animation: 'no-animation'
-    ).then (modal) ->
-        $scope.modal = modal
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'feature'
 
-        $timeout (->
-            $scope.openAds()
-            return
-        )
-        return
-    $scope.openAds = ->
-        $scope.modal.show()
-        return
-    $scope.closeAds = ->
-        $scope.modal.hide()
-        return
-    $scope.version = '0.0.0'
-    document.addEventListener('deviceready', ->
-        $cordovaAppVersion.getVersionNumber().then ((version) ->
-            $scope.version = version
-            return
-        )
-        return
-    , false)
+    $scope.version = $rootScope.version
+    $rootScope.$on 'version', (event, data) ->
+        $scope.version = data
+
+    Ads.$on 'ready', ->
+        Ads.openModal()
+
+    $ionicHistory.clearHistory()
+    $ionicHistory.clearCache()
+
+    $scope.isLoggedin = $rootScope.isLoggedin
+
     $scope.profile =
-        item: {},
-        loadData: ->
-            item = this.fakeItem()
-            this.item =  item
-            console.log('profile:loadData', JSON.stringify(this.item))
-            return
-        doRefresh: ->
-            console.log 'profile:doRefresh'
-            $this = this
-            $timeout(->
-                console.log 'profile:doRefresh2'
-                $this.loadData()
-                $scope.$broadcast 'scroll.refreshComplete'
-                return
-            , 2000)
-            return
-        fakeItem: ->
-            profile = Chance.profile()
-            item =
-                id: Und.random(1, 9999999)
-                photo: profile.image.src
-                name: profile.name
-                point1: Und.random(1, 9999999999)
-                point2: Und.random(1, 9999999999)
-            return item
+        item: {}
+        photo:
+            element: angular.element $document[0].querySelector '.profile img.photo'
+            setDefault: ->
+                @element.attr 'src', './img/member/photo.png'
+                @element.attr 'srcset', './img/member/photo@2x.png 2x'
+            setData: (data) ->
+                @element.attr 'src', data
+                @element.removeAttr 'srcset'
+        setDefault: ->
+            @item =
+                id: 0
+                name: if $scope.isLoggedin then 'Unknown' else 'Guest'
+                point1: 0
+                point2: 0
+            @photo.setDefault()
+        loadData: (args) ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            flush = if args && args.flush then args.flush else no
+            promise = Authen.getUser(flush: flush)
+            promise.then((success) ->
+                $this.item =
+                    id: success.id
+                    name: success.firstName + ' ' + success.lastName
+                    point1: 0
+                    point2: 0
+                if success.profilePicture
+                    $this.photo.setData success.profilePicture
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+            , (error) ->
+                $this.setDefault()
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+            )
+        refresh: ->
+            @loadData(flush: yes, pull: yes)
+
+    $scope.profile.setDefault()
     $scope.profile.loadData()
-    $scope.doRefresh = ->
-        $scope.profile.doRefresh()
+
+    $scope.login = ->
+        $rootScope.$emit 'event:auth-loginRequired'
+
+    $scope.logout = ->
+        $rootScope.$emit 'event:auth-logout'
+
+    $rootScope.$on 'event:auth-stateChange', (event, data) ->
+        $scope.isLoggedin = data
+        $scope.profile.loadData()
         return

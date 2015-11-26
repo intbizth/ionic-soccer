@@ -1,0 +1,34 @@
+ion-view.lineup
+    ion-nav-title
+        a.button.button-clear(ng-click="footballField.setLock(!footballField.isLock)", style="font-size:12px;")
+            i.icon(
+            ng-class="{'ion-ios-close-outline' : footballField.isLock, 'ion-ios-circle-outline' : !footballField.isLock}"
+            ) {{footballField.isLock ? "scroll lock" : "can scroll"}}
+        a.button.button-clear(ng-click="personals.setLockAll(!personals.isLock)", style="font-size:12px;")
+            i.icon(
+            ng-class="{'ion-ios-close-outline' : personals.isLock, 'ion-ios-circle-outline' : !personals.isLock}"
+            ) {{personals.isLock ? "drag lock" : "can drag"}}
+        a.button.button-clear(ng-click="personals.loadDataCenterPoints()", style="font-size:12px;")
+            i.icon.ion-ios-checkmark-outline save
+
+    ion-content.content
+        div.row.format
+            div.col.col-center {{format}}
+
+        div.football-field
+            div.personal(
+            ng-repeat="personal in personals.items"
+            id="personal-{{personal.id}}"
+            data-item-id="{{personal.id}}"
+            ng-style="{'top':personal.position.top,'left':personal.position.left}"
+            ng-click="personals.popup(personal.itemId)"
+            ng-class="{'-testDrag' : !personals.checkLock(personal.itemId), '-testLock' : personals.checkLock(personal.itemId)}"
+            )
+                div.avatar
+                    div.circle
+                        div.subcircle
+                            img.photo(ng-src="{{personal.photo}}")
+                div.fullname {{personal.fullname}}
+                div.testCenterPoint {{personal.centerPoint.x}},{{personal.centerPoint.y}}
+
+        div {{content}}
