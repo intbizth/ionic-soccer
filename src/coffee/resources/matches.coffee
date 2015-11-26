@@ -263,6 +263,7 @@ class Matches extends Factory then constructor: (
             params:
                 id: '@id'
             responseType: 'json'
+            cache: cache
             transformResponse: (data, headersGetter) ->
                 newData = angular.copy data
                 fields =
@@ -300,6 +301,7 @@ class Matches extends Factory then constructor: (
             params:
                 id: '@id'
             responseType: 'json'
+            cache: cache
             transformResponse: (data, headersGetter) ->
                 newData = angular.copy data
                 fields =
