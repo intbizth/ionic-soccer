@@ -25,9 +25,10 @@ class LiveMain extends Controller then constructor: (
                 flush: flush
             , (success) ->
                 $this.loaded = yes
-                $scope.streaming.item.url = success.streaming
-                $this.items = success.matchLabel
-                $scope.matchEvents = success.matchEvents
+                if success.streaming and success.matchLabel and success.matchEvents
+                    $scope.streaming.item.url = success.streaming
+                    $this.items = success.matchLabel
+                    $scope.matchEvents = success.matchEvents
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else

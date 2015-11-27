@@ -121,33 +121,36 @@ class Matches extends Factory then constructor: (
             cache: cache
             transformResponse: (data, headersGetter) ->
                 newData = angular.copy data
-                fields =
-                    id: 'id'
-                    streaming: 'streaming'
-                    homeClub:
-                        id: 'home_club.id'
-                        name: 'home_club.name'
-                        shortName: 'home_club.short_name'
-                        logo: 'home_club._links.logo_70x70.href'
-                        score: 'home_score'
-                    awayClub:
-                        id: 'away_club.id'
-                        name: 'away_club.name'
-                        shortName: 'away_club.short_name'
-                        logo: 'away_club._links.logo_70x70.href'
-                        score: 'away_score'
-                    startTime: 'start_time'
-                matchLabel = Helper.traverseProperties newData, fields
-                matchLabel.type = 'label'
-                matchLabel.template = 'after'
-                section =
-                    type: 'section'
-                    startTime: matchLabel.startTime || null
-                matchLabel = [section ,matchLabel]
-                newData2 =
-                    streaming: matchLabel.streaming || null
-                    matchLabel: matchLabel
-                    matchEvents: getMatchEvents newData
+                if angular.isArray newData
+                    newData2 = null
+                else
+                    fields =
+                        id: 'id'
+                        streaming: 'streaming'
+                        homeClub:
+                            id: 'home_club.id'
+                            name: 'home_club.name'
+                            shortName: 'home_club.short_name'
+                            logo: 'home_club._links.logo_70x70.href'
+                            score: 'home_score'
+                        awayClub:
+                            id: 'away_club.id'
+                            name: 'away_club.name'
+                            shortName: 'away_club.short_name'
+                            logo: 'away_club._links.logo_70x70.href'
+                            score: 'away_score'
+                        startTime: 'start_time'
+                    matchLabel = Helper.traverseProperties newData, fields
+                    matchLabel.type = 'label'
+                    matchLabel.template = 'after'
+                    section =
+                        type: 'section'
+                        startTime: matchLabel.startTime || null
+                    matchLabel = [section ,matchLabel]
+                    newData2 =
+                        streaming: matchLabel.streaming || null
+                        matchLabel: matchLabel
+                        matchEvents: getMatchEvents newData
                 return newData2
             then: (resolve) ->
                 if !angular.isUndefined @params and !angular.isUndefined @params.flush
