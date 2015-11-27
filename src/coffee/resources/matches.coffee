@@ -248,7 +248,7 @@ class Matches extends Factory then constructor: (
                         startTime: 'start_time'
                     newData.items[key] = Helper.traverseProperties value, fields
                     newData.items[key].type = 'label'
-                    newData.items[key].template = 'before'
+                    newData.items[key].template = 'after'
                 if newData.page < newData.pages
                     newData.next = newData.page + 1
                 return newData
