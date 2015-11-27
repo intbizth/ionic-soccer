@@ -1,50 +1,63 @@
 class CompetitionTablePositionTable extends Controller then constructor: (
-    $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Rankings, Und
+    $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Standings
 ) ->
-    $ionicPlatform.ready ->
-        GoogleAnalytics.trackView 'position-table'
-
-    rankingStore = new Rankings null,
-        url: Rankings::url + 'fixtures/tpl/2015-2016'
-        state: pageSize: 100
-
-    options =
-        scope: $scope
-        rankingStoreKey: 'rankingStore'
-        collectionKey: 'rankingCollection'
+    competitionCode = 'tpl'
+    pageLimit = 50
+    standings = new Standings()
 
     $scope.position =
         items: []
-        hasMorePage: no
-        loadData: ->
-            promise = rankingStore.load options
-            promise.finally -> $ionicLoading.hide()
-            promise.then ->
-                $scope.position.items = Und.map rankingStore.getCollection(), (item) ->
-                    return item.dataTranformToPostionTable()
-                $scope.position.hasMorePage = rankingStore.hasMorePage()
+        next: null
+        loaded: no
+        no: null
+        season: null
+        loadData: (args) ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            flush = if args && args.flush then args.flush else no
+            if !pull
+                $this.loaded = no
+            standings.$getPositionTable(
+                competitionCode: competitionCode
+                flush: flush
+            , (success) ->
+                $this.loaded = yes
+                $this.next = if success.next then success.next else null
+                $this.items = success.items
+                if success.items.length > 0
+                    $this.season = success.items[0].season
+                angular.forEach success.items, (value, key) ->
+                    if value.me
+                        $this.no = value.overallPosition
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            , (error) ->
+                if pull
+                    $scope.$broadcast 'scroll.refreshComplete'
+                else
+                    $ionicLoading.hide()
+            )
         refresh: ->
-            options.fetch = yes
-            # TODO getFirstPage
-            promise = rankingStore.getFirstPage options
-            promise.finally -> $scope.$broadcast 'scroll.refreshComplete'
-            promise.then ->
-                # FIXBUG
-                items = rankingStore.getCollection().slice 0, $scope.position.items.length
-                $scope.position.items = Und.map items, (item) ->
-                    return item.dataTranformToPostionTable()
-                $scope.position.hasMorePage = rankingStore.hasMorePage()
+            @loadData(flush: yes, pull: yes)
         loadNext: ->
-            rankingStore.prepend = yes
-            promise = rankingStore.getNextPage options
-            promise.finally -> $scope.$broadcast 'scroll.infiniteScrollComplete'
-            promise.then ->
-                items = rankingStore.getCollection().slice 0, rankingStore.state.pageSize
-                items = Und.map items, (item) ->
-                    return item.dataTranformToPostionTable()
-                $scope.position.items = $scope.position.items.concat items
-                $scope.position.hasMorePage = rankingStore.hasMorePage()
+            $this = @
+            standings.$getPositionTable(
+                page: $this.next
+            , (success) ->
+                $this.next = if success.next then success.next else null
+                $this.items = $this.items.concat success.items
+                angular.forEach success.items, (value, key) ->
+                    if value.me
+                        $this.no = value.overallPosition
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            , (error) ->
+                $scope.$broadcast 'scroll.infiniteScrollComplete'
+            )
 
     $scope.position.loadData()
-
     $ionicLoading.show()
+
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'position-table'

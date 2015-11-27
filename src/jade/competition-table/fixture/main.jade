@@ -5,7 +5,7 @@ div.match-label
         div.nodata(ng-if="matchLabel.items.length == 0")
             div.row
                 div.col.col-center.text-center
-                    div.text Has no match.
+                    span Has no match.
 
         div(ng-repeat="item in matchLabel.items")
             div.row.row-center.section(ng-if="item.type == 'section'")
