@@ -7,14 +7,17 @@ ion-view.match
             srcset="./img/logo/navbar@2x.png 2x"
             )
 
-    ion-content.content(scroll="false")
-        ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
-            ion-tab(title="View")
-                ion-content.view.fix-tab
-                    div(ui-view="view")
-            //ion-tab(title="Highlight")
-            //    ion-content.highlight.fix-tab
-            //        div(ui-view="highlight")
-            //ion-tab(title="Lineups")
-            //    ion-content.lineups.fix-tab
-            //        div(ui-view="lineups")
+    ion-content.view
+        div(ui-view="view")
+
+    //ion-content.content(scroll="false")
+    //    ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
+    //        ion-tab(title="View")
+    //            ion-content.view.fix-tab
+    //                div(ui-view="view")
+    //        ion-tab(title="Highlight")
+    //            ion-content.highlight.fix-tab
+    //                div(ui-view="highlight")
+    //        ion-tab(title="Lineups")
+    //            ion-content.lineups.fix-tab
+    //                div(ui-view="lineups")
