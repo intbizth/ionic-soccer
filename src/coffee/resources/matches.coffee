@@ -117,9 +117,6 @@ class Matches extends Factory then constructor: (
         getLive:
             url: CFG.API.getPath('matches/live/' + CFG.clubId)
             method: 'GET'
-            params:
-                page: 1
-                limit: 1
             responseType: 'json'
             cache: cache
             transformResponse: (data, headersGetter) ->
