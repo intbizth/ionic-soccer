@@ -1,7 +1,7 @@
 class GamesScores extends Factory then constructor: (
     $cacheFactory, $resource, CFG, Helper
 ) ->
-    timeout = 20000
+    timeout = 60000
     cache = $cacheFactory 'resourceGamesScoresCache'
 
     url = CFG.API.getPath('games-scores/')

@@ -1,7 +1,7 @@
 class Users extends Factory then constructor: (
     $cacheFactory, $resource, CFG, Clubs, Helper
 ) ->
-    timeout = 20000
+    timeout = 60000
     cache = $cacheFactory 'resourceUsersCache'
 
     url = CFG.API.getPath('users/')

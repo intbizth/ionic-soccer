@@ -1,7 +1,7 @@
 class TicketMatches extends Factory then constructor: (
     $cacheFactory, $resource, CFG, Helper
 ) ->
-    timeout = 20000
+    timeout = 60000
     cache = $cacheFactory 'resourceTicketMatchesCache'
 
     url = CFG.API.getPath('ticket-matches/')
