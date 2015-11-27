@@ -103,25 +103,21 @@ class AuthenUI extends Factory then constructor: (
 
         scope.step1 =
             isPass: no
-            username: ''
             email: ''
             password: ''
             confirmPassword: ''
             errorMessage: ''
             fake: ->
-                @username = Chance.first()  + '.' + Chance.last().toLowerCase()
                 @email = Chance.email()
                 @password = @confirmPassword = md5.createHash(@email).slice 0, 13
                 @valid()
             reset: ->
-                @username = @email = @password = @confirmPassword = ''
+                @email = @password = @confirmPassword = ''
                 @valid()
             valid: ->
                 pass = yes
                 # RFC 5322 http://emailregex.com/
                 regExpEmail = new RegExp('^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$', 'i')
-                if not @username?.length
-                    pass = no
                 if not @email?.length or not regExpEmail.test(@email)
                     pass = no
                 if not @password?.length or @password != @confirmPassword
@@ -171,7 +167,6 @@ class AuthenUI extends Factory then constructor: (
                 data =
                     email: scope.step1.email
                     user:
-                        username: scope.step1.username
                         plainPassword:
                             first: scope.step1.password
                             second: scope.step1.confirmPassword
@@ -184,7 +179,7 @@ class AuthenUI extends Factory then constructor: (
                 users = new Users(data)
                 users.$register({}
                 , (success) ->
-                    promise = Authen.login data.user.username, data.user.plainPassword.first
+                    promise = Authen.login data.email, data.user.plainPassword.first
                     promise.then(->
                         $ionicLoading.hide()
                     , (error) ->
