@@ -110,11 +110,13 @@ gulp.task 'coffee', (done) ->
 gulp.task 'jade', (done) ->
     if environment == 'dev'
         gulp.src(paths.views)
+            .pipe(replace(patterns: replacements))
             .pipe($.jade(pretty: yes))
             .pipe(gulp.dest('./www/templates'))
             .pipe($.size(showFiles: yes))
     else
         gulp.src(paths.views)
+            .pipe(replace(patterns: replacements))
             .pipe($.jade(pretty: no))
             .pipe(gulp.dest('./www/templates'))
             .pipe($.size(showFiles: yes))

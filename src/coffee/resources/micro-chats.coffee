@@ -1,7 +1,7 @@
 class MicroChats extends Factory then constructor: (
     $cacheFactory, $resource, CFG, Helper
 ) ->
-    timeout = 20000
+    timeout = 60000
     cache = $cacheFactory 'resourceMicroChatsCache'
 
     url = CFG.API.getPath('micro-chats/')
@@ -32,7 +32,7 @@ class MicroChats extends Factory then constructor: (
                         user:
                             id: 'user.id'
                             displayname: 'user.displayname'
-                            profilePicture: 'user.profile_picture'
+                            profilePicture: 'user._links.profile_picture.href'
                         publishedDate: 'published_date'
                     newData.items[key] = Helper.traverseProperties value, fields
                 if newData.page < newData.pages
@@ -46,6 +46,16 @@ class MicroChats extends Factory then constructor: (
                 @then = null
                 resolve @
             timeout: timeout
+        send:
+            url: CFG.API.getPath('micro-chats/')
+            method: 'POST'
+            responseType: 'json'
+            transformRequest: (data, headersGetter) ->
+                return Helper.buildFormData data
+            timeout: timeout
     options = {}
+    extend = {}
 
-    return $resource url, paramDefaults, actions, options
+    resource = $resource url, paramDefaults, actions, options
+    resource.prototype = angular.extend extend, resource.prototype
+    return resource

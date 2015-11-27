@@ -1,0 +1,33 @@
+.date-picker {
+    .input {
+        width: 100%;
+        height: 42px;
+        border: solid 1px #ffffff;
+        padding: 0;
+
+        .arrow {
+            width: 100%;
+            height: 100%;
+            background-color: #0056a2;
+            padding-top: 8px;
+
+            .icon:before {
+                color: #ffffff;
+                font-size: 24px;
+            }
+        }
+
+        .text {
+            color: #ffffff;
+            font-size: 14px;
+        }
+    }
+
+    .content {
+        .selected {
+            color: #ffffff;
+            font-weight: bold;
+            background-color: #0056a2;
+        }
+    }
+}

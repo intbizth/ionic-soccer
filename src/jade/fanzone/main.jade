@@ -1,14 +1,11 @@
 ion-view.fanzone
     ion-nav-title Fanzone
     ion-nav-buttons(side="left")
-        a.button.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
+        a.button.button-nav.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
             img.logo(
             src="./img/logo/navbar.png"
             srcset="./img/logo/navbar@2x.png 2x"
             )
-    //ion-nav-buttons(side="right")
-    //    a.button.button-clear(ng-click="")
-    //        i.icon.ion-android-more-vertical
 
     ion-content.content(scroll="false")
         ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
@@ -18,6 +15,3 @@ ion-view.fanzone
             ion-tab(title="Wallpapers")
                 ion-content.wallpapers.fix-tab
                     div(ui-view="wallpapers")
-            //ion-tab(title="Questionary")
-            //    ion-content.questionary.fix-tab
-            //        div(ui-view="questionary")

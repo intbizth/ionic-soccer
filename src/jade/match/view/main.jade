@@ -5,6 +5,7 @@ div.match-label
         div.row.row-center.section(ng-if="item.type == 'section'")
             div.col.col-center.text-center
                 | {{item.startTime | date : 'MMM yyyy'}}
+
         div.row.label(ng-if="item.type == 'label'")
             div.col.col-15.col-center.logo.text-center
                 img.image(ng-src="{{item.homeClub.logo}}")
@@ -58,4 +59,3 @@ div.match-events(ng-if="matchEvents.activities.length > 0", id="match-events")
                     srcset="./img/icon/{{item.icon}}@2x.png 2x"
                     )
                     span.name(ng-if="item.actor") {{item.actor}}
-

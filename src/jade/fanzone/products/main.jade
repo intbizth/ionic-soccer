@@ -1,32 +1,22 @@
 ion-refresher(pulling-text="Pull to refresh...", on-refresh="products.refresh()")
 
-//div.cover
-//    img.image(src="./img/fanzone/products/product.png", srcset="./img/fanzone/products/product@2x.png 2x")
-//
-//div.address
-//    div.row.section
-//        div.col.text-center
-//            | {{title}}
-//    div.row.detail
-//        div.col
-//            div.title {{title}}
-//            div {{company}}
-//            div {{stadium}}
-//            div {{address}}
-//            div โทรศัพท์.{{tel}}
-//            div E-Mail : {{email}}
-
 div.items
-    div(ng-repeat="item in products.items")
-        div.space
-        div.detail(ng-style="{'background-image' : 'url({{item.image}})'}" ui-sref="product-detail({id : item.id})")
-            div.subdetail
-                div.row.name
-                    div.col
-                        | {{item.name}}
-                div.row.price
-                    div.col
-                        | ราคา ฿ {{item.price | number}}
-        div.shadow
+    div.subitems(ng-if="products.loaded")
+        div.nodata(ng-if="products.items.length == 0")
+            div.row
+                div.col.col-center.text-center
+                    span Has no products.
+
+        div(ng-repeat="item in products.items")
+            div.space
+            div.detail(image-cache="{{item.image}}" ui-sref="product-detail({id : item.id})")
+                div.subdetail
+                    div.row.name
+                        div.col
+                            | {{item.name}}
+                    div.row.price
+                        div.col
+                            | ราคา ฿ {{item.price | number}}
+            div.shadow
 
 ion-infinite-scroll(ng-if="products.next" on-infinite="products.loadNext()", distance="1%")

@@ -1,36 +1,30 @@
 ion-view.product-detail
-    ion-nav-title Product
+    ion-nav-title {{title}}
     ion-nav-buttons(side="left")
-        a.button.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
+        a.button.button-nav.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
             img.logo(
             src="./img/logo/navbar.png"
             srcset="./img/logo/navbar@2x.png 2x"
             )
-    //ion-nav-buttons(side="right")
-    //    a.button.button-clear(ng-click="")
-    //        i.icon.ion-android-more-vertical
 
     ion-content
         ion-refresher(pulling-text="Pull to refresh...", on-refresh="product.refresh()")
-        //div.store
-        //    div.row.section
-        //        div.col.text-center
-        //            | {{product.item.title}}
 
-        div.info
-            div.image(style="background-image: url('{{product.item.image}}');")
-            div.row.name
-                div.col
-                    | {{product.item.name}}
-            div.row.model
-                div.col
-                    | {{product.item.model}}
-            div.row.description
-                div.col
-                    | {{product.item.description}}
-            div.row.price
-                div.col
-                    | ราคา ฿ {{product.item.price | number}}
-            div.row.moreDescription
-                div.col
-                    | {{product.item.moreDescription}}
+        div.sub(ng-if="product.loaded")
+            div.info
+                div.image(image-cache="{{product.item.image}}")
+                div.row.name
+                    div.col
+                        | {{product.item.name}}
+                div.row.model
+                    div.col
+                        | {{product.item.model}}
+                div.row.description
+                    div.col
+                        | {{product.item.description}}
+                div.row.price
+                    div.col
+                        | ราคา ฿ {{product.item.price | number}}
+                div.row.moreDescription
+                    div.col
+                        | {{product.item.moreDescription}}

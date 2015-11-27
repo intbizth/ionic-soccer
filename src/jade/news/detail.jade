@@ -1,7 +1,7 @@
 ion-view.news-detail
-    ion-nav-title News
+    ion-nav-title {{title}}
     ion-nav-buttons(side="left")
-        a.button.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
+        a.button.button-nav.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
             img.logo(
             src="./img/logo/navbar.png"
             srcset="./img/logo/navbar@2x.png 2x"
@@ -10,33 +10,36 @@ ion-view.news-detail
     ion-content.content
         ion-refresher(pulling-text="Pull to refresh...", on-refresh="paper.refresh()")
 
-        div.image(ng-if="paper.item.cover", image-cache="{{paper.item.cover}}")
+        div.subcontent(ng-if="paper.loaded")
+            div.image(ng-if="paper.item.cover", image-cache="{{paper.item.cover}}")
 
-        div.row(ng-if="paper.item.user.displayname")
-            div.col
-                div.userbox
-                    img.photo(image-cache="{{paper.item.user.profilePicture}}")
-                    span.name {{paper.item.user.displayname}}
+            div.row(ng-if="paper.item.user.displayname")
+                div.col
+                    div.userbox
+                        img.photo(image-cache="{{paper.item.user.profilePicture}}")
+                        span.name {{paper.item.user.displayname}}
 
-        div.row.datetime(ng-if="paper.item.publishedDate")
-            div.col.col-33
-                div.line
-                    span.text {{paper.item.publishedDate | date: 'dd MMM yyyy'}}
+            div.row.datetime(ng-if="paper.item.publishedDate")
+                div.col.col-33
+                    div.line
+                        span.text {{paper.item.publishedDate | date: 'dd MMM yyyy'}}
 
-        div.row.url(ng-if="paper.item.creditUrl", ng-click="openURL(paper.item.creditUrl)")
-            div.col
-                span {{paper.item.creditUrl}}
+            div.row.url(ng-if="paper.item.creditUrl", ng-click="openURL(paper.item.creditUrl)")
+                div.col
+                    span {{paper.item.creditUrl}}
 
-        div.row(ng-if="paper.item.headline")
-            div.col
-                div.headline
-                    div.subheadline
-                        span {{paper.item.headline}}
+            div.row(ng-if="paper.item.headline")
+                div.col
+                    div.headline
+                        div.subheadline
+                            span {{paper.item.headline}}
 
-        div.row.description(ng-if="paper.item.description")
-            div.col
-                span {{paper.item.description}}
+            div.row.description(ng-if="paper.item.description")
+                div.col
+                    span {{paper.item.description}}
 
-        div.row
-            div.col
-                div.image(ng-if="paper.item.image", image-cache="{{paper.item.image}}")
+            div.row
+                div.col
+                    div.image(ng-if="paper.item.image", image-cache="{{paper.item.image}}")
+
+            div.footer

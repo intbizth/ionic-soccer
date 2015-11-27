@@ -16,13 +16,11 @@
     "chance": "~0.8.0",
     "moment": "~2.10.6",
     "angular-http-auth": "~1.2.2",
-    "angular-oauth2": "git@github.com:liverbool/angular-oauth2.git#~3.1.2",
+    "angular-oauth2": "https://github.com/intbizth/angular-oauth2.git#~3.1.3",
     "jquery-ui" : "~1.11.4",
     "jqueryui-touch-punch" : "master",
     "angular-resource" : "1.5.0-build.4334+sha.ffb6b2f",
     "underscore" : "1.8.3",
-    "angular-imgcache.js" : "0.1.0",
-    "ionic-cache-src" : "0.6.0",
     "angular-md5" : "0.1.8"
   }
 }

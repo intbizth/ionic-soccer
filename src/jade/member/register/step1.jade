@@ -1,0 +1,68 @@
+- var environment = '@@environment'
+- var on = { doubletap: null, hold: null }
+if environment == "dev"
+    - on.doubletap = "data.fake()"
+    - on.hold = "data.reset()"
+
+ion-view.member-register
+    ion-nav-title Register
+    ion-nav-buttons(side="left")
+        a.button.button-nav.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
+            img.logo(
+            src="./img/logo/navbar.png"
+            srcset="./img/logo/navbar@2x.png 2x"
+            )
+    ion-content.content(on-double-tap=on.doubletap, on-hold=on.hold)
+        div.member-form
+            div.form
+                div.row
+                    div.col.text-center
+                        input(
+                        ng-model="data.username",
+                        ng-model-options="{ getterSetter: true }",
+                        ng-change="data.valid()",
+                        type="text",
+                        name="username",
+                        placeholder="Username",
+                        maxlength="128"
+                        )
+                div.row
+                    div.col.text-center
+                        input(
+                        ng-model="data.email",
+                        ng-model-options="{ getterSetter: true }",
+                        ng-change="data.valid()",
+                        type="text",
+                        name="email",
+                        placeholder="Email",
+                        maxlength="128"
+                        )
+                div.row
+                    div.col.text-center
+                        input(
+                        ng-model="data.password",
+                        ng-model-options="{ getterSetter: true }",
+                        ng-change="data.valid()",
+                        type="password",
+                        name="password",
+                        placeholder="Password",
+                        maxlength="128"
+                        )
+                div.row
+                    div.col.text-center
+                        input(
+                        ng-model="data.confirmPassword",
+                        ng-model-options="{ getterSetter: true }",
+                        ng-change="data.valid()",
+                        type="password",
+                        name="confirmPassword",
+                        placeholder="Confirm password",
+                        maxlength="128"
+                        )
+            div.submit
+                div.row
+                    div.col.text-center
+                        button.button.button-positive(
+                        ng-disabled="!data.isPass",
+                        ng-click="data.submit()"
+                        ) Next

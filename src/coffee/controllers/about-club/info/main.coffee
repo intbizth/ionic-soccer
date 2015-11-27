@@ -1,18 +1,7 @@
 class aboutClubInfo extends Controller then constructor: (
-    $cordovaClipboard, $ionicLoading, $ionicModal, $ionicPlatform, $rootScope, $scope, $timeout, Clubs, GoogleAnalytics, Und
+    $cordovaClipboard, $ionicLoading, $ionicModal, $ionicPlatform, $rootScope, $scope, $timeout, Clubs, GoogleAnalytics
 ) ->
-    $ionicPlatform.ready ->
-        GoogleAnalytics.trackView 'info'
-
     clubs = new Clubs()
-
-    $ionicModal.fromTemplateUrl('templates/common/clipboard-modal.html',
-        scope: $scope
-        animation: 'fade-in'
-    ).then((modal) ->
-        $scope.modal = modal
-        return
-    )
 
     $scope.clipboard = (text) ->
         $cordovaClipboard.copy(text).then((success) ->
@@ -26,11 +15,15 @@ class aboutClubInfo extends Controller then constructor: (
 
     $scope.club =
         item: {}
+        loaded: no
         loadData: (args)->
             $this = @
             pull = if args && args.pull then args.pull else no
+            if !pull
+                $this.loaded = no
             clubs.$getMe({}
             , (success) ->
+                $this.loaded = yes
                 $this.item = success
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
@@ -47,3 +40,14 @@ class aboutClubInfo extends Controller then constructor: (
 
     $scope.club.loadData()
     $ionicLoading.show()
+
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'info'
+
+    $ionicModal.fromTemplateUrl('templates/common/clipboard-modal.html',
+        scope: $scope
+        animation: 'fade-in'
+    ).then((modal) ->
+        $scope.modal = modal
+        return
+    )
