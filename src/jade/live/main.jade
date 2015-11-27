@@ -11,6 +11,11 @@ ion-view.live
         ion-refresher(pulling-text="Pull to refresh...", on-refresh="matchLabel.refresh()")
 
         div(ng-if="matchLabel.loaded")
+            div.nodata(ng-if="matchLabel.items.length == 0")
+                div.row
+                    div.col.col-center.text-center
+                        div.text Has no match.
+
             div.match-label
                 div(ng-repeat="item in matchLabel.items")
                     div.row.row-center.section(ng-if="item.type == 'section'")
