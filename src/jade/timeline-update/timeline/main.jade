@@ -34,10 +34,11 @@ div.match-label(ng-if="matchLabel.loaded")
                 img.image(ng-src="{{item.awayClub.logo}}")
 
 div.microchats
-    div.list.form(ng-if="isLoggedin", on-double-tap=microChats.doubletap, on-hold=microChats.hold)
-        div.item.item-text-wrap.errorMessage(ng-if="microChats.errorMessage")
+    div.card.errorMessage(ng-if="microChats.errorMessage")
+        div.item.item-text-wrap
             | {{microChats.errorMessage}}
 
+    div.list.form(ng-if="isLoggedin", on-double-tap=microChats.doubletap, on-hold=microChats.hold)
         div.item.item-input-inset
             label.item-input-wrapper
                 input(

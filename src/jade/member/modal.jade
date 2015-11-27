@@ -24,8 +24,8 @@ ion-modal-view.member-login
     ion-content.member-form
         ion-slide-box(delegate-handle="slider", show-pager="false")
             ion-slide(on-double-tap=login.doubletap, on-hold=login.hold)
-                div.list(ng-if="login.errorMessage")
-                    div.item.item-text-wrap.errorMessage
+                div.card.errorMessage(ng-if="login.errorMessage")
+                    div.item.item-text-wrap
                         | {{login.errorMessage}}
 
                 div.form
@@ -119,8 +119,8 @@ ion-modal-view.member-login
 
             ion-slide(on-double-tap=step2.doubletap, on-hold=step2.hold)
                 div.form
-                    div.list(ng-if="step2.errorMessage")
-                        div.item.item-text-wrap.errorMessage
+                    div.card.errorMessage(ng-if="step2.errorMessage")
+                        div.item.item-text-wrap
                             | {{step2.errorMessage}}
 
                     //div.row.photo
