@@ -1,5 +1,5 @@
 class Timeline extends Controller then constructor: (
-    $cordovaSocialSharing, $ionicLoading, $ionicPlatform, $rootScope, $scope, CFG, Chance, GoogleAnalytics, MicroChats, Moment
+    $cordovaSocialSharing, $interval, $ionicLoading, $ionicPlatform, $rootScope, $scope, CFG, Chance, GoogleAnalytics, Matches, MicroChats, Moment
 ) ->
     $scope.isLoggedin = $rootScope.isLoggedin
 
@@ -13,8 +13,31 @@ class Timeline extends Controller then constructor: (
         , (error) ->
             return
 
-    pageLimit = 20
+    pageLimit = 50
     microChats = new MicroChats()
+    matches = new Matches()
+
+    $scope.matchLabel =
+        items: []
+        loaded: no
+        loadData: (args) ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            flush = if args && args.flush then args.flush else no
+            if !pull
+                $this.loaded = no
+            matches.$getToday(
+                page: 1
+                limit: 1
+                flush: flush
+            , (success) ->
+                $this.loaded = yes
+                $this.items = success.items
+            , (error) ->
+                return
+            )
+        refresh: ->
+            @loadData(flush: yes, pull: yes)
 
     $scope.microChats =
         items: []
@@ -34,10 +57,13 @@ class Timeline extends Controller then constructor: (
                 $this.loaded = yes
                 $this.next = if success.next then success.next else null
                 $this.items = success.items
+                $this.cacheData = angular.copy $this.items
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
                     $ionicLoading.hide()
+                $this.autoFetchData()
+                $scope.matchLabel.loadData()
             , (error) ->
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
@@ -47,6 +73,7 @@ class Timeline extends Controller then constructor: (
         refresh: ->
             @errorMessage = ''
             @loadData(flush: yes, pull: yes)
+            $scope.matchLabel.refresh()
         loadNext: ->
             $this = @
             microChats.$getPage(
@@ -59,6 +86,39 @@ class Timeline extends Controller then constructor: (
             , (error) ->
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
             )
+        timer: null
+        cacheData: null
+        autoFetchData: ->
+            $this = @
+
+            fetch = ->
+                microChats.$getPage(
+                    page: 1
+                    limit: pageLimit
+                    flush: yes
+                , (success) ->
+                    if success.items.length > 0 and $this.cacheData.length > 0 and !angular.equals success.items, $this.cacheData
+                        push = yes
+                        items = []
+                        angular.forEach success.items, (value, key) ->
+                            if angular.equals $this.items[0], value
+                                push = no
+
+                            if push
+                                items.push value
+                        items.reverse()
+                        angular.forEach items, (value, key) ->
+                            $this.items.unshift value
+                            $this.cacheData.unshift value
+                , (error) ->
+                    return
+                )
+
+            $interval.cancel $this.timer
+            $this.timer = undefined
+            $this.timer = $interval(->
+                fetch()
+            , 15000)
         isPass: no
         message: ''
         errorMessage: ''
@@ -73,21 +133,16 @@ class Timeline extends Controller then constructor: (
             pass = yes
             if not @message?.length
                 pass = no
-            if angular.isUndefined $rootScope.user
-                pass = no
             @isPass = pass
         submit: ->
             $this = @
             $this.errorMessage = ''
             data =
-                user: $rootScope.user.id
                 club: CFG.clubId
                 message: $this.message
                 publishedDate:
                     date: Moment().format('YYYY-MM-DD')
                     time: Moment().format('HH:mm')
-
-            console.warn 'data', data
 
             $ionicLoading.show()
 
@@ -107,6 +162,7 @@ class Timeline extends Controller then constructor: (
             )
 
     $scope.microChats.loadData()
+
     $ionicLoading.show()
 
     $ionicPlatform.ready ->

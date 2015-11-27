@@ -6,12 +6,32 @@ if environment == "dev"
 
 ion-refresher(pulling-text="Pull to refresh...", on-refresh="microChats.refresh()")
 
-//div.live(ng-show="timeline.isLive")
-//    div.row.section
-//        div.col
-//            span.text Live
-//
-//    match-label(sections="matchLabel.sections")
+div.match-label(ng-if="matchLabel.loaded")
+    div(ng-repeat="item in matchLabel.items")
+        div.row.row-center.section(ng-if="item.type == 'section'")
+            div.col.col-center.text-center
+                | {{section.datetime | date : 'MMM yyyy'}}
+
+        div.row.label(ng-if="item.type == 'label'", ui-sref="match.detail({id : item.id})")
+            div.col.col-15.col-center.logo.text-center
+                img.image(ng-src="{{item.homeClub.logo}}")
+            div.col.col-25.col-center.name.text-center
+                | {{item.homeClub.name}}
+            div.col.col-20.col-center.detail.text-center
+                div(ng-if="item.template == 'before'")
+                    div.time
+                        | {{item.startTime | date:'HH:mm'}}
+                    div.date
+                        | {{item.startTime | date:'dd MMM yyyy'}}
+                div(ng-if="item.template == 'after'")
+                    div.score
+                        | {{item.homeClub.score}}-{{item.awayClub.score}}
+                    div.date
+                        | {{item.startTime | date:'dd MMM yyyy'}}
+            div.col.col-25.col-center.name.text-center
+                | {{item.awayClub.name}}
+            div.col.col-15.col-center.logo.text-center
+                img.image(ng-src="{{item.awayClub.logo}}")
 
 div.microchats
     div.list.form(ng-if="isLoggedin", on-double-tap=microChats.doubletap, on-hold=microChats.hold)
