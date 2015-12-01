@@ -1,14 +1,43 @@
 @charset "UTF-8";
 
+.no {
+    height: 60px;
+    background-color: #0056a2;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+
+    .number {
+        color: #caf906;
+        font-size: 36px;
+        font-weight: bold;
+    }
+}
+
+.season {
+    height: 40px;
+    background-color: #0088cf;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.space {
+    height: 4px;
+    width: 100%;
+    background-color: #1e2b44;
+}
+
 .table {
+    background-color: #F1F2F2;
     font-size: 14px;
 
     .header {
+        color: #1e2b44;
         font-weight: bold;
     }
 
-    .normal {
-        background-color: #f1f2f2;
+    .body {
         color: #203367;
     }
 

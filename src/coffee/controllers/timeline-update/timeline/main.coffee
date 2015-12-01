@@ -1,8 +1,7 @@
 class Timeline extends Controller then constructor: (
-    $cordovaSocialSharing, $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, MicroChats
+    $cordovaSocialSharing, $interval, $ionicLoading, $ionicPlatform, $rootScope, $scope, CFG, Chance, GoogleAnalytics, Matches, MicroChats, Moment
 ) ->
-    $ionicPlatform.ready ->
-        GoogleAnalytics.trackView 'timeline'
+    $scope.isLoggedin = $rootScope.isLoggedin
 
     $scope.share = (message, subject, file, link) ->
         message = message || ''
@@ -14,27 +13,57 @@ class Timeline extends Controller then constructor: (
         , (error) ->
             return
 
-    pageLimit = 20
+    pageLimit = 50
     microChats = new MicroChats()
+    matches = new Matches()
 
-    $scope.microChats =
+    $scope.matchLabel =
         items: []
-        next: null
+        loaded: no
         loadData: (args) ->
             $this = @
             pull = if args && args.pull then args.pull else no
             flush = if args && args.flush then args.flush else no
+            if !pull
+                $this.loaded = no
+            matches.$getToday(
+                page: 1
+                limit: 1
+                flush: flush
+            , (success) ->
+                $this.loaded = yes
+                $this.items = success.items
+            , (error) ->
+                return
+            )
+        refresh: ->
+            @loadData(flush: yes, pull: yes)
+
+    $scope.microChats =
+        items: []
+        next: null
+        loaded: no
+        loadData: (args) ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            flush = if args && args.flush then args.flush else no
+            if !pull
+                $this.loaded = no
             microChats.$getPage(
                 page: 1
                 limit: pageLimit
                 flush: flush
             , (success) ->
+                $this.loaded = yes
                 $this.next = if success.next then success.next else null
                 $this.items = success.items
+                $this.cacheData = angular.copy $this.items
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
                     $ionicLoading.hide()
+                $this.autoFetchData()
+                $scope.matchLabel.loadData()
             , (error) ->
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
@@ -42,7 +71,9 @@ class Timeline extends Controller then constructor: (
                     $ionicLoading.hide()
             )
         refresh: ->
+            @errorMessage = ''
             @loadData(flush: yes, pull: yes)
+            $scope.matchLabel.refresh()
         loadNext: ->
             $this = @
             microChats.$getPage(
@@ -55,6 +86,87 @@ class Timeline extends Controller then constructor: (
             , (error) ->
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
             )
+        timer: null
+        cacheData: null
+        autoFetchData: ->
+            $this = @
+
+            fetch = ->
+                microChats.$getPage(
+                    page: 1
+                    limit: pageLimit
+                    flush: yes
+                , (success) ->
+                    if success.items.length > 0 and $this.cacheData.length > 0 and !angular.equals success.items, $this.cacheData
+                        push = yes
+                        items = []
+                        angular.forEach success.items, (value, key) ->
+                            if angular.equals $this.items[0], value
+                                push = no
+
+                            if push
+                                items.push value
+                        items.reverse()
+                        angular.forEach items, (value, key) ->
+                            $this.items.unshift value
+                            $this.cacheData.unshift value
+                , (error) ->
+                    return
+                )
+
+            $interval.cancel $this.timer
+            $this.timer = undefined
+            $this.timer = $interval(->
+                fetch()
+            , 15000)
+        isPass: no
+        message: ''
+        errorMessage: ''
+        fake: ->
+            @message = Chance.paragraph sentences: Chance.integer min: 1, max: 20
+            @valid()
+        reset: ->
+            @message = ''
+            @valid()
+        valid: ->
+            @errorMessage = ''
+            pass = yes
+            if not @message?.length
+                pass = no
+            @isPass = pass
+        submit: ->
+            $this = @
+            $this.errorMessage = ''
+            data =
+                club: CFG.clubId
+                message: $this.message
+                publishedDate:
+                    date: Moment().format('YYYY-MM-DD')
+                    time: Moment().format('HH:mm')
+
+            $ionicLoading.show()
+
+            new MicroChats(data).$send({}
+            , (success) ->
+                $this.reset()
+                $this.loadData(flush: yes)
+                $ionicLoading.hide()
+            , (error) ->
+                if error.data and error.data.message
+                    $this.errorMessage = error.data.message
+                else if error.data and error.data.error_description
+                    $this.errorMessage = error.data.error_description
+                else
+                    $this.errorMessage = error.statusText
+                $ionicLoading.hide()
+            )
 
     $scope.microChats.loadData()
+
     $ionicLoading.show()
+
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'timeline'
+
+    $rootScope.$on 'event:auth-stateChange', (event, data) ->
+        $scope.isLoggedin = data

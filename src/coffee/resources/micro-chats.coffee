@@ -1,7 +1,7 @@
 class MicroChats extends Factory then constructor: (
     $cacheFactory, $resource, CFG, Helper
 ) ->
-    timeout = 20000
+    timeout = 60000
     cache = $cacheFactory 'resourceMicroChatsCache'
 
     url = CFG.API.getPath('micro-chats/')
@@ -45,6 +45,13 @@ class MicroChats extends Factory then constructor: (
                     delete @params.flush
                 @then = null
                 resolve @
+            timeout: timeout
+        send:
+            url: CFG.API.getPath('micro-chats/')
+            method: 'POST'
+            responseType: 'json'
+            transformRequest: (data, headersGetter) ->
+                return Helper.buildFormData data
             timeout: timeout
     options = {}
     extend = {}

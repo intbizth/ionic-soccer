@@ -2,20 +2,24 @@ class Authen extends Factory then constructor: (
     $ionicPlatform, $q, $rootScope, $sessionStorage, authService, TokenManage, OAuth, OAuthToken, Users
 ) ->
     getUser = (args) ->
+        deferred = $q.defer()
+
         flush = if args && args.flush then args.flush else no
         if isLoggedin()
             users = new Users()
             users.$info(
                 flush: flush
             , (success) ->
-                $sessionStorage.user = success
+                $rootScope.user = success
+                deferred.resolve success
             , (error) ->
-                return
+                deferred.reject error
             )
         else
-            deferred = $q.defer()
             deferred.reject()
-            return deferred.promise
+
+        return deferred.promise
+
 
     login = (username, password) ->
         deferred = $q.defer()
@@ -30,16 +34,25 @@ class Authen extends Factory then constructor: (
                     return config
                 deferred.resolve success2
             , (error) ->
-                authService.loginCancelled error, (config) ->
-                    return config
-                deferred.reject error
+                message = ''
+                if error.data and error.data.message
+                    message = error.data.message
+                else if error.data and error.data.error_description
+                    message = error.data.error_description
+                else
+                    message = error.statusText
+                deferred.notify message
             )
         , (error) ->
-            message = ''
             authService.loginCancelled error, (config) ->
                 return config
-            if error.status == 400 then message = error.data.error_description
-            else if error.status == 500 then message = error.statusText
+            message = ''
+            if error.data and error.data.message
+                message = error.data.message
+            else if error.data and error.data.error_description
+                message = error.data.error_description
+            else
+                 message = error.statusText
             deferred.reject message
         )
 
@@ -57,7 +70,7 @@ class Authen extends Factory then constructor: (
         TokenManage.startRefreshToken()
 
     forceLogout = ->
-        delete $sessionStorage.user
+        delete $rootScope.user
         OAuthToken.removeToken()
         TokenManage.removeToken()
         TokenManage.stopRefreshToken()

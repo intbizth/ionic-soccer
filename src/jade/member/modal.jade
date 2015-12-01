@@ -24,10 +24,9 @@ ion-modal-view.member-login
     ion-content.member-form
         ion-slide-box(delegate-handle="slider", show-pager="false")
             ion-slide(on-double-tap=login.doubletap, on-hold=login.hold)
-                div.errorMessage(ng-if="login.errorMessage")
-                    div.row
-                        div.col.text-center
-                            | {{login.errorMessage}}
+                div.card.errorMessage(ng-if="login.errorMessage")
+                    div.item.item-text-wrap
+                        | {{login.errorMessage}}
 
                 div.form
                     div.row
@@ -66,17 +65,6 @@ ion-modal-view.member-login
 
             ion-slide(on-double-tap=step1.doubletap, on-hold=step1.hold)
                 div.form
-                    div.row
-                        div.col.text-center
-                            input(
-                            ng-model="step1.username",
-                            ng-model-options="{ getterSetter: true }",
-                            ng-change="step1.valid()",
-                            type="text",
-                            name="username",
-                            placeholder="Username",
-                            maxlength="128"
-                            )
                     div.row
                         div.col.text-center
                             input(
@@ -120,10 +108,10 @@ ion-modal-view.member-login
 
             ion-slide(on-double-tap=step2.doubletap, on-hold=step2.hold)
                 div.form
-                    div.errorMessage(ng-if="step2.errorMessage")
-                        div.row
-                            div.col.text-center
-                                | {{step2.errorMessage}}
+                    div.card.errorMessage(ng-if="step2.errorMessage")
+                        div.item.item-text-wrap
+                            | {{step2.errorMessage}}
+
                     //div.row.photo
                     //    div.col.text-center
                     //        img.user(src="./img/member/photo.png", srcset="./img/member/photo@2x.png 2x")

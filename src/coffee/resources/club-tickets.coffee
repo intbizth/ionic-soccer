@@ -1,18 +1,18 @@
-class Wallpapers extends Factory then constructor: (
+class ClubTickets extends Factory then constructor: (
     $cacheFactory, $resource, CFG, Helper
 ) ->
     timeout = 60000
-    cache = $cacheFactory 'resourceWallpapersCache'
+    cache = $cacheFactory 'resourceClubTicketsCache'
 
-    url = CFG.API.getPath('wallpapers/')
+    url = CFG.API.getPath('club-tickets/')
     paramDefaults = {}
     actions =
         getPage:
-            url: CFG.API.getPath('wallpapers/')
+            url: CFG.API.getPath('club-tickets/latest/' + CFG.clubId)
             method: 'GET'
             params:
                 page: 1
-                limit: 20
+                limit: 1
             responseType: 'json'
             cache: cache
             transformResponse: (data, headersGetter) ->
@@ -27,11 +27,11 @@ class Wallpapers extends Factory then constructor: (
                 angular.forEach newData.items, (value, key) ->
                     fields =
                         id: 'id'
-                        name: 'name'
-                        image: 'image.media.url'
+                        stadiumImage: 'stadium.media.url'
+                        ticketZones: 'ticket_zones'
+                        seasonTicket: 'configuration.season_ticket'
+                        note: 'configuration.note'
                     newData.items[key] = Helper.traverseProperties value, fields
-                if newData.page < newData.pages
-                    newData.next = newData.page + 1
                 return newData
             then: (resolve) ->
                 if !angular.isUndefined @params and !angular.isUndefined @params.flush

@@ -96,29 +96,28 @@ class AuthenUI extends Factory then constructor: (
                 , (error) ->
                     $this.errorMessage = error;
                     $ionicLoading.hide()
+                , (message) ->
+                    $this.errorMessage = message;
+                    $ionicLoading.hide()
                 )
 
         scope.step1 =
             isPass: no
-            username: ''
             email: ''
             password: ''
             confirmPassword: ''
             errorMessage: ''
             fake: ->
-                @username = Chance.first()  + '.' + Chance.last().toLowerCase()
                 @email = Chance.email()
                 @password = @confirmPassword = md5.createHash(@email).slice 0, 13
                 @valid()
             reset: ->
-                @username = @email = @password = @confirmPassword = ''
+                @email = @password = @confirmPassword = ''
                 @valid()
             valid: ->
                 pass = yes
                 # RFC 5322 http://emailregex.com/
                 regExpEmail = new RegExp('^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$', 'i')
-                if not @username?.length
-                    pass = no
                 if not @email?.length or not regExpEmail.test(@email)
                     pass = no
                 if not @password?.length or @password != @confirmPassword
@@ -168,12 +167,11 @@ class AuthenUI extends Factory then constructor: (
                 data =
                     email: scope.step1.email
                     user:
-                        username: scope.step1.username
                         plainPassword:
                             first: scope.step1.password
                             second: scope.step1.confirmPassword
-                    firstname: $this.firstname
-                    lastname: $this.lastname
+                    firstName: $this.firstname
+                    lastName: $this.lastname
                     birthday: $this.birthday
 
                 $ionicLoading.show()
@@ -181,16 +179,24 @@ class AuthenUI extends Factory then constructor: (
                 users = new Users(data)
                 users.$register({}
                 , (success) ->
-                    promise = Authen.login data.user.username, data.user.plainPassword.first
+                    promise = Authen.login data.email, data.user.plainPassword.first
                     promise.then(->
                         $ionicLoading.hide()
-                    , ->
+                    , (error) ->
                         $this.errorMessage = error;
+                        $ionicLoading.hide()
+                    , (message) ->
+                        $this.errorMessage = message;
                         $ionicLoading.hide()
                     )
                 , (error) ->
-                    if error.status == 400 then $this.errorMessage = error.data.message
-                    else if error.status == 500 then $this.errorMessage = error.statusText
+                    if error.data and error.data.message
+                        $this.errorMessage = error.data.message
+                    else if error.data and error.data.error_description
+                        $this.errorMessage = error.data.error_description
+                    else
+                        $this.errorMessage = error.statusText
+
                     $ionicLoading.hide()
                 )
 
@@ -270,7 +276,14 @@ class AuthenUI extends Factory then constructor: (
     )
 
     $rootScope.$on 'event:auth-loginRequired', (event, data) ->
-        if !Authen.isLoggedin() then login()
+        if scope.modal
+            if !Authen.isLoggedin() and !scope.modal.isShown()
+                login()
+            else if  !Authen.isLoggedin() and scope.modal.isShown()
+                $ionicLoading.hide()
+        else
+            if !Authen.isLoggedin()
+                login()
 
     $rootScope.$on 'event:auth-logout', (event, data) ->
         logout()

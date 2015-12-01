@@ -6,15 +6,12 @@ ion-view.about-club
             src="./img/logo/navbar.png"
             srcset="./img/logo/navbar@2x.png 2x"
             )
-    //ion-nav-buttons(side="right")
-    //    a.button.button-clear(ng-click="")
-    //        i.icon.ion-android-more-vertical
 
     ion-content.content(scroll="false")
         ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
-            ion-tab(title="About Chonburi")
+            ion-tab(title="Info")
                 ion-content.info.fix-tab
                     div(ui-view="info")
-            ion-tab(title="First Team")
+            ion-tab(title="Team")
                 ion-content.team.fix-tab
                     div(ui-view="team")

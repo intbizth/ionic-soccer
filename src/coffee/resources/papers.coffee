@@ -1,13 +1,14 @@
 class Papers extends Factory then constructor: (
     $cacheFactory, $resource, CFG, Helper
 ) ->
-    timeout = 20000
+    timeout = 60000
     cache = $cacheFactory 'resourcePapersCache'
 
-    url = CFG.API.getPath('news/:id')
+    url = CFG.API.getPath('news/')
     paramDefaults = {}
     actions =
         getPage:
+            url: CFG.API.getPath('news/published')
             method: 'GET'
             params:
                 page: 1
@@ -52,6 +53,7 @@ class Papers extends Factory then constructor: (
                 resolve @
             timeout: timeout
         getId:
+            url: CFG.API.getPath('news/:id')
             method: 'GET'
             params:
                 id: '@id'

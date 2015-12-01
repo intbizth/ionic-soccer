@@ -1,7 +1,7 @@
 class Users extends Factory then constructor: (
     $cacheFactory, $resource, CFG, Clubs, Helper
 ) ->
-    timeout = 20000
+    timeout = 60000
     cache = $cacheFactory 'resourceUsersCache'
 
     url = CFG.API.getPath('users/')
@@ -35,8 +35,8 @@ class Users extends Factory then constructor: (
                     profilePicture: '_links.profile_picture.href'
                     username: 'username'
                     usernameCanonical: 'username_canonical'
-                    firstname: 'profile.first_name'
-                    lastname: 'profile.last_name'
+                    firstName: 'profile.first_name'
+                    lastName: 'profile.last_name'
                     email: 'profile.email'
                     emailCanonical: 'profile.email_canonical'
                 newData = Helper.traverseProperties newData, fields
@@ -56,6 +56,14 @@ class Users extends Factory then constructor: (
             url: 'http://192.168.10.250/test-get-login.php'
             method: 'GET'
             responseType: 'json'
+            transformResponse: (data, headersGetter) ->
+                newData = angular.copy data
+                fields =
+                    id: 'id'
+                    username: 'username'
+                    password: 'password'
+                newData = Helper.traverseProperties newData, fields
+                return newData
             timeout: timeout
     options = {}
     extend = {}

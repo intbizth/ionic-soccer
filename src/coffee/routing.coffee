@@ -48,9 +48,6 @@ class Routing extends Config then constructor: ($stateProvider, $urlRouterProvid
             wallpapers:
                 controller: 'fanzoneWallpapersController'
                 templateUrl: 'templates/fanzone/wallpapers/main.html'
-            questionary:
-                controller: 'fanzoneQuestionaryController'
-                templateUrl: 'templates/fanzone/questionary/main.html'
 
     state 'feature',
         url: '/feature/main'
@@ -123,8 +120,6 @@ class Routing extends Config then constructor: ($stateProvider, $urlRouterProvid
 
     state 'member-register-step2',
         url: '/member/register/step2'
-        params:
-            data: null
         controller: 'memberRegisterStep2Controller'
         templateUrl: 'templates/member/register/step2.html'
 

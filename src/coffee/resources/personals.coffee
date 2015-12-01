@@ -1,7 +1,7 @@
 class Personals extends Factory then constructor: (
     $cacheFactory, $resource, CFG, Helper
 ) ->
-    timeout = 20000
+    timeout = 60000
     cache = $cacheFactory 'resourcePersonalsCache'
 
     url = CFG.API.getPath('personals/')
@@ -26,7 +26,7 @@ class Personals extends Factory then constructor: (
                         id: 'id'
                         no: 'no'
                         fullname: 'fullname'
-                        image: 'image.media.url'
+                        image: '_links.image.href'
                         position:
                             name: 'position.name'
                             shortName: 'position.short_name'
@@ -60,7 +60,7 @@ class Personals extends Factory then constructor: (
                     lastname: 'lastname'
                     nickname: 'nickname'
                     birthday: 'birthday'
-                    image: 'image.media.url'
+                    image: '_links.image.href'
                     bio: 'bio'
                     position:
                         name: 'position.name'
