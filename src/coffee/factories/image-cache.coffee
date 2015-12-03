@@ -1,13 +1,14 @@
 class ImageCache extends Factory then constructor: (
-    $cordovaFile, $cordovaFileTransfer, $localStorage, md5
+    $cordovaFile, $cordovaFileTransfer, $localStorage, $q, md5
 ) ->
     func =
         path: ''
         includePath: 'images/'
         prefixStore: 'image-'
         expire: 60 * 60 * 24
-        init: (callbackSuccess, callbackError) ->
+        init: ->
             $this = @
+            deferred = $q.defer()
 
             if ionic.Platform.isAndroid()
                 $this.path = cordova.file.cacheDirectory
@@ -20,70 +21,67 @@ class ImageCache extends Factory then constructor: (
 
             $cordovaFile.createDir(path, directory, replace).then((success) ->
                 $this.removeStore('all')
-                callbackSuccess success
+                deferred.resolve success
             , (error) ->
                 $this.remove('all')
-                callbackError error
+                deferred.reject error
             )
-            return
-        existDir: (directory, callbackSuccess, callbackError) ->
+            return deferred.promise
+        existDir: (directory) ->
             $this = @
+            deferred = $q.defer()
             path = $this.path
 
             $cordovaFile.checkDir(path, directory).then((success) ->
-                callbackSuccess success
+                deferred.resolve success
             , (error) ->
-                callbackError error
+                deferred.reject error
             )
-            return
+            return deferred.promise
         getDir: ->
             $this = @
             return path = $this.path + $this.includePath
-        removeAll: (callbackSuccess, callbackError) ->
+        removeAll: ->
             $this = @
+            deferred = $q.defer()
 
             path = $this.path
             directory = $this.includePath
             $cordovaFile.removeRecursively(path, directory).then((success) ->
-                $this.init((success) ->
-                    return
-                , (error) ->
-                    return
-                )
-                callbackSuccess success
+                $this.init()
+                deferred.resolve success
             , (error) ->
-                $this.init((success) ->
-                    return
-                , (error) ->
-                    return
-                )
-                callbackError error
+                $this.init()
+                deferred.reject error
             )
-            return
-        existFile: (url, callbackSuccess, callbackError) ->
+            return deferred.promise
+        existFile: (url) ->
             $this = @
+            deferred = $q.defer()
             path = $this.getDir()
             file = $this.hashFile url
 
             $cordovaFile.checkFile(path, file).then((success) ->
-                callbackSuccess success
+                deferred.resolve success
             , (error) ->
-                callbackError error
+                deferred.reject error
             )
-            return
+            return deferred.promise
         hashFile: (url) ->
             if url
                 filename = md5.createHash(encodeURIComponent(url)) + '.' + url.split('.').pop()
             else
                 filename = null
-        saveFile: (params, callbackSuccess, callbackError) ->
+        saveFile: (params) ->
             $this = @
+            deferred = $q.defer()
             targetPath = $this.getDir() + $this.hashFile params.url
             options = {}
             trustHosts = yes
 
-            $this.existFile(params.url, (success) ->
-                callbackSuccess success
+            promise = $this.existFile params.url
+            promise.then((success) ->
+                deferred.resolve success
             , (error) ->
                 $cordovaFileTransfer.download(params.url, targetPath, options, trustHosts).then (success) ->
                     key = $this.hashFile params.url
@@ -94,38 +92,39 @@ class ImageCache extends Factory then constructor: (
                         value.expire = params.expire
 
                     $this.createStore key, value
-                    callbackSuccess success
+                    deferred.resolve success
                 , (error) ->
-                    callbackError error
-                return
+                    deferred.reject error
             )
-            return
-        removeFile: (params, callbackSuccess, callbackError) ->
+            return deferred.promise
+        removeFile: (params) ->
             $this = @
+            deferred = $q.defer()
             path = $this.getDir()
             file = $this.hashFile params.url
 
             $cordovaFile.removeFile(path, file).then((success) ->
                 success = angular.extend params: params, success
-                callbackSuccess success
+                deferred.resolve success
             , (error) ->
                 error = angular.extend params: params, error
-                callbackError error
+                deferred.reject error
             )
-            return
-        readFile: (params, callbackSuccess, callbackError) ->
+            return deferred.promise
+        readFile: (params) ->
             $this = @
+            deferred = $q.defer()
             path = $this.getDir()
             file = $this.hashFile params.url
 
             $cordovaFile.readAsDataURL(path, file).then((success) ->
                 success = angular.extend params: params, data: success
-                callbackSuccess success
+                deferred.resolve success
             , (error) ->
                 error = angular.extend params: params, error
-                callbackError error
+                deferred.reject error
             )
-            return
+            return deferred.promise
         addPrefix: (key) ->
             $this = @
             return $this.prefixStore + key
@@ -167,17 +166,21 @@ class ImageCache extends Factory then constructor: (
             return items
         getNow: ->
             return Math.round((new Date()).getTime() / 1000)
-        get: (params, callbackSuccess, callbackError) ->
+        get: (params) ->
             $this = @
+            deferred = $q.defer()
 
             $this.remove $this.addPrefix $this.hashFile params.url
-            $this.saveFile(params, (success) ->
+
+            promise = $this.saveFile params
+            promise.then((success) ->
                 success = angular.extend params: params, success
                 if '@@environment' == 'dev'
-                    $this.readFile(
+                    promise2 = $this.readFile(
                         url: success.params.url
                         element: success.params.element
-                    , (success2) ->
+                    )
+                    promise2.then((success2) ->
                         switch success2.params.element[0].tagName
                             when 'DIV' then success2.params.element.css('background-image':'url(' + success2.data + ')')
                             when 'IMG' then success2.params.element.attr 'src', success2.data
@@ -190,27 +193,27 @@ class ImageCache extends Factory then constructor: (
                     switch success.params.element[0].tagName
                         when 'DIV' then success.params.element.css('background-image':'url(' + success.nativeURL + ')')
                         when 'IMG' then success.params.element.attr 'src', success.nativeURL
-                callbackSuccess success
+                deferred.resolve success
             , (error) ->
                 error = angular.extend params: params, error
                 switch error.params.element[0].tagName
                     when 'DIV' then error.params.element.css('background-image':'url(' + error.params.url + ')')
                     when 'IMG' then error.params.element.attr 'src', error.params.url
-                callbackError error
+                deferred.reject error
             )
-            return
+            return deferred.promise
         remove: (key) ->
             $this = @
             for key, value of $this.getExpireStore(key)
                 params =
                     url: value.url
                     key: key
-                $this.removeFile(params, (success) ->
+
+                promise = $this.removeFile params
+                promise.then((success) ->
                     $this.removeStore success.params.key
-                    return
                 , (error) ->
                     $this.removeStore error.params.key
-                    return
                 )
 
     return angular.extend {}, func

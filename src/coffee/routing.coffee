@@ -108,6 +108,11 @@ class Routing extends Config then constructor: ($stateProvider, $urlRouterProvid
         controller: 'memberMainController'
         templateUrl: 'templates/member/main.html'
 
+    state 'member-picture',
+        url: '/member/picture'
+        controller: 'memberPictureMainController'
+        templateUrl: 'templates/member/picture.html'
+
     state 'member-login',
         url: '/member/login'
         controller: 'memberLoginMainController'

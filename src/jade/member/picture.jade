@@ -1,0 +1,42 @@
+ion-view.member-picture
+    ion-nav-title Photo
+    ion-nav-buttons(side="left")
+        a.button.button-nav.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
+            img.logo(
+            src="./img/logo/navbar.png"
+            srcset="./img/logo/navbar@2x.png 2x"
+            )
+
+    ion-content.content(scroll="false")
+        div.member-form
+            div.card.errorMessage(ng-if="errorMessage")
+                div.item.item-text-wrap
+                    | {{errorMessage}}
+
+            div.form
+                div.row
+                    div.col.text-center(ng-switch="media.state")
+                        img.picture.picture-blank(
+                        ng-switch-when="blank",
+                        ng-src="{{profile.itemDefault.picture}}"
+                        )
+                        img.picture.picture-load(
+                        ng-switch-when="load",
+                        image-cache="{{profile.item.picture}}"
+                        )
+                        img.picture.picture-new(
+                        ng-switch-when="new",
+                        ng-src="{{profile.item.picture}}"
+                        )
+                div.row.control-add(ng-if="!media.isPicture")
+                    div.col.text-center
+                        button.button.button-outline.button-light.icon.ion-ios-plus-empty(ng-click="media.openGallery()")
+                    div.col.text-center
+                        button.button.button-outline.button-light.icon.ion-ios-camera-outline(ng-click="media.openCamera()")
+                div.row.control-remove(ng-if="media.isPicture")
+                    div.col.text-center
+                        button.button.button-outline.button-light.icon.ion-ios-plus-empty(ng-click="media.openGallery()")
+                    div.col.text-center
+                        button.button.button-outline.button-light.icon.ion-ios-camera-outline(ng-click="media.openCamera()")
+                    div.col.text-center
+                        button.button.button-outline.button-light.icon.ion-ios-minus-empty(ng-click="media.remove()")
