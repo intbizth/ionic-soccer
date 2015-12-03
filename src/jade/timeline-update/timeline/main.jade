@@ -38,22 +38,28 @@ div.microchats
         div.item.item-text-wrap
             | {{microChats.errorMessage}}
 
-    div.list.form(ng-if="isLoggedin", on-double-tap=microChats.doubletap, on-hold=microChats.hold)
-        div.item.item-input-inset
-            label.item-input-wrapper
-                input(
-                ng-model="microChats.message",
-                ng-model-options="{ getterSetter: true }",
-                ng-change="microChats.valid()",
-                type="text",
-                name="message",
-                placeholder="Message",
-                maxlength="1024"
-                )
-            button.button.button-send.button-small.button-positive(
-            ng-disabled="!microChats.isPass"
-            ng-click="microChats.submit()"
-            ) Send
+    div.form(ng-if="isLoggedin", on-double-tap=microChats.doubletap, on-hold=microChats.hold)
+        div.row.first
+            div.col
+                label.item-input-wrapper
+                    textarea(
+                    ng-model="microChats.message",
+                    ng-model-options="{ getterSetter: true }",
+                    ng-change="microChats.valid()",
+                    name="message",
+                    placeholder="Message",
+                    )
+        div.row
+            div.col.text-center
+                button.button.button-icon.icon.ion-image
+            div.col.text-center
+                button.button.button-icon.icon.ion-camera
+            div.col.text-center
+            div.col.text-center
+                button.button.button-positive(
+                    ng-disabled="!microChats.isPass"
+                    ng-click="microChats.submit()"
+                ) Send
 
     div.submicrochats(ng-if="microChats.loaded", ng-class="{'fixlist' : isLoggedin}")
         div.nodata(ng-if="microChats.items.length == 0")

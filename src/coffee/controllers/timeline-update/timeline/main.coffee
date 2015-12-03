@@ -123,7 +123,7 @@ class Timeline extends Controller then constructor: (
         message: ''
         errorMessage: ''
         fake: ->
-            @message = Chance.paragraph sentences: Chance.integer min: 1, max: 20
+            @message = Chance.paragraph sentences: Chance.integer min: 1, max: 50
             @valid()
         reset: ->
             @message = ''

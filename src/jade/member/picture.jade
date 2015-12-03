@@ -30,13 +30,13 @@ ion-view.member-picture
                         )
                 div.row.control-add(ng-if="!media.isPicture")
                     div.col.text-center
-                        button.button.button-outline.button-light.icon.ion-ios-plus-empty(ng-click="media.openGallery()")
+                        button.button.button-outline.button-light.icon.ion-image(ng-click="media.openGallery()")
                     div.col.text-center
-                        button.button.button-outline.button-light.icon.ion-ios-camera-outline(ng-click="media.openCamera()")
+                        button.button.button-outline.button-light.icon.ion-camera(ng-click="media.openCamera()")
                 div.row.control-remove(ng-if="media.isPicture")
                     div.col.text-center
-                        button.button.button-outline.button-light.icon.ion-ios-plus-empty(ng-click="media.openGallery()")
+                        button.button.button-outline.button-light.icon.ion-image(ng-click="media.openGallery()")
                     div.col.text-center
-                        button.button.button-outline.button-light.icon.ion-ios-camera-outline(ng-click="media.openCamera()")
+                        button.button.button-outline.button-light.icon.ion-camera(ng-click="media.openCamera()")
                     div.col.text-center
-                        button.button.button-outline.button-light.icon.ion-ios-minus-empty(ng-click="media.remove()")
+                        button.button.button-outline.button-light.icon.ion-trash-b(ng-click="media.remove()")

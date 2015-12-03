@@ -11,18 +11,21 @@
 }
 
 .form {
-    input {
-        height: 40px;
+    .first {
+        border-top: 1px solid #d1d3d4;
+    }
+
+    textarea {
+        height: 50px;
         width: 100%;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        background-color: transparent;
     }
 
-    .button-send {
-        height: 36px;
+    .button-icon .icon:before, .button-icon.icon:before {
+        font-size: 24px;
     }
-}
-
-.fixlist {
-    margin-top: -20px;
 }
 
 .space {
