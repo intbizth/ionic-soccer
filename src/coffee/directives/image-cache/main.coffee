@@ -14,11 +14,6 @@ class ImageCache extends Directive then constructor: (
                 if attrs.expire
                     params.expire = parseInt attrs.expire
 
-                newImage = ImageCache.get(params, (success) ->
-                    return
-                , (error) ->
-                    return
-                )
-
+                ImageCache.get params
             return
     }

@@ -11,10 +11,21 @@ ion-view.feature-main
 
         div.profile
             div.row
-                div.col.text-center
-                    img.photo(
-                    src="./img/member/photo.png",
-                    srcset="./img/member/photo@2x.png 2x"
+                div.col.text-center(ng-switch="media.state")
+                    img.picture.picture-blank(
+                    ng-switch-when="blank",
+                    ng-src="{{profile.itemDefault.picture}}",
+                    ng-click="changePicture()"
+                    )
+                    img.picture.picture-load(
+                    ng-switch-when="load",
+                    image-cache="{{profile.item.picture}}",
+                    ng-click="changePicture()"
+                    )
+                    img.picture.picture-new(
+                    ng-switch-when="new",
+                    ng-src="{{profile.item.picture}}",
+                    ng-click="changePicture()"
                     )
             div.row
                 div.col.text-center
