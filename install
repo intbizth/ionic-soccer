@@ -27,5 +27,6 @@ ionic plugin add https://github.com/devgeeks/Canvas2ImagePlugin.git
 ionic plugin add https://github.com/VersoSolutions/CordovaClipboard.git
 ionic plugin add cordova-plugin-camera
 ionic plugin add https://github.com/litehelpers/Cordova-sqlite-storage.git
+ionic plugin add cordova-plugin-vibration
 ionic browser add crosswalk
 gulp remove && gulp build

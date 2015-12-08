@@ -1,5 +1,5 @@
 class FeatureMain extends Controller then constructor: (
-    $document, $ionicHistory, $ionicPlatform, $rootScope, $scope, $state, $timeout, Ads, Authen, AuthenUI, GoogleAnalytics
+    $ionicHistory, $ionicPlatform, $rootScope, $scope, $state, $timeout, Ads, Authen, AuthenUI, GoogleAnalytics
 ) ->
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'feature'

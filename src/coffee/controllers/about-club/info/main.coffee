@@ -1,16 +1,17 @@
 class aboutClubInfo extends Controller then constructor: (
-    $cordovaClipboard, $ionicLoading, $ionicModal, $ionicPlatform, $rootScope, $scope, $timeout, Clubs, GoogleAnalytics
+    $cordovaClipboard, $cordovaVibration, $ionicLoading, $ionicModal, $ionicPlatform, $rootScope, $scope, $timeout, Clubs, GoogleAnalytics
 ) ->
     clubs = new Clubs()
 
     $scope.clipboard = (text) ->
         $cordovaClipboard.copy(text).then((success) ->
             $scope.modal.show()
+            $cordovaVibration.vibrate 300
             $timeout(->
                 $scope.modal.hide()
             , 1400)
         , (error) ->
-
+            return
         )
 
     $scope.club =

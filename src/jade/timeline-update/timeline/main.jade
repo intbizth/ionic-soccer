@@ -46,19 +46,37 @@ div.microchats
                     ng-model="microChats.message",
                     ng-model-options="{ getterSetter: true }",
                     ng-change="microChats.valid()",
+                    maxlength="250",
                     name="message",
                     placeholder="Message",
                     )
-        div.row
+        div.row(ng-if="!media.isImage")
             div.col.text-center
-                button.button.button-icon.icon.ion-image
+                button.button.button-icon.icon.ion-image(ng-click="media.openGallery()")
             div.col.text-center
-                button.button.button-icon.icon.ion-camera
+                button.button.button-icon.icon.ion-camera(ng-click="media.openCamera()")
             div.col.text-center
             div.col.text-center
                 button.button.button-positive(
                     ng-disabled="!microChats.isPass"
                     ng-click="microChats.submit()"
+                ) Send
+        div.row(ng-if="media.isImage")
+            div.col.text-center(ng-click="media.remove()")
+                img.picture(
+                ng-if="media.imageData",
+                ng-src="{{media.imageData}}",
+                )
+                div.button-remove
+                    i.icon.icon-remove.ion-close-circled
+            div.col.text-center
+                button.button.button-icon.icon.ion-image(ng-click="media.openGallery()")
+            div.col.text-center
+                button.button.button-icon.icon.ion-camera(ng-click="media.openCamera()")
+            div.col.text-center
+                button.button.button-positive(
+                ng-disabled="!microChats.isPass"
+                ng-click="microChats.submit()"
                 ) Send
 
     div.submicrochats(ng-if="microChats.loaded", ng-class="{'fixlist' : isLoggedin}")
@@ -78,8 +96,7 @@ div.microchats
                             | Me
 
                 div.cover(ng-if="item.image")
-                    div.images
-                        img(image-cache="{{item.image}}", width="100%", height="auto")
+                    img.image(image-cache="{{item.image}}")
 
                 div.detail(ng-class="item.template == 'hightlight' ? '-hightlight' : ''")
                     div.col.subdetail

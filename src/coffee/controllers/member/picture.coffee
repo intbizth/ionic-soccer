@@ -1,5 +1,5 @@
 class MemberPictureMain extends Controller then constructor: (
-    $cordovaCamera, $document, $ionicHistory, $ionicLoading, $q, $rootScope, $scope, md5, Users
+    $ionicHistory, $ionicLoading, $q, $rootScope, $scope, Media, md5, Users
 ) ->
     $scope.back = ->
         $ionicHistory.goBack -1
@@ -23,42 +23,17 @@ class MemberPictureMain extends Controller then constructor: (
             $this = @
             deferred = $q.defer()
 
-            filedata = angular.copy $rootScope.user
-            filedata2 =
-                time: (new Date()).getTime()
+            stream = Media.dataStream imageData
 
-            angular.extend filedata, filedata2
-
-            filename =  '_' + $rootScope.user.usernameCanonical + '_' + md5.createHash(angular.toJson(filedata)).substr(0, 6)
-            filename += '.jpeg'
-
-            chunkSize = 1024 * 1024
-            chunkName = new Date().getTime() + filename
-            total = Math.ceil imageData.length / chunkSize
-
-            for i in [0..total]
-                number = i + 1
-                end = chunkSize * number
-                end = imageData.length if number is total
-                being = chunkSize * i
-                being = 0 if i is 0
-                return if i >= total then deferred.promise
-
-                users = new Users(
-                    chunkNumber: number
-                    chunkContent: imageData.slice being, end
-                    totalChunk: total
-                    chunkName: chunkName
-                    filename: filename
-                )
-
-                users.$uploadPicture({}
+            for data in stream.data
+                new Users(data).$uploadPicture({}
                 , (success) ->
                     if success.url
                         deferred.resolve success
                 , (error) ->
                     deferred.reject error
                 )
+            return deferred.promise
         removePicture: ->
             $ionicLoading.show()
             users = new Users()
@@ -67,68 +42,70 @@ class MemberPictureMain extends Controller then constructor: (
     $scope.media =
         state: 'blank'
         isPicture: no
-        imageData: null
-        imageDataPrefix: 'data:image/jpeg;base64,'
-        element: angular.element $document[0].querySelector '.member-form .form img.picture'
-        get: (args) ->
+        openGallery: ->
             $this = @
-            camera = if args && args.camera then args.camera else no
-            options =
-                quality: 100
-                destinationType: Camera.DestinationType.DATA_URL
-                sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+            $scope.errorMessage = ''
+            promise = Media.get(
                 allowEdit: yes
-                encodingType: Camera.EncodingType.JPEG
                 targetWidth: 400
                 targetHeight: 400
-                popoverOptions: CameraPopoverOptions,
-                saveTopictureAlbum: no
-                correctOrientation: yes
-
-            if camera
-                options.sourceType = Camera.DestinationType.CAMERA
-
-            $cordovaCamera.getPicture(options).then((imageData) ->
+            )
+            promise.then((success) ->
                 $this.state = 'new'
                 $this.isPicture = yes
-                $this.imageData = $this.imageDataPrefix + imageData
-                $scope.profile.item.picture = $this.imageData
+                $scope.profile.item.picture = success
 
                 $ionicLoading.show()
 
-                promise = $scope.profile.uploadPicture $this.imageData
+                promise2 = $scope.profile.uploadPicture success
 
-                promise.then((success) ->
+                promise2.then((success2) ->
                     $ionicLoading.hide()
-                    $rootScope.$emit 'profile:pictureChange', success.url
+                    $rootScope.$emit 'profile:pictureChange', success2.url
                     $scope.back()
-                , (error) ->
+                , (error2) ->
                     $ionicLoading.hide()
-                    $scope.errorMessage = error.statusText
+                    $scope.errorMessage = error2.statusText
                 )
-                return
             , (error) ->
                 return
             )
+        openCamera: ->
+            $this = @
+            $scope.errorMessage = ''
+            promise = Media.get(
+                camera: yes
+                allowEdit: yes
+                targetWidth: 400
+                targetHeight: 400
+            )
+            promise.then((success) ->
+                $this.state = 'new'
+                $this.isPicture = yes
+                $scope.profile.item.picture = success
 
-            $cordovaCamera.cleanup().then(->
+                $ionicLoading.show()
+
+                promise2 = $scope.profile.uploadPicture success
+
+                promise2.then((success2) ->
+                    $ionicLoading.hide()
+                    $rootScope.$emit 'profile:pictureChange', success2.url
+                    $scope.back()
+                , (error2) ->
+                    $ionicLoading.hide()
+                    $scope.errorMessage = error2.statusText
+                )
+            , (error) ->
                 return
             )
-        openGallery: ->
-            @get()
-            $scope.errorMessage = ''
-        openCamera: ->
-            @get(camera: yes)
-            $scope.errorMessage = ''
         remove: ->
             $this = @
             $scope.errorMessage = ''
-
             promise = $scope.profile.removePicture()
             promise.then((success) ->
                 $this.state = 'blank'
                 $this.isPicture = no
-                $this.imageData = null
                 $ionicLoading.hide()
                 $rootScope.$emit 'profile:pictureChange', null
                 $scope.back()
