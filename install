@@ -10,7 +10,7 @@ sudo rm -rf www/lib/*
 echo "removed lib"
 sudo npm install
 bower install
-ionic platform add ios && ionic platform add android
+ionic platform add ios && ionic platform add android@5.0.0
 ionic plugin add cordova-plugin-device
 ionic plugin add cordova-plugin-console
 ionic plugin add cordova-plugin-splashscreen
@@ -25,7 +25,7 @@ ionic plugin add cordova-plugin-file-transfer
 ionic plugin add https://github.com/danwilson/google-analytics-plugin.git
 ionic plugin add https://github.com/devgeeks/Canvas2ImagePlugin.git
 ionic plugin add https://github.com/VersoSolutions/CordovaClipboard.git
-ionic plugin add cordova-plugin-camera
+ionic plugin add https://github.com/apache/cordova-plugin-camera.git#2.0.0
 ionic plugin add https://github.com/litehelpers/Cordova-sqlite-storage.git
 ionic plugin add cordova-plugin-vibration
 ionic browser add crosswalk
