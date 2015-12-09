@@ -81,7 +81,7 @@ div.microchats
 
     div.card.warningMessage
         div.item.item-text-wrap
-            | อุปกรณ์แอนดรอยด์บางรุ่น อาจไม่รองรับการเลือกรูปภาพหรือการถ่ายรูปภาพ
+            | อุปกรณ์แอนดรอยด์บางรุ่น มีหน่วยความจำไม่เพียงพอสำหรับจัดการรูปภาพ ทำให้ไม่สามารถใช้งานฟังก์ชั่นนี้ได้
 
     div.submicrochats(ng-if="microChats.loaded", ng-class="{'fixlist' : isLoggedin}")
         div.nodata(ng-if="microChats.items.length == 0")
