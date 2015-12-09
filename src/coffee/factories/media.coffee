@@ -1,8 +1,8 @@
 class Media extends Factory then constructor: (
-    $cordovaCamera, $q, Chance
+    $q, Chance
 ) ->
     base64Prefix = 'data:image/jpeg;base64,'
-    ext = 'jpeg'
+    extension = 'jpeg'
 
     return {
         get: (args) ->
@@ -21,27 +21,23 @@ class Media extends Factory then constructor: (
                 encodingType: Camera.EncodingType.JPEG
                 targetWidth: targetWidth
                 targetHeight: targetHeight
-                popoverOptions: CameraPopoverOptions,
+                popoverOptions: CameraPopoverOptions
                 saveTopictureAlbum: saveTopictureAlbum
                 correctOrientation: yes
 
             if camera
                 options.sourceType = Camera.DestinationType.CAMERA
 
-            $cordovaCamera.getPicture(options).then((imageData) ->
+            navigator.camera.getPicture((imageData) ->
                 deferred.resolve base64Prefix + imageData
             , (error) ->
                 deferred.reject error
-            )
-
-            $cordovaCamera.cleanup().then(->
-                return
-            )
+            , options);
 
             return deferred.promise
         dataStream: (imageData) ->
             stream =
-                filename: '-' + Chance.guid() + '.' + ext
+                filename: '-' + Chance.guid() + '.' + extension
                 data: []
 
             chunkSize = 1024 * 1024
