@@ -66,3 +66,7 @@
         @import "update/main";
     }
 }
+
+.platform-ios .timeline .card.warningMessage {
+    display: none;
+}

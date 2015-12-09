@@ -79,6 +79,10 @@ div.microchats
                 ng-click="microChats.submit()"
                 ) Send
 
+    div.card.warningMessage
+        div.item.item-text-wrap
+            | อุปกรณ์แอนดรอยด์บางรุ่น อาจไม่รองรับการเลือกรูปภาพหรือการถ่ายรูปภาพ
+
     div.submicrochats(ng-if="microChats.loaded", ng-class="{'fixlist' : isLoggedin}")
         div.nodata(ng-if="microChats.items.length == 0")
             div.row
