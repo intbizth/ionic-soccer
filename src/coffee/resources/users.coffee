@@ -64,7 +64,7 @@ class Users extends Factory then constructor: (
             method: 'DELETE'
             responseType: 'json'
         testgetlogin:
-            url: 'http://192.168.1.250/test-get-login.php'
+            url: 'http://192.168.10.250/test-get-login.php'
             method: 'GET'
             responseType: 'json'
             transformResponse: (data, headersGetter) ->

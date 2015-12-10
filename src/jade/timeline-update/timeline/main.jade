@@ -38,22 +38,50 @@ div.microchats
         div.item.item-text-wrap
             | {{microChats.errorMessage}}
 
-    div.list.form(ng-if="isLoggedin", on-double-tap=microChats.doubletap, on-hold=microChats.hold)
-        div.item.item-input-inset
-            label.item-input-wrapper
-                input(
-                ng-model="microChats.message",
-                ng-model-options="{ getterSetter: true }",
-                ng-change="microChats.valid()",
-                type="text",
-                name="message",
-                placeholder="Message",
-                maxlength="1024"
+    div.form(ng-if="isLoggedin", on-double-tap=microChats.doubletap, on-hold=microChats.hold)
+        div.row.first
+            div.col
+                label.item-input-wrapper
+                    textarea(
+                    ng-model="microChats.message",
+                    ng-model-options="{ getterSetter: true }",
+                    ng-change="microChats.valid()",
+                    maxlength="250",
+                    name="message",
+                    placeholder="Message",
+                    )
+        div.row(ng-if="!media.isImage")
+            div.col.text-center
+                button.button.button-icon.icon.ion-image(ng-click="media.openGallery()")
+            div.col.text-center
+                button.button.button-icon.icon.ion-camera(ng-click="media.openCamera()")
+            div.col.text-center
+            div.col.text-center
+                button.button.button-positive(
+                    ng-disabled="!microChats.isPass"
+                    ng-click="microChats.submit()"
+                ) Send
+        div.row(ng-if="media.isImage")
+            div.col.text-center(ng-click="media.remove()")
+                img.picture(
+                ng-if="media.imageData",
+                ng-src="{{media.imageData}}",
                 )
-            button.button.button-send.button-small.button-positive(
-            ng-disabled="!microChats.isPass"
-            ng-click="microChats.submit()"
-            ) Send
+                div.button-remove
+                    i.icon.icon-remove.ion-close-circled
+            div.col.text-center
+                button.button.button-icon.icon.ion-image(ng-click="media.openGallery()")
+            div.col.text-center
+                button.button.button-icon.icon.ion-camera(ng-click="media.openCamera()")
+            div.col.text-center
+                button.button.button-positive(
+                ng-disabled="!microChats.isPass"
+                ng-click="microChats.submit()"
+                ) Send
+
+    div.card.warningMessage
+        div.item.item-text-wrap
+            | อุปกรณ์แอนดรอยด์บางรุ่น มีหน่วยความจำไม่เพียงพอสำหรับจัดการรูปภาพ ทำให้ไม่สามารถใช้งานฟังก์ชั่นนี้ได้
 
     div.submicrochats(ng-if="microChats.loaded", ng-class="{'fixlist' : isLoggedin}")
         div.nodata(ng-if="microChats.items.length == 0")
@@ -72,8 +100,7 @@ div.microchats
                             | Me
 
                 div.cover(ng-if="item.image")
-                    div.images
-                        img(image-cache="{{item.image}}", width="100%", height="auto")
+                    img.image(image-cache="{{item.image}}")
 
                 div.detail(ng-class="item.template == 'hightlight' ? '-hightlight' : ''")
                     div.col.subdetail

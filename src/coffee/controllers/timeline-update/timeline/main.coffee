@@ -1,5 +1,5 @@
 class Timeline extends Controller then constructor: (
-    $cordovaSocialSharing, $interval, $ionicLoading, $ionicPlatform, $rootScope, $scope, CFG, Chance, GoogleAnalytics, Matches, MicroChats, Moment
+    $cordovaSocialSharing, $interval, $ionicLoading, $ionicPlatform, $q, $rootScope, $scope, CFG, Chance, GoogleAnalytics, Matches, Media, MicroChats, Moment
 ) ->
     $scope.isLoggedin = $rootScope.isLoggedin
 
@@ -90,7 +90,6 @@ class Timeline extends Controller then constructor: (
         cacheData: null
         autoFetchData: ->
             $this = @
-
             fetch = ->
                 microChats.$getPage(
                     page: 1
@@ -123,11 +122,12 @@ class Timeline extends Controller then constructor: (
         message: ''
         errorMessage: ''
         fake: ->
-            @message = Chance.paragraph sentences: Chance.integer min: 1, max: 20
+            @message = Chance.paragraph sentences: Chance.integer min: 1, max: 50
             @valid()
         reset: ->
             @message = ''
             @valid()
+            $scope.media.remove()
         valid: ->
             @errorMessage = ''
             pass = yes
@@ -148,9 +148,23 @@ class Timeline extends Controller then constructor: (
 
             new MicroChats(data).$send({}
             , (success) ->
-                $this.reset()
-                $this.loadData(flush: yes)
-                $ionicLoading.hide()
+                console.warn '$send:success', success, ($scope.media.isImage and success.id)
+                if $scope.media.isImage and success.id
+                    promise = $this.uploadImage(success.id, $scope.media.imageData)
+                    promise.then((success2) ->
+                        $this.cleanUI()
+                    , (error2) ->
+                        console.error '$send:error2', error2
+                        if error2.data and error2.data.message
+                            $this.errorMessage = error2.data.message
+                        else if error.data and error2.data.error_description
+                            $this.errorMessage = error2.data.error_description
+                        else
+                            $this.errorMessage = error2.statusText
+                        $ionicLoading.hide()
+                    )
+                else
+                    $this.cleanUI()
             , (error) ->
                 if error.data and error.data.message
                     $this.errorMessage = error.data.message
@@ -160,6 +174,63 @@ class Timeline extends Controller then constructor: (
                     $this.errorMessage = error.statusText
                 $ionicLoading.hide()
             )
+        uploadImage: (id, imageData) ->
+            $this = @
+            deferred = $q.defer()
+
+            stream = Media.dataStream imageData
+
+            for data in stream.data
+                new MicroChats(data).$uploadImage(
+                    id: id
+                , (success) ->
+                    deferred.resolve success
+                , (error) ->
+                    deferred.reject error
+                )
+            return deferred.promise
+        cleanUI: ->
+            @reset()
+            @loadData(flush: yes)
+            $scope.media.isImage = no
+            $scope.media.imageData = null
+            $ionicLoading.hide()
+
+    $scope.media =
+        isImage: no
+        imageData: null
+        openGallery: ->
+            $this = @
+            promise = Media.get(
+                allowEdit: yes
+                targetWidth: 800
+                targetHeight: 800
+            )
+            promise.then((success) ->
+                $this.isImage = yes
+                $this.imageData = success
+                return
+            , (error) ->
+                return
+            )
+        openCamera: ->
+            $this = @
+            promise = Media.get(
+                camera: yes
+                allowEdit: yes
+                targetWidth: 800
+                targetHeight: 800
+            )
+            promise.then((success) ->
+                $this.isImage = yes
+                $this.imageData = success
+                return
+            , (error) ->
+                return
+            )
+        remove: ->
+            @isImage = no
+            @imageData = null
 
     $scope.microChats.loadData()
 
