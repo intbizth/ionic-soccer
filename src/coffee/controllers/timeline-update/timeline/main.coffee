@@ -1,17 +1,7 @@
 class Timeline extends Controller then constructor: (
-    $cordovaSocialSharing, $interval, $ionicLoading, $ionicPlatform, $q, $rootScope, $scope, CFG, Chance, GoogleAnalytics, Matches, Media, MicroChats, Moment
+    $interval, $ionicLoading, $ionicPlatform, $q, $rootScope, $scope, CFG, Chance, GoogleAnalytics, Matches, Media, MicroChats, Moment
 ) ->
     $scope.isLoggedin = $rootScope.isLoggedin
-
-    $scope.share = (message, subject, file, link) ->
-        message = message || ''
-        subject = subject || ''
-        file = file || ''
-        link = link || ''
-        $cordovaSocialSharing.share(message, subject, file, link).then (result) ->
-            return
-        , (error) ->
-            return
 
     pageLimit = 50
     microChats = new MicroChats()
