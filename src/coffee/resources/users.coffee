@@ -52,6 +52,17 @@ class Users extends Factory then constructor: (
                 @then = null
                 resolve @
             timeout: timeout
+        uploadPicture:
+            url: CFG.API.getPath('users/upload-picture/profile')
+            method: 'POST'
+            responseType: 'json'
+            transformRequest: (data, headersGetter) ->
+                return Helper.buildFormData data
+            timeout: timeout
+        removePicture:
+            url: CFG.API.getPath('users/upload-picture/profile')
+            method: 'DELETE'
+            responseType: 'json'
         testgetlogin:
             url: 'http://192.168.10.250/test-get-login.php'
             method: 'GET'

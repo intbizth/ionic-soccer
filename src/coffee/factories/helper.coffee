@@ -24,11 +24,15 @@ class Helper extends Factory then constructor: (
                     if angular.isObject value
                         getValue value, prefix + '[' + key + ']'
                     else
+                        if angular.isNumber value
+                            value = parseInt value
                         data[prefix + '[' + key + ']'] = value
             angular.forEach items, (value, key) ->
                 if angular.isObject value
                     getValue value, key
                 else
+                    if angular.isNumber value
+                        value = parseInt value
                     data[key] = value
             formData = new FormData()
             angular.forEach data, (value, key) ->

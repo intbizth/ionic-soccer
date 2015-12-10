@@ -53,6 +53,15 @@ class MicroChats extends Factory then constructor: (
             transformRequest: (data, headersGetter) ->
                 return Helper.buildFormData data
             timeout: timeout
+        uploadImage:
+            url: CFG.API.getPath('micro-chats/:id/image-upload/micro_chat')
+            params:
+                id: '@id'
+            method: 'POST'
+            responseType: 'json'
+            transformRequest: (data, headersGetter) ->
+                return Helper.buildFormData data
+            timeout: timeout
     options = {}
     extend = {}
 

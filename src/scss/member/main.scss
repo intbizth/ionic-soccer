@@ -85,16 +85,10 @@
             color: #ffffff;
         }
 
-        .photo {
-            width: 100%;
-            height: auto;
-            text-align: center;
-
-            .user {
-                width: 100px;
-                height: 100px;
-                background-color: #0658a2;
-            }
+        .picture {
+            width: 100px;
+            height: 100px;
+            background-color: #f0f0f0;
         }
 
         .row.control-add, .row.control-remove {
@@ -107,7 +101,7 @@
         }
 
         .control-add .button.icon:before, .control-remove .button.icon:before {
-            font-size: 42px;
+            font-size: 32px;
         }
 
         .birthday {
@@ -132,9 +126,17 @@
             width: 100%;
         }
     }
-    
+
     .register {
         color: #ffffff;
         text-decoration: underline;
     }
+}
+
+.member-picture {
+    background-color: #0088cf;
+}
+
+.platform-ios .member-picture .card.warningMessage {
+    display: none;
 }

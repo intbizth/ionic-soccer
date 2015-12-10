@@ -40,7 +40,7 @@
             width: 57px;
 
             height: 37px;
-            background-image: url("../img/ads/close/bg.png");
+            background-image: url("../img/ads/close/bg@2x.png");
             background-size: 57px 37px;
             background-repeat: no-repeat;
         }
@@ -51,23 +51,9 @@
             left: 8px;
             width: 30px;
             height: 30px;
-            background-image: url("../img/ads/close/circle.png");
+            background-image: url("../img/ads/close/circle@2x.png");
             background-size: 30px 30px;
             background-repeat: no-repeat;
-        }
-    }
-}
-
-@media screen and (-webkit-device-pixel-ratio: 2) {
-    .ads-main {
-        .close {
-            .bg {
-                background-image: url("../img/ads/close/bg@2x.png");
-            }
-
-            .circle {
-                background-image: url("../img/ads/close/circle@2x.png");
-            }
         }
     }
 }

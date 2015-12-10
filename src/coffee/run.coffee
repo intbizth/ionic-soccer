@@ -15,11 +15,7 @@ class Run extends Run then constructor: (
         )
 
         GoogleAnalytics.startTrackerWithId CFG.GOOGLE.analytics.id
-        ImageCache.init((success) ->
-            return
-        , (error) ->
-            return
-        )
+        ImageCache.init()
 
         if window.cordova and window.cordova.plugins and window.cordova.plugins.Keyboard
             $cordovaKeyboard.hideAccessoryBar yes
