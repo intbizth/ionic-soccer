@@ -1,5 +1,5 @@
 class AuthenUI extends Factory then constructor: (
-    $cordovaCamera, $cordovaKeyboard, $document, $ionicLoading, $ionicModal, $ionicPlatform, $ionicPopup, $ionicSlideBoxDelegate, $rootScope, $timeout, Authen, Chance, md5, Moment, Users
+    $cordovaCamera, $cordovaKeyboard, $document, $ionicHistory, $ionicLoading, $ionicModal, $ionicPlatform, $ionicPopup, $ionicSlideBoxDelegate, $rootScope, $timeout, Authen, Chance, md5, Moment, Users
 ) ->
     scope = $rootScope.$new()
 
@@ -276,6 +276,9 @@ class AuthenUI extends Factory then constructor: (
     )
 
     $rootScope.$on 'event:auth-loginRequired', (event, data) ->
+        $ionicLoading.hide()
+        $ionicHistory.goBack -1
+
         if scope.modal
             if !Authen.isLoggedin() and !scope.modal.isShown()
                 login()
