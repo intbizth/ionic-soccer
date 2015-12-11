@@ -1,14 +1,31 @@
 class LiveMain extends Controller then constructor: (
-    $ionicHistory, $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Matches
+    $ionicHistory, $ionicLoading, $ionicPlatform, $rootScope, $sce, $scope, GoogleAnalytics, Matches, Settings
 ) ->
     $scope.back = ->
         $ionicHistory.goBack -1
         return
 
     matches = new Matches()
+    settings = new Settings()
 
     $scope.streaming =
-        item: url: null
+        item: {}
+        loaded: no
+        loadData: (args) ->
+            $this = @
+            pull = if args && args.pull then args.pull else no
+            flush = if args && args.flush then args.flush else no
+            if !pull
+                $this.loaded = no
+            settings.$get(
+                flush: flush
+            , (success) ->
+                $this.loaded = yes
+                if success.matchLiveStreaming
+                    $this.item.url = $sce.trustAsResourceUrl success.matchLiveStreaming
+            , (error) ->
+                return
+            )
 
     $scope.matchEvents = {}
 
@@ -25,10 +42,10 @@ class LiveMain extends Controller then constructor: (
                 flush: flush
             , (success) ->
                 $this.loaded = yes
-                if success.streaming and success.matchLabel and success.matchEvents
-                    $scope.streaming.item.url = success.streaming
+                if success.matchLabel and success.matchEvents
                     $this.items = success.matchLabel
                     $scope.matchEvents = success.matchEvents
+                    $scope.streaming.loadData(flush: flush, pull: pull)
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else

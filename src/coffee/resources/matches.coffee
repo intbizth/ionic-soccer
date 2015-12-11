@@ -126,7 +126,6 @@ class Matches extends Factory then constructor: (
                 else
                     fields =
                         id: 'id'
-                        streaming: 'streaming'
                         homeClub:
                             id: 'home_club.id'
                             name: 'home_club.name'
@@ -148,7 +147,6 @@ class Matches extends Factory then constructor: (
                         startTime: matchLabel.startTime || null
                     matchLabel = [section ,matchLabel]
                     newData2 =
-                        streaming: matchLabel.streaming || null
                         matchLabel: matchLabel
                         matchEvents: getMatchEvents newData
                 return newData2

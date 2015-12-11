@@ -42,8 +42,8 @@ ion-view.live
                         div.col.col-15.col-center.logo.text-center
                             img.image(ng-src="{{item.awayClub.logo}}")
 
-            div.steaming(ng-if="steaming.item.url")
-                iframe(ng-src="{{steaming.item.url}}", width="100%", height="230")
+            div.steaming(ng-if="streaming.item.url")
+                iframe(ng-src="{{streaming.item.url}}", frameborder="0", width="100%", height="230")
 
             div.match-events(ng-if="matchEvents.activities.length > 0", id="match-events")
                 div.line(id="match-events-line")
