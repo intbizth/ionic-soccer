@@ -79,7 +79,7 @@ div.microchats
                 ng-click="microChats.submit()"
                 ) Send
 
-    div.card.warningMessage
+    div.card.warningMessage(ng-if="isLoggedin")
         div.item.item-text-wrap
             | อุปกรณ์แอนดรอยด์บางรุ่น มีหน่วยความจำไม่เพียงพอสำหรับจัดการรูปภาพ ทำให้ไม่สามารถใช้งานฟังก์ชั่นนี้ได้
 
@@ -100,7 +100,7 @@ div.microchats
                             | Me
 
                 div.cover(ng-if="item.image")
-                    img.image(image-cache="{{item.image}}")
+                    img.image(image-cache="{{item.image}}", onload="", onerror="")
 
                 div.detail(ng-class="item.template == 'hightlight' ? '-hightlight' : ''")
                     div.col.subdetail
@@ -113,6 +113,5 @@ div.microchats
                                     img.photo(image-cache="{{item.user.profilePicture}}")
                                     span.name {{item.user.displayname}}
                             div.col.col-10.col-center(style="margin-left: -4px;")
-                                //a.button.button-icon.icon.ion-android-share-alt.share(ng-click="share(item.message, '', '', '')")
 
 ion-infinite-scroll(ng-if="microChats.next" on-infinite="microChats.loadNext()", distance="1%")
