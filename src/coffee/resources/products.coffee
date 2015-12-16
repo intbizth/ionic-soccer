@@ -4,7 +4,7 @@ class Products extends Factory then constructor: (
     timeout = 60000
     cache = $cacheFactory 'resourceProductsCache'
 
-    url = CFG.API.getPath('products/:id')
+    url = CFG.API.getPath('products/')
     paramDefaults = {}
     actions =
         getPage:
@@ -42,6 +42,7 @@ class Products extends Factory then constructor: (
                 resolve @
             timeout: timeout
         getId:
+            url: CFG.API.getPath('products/:id')
             method: 'GET'
             params:
                 id: '@id'
