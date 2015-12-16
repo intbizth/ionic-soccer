@@ -20,11 +20,13 @@ class aboutClubTeam extends Controller then constructor: (
         loadData: (args) ->
             $this = @
             pull = if args && args.pull then args.pull else no
+            flush = if args && args.flush then args.flush else no
             if !pull
                 $this.loaded = no
             personals.$getClubMe(
                 page: 1
                 limit: pageLimit
+                flush: flush
             , (success) ->
                 $this.loaded = yes
                 $this.next = if success.next then success.next else null
@@ -40,7 +42,7 @@ class aboutClubTeam extends Controller then constructor: (
                     $ionicLoading.hide()
             )
         refresh: ->
-            @loadData(pull: yes)
+            @loadData(flush: yes, pull: yes)
         loadNext: ->
             $this = @
             personals.$getClubMe(
