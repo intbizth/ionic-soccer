@@ -138,13 +138,11 @@ class Timeline extends Controller then constructor: (
 
             new MicroChats(data).$send({}
             , (success) ->
-                console.warn '$send:success', success, ($scope.media.isImage and success.id)
                 if $scope.media.isImage and success.id
                     promise = $this.uploadImage(success.id, $scope.media.imageData)
                     promise.then((success2) ->
                         $this.cleanUI()
                     , (error2) ->
-                        console.error '$send:error2', error2
                         if error2.data and error2.data.message
                             $this.errorMessage = error2.data.message
                         else if error.data and error2.data.error_description

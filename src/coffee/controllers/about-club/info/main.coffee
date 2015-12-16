@@ -20,9 +20,11 @@ class aboutClubInfo extends Controller then constructor: (
         loadData: (args)->
             $this = @
             pull = if args && args.pull then args.pull else no
+            flush = if args && args.flush then args.flush else no
             if !pull
                 $this.loaded = no
-            clubs.$getMe({}
+            clubs.$getMe(
+                flush: flush
             , (success) ->
                 $this.loaded = yes
                 $this.item = success
@@ -37,7 +39,7 @@ class aboutClubInfo extends Controller then constructor: (
                     $ionicLoading.hide()
             )
         refresh: ->
-            @loadData(pull: yes)
+            @loadData(flush: yes, pull: yes)
 
     $scope.club.loadData()
     $ionicLoading.show()

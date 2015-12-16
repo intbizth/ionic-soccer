@@ -1,5 +1,5 @@
 class ProductDetail extends Controller then constructor: (
-    $ionicHistory, $ionicLoading, $scope, $stateParams, GoogleAnalytics, Products, Und
+    $ionicHistory, $ionicLoading, $scope, $stateParams, GoogleAnalytics, Products
 ) ->
     $scope.back = ->
         $ionicHistory.goBack -1
@@ -16,9 +16,12 @@ class ProductDetail extends Controller then constructor: (
         loadData: (args) ->
             $this = @
             pull = if args && args.pull then args.pull else no
+            flush = if args && args.flush then args.flush else no
             if !pull
                 $this.loaded = no
-            products.$getId(id: productId
+            products.$getId(
+                id: productId
+                flush: flush
             , (success) ->
                 $this.loaded = yes
                 $this.item = success
@@ -35,7 +38,7 @@ class ProductDetail extends Controller then constructor: (
                     $ionicLoading.hide()
             )
         refresh: ->
-            @loadData(pull: yes)
+            @loadData(flush: yes, pull: yes)
 
     $scope.product.loadData()
     $ionicLoading.show()
