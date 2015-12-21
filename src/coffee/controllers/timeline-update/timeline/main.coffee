@@ -46,6 +46,8 @@ class Timeline extends Controller then constructor: (
             , (success) ->
                 $this.loaded = yes
                 $this.next = if success.next then success.next else null
+                angular.forEach success.items, (value, key) ->
+                    success.items[key].user.me = ($rootScope.user and $rootScope.user.id and value.user.id == $rootScope.user.id)
                 $this.items = success.items
                 $this.cacheData = angular.copy $this.items
                 if pull

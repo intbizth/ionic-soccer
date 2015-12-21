@@ -96,11 +96,11 @@ div.microchats
                     div.col.col-80.text-left
                         span(time-ago, datetime="{{item.publishedDate}}") {{item.publishedDate}}
                     div.col.col-20.text-right
-                        button.button.button-me.button-small.button-light(ng-if="item.user.id == $root.user.id")
+                        button.button.button-me.button-small.button-light(ng-if="item.user.me")
                             | Me
 
                 div.cover(ng-if="item.image")
-                    img.image(image-cache="{{item.image}}", onload="", onerror="")
+                    img.image(image-cache="{{item.image}}")
 
                 div.detail(ng-class="item.template == 'hightlight' ? '-hightlight' : ''")
                     div.col.subdetail

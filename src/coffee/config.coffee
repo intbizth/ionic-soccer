@@ -1,6 +1,6 @@
 class CFG extends Constant then constructor: ->
     Config =
-        VERSION: '1.0.1'
+        VERSION: '1.0.2'
         HTTP_STATUS_CODES:
             '401': 'Unauthorized'
             '403': 'Forbidden'
