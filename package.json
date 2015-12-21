@@ -1,6 +1,6 @@
 {
   "name": "soccer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Soccer Mobile",
   "dependencies": {
     "bufferstreams": "^1.1.0",

@@ -10,8 +10,3 @@ class App extends App then constructor: ->
         'ngResource'
         'pascalprecht.translate'
     ]
-
-# TODO:
-# - https://github.com/angular-translate/angular-translate
-# - https://github.com/driftyco/ionic/issues/3194
-# - https://github.com/jBenes/angular-imgcache.js
