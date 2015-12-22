@@ -48,12 +48,12 @@ div(ng-repeat="item in clubTickets.items")
 
     img.image(ng-if="item.stadiumImage", image-cache="{{item.stadiumImage}}")
 
-    div.ticketzone(ng-repeat="ticketZone in item.ticketZones")
-        div.row(ng-class="clubTickets.getTicketZoneClass(ticketZone.code)")
-            div.col.col-left.text-center
-                | {{ticketZone.label}}
-            div.col.col-right.text-center
-                | {{ticketZone.capacity | number}} ที่นั่ง
+    //div.ticketzone(ng-repeat="ticketZone in item.ticketZones")
+    //    div.row(ng-class="clubTickets.getTicketZoneClass(ticketZone.code)")
+    //        div.col.col-left.text-center
+    //            | {{ticketZone.label}}
+    //        div.col.col-right.text-center
+    //            | {{ticketZone.capacity | number}} ที่นั่ง
 
     div(ng-if="ticketMatches.loaded")
         div.row.section
@@ -64,7 +64,7 @@ div(ng-repeat="item in clubTickets.items")
         div.seat(ng-repeat="item2 in ticketMatches.items")
             div.row(ng-class="ticketMatches.getTicketMatchesClass(item2.code)")
                 div.col.col-67.col-center
-                    div.text1 {{item2.code}} {{item2.label}}
+                    div.text1 บล็อก {{item2.label}}
                     div.text2  ที่นั่งว่าง
                 div.col.col-33.col-center.text-right
                     span.balance {{item2.balance | number}}
@@ -80,10 +80,15 @@ div(ng-repeat="item in clubTickets.items")
             div.col(
             ng-repeat="item2 in item.seasonTicket",
             ng-style="{'background-color' : item2.background_color, 'color' : item2.color}"
-            )
-                div {{item2.label_en}}
+            ).seasonticket
+                div.text1 {{item2.label_en}}
                 div {{item2.label_th}}
-                hr(ng-style="{'background-color' : item2.color, 'border' : 'none', 'height' : '4px'}")
+        div.row.row-center.space
+        div.row
+            div.col(
+            ng-repeat="item2 in item.seasonTicket",
+            ng-style="{'background-color' : item2.background_color, 'color' : item2.color}"
+            )
                 div {{item2.price}}
 
     div.row(ng-if="item.note")

@@ -105,10 +105,22 @@ $lists: (
     }
 }
 
+.seasonticket {
+    .text1 {
+        font-size: 18px;
+        font-weight: bold;
+    }
+}
+
 .footer {
     height: 14px;
     width: 100%;
     background-color: #1388cd;
+}
+
+.space {
+    height: 8px;
+    width: auto;
 }
 
 @media screen and (-webkit-device-pixel-ratio: 2) {
