@@ -27,7 +27,8 @@ class ClubTickets extends Factory then constructor: (
                 angular.forEach newData.items, (value, key) ->
                     fields =
                         id: 'id'
-                        stadiumImage: 'stadium.media.url'
+                        stadiumImage: '_links.stadium.href'
+                        generalTickets: 'configuration.general_ticket'
                         ticketZones: 'ticket_zones'
                         seasonTicket: 'configuration.season_ticket'
                         note: 'configuration.note'
