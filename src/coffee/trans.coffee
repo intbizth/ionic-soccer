@@ -26,16 +26,8 @@ class Translation extends Config
 class TranslationRun extends Run
     constructor: ($translate, $translatePartialLoader) ->
         $translatePartialLoader
-
-# add translation packages here
+        
         .addPart 'common'
-        .addPart 'feature'
-        .addPart 'games'
-        .addPart 'games-detail/main'
-        .addPart 'games-detail/prediction'
-        .addPart 'games-detail/coacher11'
-        .addPart 'games-detail/ranking'
-        .addPart 'games-detail/live'
-        .addPart 'ranking'
+        .addPart 'feature/main'
 
         $translate.refresh()
