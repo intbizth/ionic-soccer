@@ -1,9 +1,9 @@
 class Timeline extends Controller then constructor: (
-    $interval, $ionicLoading, $ionicPlatform, $q, $rootScope, $scope, CFG, Chance, GoogleAnalytics, Matches, Media, MicroChats, Moment
+    $interval, $ionicLoading, $ionicPlatform, $q, $rootScope, $scope, CFG, Chance, GoogleAnalytics, Matches, md5, Media, MicroChats, Moment
 ) ->
     $scope.isLoggedin = $rootScope.isLoggedin
 
-    pageLimit = 50
+    pageLimit = 100
     microChats = new MicroChats()
     matches = new Matches()
 
@@ -33,12 +33,17 @@ class Timeline extends Controller then constructor: (
         items: []
         next: null
         loaded: no
+        refreshing: no
         loadData: (args) ->
             $this = @
+            $interval.cancel $this.timer
+            $this.timer = undefined
             pull = if args && args.pull then args.pull else no
             flush = if args && args.flush then args.flush else no
             if !pull
                 $this.loaded = no
+            else
+                $this.refreshing = yes
             microChats.$getPage(
                 page: 1
                 limit: pageLimit
@@ -51,6 +56,7 @@ class Timeline extends Controller then constructor: (
                 $this.items = success.items
                 $this.cacheData = angular.copy $this.items
                 if pull
+                    $this.refreshing = no
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
                     $ionicLoading.hide()
@@ -58,12 +64,15 @@ class Timeline extends Controller then constructor: (
                 $scope.matchLabel.loadData()
             , (error) ->
                 if pull
+                    $this.refreshing = no
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
                     $ionicLoading.hide()
             )
         refresh: ->
             @errorMessage = ''
+            $interval.cancel @timer
+            @timer = undefined
             @loadData(flush: yes, pull: yes)
             $scope.matchLabel.refresh()
         loadNext: ->
@@ -73,6 +82,8 @@ class Timeline extends Controller then constructor: (
                 limit: pageLimit
             , (success) ->
                 $this.next = if success.next then success.next else null
+                angular.forEach success.items, (value, key) ->
+                    success.items[key].user.me = ($rootScope.user and $rootScope.user.id and value.user.id == $rootScope.user.id)
                 $this.items = $this.items.concat success.items
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
             , (error) ->
@@ -83,33 +94,47 @@ class Timeline extends Controller then constructor: (
         autoFetchData: ->
             $this = @
             fetch = ->
-                microChats.$getPage(
-                    page: 1
-                    limit: pageLimit
-                    flush: yes
-                , (success) ->
-                    if success.items.length > 0 and $this.cacheData.length > 0 and !angular.equals success.items, $this.cacheData
-                        push = yes
-                        items = []
+                if !$this.refreshing
+                    microChats.$getPage(
+                        page: 1
+                        limit: pageLimit
+                        flush: yes
+                    , (success) ->
                         angular.forEach success.items, (value, key) ->
-                            if angular.equals $this.items[0], value
-                                push = no
+                            success.items[key].user.me = ($rootScope.user and $rootScope.user.id and value.user.id == $rootScope.user.id)
 
-                            if push
-                                items.push value
-                        items.reverse()
-                        angular.forEach items, (value, key) ->
-                            $this.items.unshift value
-                            $this.cacheData.unshift value
-                , (error) ->
-                    return
-                )
+                        hashData1 = md5.createHash angular.toJson $this.cacheData
+                        hashData2 = md5.createHash angular.toJson success.items
+
+                        if hashData1 != hashData2
+                            lastId = null
+#
+                            if $this.cacheData.length > 0
+                                lastId = $this.cacheData[$this.cacheData.length - 1].id
+
+                            push = yes
+                            items = []
+                            angular.forEach success.items, (value, key) ->
+                                if value.id == lastId
+                                    push = no
+
+                                if push
+                                    items.push value
+
+                            items.reverse()
+
+                            angular.forEach items, (value, key) ->
+                                $this.items.unshift value
+                                $this.cacheData.unshift value
+                    , (error) ->
+                        return
+                    )
 
             $interval.cancel $this.timer
             $this.timer = undefined
             $this.timer = $interval(->
                 fetch()
-            , 15000)
+            , 5000)
         isPass: no
         message: ''
         errorMessage: ''

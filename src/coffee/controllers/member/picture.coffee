@@ -1,5 +1,5 @@
 class MemberPictureMain extends Controller then constructor: (
-    $ionicHistory, $ionicLoading, $q, $rootScope, $scope, Media, md5, Users
+    $ionicHistory, $ionicLoading, $q, $rootScope, $scope, Media, Users
 ) ->
     $scope.back = ->
         $ionicHistory.goBack -1
