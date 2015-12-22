@@ -1,5 +1,5 @@
 ion-view.about-club
-    ion-nav-title About
+    ion-nav-title {{'about_club.title' | trans}}
     ion-nav-buttons(side="left")
         a.button.button-nav.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
             img.logo(
@@ -9,9 +9,9 @@ ion-view.about-club
 
     ion-content.content(scroll="false")
         ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
-            ion-tab(title="Info")
+            ion-tab(title="{{'about_club.tab.info' | trans}}")
                 ion-content.info.fix-tab
                     div(ui-view="info")
-            ion-tab(title="Team")
+            ion-tab(title="{{'about_club.tab.team' | trans}}")
                 ion-content.team.fix-tab
                     div(ui-view="team")

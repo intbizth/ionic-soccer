@@ -1,0 +1,13 @@
+about_club:
+    info:
+        field:
+            name: ชื่อสโมสร
+            short_name: ชื่อย่อ
+            signature_name: ฉายา
+            league: ลีก
+            contact: ติดต่อสโมสร
+            website: เว็บไซต์
+            email: อีเมล
+            stadium_name: สนาม
+            stadium_capacity: ความจุ (คน)
+            location: ที่ตั้ง

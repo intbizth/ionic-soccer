@@ -1,4 +1,3 @@
 common:
-    back: กลับ
     pull-to-refresh: ดึงลงเพื่อโหลดข้อมูลใหม่...
     version: เวอร์ชั่น

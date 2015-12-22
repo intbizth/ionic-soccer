@@ -1,4 +1,4 @@
-ion-refresher(pulling-text='Pull to refresh...', on-refresh='position.refresh()')
+ion-refresher(pulling-text="{{'common.pull-to-refresh' | trans}}", on-refresh="position.refresh()")
 
 div(ng-if="position.loaded")
     div.nodata(ng-if="matchLabel.items.length == 0")

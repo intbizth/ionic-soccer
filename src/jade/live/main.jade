@@ -1,5 +1,5 @@
 ion-view.live
-    ion-nav-title Live
+    ion-nav-title {{'live.title' | trans}}
     ion-nav-buttons(side="left")
         a.button.button-nav.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
             img.logo(
@@ -8,13 +8,13 @@ ion-view.live
             )
 
     ion-content.content
-        ion-refresher(pulling-text="Pull to refresh...", on-refresh="matchLabel.refresh()")
+        ion-refresher(pulling-text="{{'common.pull-to-refresh' | trans}}", on-refresh="matchLabel.refresh()")
 
         div(ng-if="matchLabel.loaded")
             div.nodata(ng-if="matchLabel.items.length == 0")
                 div.row
                     div.col.col-center.text-center
-                        span Has no match.
+                        span {{'live.notfound' | trans}}
 
             div.match-label
                 div(ng-repeat="item in matchLabel.items")

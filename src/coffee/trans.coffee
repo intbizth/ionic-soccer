@@ -26,8 +26,14 @@ class Translation extends Config
 class TranslationRun extends Run
     constructor: ($translate, $translatePartialLoader) ->
         $translatePartialLoader
-        
-        .addPart 'common'
+
+        .addPart 'about_club/info'
+        .addPart 'about_club/main'
+        .addPart 'about_club/team'
         .addPart 'feature/main'
+        .addPart 'live/main'
+        .addPart 'personal/detail'
+        .addPart 'common'
+        .addPart 'member'
 
         $translate.refresh()

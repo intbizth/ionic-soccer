@@ -8,7 +8,7 @@ ion-view.ranking-player-detail
             )
 
     ion-content.content
-        ion-refresher(pulling-text="Pull to refresh...", on-refresh="data.doRefresh()")
+        ion-refresher(pulling-text="{{'common.pull-to-refresh' | trans}}", on-refresh="data.doRefresh()")
 
         div.row
             div.col.col-33

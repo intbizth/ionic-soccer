@@ -8,7 +8,7 @@ ion-view.news-detail
             )
 
     ion-content.content
-        ion-refresher(pulling-text="Pull to refresh...", on-refresh="paper.refresh()")
+        ion-refresher(pulling-text="{{'common.pull-to-refresh' | trans}}", on-refresh="paper.refresh()")
 
         div.subcontent(ng-if="paper.loaded")
             div.image(ng-if="paper.item.cover", image-cache="{{paper.item.cover}}")
