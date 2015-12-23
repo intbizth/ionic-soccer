@@ -39,6 +39,13 @@ div(ng-if="matchLabel.loaded")
                         | {{item.awayClub.name}}
                     div.col.col-15.col-center.logo.text-center
                         img.image(ng-src="{{item.awayClub.logo}}")
+                div.match-detail
+                    div.row-center.text-center
+                        | {{item.startTime | moment:'ddd Do MMM YYYY HH:mm'}}
+                    div.row-center.text-center
+                        | {{item.season}}
+                    div.row-center.text-center
+                        | {{item.stadium}}
 
 div(ng-repeat="item in clubTickets.items")
     div.row.section
