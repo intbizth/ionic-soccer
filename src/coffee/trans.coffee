@@ -46,6 +46,7 @@ class TranslationRun extends Run then constructor: (
     .addPart 'product/detail'
     .addPart 'ticket_membership/main'
     .addPart 'ticket_membership/ticket'
+    .addPart 'timeline_update/main'
     .addPart 'timeline_update/timeline'
     .addPart 'timeline_update/update'
     .addPart 'common'

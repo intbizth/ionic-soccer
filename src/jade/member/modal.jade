@@ -51,13 +51,13 @@ ion-modal-view.member-login
                             name="password",
                             maxlength="128"
                             )
-                div.submit
-                    div.row
+                    div.row.submit
                         div.col.text-center
-                            button.button.button-positive(
+                            button.button.button-positive.button-submit(
                             ng-disabled="!login.isPass"
                             ng-click="login.submit()"
                             ) {{'member.login.form.submit' | trans}}
+
                 div.register(ng-click="goToRegisterStep1()")
                     div.row
                         div.col.text-center
@@ -98,10 +98,9 @@ ion-modal-view.member-login
                             name="confirmPassword",
                             maxlength="128"
                             )
-                div.submit
-                    div.row
+                    div.row.submit
                         div.col.text-center
-                            button.button.button-positive(
+                            button.button.button-positive.button-submit(
                             ng-disabled="!step1.isPass",
                             ng-click="step1.submit()"
                             ) {{'member.register.form.next' | trans}}
@@ -147,10 +146,9 @@ ion-modal-view.member-login
                             min="{{step2.date.min}}"
                             max="{{step2.date.max}}"
                             )
-                div.submit
-                    div.row
+                    div.row.submit
                         div.col.text-center
-                            button.button.button-positive(
+                            button.button.button-positive.button-submit(
                             ng-disabled="!step2.isPass",
                             ng-click="step2.submit()"
                             ) {{'member.register.form.submit' | trans}}
