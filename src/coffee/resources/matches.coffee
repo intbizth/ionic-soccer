@@ -4,6 +4,17 @@ class Matches extends Factory then constructor: (
     timeout = 60000
     cache = $cacheFactory 'resourceMatchesCache'
 
+#    FIXME: split function not work
+#    splitScore = (result, side) ->
+#        result = result.split(" : ")
+#        result = result.split(" : ")
+#        console.log('>>> : ', result)
+#        if side == 'home'
+#            score = scores[0]
+#        else if side == 'away'
+#            score = scores[1]
+#        return scores[1]
+
     getMatchEvents = (data) ->
         fields =
             id: 'id'
@@ -237,6 +248,8 @@ class Matches extends Factory then constructor: (
                             shortName: 'home_club.short_name'
                             logo: 'home_club._links.logo_70x70.href'
                             score: 'home_score'
+#                            TODO: function not work
+#                            score: splitScore('result', 'home')
                         awayClub:
                             id: 'away_club.id'
                             name: 'away_club.name'
