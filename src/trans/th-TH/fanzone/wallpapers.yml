@@ -1,0 +1,11 @@
+fanzone:
+    wallpapers:
+        notfound: ไม่พบวอลเปเปอร์
+        download:
+            title: ดาวน์โหลดวอลเปเปอร์
+            detail: คุณต้องการดาวน์โหลดใช่หรือไม่?
+            cancel: ยกเลิก
+            ok: บันทึก
+        popup:
+            title: บันทึกแล้ว
+            ok: ปิด

@@ -15,17 +15,21 @@ member:
     logout:
         title: ออกจากระบบ
         detail: คุณต้องการออกจากระบบใช่หรือไม่?
+        cancel: ยกเลิก
+        ok: ใช่
     register:
-        line: สมัครสมาชิก
+        link: สมัครสมาชิก
         title1: สมัครสมาชิกขั้นตอน 1
-        title1: สมัครสมาชิกขั้นตอน 2
+        title2: สมัครสมาชิกขั้นตอน 2
         form:
             field:
                 email: อีเมล
                 password: รหัสผ่าน
-                confirm-password: รหัสผ่านอีกครั้ง
-                firstname: ชื่อจริง
+                confirm_password: รหัสผ่านอีกครั้ง
+                firstname: ชื่อ
                 lastname: นามสกุล
-                deta-of-birth: วันเกิด
+                deta_of_birth: วันเกิด
             next: ต่อไป
             submit: ยืนยันการสมัครสมาชิก
+    picture:
+        title: เปลี่ยนภาพส่วนตัว

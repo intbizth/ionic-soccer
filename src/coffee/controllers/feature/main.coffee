@@ -7,7 +7,7 @@ class FeatureMain extends Controller then constructor: (
     $ionicHistory.clearCache()
 
     $scope.isLoggedin = $rootScope.isLoggedin
-    $scope.member =
+    $scope.translate =
         login: ''
         logout: ''
 
@@ -21,7 +21,7 @@ class FeatureMain extends Controller then constructor: (
         itemDefault:
             id: 0
             picture: './img/member/picture@2x.png'
-            name: ''
+            name: 'guest'
             point1: 0
             point2: 0
         setDefault: ->
@@ -76,13 +76,6 @@ class FeatureMain extends Controller then constructor: (
 
         $rootScope.user.profilePicture = data
 
-    $translate(['member.display.guest', 'member.display.loading', 'member.button.login' ,'member.button.logout']).then((translations) ->
-        $scope.member.login = translations['member.button.login']
-        $scope.member.logout = translations['member.button.logout']
-
-        $scope.profile.item.name = if $scope.isLoggedin then translations['member.display.loading'] else translations['member.display.guest']
-    )
-
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'feature'
 
@@ -91,3 +84,17 @@ class FeatureMain extends Controller then constructor: (
 
     Ads.$on 'ready', ->
         Ads.openModal()
+
+    $translate(
+        [
+            'member.display.guest'
+            'member.display.loading'
+            'member.button.login'
+            'member.button.logout'
+        ]
+    ).then((translations) ->
+        $scope.translate.login = translations['member.button.login']
+        $scope.translate.logout = translations['member.button.logout']
+        $scope.profile.itemDefault.name = translations['member.display.guest']
+        $scope.profile.item.name = if $scope.isLoggedin then translations['member.display.loading'] else translations['member.display.guest']
+    )

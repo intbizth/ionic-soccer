@@ -1,34 +1,30 @@
 class FanzoneWallpapers extends Controller then constructor: (
-    $cordovaFile, $cordovaFileTransfer, $ionicLoading, $ionicPlatform, $ionicPopup, $rootScope, $scope, $timeout, GoogleAnalytics, Images, Und, Wallpapers
+    $cordovaFile, $cordovaFileTransfer, $ionicLoading, $ionicPlatform, $ionicPopup, $rootScope, $scope, $timeout, $translate, GoogleAnalytics, Images, Wallpapers
 ) ->
+    $scope.translate =
+        download:
+            title: '',
+            template: ''
+            cancelText: ''
+            okText: ''
+        popup:
+            title: ''
+            okText: ''
+
     $scope.downloadFile = (url) ->
-        confirmPopup = $ionicPopup.confirm(
-            title: 'Download',
-            template: 'Are you sure you want to download this wallpaper?'
-            cancelText: 'Cancel'
-            okText: 'Save'
-        )
+        confirmPopup = $ionicPopup.confirm $scope.translate.download
 
         confirmPopup.then (res) ->
             if res
+                options = $scope.translate.popup
                 $ionicLoading.show()
                 Images.saveToLibrary(url
                 , ->
-                    message = ''
-                    if $rootScope.isIOS
-                        message = 'Saved to camera roll.'
-                    else if $rootScope.isAndroid
-                        message = 'Saved'
-                    $ionicPopup.alert(
-                        title: message
-                        okText: 'Ok'
-                    )
+                    $ionicPopup.alert options
                     $ionicLoading.hide()
                 , (error) ->
-                    $ionicPopup.alert(
-                        title: error
-                        okText: 'Ok'
-                    )
+                    options.title = error
+                    $ionicPopup.alert options
                     $ionicLoading.hide()
                 )
             return
@@ -84,3 +80,21 @@ class FanzoneWallpapers extends Controller then constructor: (
 
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'wallpapers'
+
+    $translate(
+        [
+            'fanzone.wallpapers.download.title'
+            'fanzone.wallpapers.download.detail'
+            'fanzone.wallpapers.download.cancel'
+            'fanzone.wallpapers.download.ok'
+            'fanzone.wallpapers.popup.title'
+            'fanzone.wallpapers.popup.ok'
+        ]
+    ).then((translations) ->
+        $scope.translate.download.title = translations['fanzone.wallpapers.download.title']
+        $scope.translate.download.template = translations['fanzone.wallpapers.download.detail']
+        $scope.translate.download.cancelText = translations['fanzone.wallpapers.download.cancel']
+        $scope.translate.download.okText = translations['fanzone.wallpapers.download.ok']
+        $scope.translate.popup.title = translations['fanzone.wallpapers.popup.title']
+        $scope.translate.popup.okText = translations['fanzone.wallpapers.popup.ok']
+    )

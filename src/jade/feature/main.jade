@@ -4,7 +4,7 @@ ion-view.feature-main
         a.button.button-nav.button-icon.icon-right(
         ng-class="isLoggedin ? 'ion-log-out' : 'ion-log-in'",
         ng-click="isLoggedin ? logout() : login()"
-        ) {{isLoggedin ? member.logout : member.login}}
+        ) {{isLoggedin ? translate.logout : translate.login}}
 
     ion-content.content
         ion-refresher(pulling-text="{{'common.pull-to-refresh' | trans}}", on-refresh="profile.refresh()")

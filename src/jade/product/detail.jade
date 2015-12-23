@@ -24,7 +24,7 @@ ion-view.product-detail
                         | {{product.item.description}}
                 div.row.price
                     div.col
-                        | ราคา ฿ {{product.item.price | number}}
+                        | {{'product.price' | trans}} {{product.item.price | number}}
                 div.row.moreDescription
                     div.col
                         | {{product.item.moreDescription}}

@@ -1,5 +1,5 @@
 ion-view.fanzone
-    ion-nav-title Fanzone
+    ion-nav-title {{'fanzone.title' | trans}}
     ion-nav-buttons(side="left")
         a.button.button-nav.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
             img.logo(
@@ -9,9 +9,9 @@ ion-view.fanzone
 
     ion-content.content(scroll="false")
         ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
-            ion-tab(title="Products")
+            ion-tab(title="{{'fanzone.tab.products' | trans}}")
                 ion-content.products.fix-tab
                     div(ui-view="products")
-            ion-tab(title="Wallpapers")
+            ion-tab(title="{{'fanzone.tab.wallpapers' | trans}}")
                 ion-content.wallpapers.fix-tab
                     div(ui-view="wallpapers")

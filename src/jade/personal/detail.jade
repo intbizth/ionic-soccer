@@ -39,7 +39,7 @@ ion-view.personal-detail
                     div.col.topic
                         | {{'personal.detail.born' | trans}}
                     div.col.about
-                        | {{personal.item.birthday | date: 'MMMM dd, yyyy'}}
+                        | {{personal.item.birthday | moment:'D MMM YYYY'}}
                         | (age {{personal.item.age}})
 
                 div.row.position
@@ -53,13 +53,13 @@ ion-view.personal-detail
                         | {{'personal.detail.previous_club' | trans}}
                     div.col.about
                         | {{personal.item.previousClub.name}}
-                        | {{personal.item.previousClub.startDate | date: 'yyyy'}}
+                        | {{personal.item.previousClub.startDate | moment:'YYYY'}}
 
                 div.row.signed
                     div.col.topic
                         | {{'personal.detail.signed' | trans}}
                     div.col.about
-                        | {{personal.item.previousClub.signedDate | date: 'yyyy'}}
+                        | {{personal.item.previousClub.signedDate | moment:'YYYY'}}
 
                 div.row.bio
                     div.col.topic

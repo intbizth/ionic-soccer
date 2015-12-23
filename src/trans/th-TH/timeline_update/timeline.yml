@@ -1,0 +1,8 @@
+timeline_update:
+    timeline:
+        notfound: ไม่พบการพูดคุย
+        me: ของฉัน
+        form:
+            field:
+                message: พิมพ์ข้อความ..
+            submit: ส่ง

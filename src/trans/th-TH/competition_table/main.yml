@@ -1,0 +1,6 @@
+competition_table:
+    title: ตารางการแข่งขัน
+    tab:
+        fixture: กำลังจะแข่งขัน
+        result: ผลการแข่งขัน
+        position_table: ตารางคะแนน

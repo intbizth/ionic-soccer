@@ -22,7 +22,7 @@ ion-view.news-detail
             div.row.datetime(ng-if="paper.item.publishedDate")
                 div.col.col-33
                     div.line
-                        span.text {{paper.item.publishedDate | date: 'dd MMM yyyy'}}
+                        span.text {{paper.item.publishedDate | moment:'D MMM YYYY'}}
 
             div.row.url(ng-if="paper.item.creditUrl", ng-click="openURL(paper.item.creditUrl)")
                 div.col

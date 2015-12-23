@@ -1,9 +1,11 @@
 class Run extends Run then constructor: (
-    $cordovaAppVersion, $cordovaKeyboard, $ionicPlatform, $rootScope, CFG, GoogleAnalytics, ImageCache
+    $cordovaAppVersion, $cordovaKeyboard, $ionicPlatform, $rootScope, CFG, GoogleAnalytics, ImageCache, Moment
 ) ->
     $rootScope.isAndroid = no
     $rootScope.isIOS = no
     $rootScope.version = '0.0.0'
+
+    Moment.locale 'th-TH'
 
     $ionicPlatform.ready ->
         $rootScope.isAndroid = ionic.Platform.isAndroid()

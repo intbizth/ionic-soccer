@@ -5,7 +5,7 @@ div.items
         div.nodata(ng-if="wallpapers.items.length == 0")
             div.row
                 div.col.col-center.text-center
-                    span Has no wallpapers.
+                    span {{'fanzone.wallpapers.notfound' | trans}}
 
         div(ng-repeat="item in wallpapers.items")
             div.space
