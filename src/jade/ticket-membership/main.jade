@@ -1,5 +1,5 @@
 ion-view.ticket-membership
-    ion-nav-title Ticket
+    ion-nav-title {{'ticket_membership.title' | trans}}
     ion-nav-buttons(side="left")
         a.button.button-nav.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
             img.logo(
@@ -9,12 +9,3 @@ ion-view.ticket-membership
 
     ion-content.ticket
         div(ui-view="ticket")
-
-    //ion-content.content(scroll="false")
-    //    ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
-    //        ion-tab(title="Ticket")
-    //            ion-content.ticket.fix-tab
-    //                div(ui-view="ticket")
-    //        ion-tab(title="Membership")
-    //            ion-content.membership.fix-tab
-    //                div(ui-view="membership")

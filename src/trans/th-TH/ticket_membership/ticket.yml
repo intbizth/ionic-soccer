@@ -1,0 +1,9 @@
+ticket_membership:
+    ticket:
+        notfound: ไม่พบรายการตั๋ว
+        next_match: ตั๋วของรายการ
+        stage: ตั๋วเข้าชมทั่วไป
+        empty_stage: ตั๋วที่ว่าง
+        seat: ที่นั่ง
+        empty_seat: ที่นั่งว่าง
+        block: บล็อก
