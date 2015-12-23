@@ -9,7 +9,7 @@ member:
         title: เข้าสู่ระบบ
         form:
             field:
-                username: อีเมลหรือชื่อเรียก
+                username: อีเมลหรือชื่อผู้ใช้
                 password: รหัสผ่าน
             submit: ยืนยันการเข้าระบบ
     logout:
