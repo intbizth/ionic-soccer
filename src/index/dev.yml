@@ -12,7 +12,7 @@ script:
     - ./www/lib/angular-resource/angular-resource.js
     - ./www/lib/angular-md5/angular-md5.js
     - ./www/lib/chance/chance.js
-    - ./www/lib/moment/moment.js
+    - ./www/lib/moment/min/moment-with-locales.js
     - ./www/lib/underscore/underscore.js
     - ./www/lib/jquery/dist/jquery.js
     - ./www/lib/jquery-ui/jquery-ui.js

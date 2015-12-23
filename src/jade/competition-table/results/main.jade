@@ -1,16 +1,16 @@
-ion-refresher(pulling-text='Pull to refresh...', on-refresh='matchLabel.refresh()')
+ion-refresher(pulling-text="{{'common.pull-to-refresh' | trans}}", on-refresh="matchLabel.refresh()")
 
 div.match-label
     div.sub(ng-if="matchLabel.loaded")
         div.nodata(ng-if="matchLabel.items.length == 0")
             div.row
                 div.col.col-center.text-center
-                    span Has no match.
+                    span {{'competition_table.result.notfound' | trans}}
 
         div(ng-repeat="item in matchLabel.items")
             div.row.row-center.section(ng-if="item.type == 'section'")
                 div.col.col-center.text-center
-                    | {{section.datetime | date : 'MMM yyyy'}}
+                    | {{section.datetime | moment:'MMM YYYY'}}
             div.row.label(ng-if="item.type == 'label'", ui-sref="match.detail({id : item.id})")
                 div.col.col-15.col-center.logo.text-center
                     img.image(ng-src="{{item.homeClub.logo}}")
@@ -19,14 +19,14 @@ div.match-label
                 div.col.col-20.col-center.detail.text-center
                     div(ng-if="item.template == 'before'")
                         div.time
-                            | {{item.startTime | date:'HH:mm'}}
+                            | {{item.startTime | moment:'HH:mm'}}
                         div.date
-                            | {{item.startTime | date:'dd MMM yyyy'}}
+                            | {{item.startTime | moment:'D MMM YYYY'}}
                     div(ng-if="item.template == 'after'")
                         div.score
                             | {{item.homeClub.score}}-{{item.awayClub.score}}
                         div.date
-                            | {{item.startTime | date:'dd MMM yyyy'}}
+                            | {{item.startTime | moment:'D MMM YYYY'}}
                 div.col.col-25.col-center.name.text-center
                     | {{item.awayClub.name}}
                 div.col.col-15.col-center.logo.text-center

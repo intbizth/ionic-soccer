@@ -1,4 +1,4 @@
-ui.t:
+fanzone:
     products:
-        nodata: ไม่มีข้อมูลผลิตภัณฑ์
-        price: ราคา
+        notfound: ไม่พบสินค้า
+        price: ราคา ฿

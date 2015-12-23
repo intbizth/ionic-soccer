@@ -1,0 +1,9 @@
+date_picker:
+    unit:
+        day: วัน
+        month: เดือน
+        year: ปี
+    title:
+        day: 'เลือกวัน'
+        month: 'เลือกเดือน'
+        year: 'เลือกปี'

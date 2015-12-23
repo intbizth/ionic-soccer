@@ -27,15 +27,24 @@ class TranslationRun extends Run
     constructor: ($translate, $translatePartialLoader) ->
         $translatePartialLoader
 
-# add translation packages here
+        .addPart 'about_club/info'
+        .addPart 'about_club/main'
+        .addPart 'about_club/team'
+        .addPart 'competition_table/fixture'
+        .addPart 'competition_table/main'
+        .addPart 'competition_table/position_table'
+        .addPart 'directives/date_picker'
+        .addPart 'fanzone/main'
+        .addPart 'fanzone/products'
+        .addPart 'fanzone/wallpapers'
+        .addPart 'feature/main'
+        .addPart 'live/main'
+        .addPart 'personal/detail'
+        .addPart 'product/detail'
+        .addPart 'timeline_update/main'
+        .addPart 'timeline_update/timeline'
+        .addPart 'timeline_update/update'
         .addPart 'common'
-        .addPart 'feature'
-        .addPart 'games'
-        .addPart 'games-detail/main'
-        .addPart 'games-detail/prediction'
-        .addPart 'games-detail/coacher11'
-        .addPart 'games-detail/ranking'
-        .addPart 'games-detail/live'
-        .addPart 'ranking'
+        .addPart 'member'
 
         $translate.refresh()

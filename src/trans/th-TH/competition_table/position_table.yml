@@ -1,0 +1,9 @@
+competition_table:
+    position_table:
+        notfound: ไม่พบตารางคะแนน
+        league_position: อันดับที่
+        no: '#'
+        team: ทีม
+        play: เล่น
+        goal_difference: -/+
+        point: คะแนน

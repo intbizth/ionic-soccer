@@ -1,3 +1,0 @@
-ui.e:
-    hello: "Hello, {{displayName}}!!"
-    save: Save

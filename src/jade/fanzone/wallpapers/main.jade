@@ -1,11 +1,11 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="wallpapers.refresh()")
+ion-refresher(pulling-text="{{'common.pull-to-refresh' | trans}}", on-refresh="wallpapers.refresh()")
 
 div.items
     div.subitems(ng-if="wallpapers.loaded")
         div.nodata(ng-if="wallpapers.items.length == 0")
             div.row
                 div.col.col-center.text-center
-                    span Has no wallpapers.
+                    span {{'fanzone.wallpapers.notfound' | trans}}
 
         div(ng-repeat="item in wallpapers.items")
             div.space

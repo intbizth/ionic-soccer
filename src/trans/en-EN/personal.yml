@@ -1,8 +1,0 @@
-ui.e:
-    personal:
-        title: Personal Detail
-        born: Born
-        position: Position
-        previous-club: Previous Club
-        signed: Signed
-        bio: Bio

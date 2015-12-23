@@ -1,4 +1,4 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="player.doRefresh()")
+ion-refresher(pulling-text="{{'common.pull-to-refresh' | trans}}", on-refresh="player.doRefresh()")
 ion-list.ranking-list
     ion-item.nodata(ng-if="player.items.length == 0")
         div.text Has no ranking.

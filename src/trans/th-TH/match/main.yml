@@ -1,7 +1,0 @@
-ui.t:
-    match:
-        title: การแข่งขัน
-        tab:
-            view: วิว
-            highlight: ไฮไลท์
-            lineups: การจัดตำแหน่ง

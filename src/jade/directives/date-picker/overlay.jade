@@ -2,7 +2,7 @@ ion-modal-view.date-picker
     ion-header-bar.bar-positive(align-title="center")
         div.buttons
             a.button.button-nav.button-icon.ion-ios-close-empty(ng-if="$root.isIOS", ng-click="modal.hide()")
-        h1.title {{titles[select]}}
+        h1.title {{translate.title[select]}}
         div.buttons
             a.button.button-nav.button-icon.ion-ios-close-empty(ng-if="$root.isAndroid", ng-click="modal.hide()")
     ion-content.content(ng-click="modal.hide()")

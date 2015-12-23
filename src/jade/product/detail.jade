@@ -8,7 +8,7 @@ ion-view.product-detail
             )
 
     ion-content
-        ion-refresher(pulling-text="Pull to refresh...", on-refresh="product.refresh()")
+        ion-refresher(pulling-text="{{'common.pull-to-refresh' | trans}}", on-refresh="product.refresh()")
 
         div.sub(ng-if="product.loaded")
             div.info
@@ -24,7 +24,7 @@ ion-view.product-detail
                         | {{product.item.description}}
                 div.row.price
                     div.col
-                        | ราคา ฿ {{product.item.price | number}}
+                        | {{'product.price' | trans}} {{product.item.price | number}}
                 div.row.moreDescription
                     div.col
                         | {{product.item.moreDescription}}

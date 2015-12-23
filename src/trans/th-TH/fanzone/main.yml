@@ -1,6 +1,5 @@
-ui.t:
-    fanzone:
-        title: แฟนโซน
-        tab:
-            product: ผลิตภัณฑ์
-            wallpaper: ภาพวอลเปเปอร์
+fanzone:
+    title: แฟนคลับ
+    tab:
+        products: สินค้า
+        wallpapers: วอลเปเปอร์

@@ -1,11 +1,11 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="products.refresh()")
+ion-refresher(pulling-text="{{'common.pull-to-refresh' | trans}}", on-refresh="products.refresh()")
 
 div.items
     div.subitems(ng-if="products.loaded")
         div.nodata(ng-if="products.items.length == 0")
             div.row
                 div.col.col-center.text-center
-                    span Has no products.
+                    span {{'fanzone.products.notfound' | trans}}
 
         div(ng-repeat="item in products.items")
             div.space
@@ -16,7 +16,7 @@ div.items
                             | {{item.name}}
                     div.row.price
                         div.col
-                            | ราคา ฿ {{item.price | number}}
+                            | {{'fanzone.products.price' | trans}} {{item.price | number}}
             div.shadow
 
 ion-infinite-scroll(ng-if="products.next" on-infinite="products.loadNext()", distance="1%")

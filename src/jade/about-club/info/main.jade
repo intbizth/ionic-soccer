@@ -1,4 +1,4 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="club.refresh()")
+ion-refresher(pulling-text="{{'common.pull-to-refresh' | trans}}", on-refresh="club.refresh()")
 
 div.subinfo(ng-if="club.loaded")
     div.cover(ng-if="club.item.stadiumImage")
@@ -12,42 +12,22 @@ div.subinfo(ng-if="club.loaded")
             div.col
                 div.row.text-left.top
                     div.col.col-33
-                        | ชื่อสโมสร
+                        | {{'about_club.info.field.name' | trans}}
                     div.col.col-67(on-hold="clipboard(club.item.name)")
                         | {{club.item.name}}
                 div.row.text-left.top
                     div.col.col-33
-                        | ชื่อย่อ
+                        | {{'about_club.info.field.short_name' | trans}}
                     div.col.col-67(on-hold="clipboard(club.item.shortName)")
                         | {{club.item.shortName}}
-                //div.row.text-left.top
-                //    div.col.col-33
-                //        | ชื่อสโมสร (ไทย)
-                //    div.col.col-67
-                //        | {{club.item.name}}
-                //div.row.text-left.top
-                //    div.col.col-33
-                //        | ชื่อสโมสร (อังกฤษ)
-                //    div.col.col-67
-                //        | {{club.item.name}}
-                //div.row.text-left.top
-                //    div.col.col-33
-                //        | ชื่อย่อ (ไทย)
-                //    div.col.col-67
-                //        | {{club.item.shortName}}
-                //div.row.text-left.top
-                //    div.col.col-33
-                //        | ชื่อย่อ (อังกฤษ)
-                //    div.col.col-67
-                //        | {{club.item.shortName}}
                 div.row.text-left.top
                     div.col.col-33
-                        | ฉายา
+                        | {{'about_club.info.field.signature_name' | trans}}
                     div.col.col-67(on-hold="clipboard(club.item.signatureName)")
                         | {{club.item.signatureName}}
                 div.row.text-left.top
                     div.col.col-33
-                        | ลึก
+                        | {{'about_club.info.field.league' | trans}}
                     div.col.col-67(on-hold="clipboard(club.item.clubClass.name)")
                         | {{club.item.clubClass.name}}
 
@@ -55,16 +35,16 @@ div.subinfo(ng-if="club.loaded")
             div.col
                 div.row.text-left.middle
                     div.col.col-33
-                        | ติดต่อสโมสร
+                        | {{'about_club.info.field.contact' | trans}}
                     div.col.col-67
                 div.row.text-left.middle
                     div.col.col-33
-                        | Website
+                        | {{'about_club.info.field.website' | trans}}
                     div.col.col-67(on-hold="clipboard(club.item.website)")
                         | {{club.item.website}}
                 div.row.text-left.middle
                     div.col.col-33
-                        | Email
+                        | {{'about_club.info.field.website' | trans}}
                     div.col.col-67(on-hold="clipboard(club.item.email)")
                         | {{club.item.email}}
 
@@ -72,17 +52,17 @@ div.subinfo(ng-if="club.loaded")
             div.col
                 div.row.text-left.bottom
                     div.col.col-33
-                        | สนาม
+                        | {{'about_club.info.field.stadium_name' | trans}}
                     div.col.col-67(on-hold="clipboard(club.item.stadiumName)")
                         | {{club.item.stadiumName}}
                 div.row.text-left.bottom
                     div.col.col-33
-                        | ความจุ (คน)
+                        | {{'about_club.info.field.stadium_capacity' | trans}}
                     div.col.col-67(on-hold="clipboard(club.item.stadiumCapacity)")
                         | {{club.item.stadiumCapacity | number}}
                 div.row.text-left.bottom
                     div.col.col-33
-                        | ที่ตั้ง
+                        | {{'about_club.info.field.location' | trans}}
                     div.col.col-67(on-hold="clipboard(club.item.location)")
                         | {{club.item.location}}
 

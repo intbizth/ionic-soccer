@@ -16,7 +16,7 @@ ion-modal-view.member-login
             a.button.button-clear.icon-left(
             ng-class="{'ion-ios-arrow-left' : modal.leftButton == 'back', 'ion-ios-close-empty' : modal.leftButton == 'close'}",
             ng-click="back()"
-            ) {{modal.leftButton == 'back' ? 'Back' : ''}}
+            ) {{modal.leftButton == 'back' ? translate.back : ''}}
         h1.title {{modal.title}}
         div.buttons
             a.button.button-nav.button-icon.ion-ios-close-empty(ng-if="$root.isAndroid", ng-click="modal.hide()")
@@ -37,7 +37,7 @@ ion-modal-view.member-login
                             ng-change="login.valid()",
                             type="text",
                             name="username",
-                            placeholder="Email & Username",
+                            placeholder="{{'member.login.form.field.username' | trans}}",
                             maxlength="128"
                             )
                     div.row
@@ -48,7 +48,7 @@ ion-modal-view.member-login
                             ng-change="login.valid()",
                             type="password",
                             name="password",
-                            placeholder="Password",
+                            placeholder="{{'member.login.form.field.password' | trans}}",
                             maxlength="128"
                             )
                 div.submit
@@ -57,11 +57,11 @@ ion-modal-view.member-login
                             button.button.button-positive(
                             ng-disabled="!login.isPass"
                             ng-click="login.submit()"
-                            ) Login
+                            ) {{'member.login.form.submit' | trans}}
                 div.register(ng-click="goToRegisterStep1()")
                     div.row
                         div.col.text-center
-                            | Register
+                            | {{'member.register.link' | trans}}
 
             ion-slide(on-double-tap=step1.doubletap, on-hold=step1.hold)
                 div.form
@@ -73,7 +73,7 @@ ion-modal-view.member-login
                             ng-change="step1.valid()",
                             type="text",
                             name="email",
-                            placeholder="Email",
+                            placeholder="{{'member.register.form.field.email' | trans}}",
                             maxlength="128"
                             )
                     div.row
@@ -84,7 +84,7 @@ ion-modal-view.member-login
                             ng-change="step1.valid()",
                             type="password",
                             name="password",
-                            placeholder="Password",
+                            placeholder="{{'member.register.form.field.password' | trans}}",
                             maxlength="128"
                             )
                     div.row
@@ -95,7 +95,7 @@ ion-modal-view.member-login
                             ng-change="step1.valid()",
                             type="password",
                             name="confirmPassword",
-                            placeholder="Confirm password",
+                            placeholder="{{'member.register.form.field.confirm_password' | trans}}",
                             maxlength="128"
                             )
                 div.submit
@@ -104,7 +104,7 @@ ion-modal-view.member-login
                             button.button.button-positive(
                             ng-disabled="!step1.isPass",
                             ng-click="step1.submit()"
-                            ) Next
+                            ) {{'member.register.form.next' | trans}}
 
             ion-slide(on-double-tap=step2.doubletap, on-hold=step2.hold)
                 div.form
@@ -120,7 +120,7 @@ ion-modal-view.member-login
                             ng-change="step2.valid()",
                             type="text",
                             name="firstname",
-                            placeholder="Firstname",
+                            placeholder="{{'member.register.form.field.firstname' | trans}}",
                             maxlength="128"
                             )
                     div.row
@@ -131,12 +131,12 @@ ion-modal-view.member-login
                             ng-change="step2.valid()",
                             type="text",
                             name="lastname",
-                            placeholder="Lastname",
+                            placeholder="{{'member.register.form.field.lastname' | trans}}",
                             maxlength="128"
                             )
                     div.row.birthday
                         div.col.text-center
-                            label Date of birth
+                            label {{'member.register.form.field.deta_of_birth' | trans}}
                             br
                             input(
                             date-picker,
@@ -154,4 +154,4 @@ ion-modal-view.member-login
                             button.button.button-positive(
                             ng-disabled="!step2.isPass",
                             ng-click="step2.submit()"
-                            ) Done
+                            ) {{'member.register.form.submit' | trans}}

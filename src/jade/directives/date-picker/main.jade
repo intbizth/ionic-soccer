@@ -2,14 +2,14 @@ div
     div.date-picker
         div.row.input
             div.col.col-center.col-20(ng-click="openDay()")
-                span.text {{day == 0 ? texts.day : day}}
+                span.text {{day == 0 ? translate.unit.day : day}}
             div.col.col-center.col-10.arrow(ng-click="openDay()")
                 i.icon.ion-ios-arrow-down
             div.col.col-center.col-20(ng-click="openMonth()")
-                span.text {{month == 0 ? texts.month : getMonthShortName(month)}}
+                span.text {{month == 0 ? translate.unit.month : getMonthShortName(month)}}
             div.col.col-center.col-10.arrow(ng-click="openMonth()")
                 i.icon.ion-ios-arrow-down
             div.col.col-center(ng-click="openYear()")
-                span.text {{year == 0 ? texts.year : year}}
+                span.text {{year == 0 ? translate.unit.year : year}}
             div.col.col-center.col-10.arrow(ng-click="openYear()")
                 i.icon.ion-ios-arrow-down

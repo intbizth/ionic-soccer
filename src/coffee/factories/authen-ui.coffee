@@ -1,7 +1,36 @@
 class AuthenUI extends Factory then constructor: (
-    $cordovaCamera, $cordovaKeyboard, $document, $ionicHistory, $ionicLoading, $ionicModal, $ionicPlatform, $ionicPopup, $ionicSlideBoxDelegate, $rootScope, $timeout, Authen, Chance, md5, Moment, Users
+    $cordovaCamera, $cordovaKeyboard, $document, $ionicHistory, $ionicLoading, $ionicModal, $ionicPlatform, $ionicPopup, $ionicSlideBoxDelegate, $rootScope, $timeout, $translate, Authen, Chance, md5, Moment, Users
 ) ->
     scope = $rootScope.$new()
+    scope.translate =
+        back: ''
+        logout:
+            title: '',
+            template: ''
+            cancelText: ''
+            okText: ''
+
+    states = [
+        name: 'goToLogin'
+        title: ''
+        leftButton: 'close'
+        func: ->
+            $timeout(->
+                scope.step1.reset()
+            , 500)
+    ,
+        name: 'goToRegisterStep1'
+        title: ''
+        leftButton: 'back'
+        func: ->
+            $timeout(->
+                scope.step2.reset()
+            , 500)
+    ,
+        name: 'goToRegisterStep2'
+        title: ''
+        leftButton: 'back'
+    ]
 
     login = ->
         $ionicModal.fromTemplateUrl(
@@ -11,32 +40,10 @@ class AuthenUI extends Factory then constructor: (
             hardwareBackButtonClose: no
         ).then (modal) ->
             scope.modal = modal
-            scope.modal.title = 'Login'
+            scope.modal.title = states[0].title
             scope.modal.leftButton = 'close'
             scope.slider = $ionicSlideBoxDelegate.$getByHandle 'slider'
             scope.slider.enableSlide no
-
-            states = [
-                    name: 'goToLogin'
-                    title: 'Login'
-                    leftButton: 'close'
-                    func: ->
-                        $timeout(->
-                            scope.step1.reset()
-                        , 500)
-                ,
-                    name: 'goToRegisterStep1'
-                    title: 'Register step1'
-                    leftButton: 'back'
-                    func: ->
-                        $timeout(->
-                            scope.step2.reset()
-                        , 500)
-                ,
-                    name: 'goToRegisterStep2'
-                    title: 'Register step2'
-                    leftButton: 'back'
-            ]
 
             angular.forEach states, (value, key) ->
                 scope[value.name] = ->
@@ -258,9 +265,7 @@ class AuthenUI extends Factory then constructor: (
                     @element.attr 'srcset', './img/member/photo@2x.png 2x'
                 return
     logout = ->
-        confirmPopup = $ionicPopup.confirm
-            title: 'Logout',
-            template: 'Are you sure you want to logout?'
+        confirmPopup = $ionicPopup.confirm scope.translate.logout
         confirmPopup.then((res) ->
             if res then Authen.logout()
         )
@@ -293,5 +298,27 @@ class AuthenUI extends Factory then constructor: (
 
     $rootScope.$on 'event:auth-loginConfirmed', (event, data) ->
         scope.modal.hide()
+
+    $translate(
+        [
+            'common.back'
+            'member.login.title'
+            'member.register.title1'
+            'member.register.title2'
+            'member.logout.title'
+            'member.logout.detail'
+            'member.logout.cancel'
+            'member.logout.ok'
+        ]
+    ).then((translations) ->
+        scope.translate.back = translations['common.back']
+        states[0].title = translations['member.login.title']
+        states[1].title = translations['member.register.title1']
+        states[2].title = translations['member.register.title2']
+        scope.translate.logout.title = translations['member.logout.title']
+        scope.translate.logout.template = translations['member.logout.detail']
+        scope.translate.logout.cancelText = translations['member.logout.cancel']
+        scope.translate.logout.okText = translations['member.logout.ok']
+    )
 
     return @

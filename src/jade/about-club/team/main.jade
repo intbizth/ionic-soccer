@@ -1,4 +1,4 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="personals.refresh()")
+ion-refresher(pulling-text="{{'common.pull-to-refresh' | trans}}", on-refresh="personals.refresh()")
 
 div.subteam(ng-if="personals.loaded")
     div.cover
@@ -11,7 +11,7 @@ div.subteam(ng-if="personals.loaded")
         div.nodata(ng-if="personals.items.length == 0")
             div.row
                 div.col.col-center.text-center
-                    div.text Has no personals.
+                    div.text {{'about_club.team.notfound' | trans}}
 
         div(ng-repeat="item in personals.items")
             div.detail
@@ -28,4 +28,4 @@ div.subteam(ng-if="personals.loaded")
                     div.col.col-center.text-center
                         span.no \#{{item.no}}
 
-ion-infinite-scroll(ng-if="personals.hasMorePage" on-infinite="personals.loadNext()", distance="1%")
+ion-infinite-scroll(ng-if="personals.next" on-infinite="personals.loadNext()", distance="1%")

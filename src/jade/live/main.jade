@@ -1,5 +1,5 @@
 ion-view.live
-    ion-nav-title Live
+    ion-nav-title {{'live.title' | trans}}
     ion-nav-buttons(side="left")
         a.button.button-nav.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
             img.logo(
@@ -8,19 +8,20 @@ ion-view.live
             )
 
     ion-content.content
-        ion-refresher(pulling-text="Pull to refresh...", on-refresh="matchLabel.refresh()")
+        ion-refresher(pulling-text="{{'common.pull-to-refresh' | trans}}", on-refresh="matchLabel.refresh()")
 
         div(ng-if="matchLabel.loaded")
             div.nodata(ng-if="matchLabel.items.length == 0")
                 div.row
                     div.col.col-center.text-center
-                        span Has no match.
+                        span {{'live.notfound' | trans}}
 
             div.match-label
                 div(ng-repeat="item in matchLabel.items")
                     div.row.row-center.section(ng-if="item.type == 'section'")
                         div.col.col-center.text-center
-                            | {{item.startTime | date : 'MMM yyyy'}}
+                            | {{item.startTime | moment:'MMM YYYY'}}
+
                     div.row.label(ng-if="item.type == 'label'")
                         div.col.col-15.col-center.logo.text-center
                             img.image(ng-src="{{item.homeClub.logo}}")
@@ -29,14 +30,14 @@ ion-view.live
                         div.col.col-20.col-center.detail.text-center
                             div(ng-if="item.template == 'before'")
                                 div.time
-                                    | {{item.startTime | date:'HH:mm'}}
+                                    | {{item.startTime | moment:'HH:mm'}}
                                 div.date
-                                    | {{item.startTime | date:'dd MMM yyyy'}}
+                                    | {{item.startTime | moment:'D MMM YYYY'}}
                             div(ng-if="item.template == 'after'")
                                 div.score
                                     | {{item.homeClub.score}}-{{item.awayClub.score}}
                                 div.date
-                                    | {{item.startTime | date:'dd MMM yyyy'}}
+                                    | {{item.startTime | moment:'D MMM YYYY'}}
                         div.col.col-25.col-center.name.text-center
                             | {{item.awayClub.name}}
                         div.col.col-15.col-center.logo.text-center
