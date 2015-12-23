@@ -48,12 +48,14 @@ div(ng-repeat="item in clubTickets.items")
 
     img.image(ng-if="item.stadiumImage", image-cache="{{item.stadiumImage}}")
 
-    div.ticketzone(ng-repeat="ticketZone in item.ticketZones")
-        div.row(ng-class="clubTickets.getTicketZoneClass(ticketZone.code)")
+    div.ticketzone(ng-repeat="generalTicket in item.generalTickets")
+        div.row(ng-class="clubTickets.getTicketZoneClass(generalTicket.label)")
             div.col.col-left.text-center
-                | {{ticketZone.label}}
+                | {{generalTicket.price}}
             div.col.col-right.text-center
-                | {{ticketZone.capacity | number}} {{'ticket_membership.ticket.seat' | trans}}
+                div(ng-repeat="ticketZone in item.ticketZones")
+                    div(ng-if="ticketZone.code == generalTicket.label")
+                        | {{ticketZone.capacity | number}} {{'ticket_membership.ticket.seat' | trans}}
 
     div(ng-if="ticketMatches.loaded")
         div.row.section
