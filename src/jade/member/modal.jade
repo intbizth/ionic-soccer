@@ -30,25 +30,25 @@ ion-modal-view.member-login
 
                 div.form
                     div.row
-                        div.col.text-center
+                        div.col
+                            label.input-text {{'member.login.form.field.username' | trans}}
                             input(
                             ng-model="login.username",
                             ng-model-options="{ getterSetter: true }",
                             ng-change="login.valid()",
                             type="text",
                             name="username",
-                            placeholder="{{'member.login.form.field.username' | trans}}",
                             maxlength="128"
                             )
                     div.row
-                        div.col.text-center
+                        div.col
+                            label.input-text {{'member.login.form.field.password' | trans}}
                             input(
                             ng-model="login.password",
                             ng-model-options="{ getterSetter: true }",
                             ng-change="login.valid()",
                             type="password",
                             name="password",
-                            placeholder="{{'member.login.form.field.password' | trans}}",
                             maxlength="128"
                             )
                 div.submit
@@ -66,36 +66,36 @@ ion-modal-view.member-login
             ion-slide(on-double-tap=step1.doubletap, on-hold=step1.hold)
                 div.form
                     div.row
-                        div.col.text-center
+                        div.col
+                            label.input-text {{'member.register.form.field.email' | trans}}
                             input(
                             ng-model="step1.email",
                             ng-model-options="{ getterSetter: true }",
                             ng-change="step1.valid()",
                             type="text",
                             name="email",
-                            placeholder="{{'member.register.form.field.email' | trans}}",
                             maxlength="128"
                             )
                     div.row
-                        div.col.text-center
+                        div.col
+                            label.input-text {{'member.register.form.field.password' | trans}}
                             input(
                             ng-model="step1.password",
                             ng-model-options="{ getterSetter: true }",
                             ng-change="step1.valid()",
                             type="password",
                             name="password",
-                            placeholder="{{'member.register.form.field.password' | trans}}",
                             maxlength="128"
                             )
                     div.row
-                        div.col.text-center
+                        div.col
+                            label.input-text {{'member.register.form.field.confirm_password' | trans}}
                             input(
                             ng-model="step1.confirmPassword",
                             ng-model-options="{ getterSetter: true }",
                             ng-change="step1.valid()",
                             type="password",
                             name="confirmPassword",
-                            placeholder="{{'member.register.form.field.confirm_password' | trans}}",
                             maxlength="128"
                             )
                 div.submit
@@ -113,31 +113,30 @@ ion-modal-view.member-login
                             | {{step2.errorMessage}}
 
                     div.row
-                        div.col.text-center
+                        div.col
+                            label.input-text {{'member.register.form.field.firstname' | trans}}
                             input(
                             ng-model="step2.firstname",
                             ng-model-options="{ getterSetter: true }",
                             ng-change="step2.valid()",
                             type="text",
                             name="firstname",
-                            placeholder="{{'member.register.form.field.firstname' | trans}}",
                             maxlength="128"
                             )
                     div.row
-                        div.col.text-center
+                        div.col
+                            label.input-text {{'member.register.form.field.lastname' | trans}}
                             input(
                             ng-model="step2.lastname",
                             ng-model-options="{ getterSetter: true }",
                             ng-change="step2.valid()",
                             type="text",
                             name="lastname",
-                            placeholder="{{'member.register.form.field.lastname' | trans}}",
                             maxlength="128"
                             )
                     div.row.birthday
-                        div.col.text-center
-                            label {{'member.register.form.field.deta_of_birth' | trans}}
-                            br
+                        div.col
+                            label.input-text {{'member.register.form.field.deta_of_birth' | trans}}
                             input(
                             date-picker,
                             ng-model="step2.birthday",
