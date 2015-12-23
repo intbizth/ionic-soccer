@@ -22,6 +22,7 @@ class Ticket extends Controller then constructor: (
                 $this.loaded = yes
                 if success.items.length > 0 and success.items[0].homeClub.id == CFG.clubId
                     $this.items = success.items
+                    $scope.ticketMatches.id = success.items[0].id
                     $scope.clubTickets.loadData(flush: flush, pull: pull)
                 else
                     clearUI pull
@@ -48,7 +49,6 @@ class Ticket extends Controller then constructor: (
                 if success.items.length > 0
                     $this.loaded = yes
                     $this.items = success.items
-                    $scope.ticketMatches.id = success.items[0].id
                     $scope.ticketMatches.loadData(flush: flush, pull: pull)
                 else
                     clearUI pull

@@ -64,7 +64,7 @@ div(ng-repeat="item in clubTickets.items")
         div.seat(ng-repeat="item2 in ticketMatches.items")
             div.row(ng-class="ticketMatches.getTicketMatchesClass(item2.code)")
                 div.col.col-67.col-center
-                    div.text1 {{item2.code}} {{item2.label}}
+                    div.text1 บล็อก {{item2.label}}
                     div.text2  ที่นั่งว่าง
                 div.col.col-33.col-center.text-right
                     span.balance {{item2.balance | number}}
@@ -75,16 +75,21 @@ div(ng-repeat="item in clubTickets.items")
                 i.icon.ion-ios-pricetags
                 span.text Season Ticket
 
-        div
-        div.row
-            div.col(
-            ng-repeat="item2 in item.seasonTicket",
-            ng-style="{'background-color' : item2.background_color, 'color' : item2.color}"
-            )
-                div {{item2.label_en}}
-                div {{item2.label_th}}
-                hr(ng-style="{'background-color' : item2.color, 'border' : 'none', 'height' : '4px'}")
-                div {{item2.price}}
+        div.seasonticket
+            div.row
+                div.col(
+                ng-repeat="item2 in item.seasonTicket",
+                ng-style="{'background-color' : item2.background_color, 'color' : item2.color}"
+                )
+                    div.text1 {{item2.label_en}}
+                    div {{item2.label_th}}
+            div.row.row-center.space
+            div.row
+                div.col(
+                ng-repeat="item2 in item.seasonTicket",
+                ng-style="{'background-color' : item2.background_color, 'color' : item2.color}"
+                )
+                    div {{item2.price}}
 
     div.row(ng-if="item.note")
         div.col
