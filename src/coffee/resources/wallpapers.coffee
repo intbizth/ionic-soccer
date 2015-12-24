@@ -24,12 +24,12 @@ class Wallpapers extends Factory then constructor: (
                     total: 'total'
                     items: '_embedded.items'
                 newData = Helper.traverseProperties newData, fields
-                angular.forEach newData.items, (value, key) ->
+                for value, index in newData.items
                     fields =
                         id: 'id'
                         name: 'name'
                         image: 'image.media.url'
-                    newData.items[key] = Helper.traverseProperties value, fields
+                    newData.items[index] = Helper.traverseProperties value, fields
                 if newData.page < newData.pages
                     newData.next = newData.page + 1
                 return newData
