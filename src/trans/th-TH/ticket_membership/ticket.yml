@@ -7,3 +7,4 @@ ticket_membership:
         seat: ที่นั่ง
         empty_seat: ที่นั่งว่าง
         block: บล็อก
+        season_ticket: ราคาตั๋วแบบฤดูกาล

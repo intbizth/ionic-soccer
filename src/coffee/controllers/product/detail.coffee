@@ -1,8 +1,12 @@
 class ProductDetail extends Controller then constructor: (
-    $ionicHistory, $ionicLoading, $scope, $stateParams, GoogleAnalytics, Products
+    $ionicHistory, $scope, $stateParams, $timeout, GoogleAnalytics, LoadingOverlay, Products
 ) ->
     $scope.back = ->
+        # TODO request abort
         $ionicHistory.goBack -1
+        $timeout(->
+            LoadingOverlay.hide 'product-detail'
+        , 200)
         return
 
     $scope.title = ''
@@ -30,15 +34,18 @@ class ProductDetail extends Controller then constructor: (
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'product-detail'
             , (error) ->
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'product-detail'
             )
         refresh: ->
-            @loadData(flush: yes, pull: yes)
+            if @loaded
+                @loadData(flush: yes, pull: yes)
+            else
+                $scope.$broadcast 'scroll.refreshComplete'
 
     $scope.product.loadData()
-    $ionicLoading.show()
+    LoadingOverlay.show 'product-detail'

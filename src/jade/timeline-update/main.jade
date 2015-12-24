@@ -9,9 +9,17 @@ ion-view.timeline-update
 
     ion-content.content(scroll="false")
         ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
-            ion-tab(title="{{'timeline_update.tab.timeline' | trans}}", icon-on="ion-ios-chatbubble" icon-off="ion-ios-chatbubble-outline")
+            ion-tab(
+            title="{{'timeline_update.tab.timeline' | trans}}",
+            icon-on="ion-ios-chatbubble",
+            icon-off="ion-ios-chatbubble-outline"
+            )
                 ion-content.timeline.fix-tab
                     div(ui-view="timeline")
-            ion-tab(title="{{'timeline_update.tab.update' | trans}}", icon-on="ion-ios-paper" icon-off="ion-ios-paper-outline")
+            ion-tab(
+            title="{{'timeline_update.tab.update' | trans}}",
+            icon-on="ion-ios-paper",
+            icon-off="ion-ios-paper-outline"
+            )
                 ion-content.update.fix-tab
                     div(ui-view="update")

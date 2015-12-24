@@ -82,7 +82,7 @@ div(ng-repeat="item in clubTickets.items")
         div.row.section
             div.col
                 i.icon.ion-ios-pricetags
-                span.text Season Ticket
+                span.text {{'ticket_membership.ticket.season_ticket' | trans}}
 
         div.seasonticket
             div.row
@@ -105,3 +105,5 @@ div(ng-repeat="item in clubTickets.items")
             | {{item.note}}
 
 div.footer(ng-if="matchLabel.loaded && matchLabel.items.length > 0")
+
+loading-overlay(id="ticket-membership-ticket")

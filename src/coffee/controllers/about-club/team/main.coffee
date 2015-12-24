@@ -1,5 +1,5 @@
 class aboutClubTeam extends Controller then constructor: (
-    $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Personals
+    $ionicPlatform, $rootScope, $scope, GoogleAnalytics, LoadingOverlay, Personals
 ) ->
     pageLimit = 100
     personals = new Personals()
@@ -34,15 +34,18 @@ class aboutClubTeam extends Controller then constructor: (
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'about-club-team'
             , (error) ->
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'about-club-team'
             )
         refresh: ->
-            @loadData(flush: yes, pull: yes)
+            if @loaded
+                @loadData(flush: yes, pull: yes)
+            else
+                $scope.$broadcast 'scroll.refreshComplete'
         loadNext: ->
             $this = @
             personals.$getClubMe(
@@ -57,7 +60,7 @@ class aboutClubTeam extends Controller then constructor: (
             )
 
     $scope.personals.loadData()
-    $ionicLoading.show()
+    LoadingOverlay.show 'about-club-team'
 
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'team'

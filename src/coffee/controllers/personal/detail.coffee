@@ -1,8 +1,12 @@
 class personalDetail extends Controller then constructor: (
-    $ionicHistory, $ionicLoading, $scope, $stateParams, GoogleAnalytics, Personals
+    $ionicHistory, $scope, $stateParams, $timeout, GoogleAnalytics, LoadingOverlay, Personals
 ) ->
     $scope.back = ->
+        # TODO request abort
         $ionicHistory.goBack -1
+        $timeout(->
+            LoadingOverlay.hide 'personal-detail'
+        , 200)
         return
 
     $scope.title = ''
@@ -27,15 +31,18 @@ class personalDetail extends Controller then constructor: (
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'personal-detail'
             , (error) ->
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'personal-detail'
             )
         refresh: ->
-            @loadData(pull: yes)
+            if @loaded
+                @loadData(flush: yes, pull: yes)
+            else
+                $scope.$broadcast 'scroll.refreshComplete'
 
     $scope.personal.loadData()
-    $ionicLoading.show()
+    LoadingOverlay.show 'personal-detail'

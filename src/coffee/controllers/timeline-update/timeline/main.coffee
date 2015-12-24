@@ -1,5 +1,5 @@
 class Timeline extends Controller then constructor: (
-    $interval, $ionicLoading, $ionicPlatform, $q, $rootScope, $scope, CFG, Chance, GoogleAnalytics, Matches, md5, Media, MicroChats, Moment
+    $interval, $ionicPlatform, $q, $rootScope, $scope, CFG, Chance, GoogleAnalytics, LoadingOverlay, Matches, md5, Media, MicroChats, Moment
 ) ->
     $scope.isLoggedin = $rootScope.isLoggedin
 
@@ -51,15 +51,15 @@ class Timeline extends Controller then constructor: (
             , (success) ->
                 $this.loaded = yes
                 $this.next = if success.next then success.next else null
-                angular.forEach success.items, (value, key) ->
-                    success.items[key].user.me = ($rootScope.user and $rootScope.user.id and value.user.id == $rootScope.user.id)
+                for value, index in success.items
+                    success.items[index].user.me = ($rootScope.user and $rootScope.user.id and value.user.id == $rootScope.user.id)
                 $this.items = success.items
                 $this.cacheData = angular.copy $this.items
                 if pull
                     $this.refreshing = no
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'timeline-update-timeline'
                 $this.autoFetchData()
                 $scope.matchLabel.loadData()
             , (error) ->
@@ -67,14 +67,17 @@ class Timeline extends Controller then constructor: (
                     $this.refreshing = no
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'timeline-update-timeline'
             )
         refresh: ->
-            @errorMessage = ''
-            $interval.cancel @timer
-            @timer = undefined
-            @loadData(flush: yes, pull: yes)
-            $scope.matchLabel.refresh()
+            if @loaded
+                $scope.$broadcast 'scroll.refreshComplete'
+            else
+                @errorMessage = ''
+                $interval.cancel @timer
+                @timer = undefined
+                @loadData(flush: yes, pull: yes)
+                $scope.matchLabel.refresh()
         loadNext: ->
             $this = @
             microChats.$getPage(
@@ -82,8 +85,8 @@ class Timeline extends Controller then constructor: (
                 limit: pageLimit
             , (success) ->
                 $this.next = if success.next then success.next else null
-                angular.forEach success.items, (value, key) ->
-                    success.items[key].user.me = ($rootScope.user and $rootScope.user.id and value.user.id == $rootScope.user.id)
+                for value, index in success.items
+                    success.items[index].user.me = ($rootScope.user and $rootScope.user.id and value.user.id == $rootScope.user.id)
                 $this.items = $this.items.concat success.items
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
             , (error) ->
@@ -100,8 +103,8 @@ class Timeline extends Controller then constructor: (
                         limit: pageLimit
                         flush: yes
                     , (success) ->
-                        angular.forEach success.items, (value, key) ->
-                            success.items[key].user.me = ($rootScope.user and $rootScope.user.id and value.user.id == $rootScope.user.id)
+                        for value, index in success.items
+                            success.items[index].user.me = ($rootScope.user and $rootScope.user.id and value.user.id == $rootScope.user.id)
 
                         hashData1 = md5.createHash angular.toJson $this.cacheData
                         hashData2 = md5.createHash angular.toJson success.items
@@ -114,7 +117,7 @@ class Timeline extends Controller then constructor: (
 
                             push = yes
                             items = []
-                            angular.forEach success.items, (value, key) ->
+                            for value, index in success.items
                                 if value.id == lastId
                                     push = no
 
@@ -123,7 +126,7 @@ class Timeline extends Controller then constructor: (
 
                             items.reverse()
 
-                            angular.forEach items, (value, key) ->
+                            for value, index in items
                                 $this.items.unshift value
                                 $this.cacheData.unshift value
                     , (error) ->
@@ -161,7 +164,7 @@ class Timeline extends Controller then constructor: (
                     date: Moment().format('YYYY-MM-DD')
                     time: Moment().format('HH:mm')
 
-            $ionicLoading.show()
+            LoadingOverlay.show 'timeline-update-timeline'
 
             new MicroChats(data).$send({}
             , (success) ->
@@ -176,7 +179,7 @@ class Timeline extends Controller then constructor: (
                             $this.errorMessage = error2.data.error_description
                         else
                             $this.errorMessage = error2.statusText
-                        $ionicLoading.hide()
+                        LoadingOverlay.hide 'timeline-update-timeline'
                     )
                 else
                     $this.cleanUI()
@@ -187,7 +190,7 @@ class Timeline extends Controller then constructor: (
                     $this.errorMessage = error.data.error_description
                 else
                     $this.errorMessage = error.statusText
-                $ionicLoading.hide()
+                LoadingOverlay.hide 'timeline-update-timeline'
             )
         uploadImage: (id, imageData) ->
             $this = @
@@ -209,7 +212,7 @@ class Timeline extends Controller then constructor: (
             @loadData(flush: yes)
             $scope.media.isImage = no
             $scope.media.imageData = null
-            $ionicLoading.hide()
+            LoadingOverlay.hide 'timeline-update-timeline'
 
     $scope.media =
         isImage: no
@@ -248,11 +251,10 @@ class Timeline extends Controller then constructor: (
             @imageData = null
 
     $scope.microChats.loadData()
-
-    $ionicLoading.show()
-
-    $ionicPlatform.ready ->
-        GoogleAnalytics.trackView 'timeline'
+    LoadingOverlay.show 'timeline-update-timeline'
 
     $rootScope.$on 'event:auth-stateChange', (event, data) ->
         $scope.isLoggedin = data
+
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'timeline'

@@ -1,5 +1,5 @@
 class Ticket extends Controller then constructor: (
-    $ionicLoading, $ionicPlatform, $scope, CFG, ClubTickets, GoogleAnalytics, Matches, TicketMatches
+    $ionicPlatform, $scope, CFG, ClubTickets, GoogleAnalytics, LoadingOverlay, Matches, TicketMatches
 ) ->
     clubtickets = new ClubTickets()
     matches = new Matches()
@@ -30,7 +30,10 @@ class Ticket extends Controller then constructor: (
                 clearUI pull
             )
         refresh: ->
-            @loadData(flush: yes, pull: yes)
+            if @loaded
+                @loadData(flush: yes, pull: yes)
+            else
+                clearUI pull
 
     $scope.clubTickets =
         items: []
@@ -92,10 +95,10 @@ class Ticket extends Controller then constructor: (
         if pull
             $scope.$broadcast 'scroll.refreshComplete'
         else
-            $ionicLoading.hide()
+            LoadingOverlay.hide 'ticket-membership-ticket'
 
     $scope.matchLabel.loadData()
-    $ionicLoading.show()
+    LoadingOverlay.show 'ticket-membership-ticket'
 
     $ionicPlatform.ready ->
-        GoogleAnalytics.trackView 'ticket'
+        GoogleAnalytics.trackView 'ticket-membership-ticket'
