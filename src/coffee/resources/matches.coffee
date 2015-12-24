@@ -205,6 +205,8 @@ class Matches extends Factory then constructor: (
                             logo: 'away_club._links.logo_70x70.href'
                             score: 'away_score'
                         result: 'result'
+                        season: 'season.name'
+                        stadium: 'stadium'
                         startTime: 'start_time'
                     newData.items[index] = Helper.traverseProperties value, fields
                     newData.items[index].type = 'label'
