@@ -26,7 +26,7 @@ class Standings extends Factory then constructor: (
                     total: 'total'
                     items: '_embedded.items'
                 newData = Helper.traverseProperties newData, fields
-                angular.forEach newData.items, (value, key) ->
+                for value, index in newData.items
                     fields =
                         id: 'id'
                         season: 'season'
@@ -61,7 +61,7 @@ class Standings extends Factory then constructor: (
                     item = Helper.traverseProperties value, fields
                     item.club = clubs.transformItemData(item.club)
                     item.me = (item.club.id == CFG.clubId)
-                    newData.items[key] = item
+                    newData.items[index] = item
                 return newData
             then: (resolve) ->
                 if !angular.isUndefined @params and !angular.isUndefined @params.flush
