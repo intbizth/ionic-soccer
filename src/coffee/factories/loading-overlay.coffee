@@ -9,7 +9,6 @@ class LoadingOverlay extends Factory then constructor: (
             element = getElement id
             element.removeClass 'loading-overlay-hide'
             element.addClass 'loading-overlay-show'
-            console.warn 'LoadingOverlay:show', id, $document, element, $rootScope.isAndroid, $rootScope.isIOS
 
         ionic.DomUtil.ready ->
             if $rootScope.isAndroid
@@ -25,7 +24,6 @@ class LoadingOverlay extends Factory then constructor: (
             element = getElement id
             element.removeClass 'loading-overlay-show'
             element.addClass 'loading-overlay-hide'
-            console.warn 'LoadingOverlay:hide', id, $document, element, $rootScope.isAndroid, $rootScope.isIOS
 
         ionic.DomUtil.ready ->
             if $rootScope.isAndroid
