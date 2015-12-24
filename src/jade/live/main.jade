@@ -8,7 +8,10 @@ ion-view.live
             )
 
     ion-content.content
-        ion-refresher(pulling-text="{{'common.pull-to-refresh' | trans}}", on-refresh="matchLabel.refresh()")
+        ion-refresher(
+        pulling-text="{{'common.pull-to-refresh' | trans}}",
+        on-refresh="matchLabel.refresh()"
+        )
 
         div(ng-if="matchLabel.loaded")
             div.nodata(ng-if="matchLabel.items.length == 0")
@@ -78,3 +81,5 @@ ion-view.live
                                 srcset="./img/icon/{{item.icon}}@2x.png 2x"
                                 )
                                 span.name(ng-if="item.actor") {{item.actor}}
+
+        loading-overlay(id="live")

@@ -20,22 +20,22 @@ class Helper extends Factory then constructor: (
         buildFormData: (items) ->
             data = {}
             getValue = (object, prefix) ->
-                angular.forEach object, (value, key) ->
+                for value, index in object
                     if angular.isObject value
-                        getValue value, prefix + '[' + key + ']'
+                        getValue value, prefix + '[' + index + ']'
                     else
                         if angular.isNumber value
                             value = parseInt value
                         data[prefix + '[' + key + ']'] = value
-            angular.forEach items, (value, key) ->
+            for value, index in items
                 if angular.isObject value
-                    getValue value, key
+                    getValue value, index
                 else
                     if angular.isNumber value
                         value = parseInt value
-                    data[key] = value
+                    data[index] = value
             formData = new FormData()
-            angular.forEach data, (value, key) ->
-                formData.append key, value
+            for value, index in data
+                formData.append index, value
             return formData
     }

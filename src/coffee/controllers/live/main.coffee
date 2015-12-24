@@ -1,8 +1,12 @@
 class LiveMain extends Controller then constructor: (
-    $ionicHistory, $ionicLoading, $ionicPlatform, $rootScope, $sce, $scope, GoogleAnalytics, Matches, Settings
+    $ionicHistory, $ionicPlatform, $rootScope, $sce, $scope, $timeout, GoogleAnalytics, LoadingOverlay, Matches, Settings
 ) ->
     $scope.back = ->
+        # TODO request abort
         $ionicHistory.goBack -1
+        $timeout(->
+            LoadingOverlay.hide 'live'
+        , 200)
         return
 
     matches = new Matches()
@@ -49,18 +53,21 @@ class LiveMain extends Controller then constructor: (
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'live'
             , (error) ->
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'live'
             )
         refresh: ->
-            @loadData(flush: yes, pull: yes)
+            if @loaded
+                @loadData(flush: yes, pull: yes)
+            else
+                $scope.$broadcast 'scroll.refreshComplete'
 
     $scope.matchLabel.loadData()
-    $ionicLoading.show()
+    LoadingOverlay.show 'live'
 
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'live'

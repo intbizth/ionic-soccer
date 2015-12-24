@@ -1,5 +1,5 @@
 class FanzoneWallpapers extends Controller then constructor: (
-    $cordovaFile, $cordovaFileTransfer, $ionicLoading, $ionicPlatform, $ionicPopup, $rootScope, $scope, $timeout, $translate, GoogleAnalytics, Images, Wallpapers
+    $cordovaFile, $cordovaFileTransfer, $ionicPlatform, $ionicPopup, $rootScope, $scope, $timeout, $translate, GoogleAnalytics, LoadingOverlay, Images, Wallpapers
 ) ->
     $scope.translate =
         download:
@@ -17,15 +17,15 @@ class FanzoneWallpapers extends Controller then constructor: (
         confirmPopup.then (res) ->
             if res
                 options = $scope.translate.popup
-                $ionicLoading.show()
+                LoadingOverlay.show 'fanzone-wallpapers'
                 Images.saveToLibrary(url
                 , ->
                     $ionicPopup.alert options
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'fanzone-wallpapers'
                 , (error) ->
                     options.title = error
                     $ionicPopup.alert options
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'fanzone-wallpapers'
                 )
             return
 
@@ -53,15 +53,18 @@ class FanzoneWallpapers extends Controller then constructor: (
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'fanzone-wallpapers'
             , (error) ->
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'fanzone-wallpapers'
             )
         refresh: ->
-            @loadData(flush: yes, pull: yes)
+            if @loaded
+                @loadData(flush: yes, pull: yes)
+            else
+                $scope.$broadcast 'scroll.refreshComplete'
         loadNext: ->
             $this = @
             wallpapers.$getPage(
@@ -76,7 +79,7 @@ class FanzoneWallpapers extends Controller then constructor: (
             )
 
     $scope.wallpapers.loadData()
-    $ionicLoading.show()
+    LoadingOverlay.show 'fanzone-wallpapers'
 
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'wallpapers'

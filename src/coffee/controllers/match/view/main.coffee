@@ -1,5 +1,5 @@
 class MatchView extends Controller then constructor: (
-    $ionicLoading, $ionicPlatform, $rootScope, $scope, $stateParams, $timeout, GoogleAnalytics, Matches
+    $ionicPlatform, $rootScope, $scope, $stateParams, $timeout, GoogleAnalytics, LoadingOverlay, Matches
 ) ->
     matchId = $stateParams.id || ''
     matches = new Matches()
@@ -26,21 +26,24 @@ class MatchView extends Controller then constructor: (
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'match-view'
             , (error) ->
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'match-view'
             )
         refresh: ->
-            @loadData(flush: yes, pull: yes)
+            if @loaded
+                @loadData(flush: yes, pull: yes)
+            else
+                $scope.$broadcast 'scroll.refreshComplete'
         getTitle: (matchLabel) ->
             title = ''
-            angular.forEach matchLabel, (value, key) ->
+            for value, index in matchLabel
                 if value.type == 'label'
                     title = value.homeClub.name + ' vs ' + value.awayClub.name
             return title
 
     $scope.matchLabel.loadData()
-    $ionicLoading.show()
+    LoadingOverlay.show 'match-view'

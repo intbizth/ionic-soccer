@@ -1,8 +1,12 @@
 class NewsDetail extends Controller then constructor: (
-    $cordovaInAppBrowser, $ionicHistory, $ionicLoading, $scope, $stateParams, GoogleAnalytics, Papers
+    $cordovaInAppBrowser, $ionicHistory, $scope, $stateParams, $timeout, GoogleAnalytics, LoadingOverlay, Papers
 ) ->
     $scope.back = ->
+        # TODO request abort
         $ionicHistory.goBack -1
+        $timeout(->
+            LoadingOverlay.hide 'news-detail'
+        , 200)
         return
 
     $scope.title = ''
@@ -13,10 +17,8 @@ class NewsDetail extends Controller then constructor: (
             clearcache: 'yes'
             toolbar: 'yes'
         ).then((event) ->
-            # success
             return
         ).catch (event) ->
-            # error
             return
 
     paperId = $stateParams.id || ''
@@ -42,15 +44,18 @@ class NewsDetail extends Controller then constructor: (
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'news-detail'
             , (error) ->
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'news-detail'
             )
         refresh: ->
-            @loadData(flush: yes, pull: yes)
+            if @loaded
+                @loadData(flush: yes, pull: yes)
+            else
+                $scope.$broadcast 'scroll.refreshComplete'
 
     $scope.paper.loadData()
-    $ionicLoading.show()
+    LoadingOverlay.show 'news-detail'

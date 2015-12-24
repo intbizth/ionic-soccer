@@ -1,5 +1,5 @@
 class FanzoneProducts extends Controller then constructor: (
-   $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Products
+   $ionicPlatform, $rootScope, $scope, GoogleAnalytics, LoadingOverlay, Products
 ) ->
     pageLimit = 20
     products = new Products()
@@ -25,15 +25,18 @@ class FanzoneProducts extends Controller then constructor: (
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'fanzone-products'
             , (error) ->
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'fanzone-products'
             )
         refresh: ->
-            @loadData(flush: yes, pull: yes)
+            if @loaded
+                @loadData(flush: yes, pull: yes)
+            else
+                $scope.$broadcast 'scroll.refreshComplete'
         loadNext: ->
             $this = @
             products.$getPage(
@@ -48,7 +51,7 @@ class FanzoneProducts extends Controller then constructor: (
             )
 
     $scope.products.loadData()
-    $ionicLoading.show()
+    LoadingOverlay.show 'fanzone-products'
 
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'products'

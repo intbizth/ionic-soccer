@@ -1,8 +1,12 @@
 class MemberPictureMain extends Controller then constructor: (
-    $ionicHistory, $ionicLoading, $q, $rootScope, $scope, Media, Users
+    $ionicHistory, $q, $rootScope, $scope, $timeout, LoadingOverlay, Media, Users
 ) ->
     $scope.back = ->
+        # TODO request abort
         $ionicHistory.goBack -1
+        $timeout(->
+            LoadingOverlay.hide 'member-picture'
+        , 200)
         return
 
     $scope.errorMessage = ''
@@ -35,7 +39,7 @@ class MemberPictureMain extends Controller then constructor: (
                 )
             return deferred.promise
         removePicture: ->
-            $ionicLoading.show()
+            LoadingOverlay.show 'member-picture'
             users = new Users()
             users.$removePicture({})
 
@@ -55,16 +59,16 @@ class MemberPictureMain extends Controller then constructor: (
                 $this.isPicture = yes
                 $scope.profile.item.picture = success
 
-                $ionicLoading.show()
+                LoadingOverlay.show 'member-picture'
 
                 promise2 = $scope.profile.uploadPicture success
 
                 promise2.then((success2) ->
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'member-picture'
                     $rootScope.$emit 'profile:pictureChange', success2.url
                     $scope.back()
                 , (error2) ->
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'member-picture'
                     $scope.errorMessage = error2.statusText
                 )
             , (error) ->
@@ -84,16 +88,16 @@ class MemberPictureMain extends Controller then constructor: (
                 $this.isPicture = yes
                 $scope.profile.item.picture = success
 
-                $ionicLoading.show()
+                LoadingOverlay.show 'member-picture'
 
                 promise2 = $scope.profile.uploadPicture success
 
                 promise2.then((success2) ->
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'member-picture'
                     $rootScope.$emit 'profile:pictureChange', success2.url
                     $scope.back()
                 , (error2) ->
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'member-picture'
                     $scope.errorMessage = error2.statusText
                 )
             , (error) ->
@@ -106,11 +110,11 @@ class MemberPictureMain extends Controller then constructor: (
             promise.then((success) ->
                 $this.state = 'blank'
                 $this.isPicture = no
-                $ionicLoading.hide()
+                LoadingOverlay.hide 'member-picture'
                 $rootScope.$emit 'profile:pictureChange', null
                 $scope.back()
             , (error) ->
-                $ionicLoading.hide()
+                LoadingOverlay.hide 'member-picture'
                 $scope.errorMessage = error.statusText
             )
 

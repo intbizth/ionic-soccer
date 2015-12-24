@@ -1,5 +1,5 @@
 class CompetitionTableFixture extends Controller then constructor: (
-    $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Matches
+    $ionicPlatform, $rootScope, $scope, GoogleAnalytics, LoadingOverlay, Matches
 ) ->
     pageLimit = 20
     matches = new Matches()
@@ -24,15 +24,18 @@ class CompetitionTableFixture extends Controller then constructor: (
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'competition-table-fixture'
             , (error) ->
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'competition-table-fixture'
             )
         refresh: ->
-            @loadData(flush: yes, pull: yes)
+            if @loaded
+                @loadData(flush: yes, pull: yes)
+            else
+                $scope.$broadcast 'scroll.refreshComplete'
         loadNext: ->
             $this = @
             matches.$getResults(
@@ -47,7 +50,7 @@ class CompetitionTableFixture extends Controller then constructor: (
             )
 
     $scope.matchLabel.loadData()
-    $ionicLoading.show()
+    LoadingOverlay.show 'competition-table-fixture'
 
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'fixture'

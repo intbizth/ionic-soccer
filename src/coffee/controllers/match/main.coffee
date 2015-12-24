@@ -1,13 +1,14 @@
 class MatchMain extends Controller then constructor: (
-    $rootScope, $scope, $ionicHistory, $timeout
+    $rootScope, $scope, $ionicHistory, $timeout, LoadingOverlay
 ) ->
     $scope.title = ''
 
     $scope.back = ->
+        $ionicHistory.goBack -1
         $timeout(->
+            LoadingOverlay.hide 'match-view'
             $rootScope.matchTitle = ''
         , 200)
-        $ionicHistory.goBack -1
         return
 
     $rootScope.$watch(->

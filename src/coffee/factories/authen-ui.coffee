@@ -1,5 +1,5 @@
 class AuthenUI extends Factory then constructor: (
-    $cordovaCamera, $cordovaKeyboard, $document, $ionicHistory, $ionicLoading, $ionicModal, $ionicPlatform, $ionicPopup, $ionicSlideBoxDelegate, $rootScope, $timeout, $translate, Authen, Chance, md5, Moment, Users
+    $cordovaCamera, $cordovaKeyboard, $document, $ionicHistory, $ionicModal, $ionicPlatform, $ionicPopup, $ionicSlideBoxDelegate, $rootScope, $timeout, $translate, Authen, Chance, LoadingOverlay, md5, Moment, Users
 ) ->
     scope = $rootScope.$new()
     scope.translate =
@@ -45,9 +45,9 @@ class AuthenUI extends Factory then constructor: (
             scope.slider = $ionicSlideBoxDelegate.$getByHandle 'slider'
             scope.slider.enableSlide no
 
-            angular.forEach states, (value, key) ->
+            angular.forEach states, (value, index) ->
                 scope[value.name] = ->
-                    scope.slider.slide key
+                    scope.slider.slide index
                     scope.modal.title = value.title
                     scope.modal.leftButton = value.leftButton
                     if angular.isFunction value.func then value.func()
@@ -55,9 +55,14 @@ class AuthenUI extends Factory then constructor: (
             scope.back = ->
                 index = scope.slider.currentIndex() - 1
                 if index == -1
+                    # TODO request abort
                     scope.modal.hide()
+                    $timeout(->
+                        LoadingOverlay.hide 'authen-ui'
+                    , 200)
                 else
                     scope[states[index].name]()
+                return
 
             scope.modal.show()
 
@@ -95,17 +100,17 @@ class AuthenUI extends Factory then constructor: (
                     username: $this.username
                     password: $this.password
 
-                $ionicLoading.show()
+                LoadingOverlay.show 'authen-ui'
 
                 promise = Authen.login data.username, data.password
                 promise.then(->
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'authen-ui'
                 , (error) ->
                     $this.errorMessage = error;
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'authen-ui'
                 , (message) ->
                     $this.errorMessage = message;
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'authen-ui'
                 )
 
         scope.step1 =
@@ -181,20 +186,20 @@ class AuthenUI extends Factory then constructor: (
                     lastName: $this.lastname
                     birthday: $this.birthday
 
-                $ionicLoading.show()
+                LoadingOverlay.show 'authen-ui'
 
                 users = new Users(data)
                 users.$register({}
                 , (success) ->
                     promise = Authen.login data.email, data.user.plainPassword.first
                     promise.then(->
-                        $ionicLoading.hide()
+                        LoadingOverlay.hide 'authen-ui'
                     , (error) ->
                         $this.errorMessage = error;
-                        $ionicLoading.hide()
+                        LoadingOverlay.hide 'authen-ui'
                     , (message) ->
                         $this.errorMessage = message;
-                        $ionicLoading.hide()
+                        LoadingOverlay.hide 'authen-ui'
                     )
                 , (error) ->
                     if error.data and error.data.message
@@ -204,7 +209,7 @@ class AuthenUI extends Factory then constructor: (
                     else
                         $this.errorMessage = error.statusText
 
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'authen-ui'
                 )
 
         scope.photo =
@@ -276,19 +281,18 @@ class AuthenUI extends Factory then constructor: (
     }
 
     $ionicPlatform.onHardwareBackButton(->
-        if angular.isFunction scope.back
-            scope.back()
+        return if angular.isFunction scope.back then scope.back()
     )
 
     $rootScope.$on 'event:auth-loginRequired', (event, data) ->
-        $ionicLoading.hide()
+        LoadingOverlay.hide 'authen-ui'
         $ionicHistory.goBack -1
 
         if scope.modal
             if !Authen.isLoggedin() and !scope.modal.isShown()
                 login()
             else if  !Authen.isLoggedin() and scope.modal.isShown()
-                $ionicLoading.hide()
+                LoadingOverlay.hide 'authen-ui'
         else
             if !Authen.isLoggedin()
                 login()

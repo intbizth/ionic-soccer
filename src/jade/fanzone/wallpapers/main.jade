@@ -12,3 +12,5 @@ div.items
             div.detail(image-cache="{{item.image}}", ng-click="downloadFile('{{item.image}}')")
 
 ion-infinite-scroll(ng-if="Wallpapers.next" on-infinite="Wallpapers.loadNext()", distance="1%")
+
+loading-overlay(id="fanzone-wallpapers")
