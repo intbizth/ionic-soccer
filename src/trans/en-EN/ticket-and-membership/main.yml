@@ -1,6 +1,0 @@
-ui.e:
-    ticket-and-membership:
-        title: Ticket & Membership
-        tab:
-            ticket: Ticket
-            membership: Membership

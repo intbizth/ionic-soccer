@@ -1,6 +1,0 @@
-ui.e:
-    timeline-and-update:
-        title: Timeline & Update
-        tab:
-            timeline: Timeline
-            update: Update

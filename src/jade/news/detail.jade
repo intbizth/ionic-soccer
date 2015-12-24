@@ -8,7 +8,7 @@ ion-view.news-detail
             )
 
     ion-content.content
-        ion-refresher(pulling-text="Pull to refresh...", on-refresh="paper.refresh()")
+        ion-refresher(pulling-text="{{'common.pull-to-refresh' | trans}}", on-refresh="paper.refresh()")
 
         div.subcontent(ng-if="paper.loaded")
             div.image(ng-if="paper.item.cover", image-cache="{{paper.item.cover}}")
@@ -22,7 +22,7 @@ ion-view.news-detail
             div.row.datetime(ng-if="paper.item.publishedDate")
                 div.col.col-33
                     div.line
-                        span.text {{paper.item.publishedDate | date: 'dd MMM yyyy'}}
+                        span.text {{paper.item.publishedDate | moment:'D MMM YYYY'}}
 
             div.row.url(ng-if="paper.item.creditUrl", ng-click="openURL(paper.item.creditUrl)")
                 div.col
@@ -43,3 +43,5 @@ ion-view.news-detail
                     div.image(ng-if="paper.item.image", image-cache="{{paper.item.image}}")
 
             div.footer
+
+        loading-overlay(id="news-detail")

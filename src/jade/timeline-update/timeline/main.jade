@@ -4,13 +4,13 @@ if environment == "dev"
     - microChats.doubletap = "microChats.fake()"
     - microChats.hold = "microChats.reset()"
 
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="microChats.refresh()")
+ion-refresher(pulling-text="{{'common.pull-to-refresh' | trans}}", on-refresh="microChats.refresh()")
 
 div.match-label(ng-if="matchLabel.loaded")
     div(ng-repeat="item in matchLabel.items")
         div.row.row-center.section(ng-if="item.type == 'section'")
             div.col.col-center.text-center
-                | {{section.datetime | date : 'MMM yyyy'}}
+                | {{section.datetime | moment:'MMM YYYY'}}
 
         div.row.label(ng-if="item.type == 'label'", ui-sref="match.detail({id : item.id})")
             div.col.col-15.col-center.logo.text-center
@@ -20,14 +20,14 @@ div.match-label(ng-if="matchLabel.loaded")
             div.col.col-20.col-center.detail.text-center
                 div(ng-if="item.template == 'before'")
                     div.time
-                        | {{item.startTime | date:'HH:mm'}}
+                        | {{item.startTime | moment:'HH:mm'}}
                     div.date
-                        | {{item.startTime | date:'dd MMM yyyy'}}
+                        | {{item.startTime | moment:'D MMM YYYY'}}
                 div(ng-if="item.template == 'after'")
                     div.score
                         | {{item.homeClub.score}}-{{item.awayClub.score}}
                     div.date
-                        | {{item.startTime | date:'dd MMM yyyy'}}
+                        | {{item.startTime | moment:'D MMM YYYY'}}
             div.col.col-25.col-center.name.text-center
                 | {{item.awayClub.name}}
             div.col.col-15.col-center.logo.text-center
@@ -48,7 +48,7 @@ div.microchats
                     ng-change="microChats.valid()",
                     maxlength="250",
                     name="message",
-                    placeholder="Message",
+                    placeholder="{{'timeline_update.timeline.form.field.message' | trans}}",
                     )
         div.row(ng-if="!media.isImage")
             div.col.text-center
@@ -60,7 +60,7 @@ div.microchats
                 button.button.button-positive(
                     ng-disabled="!microChats.isPass"
                     ng-click="microChats.submit()"
-                ) Send
+                ) {{'timeline_update.timeline.form.submit' | trans}}
         div.row(ng-if="media.isImage")
             div.col.text-center(ng-click="media.remove()")
                 img.picture(
@@ -77,17 +77,17 @@ div.microchats
                 button.button.button-positive(
                 ng-disabled="!microChats.isPass"
                 ng-click="microChats.submit()"
-                ) Send
+                ) {{'timeline_update.timeline.form.submit' | trans}}
 
     div.card.warningMessage(ng-if="isLoggedin")
         div.item.item-text-wrap
-            | อุปกรณ์แอนดรอยด์บางรุ่น มีหน่วยความจำไม่เพียงพอสำหรับจัดการรูปภาพ ทำให้ไม่สามารถใช้งานฟังก์ชั่นนี้ได้
+            | {{'common.warning' | trans}}
 
     div.submicrochats(ng-if="microChats.loaded", ng-class="{'fixlist' : isLoggedin}")
         div.nodata(ng-if="microChats.items.length == 0")
             div.row
                 div.col.col-center.text-center
-                    span Has no timeline.
+                    span {{'timeline_update.timeline.notfound' | trans}}
 
         div(ng-repeat="item in microChats.items")
             div(ng-class="item.template == 'hightlight' ? '-hightlight' : ''")
@@ -97,7 +97,7 @@ div.microchats
                         span(time-ago, datetime="{{item.publishedDate}}") {{item.publishedDate}}
                     div.col.col-20.text-right
                         button.button.button-me.button-small.button-light(ng-if="item.user.me")
-                            | Me
+                            | {{'timeline_update.timeline.me' | trans}}
 
                 div.cover(ng-if="item.image")
                     img.image(image-cache="{{item.image}}")
@@ -115,3 +115,5 @@ div.microchats
                             div.col.col-10.col-center(style="margin-left: -4px;")
 
 ion-infinite-scroll(ng-if="microChats.next" on-infinite="microChats.loadNext()", distance="1%")
+
+loading-overlay(id="timeline-update-timeline")

@@ -41,8 +41,8 @@ class Users extends Factory then constructor: (
                     emailCanonical: 'profile.email_canonical'
                 newData = Helper.traverseProperties newData, fields
                 newData.club = clubs.transformItemData(newData.club)
-                angular.forEach newData.favoriteClubs, (value, key) ->
-                    newData.favoriteClubs[key] = clubs.transformItemData(newData.favoriteClubs[key])
+                for value, index in newData.items
+                    newData.favoriteClubs[index] = clubs.transformItemData(newData.favoriteClubs[index])
                 return newData
             then: (resolve) ->
                 if !angular.isUndefined @params and !angular.isUndefined @params.flush

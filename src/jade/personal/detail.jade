@@ -8,7 +8,7 @@ ion-view.personal-detail
             )
 
     ion-content.content
-        ion-refresher(pulling-text="Pull to refresh...", on-refresh="personal.refresh()")
+        ion-refresher(pulling-text="{{'common.pull-to-refresh' | trans}}", on-refresh="personal.refresh()")
 
         div.subpersonal(ng-if="personal.loaded")
             div.cover(ng-if="personal.item.image")
@@ -37,34 +37,36 @@ ion-view.personal-detail
             div.detail
                 div.row.born
                     div.col.topic
-                        | Born
+                        | {{'personal.detail.born' | trans}}
                     div.col.about
-                        | {{personal.item.birthday | date: 'MMMM dd, yyyy'}}
+                        | {{personal.item.birthday | moment:'D MMM YYYY'}}
                         | (age {{personal.item.age}})
 
                 div.row.position
                     div.col.topic
-                        | Position
+                        | {{'personal.detail.position' | trans}}
                     div.col.about
                         | {{personal.item.position.name}}
 
                 div.row.previous
                     div.col.topic
-                        | Previous Club
+                        | {{'personal.detail.previous_club' | trans}}
                     div.col.about
                         | {{personal.item.previousClub.name}}
-                        | {{personal.item.previousClub.startDate | date: 'yyyy'}}
+                        | {{personal.item.previousClub.startDate | moment:'YYYY'}}
 
                 div.row.signed
                     div.col.topic
-                        | Signed
+                        | {{'personal.detail.signed' | trans}}
                     div.col.about
-                        | {{personal.item.previousClub.signedDate | date: 'yyyy'}}
+                        | {{personal.item.previousClub.signedDate | moment:'YYYY'}}
 
                 div.row.bio
                     div.col.topic
-                        | Bio
+                        | {{'personal.detail.bio' | trans}}
 
                 div.row.history
                     div.col.about
                         | {{personal.item.bio}}
+
+        loading-overlay(id="personal-detail")

@@ -24,14 +24,15 @@ class ClubTickets extends Factory then constructor: (
                     total: 'total'
                     items: '_embedded.items'
                 newData = Helper.traverseProperties newData, fields
-                angular.forEach newData.items, (value, key) ->
+                for value, index in newData.items
                     fields =
                         id: 'id'
-                        stadiumImage: 'stadium.media.url'
+                        stadiumImage: '_links.stadium.href'
+                        generalTickets: 'configuration.general_ticket'
                         ticketZones: 'ticket_zones'
                         seasonTicket: 'configuration.season_ticket'
                         note: 'configuration.note'
-                    newData.items[key] = Helper.traverseProperties value, fields
+                    newData.items[index] = Helper.traverseProperties value, fields
                 return newData
             then: (resolve) ->
                 if !angular.isUndefined @params and !angular.isUndefined @params.flush

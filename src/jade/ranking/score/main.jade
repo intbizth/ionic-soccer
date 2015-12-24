@@ -1,4 +1,4 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="score.refresh()")
+ion-refresher(pulling-text="{{'common.pull-to-refresh' | trans}}", on-refresh="score.refresh()")
 
 ion-list.ranking-list
     ion-item.nodata(ng-if="score.items.length == 0")

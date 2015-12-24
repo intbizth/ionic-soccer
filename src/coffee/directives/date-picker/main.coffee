@@ -1,5 +1,5 @@
 class DatePicker extends Directive then constructor: (
-    $ionicModal, $ionicScrollDelegate, Moment
+    $ionicModal, $ionicScrollDelegate, $translate, Moment
 ) ->
     return {
         restrict: 'A'
@@ -18,14 +18,15 @@ class DatePicker extends Directive then constructor: (
             scope.months = []
             scope.years = []
             scope.select = null
-            scope.texts =
-                day: 'Day'
-                month: 'Month'
-                year: 'Year'
-            scope.titles =
-                day: 'Select day'
-                month: 'Select month'
-                year: 'Select year'
+            scope.translate =
+                unit:
+                    day: 'day'
+                    month: 'month'
+                    year: 'year'
+                title:
+                    day: 'select_day'
+                    month: 'select_month'
+                    year: 'select_year'
 
             $ionicModal.fromTemplateUrl(
                 'templates/directives/date-picker/overlay.html',
@@ -152,6 +153,24 @@ class DatePicker extends Directive then constructor: (
             scope.$on 'modal.hidden', ->
                 scope.select = null
                 $ionicScrollDelegate.scrollTop no
+
+            $translate(
+                [
+                    'date_picker.unit.day'
+                    'date_picker.unit.month'
+                    'date_picker.unit.year'
+                    'date_picker.title.day'
+                    'date_picker.title.month'
+                    'date_picker.title.year'
+                ]
+            ).then((translations) ->
+                scope.translate.unit.day = translations['date_picker.unit.day']
+                scope.translate.unit.month = translations['date_picker.unit.month']
+                scope.translate.unit.year = translations['date_picker.unit.year']
+                scope.translate.title.day = translations['date_picker.title.day']
+                scope.translate.title.month = translations['date_picker.title.month']
+                scope.translate.title.year = translations['date_picker.title.year']
+            )
 
             init()
             return

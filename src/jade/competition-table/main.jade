@@ -1,5 +1,5 @@
 ion-view.competition-table
-    ion-nav-title Competition & Table
+    ion-nav-title {{'competition_table.title' | trans}}
     ion-nav-buttons(side="left")
         a.button.button-nav.button-icon.ion-ios-arrow-left(ng-if="isIOS", ng-click="back()")
             img.logo(
@@ -9,12 +9,12 @@ ion-view.competition-table
 
     ion-content.content(scroll="false")
         ion-tabs.tabs-striped.tabs-top.tabs-icon-left.tabs-background-positive.tabs-color-light
-            ion-tab(title="Fixture")
+            ion-tab(title="{{'competition_table.tab.fixture' | trans}}")
                 ion-content.fixture.fix-tab
                     div(ui-view="fixture")
-            ion-tab(title="Results")
+            ion-tab(title="{{'competition_table.tab.result' | trans}}")
                 ion-content.results.fix-tab
                     div(ui-view="results")
-            ion-tab(title="Position Table")
+            ion-tab(title="{{'competition_table.tab.position_table' | trans}}")
                 ion-content.position-table.fix-tab
                     div(ui-view="position-table")

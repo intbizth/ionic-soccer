@@ -1,8 +1,0 @@
-ui.t:
-    gamesdetail:
-        title: เกมทายผล
-        tab:
-            prediction: เกมทายผลประตู
-            coacher11: เกมทาย 11 ตัวจริง
-            ranking: สถิติ
-            live: ดูสด

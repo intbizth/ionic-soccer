@@ -1,20 +1,15 @@
 class FeatureMain extends Controller then constructor: (
-    $ionicHistory, $ionicPlatform, $rootScope, $scope, $state, $timeout, Ads, Authen, AuthenUI, GoogleAnalytics
+    $filter, $ionicHistory, $ionicPlatform, $rootScope, $scope, $state, $translate, $timeout, Ads, Authen, AuthenUI, GoogleAnalytics
 ) ->
-    $ionicPlatform.ready ->
-        GoogleAnalytics.trackView 'feature'
-
     $scope.version = $rootScope.version
-    $rootScope.$on 'version', (event, data) ->
-        $scope.version = data
-
-    Ads.$on 'ready', ->
-        Ads.openModal()
 
     $ionicHistory.clearHistory()
     $ionicHistory.clearCache()
 
     $scope.isLoggedin = $rootScope.isLoggedin
+    $scope.translate =
+        login: ''
+        logout: ''
 
     $scope.changePicture = ->
         if $scope.isLoggedin and $rootScope.user
@@ -26,7 +21,7 @@ class FeatureMain extends Controller then constructor: (
         itemDefault:
             id: 0
             picture: './img/member/picture@2x.png'
-            name: 'Guest'
+            name: 'guest'
             point1: 0
             point2: 0
         setDefault: ->
@@ -55,9 +50,6 @@ class FeatureMain extends Controller then constructor: (
         refresh: ->
             @loadData(flush: yes, pull: yes)
 
-    if $scope.isLoggedin
-        $scope.profile.item.name = 'Unknown'
-
     $scope.media =
         state: 'blank'
 
@@ -83,3 +75,26 @@ class FeatureMain extends Controller then constructor: (
             $scope.profile.item.picture = data
 
         $rootScope.user.profilePicture = data
+
+    $ionicPlatform.ready ->
+        GoogleAnalytics.trackView 'feature'
+
+    $rootScope.$on 'version', (event, data) ->
+        $scope.version = data
+
+    Ads.$on 'ready', ->
+        Ads.openModal()
+
+    $translate(
+        [
+            'member.display.guest'
+            'member.display.loading'
+            'member.button.login'
+            'member.button.logout'
+        ]
+    ).then((translations) ->
+        $scope.translate.login = translations['member.button.login']
+        $scope.translate.logout = translations['member.button.logout']
+        $scope.profile.itemDefault.name = translations['member.display.guest']
+        $scope.profile.item.name = if $scope.isLoggedin then translations['member.display.loading'] else translations['member.display.guest']
+    )

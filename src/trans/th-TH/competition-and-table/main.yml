@@ -1,7 +1,0 @@
-ui.t:
-    competitionAndTable:
-        title: ตารางและการแข่งขัน
-        tab:
-            fixture: การแข่งที่กำลังมาถึง
-            result: ผลการแข่งขัน
-            position-table: ตำแหน่งบนตาราง

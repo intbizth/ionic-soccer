@@ -1,0 +1,35 @@
+member:
+    display:
+        guest: ผู้เยี่ยมชม
+        loading: กำลังโหลดชื่อ..
+    button:
+        login: เข้าระบบ
+        logout: ออกระบบ
+    login:
+        title: เข้าสู่ระบบ
+        form:
+            field:
+                username: อีเมลหรือชื่อผู้ใช้
+                password: รหัสผ่าน
+            submit: ยืนยันการเข้าระบบ
+    logout:
+        title: ออกจากระบบ
+        detail: คุณต้องการออกจากระบบใช่หรือไม่?
+        cancel: ยกเลิก
+        ok: ใช่
+    register:
+        link: สมัครสมาชิก
+        title1: สมัครสมาชิกขั้นตอน 1
+        title2: สมัครสมาชิกขั้นตอน 2
+        form:
+            field:
+                email: อีเมล
+                password: รหัสผ่าน
+                confirm_password: รหัสผ่านอีกครั้ง
+                firstname: ชื่อ
+                lastname: นามสกุล
+                deta_of_birth: วันเกิด
+            next: ต่อไป
+            submit: ยืนยันการสมัครสมาชิก
+    picture:
+        title: เปลี่ยนภาพส่วนตัว

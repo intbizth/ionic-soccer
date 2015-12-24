@@ -1,33 +1,11 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="papers.refresh()")
-
-//div.ticket
-//    div.row.section
-//        div.col
-//            i.icon.ion-ios-pricetag
-//            span.text Tickets
-//    div.nodata(ng-if="ticket.items.length == 0")
-//        div.row
-//            div.col.col-center.text-center
-//                div.text Has no tickets.
-//    div(ng-repeat="item in ticket.items")
-//        div.row.row-center(ng-class="item.class")
-//            div.col.col-67.col-center
-//                div.seat1 บล็อก {{item.textSeats}}
-//                div.seat2  ที่นั่งว่าง
-//            div.col.col-33.col-center.text-right
-//                span.count {{item.count | number}}
+ion-refresher(pulling-text="{{'common.pull-to-refresh' | trans}}", on-refresh="papers.refresh()")
 
 div.news
-    div.row.section
-        div.col
-            i.icon.ion-ios-paper
-            span.text News
-
     div.subnews(ng-if="papers.loaded")
         div.nodata(ng-if="papers.items.length == 0")
             div.row
                 div.col.col-center.text-center
-                    span Has no news.
+                    span {{'timeline_update.update.notfound' | trans}}
 
         div(ng-repeat="item in papers.items")
             div.space
@@ -38,3 +16,5 @@ div.news
             div.shadow
 
 ion-infinite-scroll(ng-if="papers.next" on-infinite="papers.loadNext()", distance="1%")
+
+loading-overlay(id="timeline-update-update")

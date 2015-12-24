@@ -1,5 +1,5 @@
 class aboutClubInfo extends Controller then constructor: (
-    $cordovaClipboard, $cordovaVibration, $ionicLoading, $ionicModal, $ionicPlatform, $rootScope, $scope, $timeout, Clubs, GoogleAnalytics
+    $cordovaClipboard, $cordovaVibration, $ionicModal, $ionicPlatform, $rootScope, $scope, $timeout, Clubs, GoogleAnalytics, LoadingOverlay
 ) ->
     clubs = new Clubs()
 
@@ -31,18 +31,21 @@ class aboutClubInfo extends Controller then constructor: (
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'about-club-info'
             , (error) ->
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'about-club-info'
             )
         refresh: ->
-            @loadData(flush: yes, pull: yes)
+            if @loaded
+                @loadData(flush: yes, pull: yes)
+            else
+                $scope.$broadcast 'scroll.refreshComplete'
 
     $scope.club.loadData()
-    $ionicLoading.show()
+    LoadingOverlay.show 'about-club-info'
 
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'info'

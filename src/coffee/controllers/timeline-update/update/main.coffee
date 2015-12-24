@@ -1,5 +1,5 @@
 class Update extends Controller then constructor: (
-    $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Papers
+    $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, LoadingOverlay, Papers
 ) ->
     pageLimit = 20
     papers = new Papers()
@@ -25,15 +25,18 @@ class Update extends Controller then constructor: (
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'timeline-update-update'
             , (error) ->
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'timeline-update-update'
             )
         refresh: ->
-            @loadData(flush: yes, pull: yes)
+            if @loaded
+                $scope.$broadcast 'scroll.refreshComplete'
+            else
+                @loadData(flush: yes, pull: yes)
         loadNext: ->
             $this = @
             papers.$getPage(
@@ -48,7 +51,7 @@ class Update extends Controller then constructor: (
             )
 
     $scope.papers.loadData()
-    $ionicLoading.show()
+    LoadingOverlay.show 'timeline-update-update'
 
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'update'

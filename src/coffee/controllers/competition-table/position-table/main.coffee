@@ -1,5 +1,5 @@
 class CompetitionTablePositionTable extends Controller then constructor: (
-    $ionicLoading, $ionicPlatform, $rootScope, $scope, GoogleAnalytics, Standings
+    $ionicPlatform, $rootScope, $scope, GoogleAnalytics, LoadingOverlay, Standings
 ) ->
     competitionCode = 'tpl'
     pageLimit = 50
@@ -19,6 +19,7 @@ class CompetitionTablePositionTable extends Controller then constructor: (
                 $this.loaded = no
             standings.$getPositionTable(
                 competitionCode: competitionCode
+                pageLimit: pageLimit
                 flush: flush
             , (success) ->
                 $this.loaded = yes
@@ -26,21 +27,24 @@ class CompetitionTablePositionTable extends Controller then constructor: (
                 $this.items = success.items
                 if success.items.length > 0
                     $this.season = success.items[0].season
-                angular.forEach success.items, (value, key) ->
+                for value, index in success.items
                     if value.me
                         $this.no = value.overallPosition
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'competition-table-position-table'
             , (error) ->
                 if pull
                     $scope.$broadcast 'scroll.refreshComplete'
                 else
-                    $ionicLoading.hide()
+                    LoadingOverlay.hide 'competition-table-position-table'
             )
         refresh: ->
-            @loadData(flush: yes, pull: yes)
+            if @loaded
+                @loadData(flush: yes, pull: yes)
+            else
+                $scope.$broadcast 'scroll.refreshComplete'
         loadNext: ->
             $this = @
             standings.$getPositionTable(
@@ -48,7 +52,7 @@ class CompetitionTablePositionTable extends Controller then constructor: (
             , (success) ->
                 $this.next = if success.next then success.next else null
                 $this.items = $this.items.concat success.items
-                angular.forEach success.items, (value, key) ->
+                for value, index in success.items
                     if value.me
                         $this.no = value.overallPosition
                 $scope.$broadcast 'scroll.infiniteScrollComplete'
@@ -57,7 +61,7 @@ class CompetitionTablePositionTable extends Controller then constructor: (
             )
 
     $scope.position.loadData()
-    $ionicLoading.show()
+    LoadingOverlay.show 'competition-table-position-table'
 
     $ionicPlatform.ready ->
         GoogleAnalytics.trackView 'position-table'

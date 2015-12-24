@@ -1,17 +1,17 @@
-ion-refresher(pulling-text='Pull to refresh...', on-refresh='position.refresh()')
+ion-refresher(pulling-text="{{'common.pull-to-refresh' | trans}}", on-refresh="position.refresh()")
 
 div(ng-if="position.loaded")
     div.nodata(ng-if="matchLabel.items.length == 0")
         div.row
             div.col.col-center.text-center
-                span Has no position table.
+                span {{'competition_table.position_table.notfound' | trans}}
 
     div.space(ng-if="matchLabel.items.length != 0")
 
     div(ng-if="position.no")
         div.row.no
             div.col.col-center
-                | League Position
+                | {{'competition_table.position_table.league_position' | trans}}
             div.col.col-center.text-right.number
                 | {{position.no | number}}
 
@@ -27,15 +27,15 @@ div(ng-if="position.loaded")
     div.table(ng-if="position.items.length > 0")
         div.row.header
             div.col.col-10.text-center
-                | Pos
+                | {{'competition_table.position_table.no' | trans}}
             div.col.col-30.text-center
-                | Team
+                | {{'competition_table.position_table.team' | trans}}
             div.col.col-20.text-center
-                | Play
+                | {{'competition_table.position_table.play' | trans}}
             div.col.col-20.text-center
-                | -/+
+                | {{'competition_table.position_table.goal_difference' | trans}}
             div.col.col-20.text-center
-                | Pts
+                | {{'competition_table.position_table.point' | trans}}
         div(ng-repeat="item in position.items")
             div.row.body(ng-class="{'highlight' : item.me}")
                 div.col.col-10.text-center
@@ -50,3 +50,5 @@ div(ng-if="position.loaded")
                     | {{item.overallPoints | number}}
 
 ion-infinite-scroll(ng-if="position.next" on-infinite="position.loadNext()", distance="1%")
+
+loading-overlay(id="competition-table-position-table")

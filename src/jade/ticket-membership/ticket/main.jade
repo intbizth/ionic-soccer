@@ -1,4 +1,4 @@
-ion-refresher(pulling-text="Pull to refresh...", on-refresh="matchLabel.refresh()")
+ion-refresher(pulling-text="{{'common.pull-to-refresh' | trans}}", on-refresh="matchLabel.refresh()")
 
 div.cover
 
@@ -6,18 +6,18 @@ div(ng-if="matchLabel.loaded")
     div.nodata(ng-if="matchLabel.items.length == 0")
         div.row
             div.col.col-center.text-center
-                span Has no tickets.
+                span {{'ticket_membership.ticket.notfound' | trans}}
 
     div(ng-if="matchLabel.items.length > 0")
         div.row.section
             div.col
-                span.text Next Match
+                span.text {{'ticket_membership.ticket.next_match' | trans}}
 
         div.match-label
             div(ng-repeat="item in matchLabel.items")
                 div.row.row-center.section(ng-if="item.type == 'section'")
                     div.col.col-center.text-center
-                        | {{section.datetime | date : 'MMM yyyy'}}
+                        | {{section.datetime | moment:'MMM YYYY'}}
 
                 div.row.label(ng-if="item.type == 'label'", ui-sref="match.detail({id : item.id})")
                     div.col.col-15.col-center.logo.text-center
@@ -27,45 +27,54 @@ div(ng-if="matchLabel.loaded")
                     div.col.col-20.col-center.detail.text-center
                         div(ng-if="item.template == 'before'")
                             div.time
-                                | {{item.startTime | date:'HH:mm'}}
+                                | {{item.startTime | moment:'HH:mm'}}
                             div.date
-                                | {{item.startTime | date:'dd MMM yyyy'}}
+                                | {{item.startTime | moment:'D MMM YYYY'}}
                         div(ng-if="item.template == 'after'")
                             div.score
                                 | {{item.homeClub.score}}-{{item.awayClub.score}}
                             div.date
-                                | {{item.startTime | date:'dd MMM yyyy'}}
+                                | {{item.startTime | moment:'D MMM YYYY'}}
                     div.col.col-25.col-center.name.text-center
                         | {{item.awayClub.name}}
                     div.col.col-15.col-center.logo.text-center
                         img.image(ng-src="{{item.awayClub.logo}}")
+                div.match-detail
+                    div.row-center.text-center
+                        | {{item.startTime | moment:'ddd Do MMM YYYY HH:mm'}}
+                    div.row-center.text-center
+                        | {{item.season}}
+                    div.row-center.text-center
+                        | {{item.stadium}}
 
 div(ng-repeat="item in clubTickets.items")
     div.row.section
         div.col
             i.icon.ion-ios-pricetag
-            span.text ตั๋วเข้าชมทั่วไป
+            span.text {{'ticket_membership.ticket.stage' | trans}}
 
     img.image(ng-if="item.stadiumImage", image-cache="{{item.stadiumImage}}")
 
-    div.ticketzone(ng-repeat="ticketZone in item.ticketZones")
-        div.row(ng-class="clubTickets.getTicketZoneClass(ticketZone.code)")
+    div.ticketzone(ng-repeat="generalTicket in item.generalTickets")
+        div.row(ng-class="clubTickets.getTicketZoneClass(generalTicket.label)")
             div.col.col-left.text-center
-                | {{ticketZone.label}}
+                | {{generalTicket.price}}
             div.col.col-right.text-center
-                | {{ticketZone.capacity | number}} ที่นั่ง
+                div(ng-repeat="ticketZone in item.ticketZones")
+                    div(ng-if="ticketZone.code == generalTicket.label")
+                        | {{ticketZone.capacity | number}} {{'ticket_membership.ticket.seat' | trans}}
 
     div(ng-if="ticketMatches.loaded")
         div.row.section
             div.col
                 i.icon.ion-ios-pricetag
-                span.text ตั๋วที่ว่าง
+                span.text {{'ticket_membership.ticket.empty_stage' | trans}}
 
         div.seat(ng-repeat="item2 in ticketMatches.items")
             div.row(ng-class="ticketMatches.getTicketMatchesClass(item2.code)")
                 div.col.col-67.col-center
-                    div.text1 {{item2.code}} {{item2.label}}
-                    div.text2  ที่นั่งว่าง
+                    div.text1 {{'ticket_membership.ticket.block' | trans}} {{item2.label}}
+                    div.text2  {{'ticket_membership.ticket.empty_seat' | trans}}
                 div.col.col-33.col-center.text-right
                     span.balance {{item2.balance | number}}
 
@@ -73,21 +82,28 @@ div(ng-repeat="item in clubTickets.items")
         div.row.section
             div.col
                 i.icon.ion-ios-pricetags
-                span.text Season Ticket
+                span.text {{'ticket_membership.ticket.season_ticket' | trans}}
 
-        div
-        div.row
-            div.col(
-            ng-repeat="item2 in item.seasonTicket",
-            ng-style="{'background-color' : item2.background_color, 'color' : item2.color}"
-            )
-                div {{item2.label_en}}
-                div {{item2.label_th}}
-                hr(ng-style="{'background-color' : item2.color, 'border' : 'none', 'height' : '4px'}")
-                div {{item2.price}}
+        div.seasonticket
+            div.row
+                div.col(
+                ng-repeat="item2 in item.seasonTicket",
+                ng-style="{'background-color' : item2.background_color, 'color' : item2.color}"
+                )
+                    div.text1 {{item2.label_en}}
+                    div {{item2.label_th}}
+            div.row.row-center.space
+            div.row
+                div.col(
+                ng-repeat="item2 in item.seasonTicket",
+                ng-style="{'background-color' : item2.background_color, 'color' : item2.color}"
+                )
+                    div {{item2.price}}
 
     div.row(ng-if="item.note")
         div.col
             | {{item.note}}
 
 div.footer(ng-if="matchLabel.loaded && matchLabel.items.length > 0")
+
+loading-overlay(id="ticket-membership-ticket")

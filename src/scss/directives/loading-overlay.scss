@@ -1,0 +1,29 @@
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 84vh;
+
+    .container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -30px;
+        margin-left: -30px;
+        width: 60px;
+        height: 60px;
+        padding-top: 14px;
+        text-align: center;
+        border-radius: 6px;
+        background-color: #0056a2;
+    }
+}
+
+.loading-overlay-show {
+    display: block;
+}
+
+.loading-overlay-hide {
+    display: none;
+}
