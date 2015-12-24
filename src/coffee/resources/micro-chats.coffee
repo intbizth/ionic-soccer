@@ -24,7 +24,7 @@ class MicroChats extends Factory then constructor: (
                     total: 'total'
                     items: '_embedded.items'
                 newData = Helper.traverseProperties newData, fields
-                angular.forEach newData.items, (value, key) ->
+                for value, index in newData.items
                     fields =
                         id: 'id'
                         message: 'message'
@@ -35,7 +35,7 @@ class MicroChats extends Factory then constructor: (
                             profilePicture: 'user._links.profile_picture.href'
                             me: 'user.me'
                         publishedDate: 'published_date'
-                    newData.items[key] = Helper.traverseProperties value, fields
+                    newData.items[index] = Helper.traverseProperties value, fields
                 if newData.page < newData.pages
                     newData.next = newData.page + 1
                 return newData

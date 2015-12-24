@@ -4,6 +4,9 @@ class Matches extends Factory then constructor: (
     timeout = 60000
     cache = $cacheFactory 'resourceMatchesCache'
 
+    splitScore = (score) ->
+        return score.split(' : ')
+
     getMatchEvents = (data) ->
         fields =
             id: 'id'
@@ -81,7 +84,7 @@ class Matches extends Factory then constructor: (
                     total: 'total'
                     items: '_embedded.items'
                 newData = Helper.traverseProperties newData, fields
-                angular.forEach newData.items, (value, key) ->
+                for value, index in newData.items
                     fields =
                         id: 'id'
                         is_live: 'is_live'
@@ -99,10 +102,14 @@ class Matches extends Factory then constructor: (
                             shortName: 'away_club.short_name'
                             logo: 'away_club._links.logo_70x70.href'
                             score: 'away_score'
+                        result: 'result'
                         startTime: 'start_time'
-                    newData.items[key] = Helper.traverseProperties value, fields
-                    newData.items[key].type = 'label'
-                    newData.items[key].template = 'before'
+                    newData.items[index] = Helper.traverseProperties value, fields
+                    newData.items[index].type = 'label'
+                    newData.items[index].template = 'before'
+                    score = splitScore newData.items[index].result
+                    newData.items[index].homeClub.score = score[0]
+                    newData.items[index].awayClub.score = score[1]
                 if newData.page < newData.pages
                     newData.next = newData.page + 1
                 return newData
@@ -138,10 +145,14 @@ class Matches extends Factory then constructor: (
                             shortName: 'away_club.short_name'
                             logo: 'away_club._links.logo_70x70.href'
                             score: 'away_score'
+                        result: 'result'
                         startTime: 'start_time'
                     matchLabel = Helper.traverseProperties newData, fields
                     matchLabel.type = 'label'
                     matchLabel.template = 'after'
+                    score = splitScore matchLabel.result
+                    matchLabel.homeClub.score = score[0]
+                    matchLabel.awayClub.score = score[1]
                     section =
                         type: 'section'
                         startTime: matchLabel.startTime || null
@@ -175,7 +186,7 @@ class Matches extends Factory then constructor: (
                     total: 'total'
                     items: '_embedded.items'
                 newData = Helper.traverseProperties newData, fields
-                angular.forEach newData.items, (value, key) ->
+                for value, index in newData.items
                     fields =
                         id: 'id'
                         is_live: 'is_live'
@@ -193,13 +204,16 @@ class Matches extends Factory then constructor: (
                             shortName: 'away_club.short_name'
                             logo: 'away_club._links.logo_70x70.href'
                             score: 'away_score'
-                        startTime: 'start_time'
+                        result: 'result'
                         season: 'season.name'
                         stadium: 'stadium'
-
-                    newData.items[key] = Helper.traverseProperties value, fields
-                    newData.items[key].type = 'label'
-                    newData.items[key].template = 'before'
+                        startTime: 'start_time'
+                    newData.items[index] = Helper.traverseProperties value, fields
+                    newData.items[index].type = 'label'
+                    newData.items[index].template = 'before'
+                    score = splitScore newData.items[index].result
+                    newData.items[index].homeClub.score = score[0]
+                    newData.items[index].awayClub.score = score[1]
                 if newData.page < newData.pages
                     newData.next = newData.page + 1
                 return newData
@@ -228,7 +242,7 @@ class Matches extends Factory then constructor: (
                     total: 'total'
                     items: '_embedded.items'
                 newData = Helper.traverseProperties newData, fields
-                angular.forEach newData.items, (value, key) ->
+                for value, index in newData.items
                     fields =
                         id: 'id'
                         is_live: 'is_live'
@@ -246,10 +260,14 @@ class Matches extends Factory then constructor: (
                             shortName: 'away_club.short_name'
                             logo: 'away_club._links.logo_70x70.href'
                             score: 'away_score'
+                        result: 'result'
                         startTime: 'start_time'
-                    newData.items[key] = Helper.traverseProperties value, fields
-                    newData.items[key].type = 'label'
-                    newData.items[key].template = 'after'
+                    newData.items[index] = Helper.traverseProperties value, fields
+                    newData.items[index].type = 'label'
+                    newData.items[index].template = 'after'
+                    score = splitScore newData.items[index].result
+                    newData.items[index].homeClub.score = score[0]
+                    newData.items[index].awayClub.score = score[1]
                 if newData.page < newData.pages
                     newData.next = newData.page + 1
                 return newData
@@ -322,10 +340,14 @@ class Matches extends Factory then constructor: (
                         shortName: 'away_club.short_name'
                         logo: 'away_club._links.logo_70x70.href'
                         score: 'away_score'
+                    result: 'result'
                     startTime: 'start_time'
                 matchLabel = Helper.traverseProperties newData, fields
                 matchLabel.type = 'label'
                 matchLabel.template = 'after'
+                score = splitScore matchLabel.result
+                matchLabel.homeClub.score = score[0]
+                matchLabel.awayClub.score = score[1]
                 section =
                     type: 'section'
                     startTime: matchLabel.startTime || null

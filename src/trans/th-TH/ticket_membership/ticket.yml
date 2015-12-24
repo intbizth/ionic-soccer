@@ -1,7 +1,7 @@
 ticket_membership:
     ticket:
         notfound: ไม่พบรายการตั๋ว
-        next_match: ตั๋วของรายการ
+        next_match: รายการแข่งขันถัดไป
         stage: ตั๋วเข้าชมทั่วไป
         empty_stage: ตั๋วที่ว่าง
         seat: ที่นั่ง
