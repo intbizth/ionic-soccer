@@ -40,50 +40,5 @@
     "run-sequence": "~0.3.6",
     "shelljs": "^0.3.0",
     "yargs": "~1.2.1"
-  },
-  "cordovaPlugins": [
-    "cordova-plugin-device",
-    "cordova-plugin-console",
-    "cordova-plugin-splashscreen",
-    "cordova-plugin-statusbar",
-    "cordova-plugin-inappbrowser",
-    "com.ionic.keyboard",
-    "cordova-plugin-app-version",
-    "cordova-plugin-whitelist",
-    {
-      "locator": "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git",
-      "id": "cordova-plugin-x-socialsharing"
-    },
-    "cordova-plugin-file",
-    "cordova-plugin-file-transfer",
-    {
-      "locator": "https://github.com/danwilson/google-analytics-plugin.git",
-      "id": "cordova-plugin-google-analytics"
-    },
-    {
-      "locator": "https://github.com/devgeeks/Canvas2ImagePlugin.git",
-      "id": "org.devgeeks.Canvas2ImagePlugin"
-    },
-    {
-      "locator": "https://github.com/VersoSolutions/CordovaClipboard.git",
-      "id": "com.verso.cordova.clipboard"
-    },
-    {
-      "locator": "https://github.com/apache/cordova-plugin-camera.git#2.0.0",
-      "id": "cordova-plugin-camera"
-    },
-    {
-      "locator": "https://github.com/litehelpers/Cordova-sqlite-storage.git",
-      "id": "cordova-sqlite-storage"
-    },
-    "cordova-plugin-vibration"
-  ],
-  "cordovaPlatforms": [
-    {
-      "platform": "android",
-      "version": "5.0.0",
-      "locator": "android@5.0.0"
-    },
-    "ios"
-  ]
+  }
 }
