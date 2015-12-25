@@ -17,6 +17,11 @@
     }
 
     .match {
+        // FIXME: ถ้าจะเพิ่ม tab จะต้องลบ .view ออกด้วย
+        .view {
+            top: 44px;
+        }
+
         .content {
             margin-top: -44px !important;
         }
