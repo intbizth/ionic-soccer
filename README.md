@@ -1,72 +1,8 @@
-IONIC - Soccer
+ChonburiFC
 =============================
 
-#### Help
-If you need help, Go read Wiki.
-https://github.com/intbizth/ionic-soccer/wiki
+![appstore](https://lh3.googleusercontent.com/Eh9e-NOVR1PX0IV3ETkqjOzPg2wL7F3_XCFNtfa9DDONUbtajbJDv99E92Rxn4STA1_XYrKOEqL3TaKMGFgxK5QvYx5I1wlokQvsNQliFmaSX0yqU56BNtGo_B50pJkwvW1MUE6FXPckeac79jPp0G2iepnyFRc2GvW4FncCLA4z9ri0XUNjQMiGULCpBHMT1d5QJZdVDPkwcUB1WM9N2ZYrC3or2cyeYFlWz7rRGPIbXykrN6qMydANQ2pZazdYxLG8W7WR1kTw2152e4m3e5utEsR1J5nwvIX8JAAi9gveuEYhewPUwX-FNsxcZ3cbcciIwOx3O7YGVvjdNtcZizqE8I55Sv2tMVM434LGrlwgx6evRBYrxFrMzgKAu2IRefkrYt4VYHS3fr832O0YyzAIQQ2UlRDxCUWQ67deFpQ_hYDoa4zlzJVlApHF2Oozy0i1NiEbJi1dl7Z-3BvfAHoptIvvV-chgzRMBe4EM3uherivXqN9LG0bfxPqvIijk9Wmm2zocjH_hIUTaMOJ_JVrVyKapXGkhA_hoBOh2wIjwK7FriOuNZIqSO9DfN_q2_J8=w200-h60-no)
 
-#### Install
-```
-./install
-```
+![playstore](https://lh3.googleusercontent.com/t9jYcF6FEXwUOB0GtHwKKgYJKG7c34nosXmKfbqMXdDuswqpXN1q4RSdYx6DuqqjZRfaD3h0ZVAMVk3OJ3PGxmZcNbOOCBcyodinRdRYPEnHnKnVKkQ_e45RuP7scsAqcHV3yLyFGAykQu4h0ON-57WubzGvVj7XpW6kPBd2bXADcstKPFQGAemfrblLsNYnWcI0B23Bk0CRi34Qc0Mc8guSMyQqmJptpkKW1lolVoZE4rMSzY-s2qGRXyQZE8QZLdvH5aaCEohQjblhcoue_XsuyCO9H7r2lu0ZePCeS_USa_CGgaoHE_O6GYtqLT0ehGSyqUqvrQ7bJ1eTTyB5Ji_ge5aenKQza0VqH39CvSoND7OSU8C73gg2mmyHH9OoYXhboAn5fwdmfmFKsdRN4ICQySDSaxmppxu6qoESlnoYxyIPY4ioYXKpWHuMNO0bQvd0VmM9SCot52ZGer5MrlDvjZnBKj0B9WPOVatDDoGFjoKlkXMsM3c8eK3NS4x39Py0m55rIclsToHuzuDLCA7fXIEUWuDqlbr7cOKzw3EFrlVwe3iNz2EDzaR4Mq-XrIof=w200-h60-no)
 
-#### Download
-https://github.com/intbizth/ionic-soccer/wiki/Download
-
-#### App Progress
-```
-Difficulty Level
-0 : Easy
-1 : Normal
-2 : Hard
-3 : Very Hard
-4 : Extreme
-```
-
-```
-* Overall system |####################| - loading...
-```
-
-```
-* Ads: 0 |##################**| - 90%...
-```
-
-```
-* Feature: 2 |#################***| - 85%...
-```
-
-```
-* Live: 2 |################****| - 80%...
-```
-
-```
-* Timeline & Update: 2 |################****| - 80%...
-```
-
-```
-* Competition & Table: 3 |###############*****| - 75%...
-```
-
-```
-* Ticket & Membership: 4 |##########**********| - 50%...
-```
-
-```
-* Game: 4 |#*******************| - 5%...
-```
-
-```
-* People Ranking: 2 |###############*****| - 75%...
-```
-
-```
-* Man of The Match: null |####################| - loading...
-```
-
-```
-* Reward: null |####################| - loading...
-```
-
-```
-* Fabzone: 3 |#############*******| - 65%...
-```
+Version: 1.1.0
